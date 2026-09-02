@@ -92,7 +92,7 @@ Musikbibliothek nicht nutzen, also nur lizenzfreie Tracks verwenden.
 
 ## Zum Posting-Rhythmus
 
-Acht Reels pro Tag sind sehr viel. Instagrams API erlaubt 50 Beiträge in 24 Stunden,
+Acht Reels pro Tag sind sehr viel. Instagrams API erlaubt für diesen Kanal 100 Beiträge in 24 Stunden,
 das ist nicht der Engpass – die Reichweite ist es. Erfahrungsgemäss verteilt sich bei
 diesem Takt dieselbe Aufmerksamkeit auf mehr Beiträge, und stark gleichförmiger
 Auto-Content kann zusätzlich gedrosselt werden.

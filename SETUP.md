@@ -183,4 +183,4 @@ Skript automatisch R2.
 | `(code 4) Application request limit reached` | Zu viele API-Aufrufe – Intervall vergrössern |
 | `Zeitüberschreitung: Instagram hat das Video nicht verarbeitet` | Meist zu grosse Datei oder langsamer Abruf – `crf` in `src/config.js` auf 22 erhöhen |
 | `Edge TTS hat weder Wort- noch Satzgrenzen geliefert` | Microsofts TTS-Endpunkt war kurz gestört – nächster Lauf greift wieder |
-| `Tageskontingent von Instagram ausgeschöpft` | 50 Beiträge in 24 h erreicht – kann bei 8 Posts/Tag nicht passieren |
+| `Tageskontingent von Instagram ausgeschöpft` | 100 Beiträge in 24 h erreicht – kann bei 8 Posts/Tag nicht passieren |
