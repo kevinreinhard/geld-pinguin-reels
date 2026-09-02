@@ -315,6 +315,7 @@
     font-size: var(--step-2);
     line-height: 1.6;
   }
+  .code.bare pre { padding-right: 1rem; }
   .copy {
     position: absolute;
     top: .5rem;
@@ -573,22 +574,38 @@
           <p>Zum Abschluss fragt Meta meist noch einmal dein Passwort ab.</p>
 
           <h3>Instagram als Produkt hinzufügen</h3>
-          <p>Jetzt bist du im App-Dashboard.</p>
-          <ol class="plain">
-            <li>Auf der Startseite gibt es eine Kachelliste <b>Produkte hinzufügen</b> — alternativ links in der Navigation ein <b>+</b> neben „Produkte"</li>
-            <li>Die Kachel <b>Instagram</b> suchen → <b>Einrichten</b></li>
-            <li>Instagram erscheint danach links in der Navigation</li>
-          </ol>
+          <p>Jetzt bist du im App-Dashboard. Die Produktliste ist dort <b>nicht ganz oben</b> — darüber stehen erst App-Name, App-ID und meist ein Kasten zum App-Modus. <b>Scroll runter</b>, bis eine Überschrift wie „Produkte zu deiner App hinzufügen" kommt, mit Kacheln für Facebook Login, Instagram, Messenger, Webhooks, WhatsApp und weitere. Jede Kachel hat unten einen Knopf <b>Einrichten</b>.</p>
+          <p>Zwei Abkürzungen zur selben Liste:</p>
+          <ul class="plain">
+            <li>Links in der Navigation steht <b>Produkte</b> mit einem <b>+</b> daneben — das führt direkt in den Katalog.</li>
+            <li>Über die Adresszeile, mit deiner App-ID von oben aus dem Dashboard: <code>developers.facebook.com/apps/DEINE-APP-ID/add/</code></li>
+          </ul>
+          <p>Nach dem Klick auf <b>Einrichten</b> erscheint Instagram links in der Navigation.</p>
+
+          <div class="note">
+            <span class="label">Steht links „Anwendungsfälle" statt „Produkte"?</span>
+            <p>Das ist die zweite Dashboard-Variante, die Meta ausspielt. Dann gibt es keinen Produktkatalog, sondern Anwendungsfall-Karten mit einem Knopf <b>Anpassen</b> oder <b>Bearbeiten</b>. Klick dich dort hinein, Instagram und seine Berechtigungen liegen innerhalb des Anwendungsfalls.</p>
+            <p>Wird das zu verwinkelt, ist der schnellere Weg eine neue App, im Assistenten konsequent <b>Andere</b> → <b>Business</b>. Das ergibt zuverlässig die klassische Katalogansicht. Die alte App kannst du liegen lassen, sie stört nicht.</p>
+          </div>
+
+          <div class="note">
+            <span class="label">Instagram-Kachel gar nicht da?</span>
+            <p>Dann stimmt der App-Typ nicht. Unter <b>App-Einstellungen → Grundlegendes</b> steht er. Ist er nicht <em>Business</em>, lässt er sich nachträglich nicht zuverlässig ändern — auch hier: neue App mit „Andere" → „Business".</p>
+          </div>
 
           <h3>Die eine Weggabelung, die zählt</h3>
-          <p>Im Instagram-Bereich stehen zwei Einrichtungswege nebeneinander:</p>
+          <p>Auf der Instagram-Seite stehen oben zwei Karten nebeneinander. Die Beschriftung schwankt je nach Sprache und Version, aber deine ist immer die mit <em>Instagram</em> darin:</p>
           <ul class="plain">
-            <li><b>API-Einrichtung mit Instagram-Login</b> — das ist deiner <span style="color:var(--ink-faint)">(englisch: <em>API setup with Instagram login</em>)</span></li>
+            <li><b>API-Einrichtung mit Instagram-Login</b> — deine <span style="color:var(--ink-faint)">(englisch: <em>API setup with Instagram business login</em>)</span></li>
             <li>API-Einrichtung mit <em>Facebook</em>-Login — nicht nehmen, verlangt eine Facebook-Seite</li>
           </ul>
+          <p>Klickst du die richtige an, klappt darunter eine nummerierte Liste auf, die so beginnt:</p>
+          <div class="code bare"><pre>1. Generate access tokens
+2. Configure webhooks
+3. Set up Instagram business login</pre></div>
           <div class="note calm">
             <span class="label">Woran du merkst, dass es geklappt hat</span>
-            <p>Du bist im Reiter <b>API-Einrichtung mit Instagram-Login</b> und siehst dort einen Abschnitt <b>1. Generate access tokens</b>. Damit ist Schritt 2 fertig — genau da geht Schritt 3 weiter.</p>
+            <p>Sobald du diese Liste siehst, ist Schritt 2 fertig. Punkt <b>1. Generate access tokens</b> ist genau der, mit dem Schritt 3 beginnt.</p>
           </div>
         </div>
       </div>
