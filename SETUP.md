@@ -46,7 +46,23 @@ Eine Facebook-Seite brauchst du **nicht** – wir nutzen den Weg „Instagram AP
 
 ## 3. Zugriffstoken erzeugen
 
-Im selben Reiter, Abschnitt **1. Generate access tokens**:
+Der Abschnitt heisst **Zugriffstokens generieren** (je nach Ansicht als 1. oder 2. nummeriert).
+Ohne Tester-Rolle antwortet Meta dort mit *„Entwickler-Rolle nicht ausreichend"*.
+Die Reihenfolge ist zwingend.
+
+### a) Rolle vergeben, im Meta-Dashboard
+
+1. Links **App-Rollen → Rollen**
+2. Abschnitt **Instagram-Tester** → **Personen hinzufügen**
+3. Nutzernamen `geld.pinguin` eintragen (ohne @) und absenden
+
+### b) Einladung annehmen, auf instagram.com
+
+1. Als `geld.pinguin` einloggen
+2. <https://www.instagram.com/accounts/manage_access/> aufrufen
+3. Reiter **Tester-Einladungen** → Einladung **annehmen**
+
+### c) Token erzeugen, zurück bei Meta
 
 1. **Instagram-Konto hinzufügen** → mit `geld.pinguin` einloggen und die Berechtigungen bestätigen
 2. Achte darauf, dass diese beiden Berechtigungen dabei sind:
@@ -162,6 +178,7 @@ Skript automatisch R2.
 |---|---|
 | `Die Video-URL ist nicht öffentlich abrufbar (HTTP 404)` | Repo ist privat → öffentlich schalten oder R2 nutzen |
 | `Instagram API 400 … media_type` | Konto ist noch kein Business-/Creator-Konto (Schritt 1) |
+| `Entwickler-Rolle nicht ausreichend` | Konto nicht als **Instagram-Tester** eingetragen oder Einladung auf instagram.com nicht angenommen (Schritt 3a/3b) |
 | `(code 190)` | Token abgelaufen oder ungültig → Schritt 3 wiederholen |
 | `(code 4) Application request limit reached` | Zu viele API-Aufrufe – Intervall vergrössern |
 | `Zeitüberschreitung: Instagram hat das Video nicht verarbeitet` | Meist zu grosse Datei oder langsamer Abruf – `crf` in `src/config.js` auf 22 erhöhen |

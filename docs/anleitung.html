@@ -602,12 +602,12 @@
             <li>API-Einrichtung mit <em>Facebook</em>-Login — nicht nehmen, verlangt eine Facebook-Seite</li>
           </ul>
           <p>Klickst du die richtige an, klappt darunter eine nummerierte Liste auf, die so beginnt:</p>
-          <div class="code bare"><pre>1. Generate access tokens
-2. Configure webhooks
-3. Set up Instagram business login</pre></div>
+          <div class="code bare"><pre>Zugriffstokens generieren
+Webhooks konfigurieren
+Instagram-Business-Login einrichten</pre></div>
           <div class="note calm">
             <span class="label">Woran du merkst, dass es geklappt hat</span>
-            <p>Sobald du diese Liste siehst, ist Schritt 2 fertig. Punkt <b>1. Generate access tokens</b> ist genau der, mit dem Schritt 3 beginnt.</p>
+            <p>Sobald du diese Liste siehst, ist Schritt 2 fertig. Der Punkt <b>Zugriffstokens generieren</b> — je nach Ansicht als 1. oder 2. nummeriert — ist genau der, mit dem Schritt 3 beginnt.</p>
           </div>
         </div>
       </div>
@@ -620,10 +620,41 @@
           <h2>Zugriffstoken erzeugen</h2>
         </div>
         <div class="step-body">
-          <p>Im selben Reiter, Abschnitt <b>1. Generate access tokens</b>:</p>
+          <p>Der Abschnitt heisst <b>Zugriffstokens generieren</b> und ist je nach Ansicht als 1. oder 2. nummeriert. Bevor dort irgendetwas funktioniert, braucht dein Konto eine Rolle in der App — sonst antwortet Meta hartnäckig mit <em>„Entwickler-Rolle nicht ausreichend"</em>.</p>
+
+          <div class="note">
+            <span class="label">Diese Reihenfolge ist Pflicht</span>
+            <p>Erst Tester-Rolle vergeben, dann von der Instagram-Seite aus annehmen, <em>danach</em> Token erzeugen. Überspringst du die ersten beiden Teile, blockt Meta mit einer Rollen-Meldung, die nicht erklärt, was fehlt.</p>
+          </div>
+
+          <h3>Teil 1 — Rolle vergeben, im Meta-Dashboard</h3>
           <ol class="plain">
-            <li><b>Instagram-Konto hinzufügen</b> → mit <code>geld.pinguin</code> einloggen und die Berechtigungen bestätigen</li>
-            <li>Prüfen, dass beide Berechtigungen dabei sind: <code>instagram_business_basic</code> und <code>instagram_business_content_publish</code></li>
+            <li>Links in der Navigation: <b>App-Rollen → Rollen</b></li>
+            <li>Zum Abschnitt <b>Instagram-Tester</b> scrollen</li>
+            <li><b>Personen hinzufügen</b> klicken</li>
+            <li>Nutzernamen eintragen: <code>geld.pinguin</code> — ohne das @</li>
+            <li>Absenden. Damit ist eine Einladung unterwegs, mehr passiert hier noch nicht.</li>
+          </ol>
+
+          <h3>Teil 2 — Einladung annehmen, auf instagram.com</h3>
+          <p>Die Einladung muss vom Konto selbst bestätigt werden. Im Browser zuverlässiger als in der App:</p>
+          <ol class="plain">
+            <li>Auf <b>instagram.com</b> als <code>geld.pinguin</code> einloggen</li>
+            <li>Diese Adresse aufrufen:
+              <div class="code" style="margin-top:.5rem">
+                <button class="copy" type="button">Kopieren</button>
+                <pre>https://www.instagram.com/accounts/manage_access/</pre>
+              </div>
+            </li>
+            <li>Reiter <b>Tester-Einladungen</b> öffnen</li>
+            <li>Die Einladung deiner App <b>annehmen</b></li>
+          </ol>
+
+          <h3>Teil 3 — Token erzeugen, zurück bei Meta</h3>
+          <ol class="plain">
+            <li>Zurück in den Instagram-Bereich, Abschnitt <b>Zugriffstokens generieren</b></li>
+            <li><b>Instagram-Konto hinzufügen</b> → jetzt greift es → Berechtigungen bestätigen</li>
+            <li>Prüfen, dass beide dabei sind: <code>instagram_business_basic</code> und <code>instagram_business_content_publish</code></li>
             <li><b>Generate token</b> klicken und den langen Token kopieren. Er beginnt mit <code>IGAA</code>.</li>
           </ol>
           <div class="note">
@@ -859,6 +890,7 @@ gh repo create geld-pinguin-reels --public --source=. --push</pre>
             <tr><td>code 4 — Application request limit reached</td><td>Zu viele API-Aufrufe. Intervall vergrössern.</td></tr>
             <tr><td>Zeitüberschreitung: Instagram hat das Video nicht verarbeitet</td><td>Meist eine zu grosse Datei. In <code>src/config.js</code> den Wert <code>crf</code> auf 22 setzen.</td></tr>
             <tr><td>Edge TTS hat weder Wort- noch Satzgrenzen geliefert</td><td>Microsofts Dienst war kurz gestört. Der nächste Lauf greift wieder, nichts zu tun.</td></tr>
+            <tr><td>Entwickler-Rolle nicht ausreichend</td><td>Das Instagram-Konto ist noch nicht als <b>Instagram-Tester</b> eingetragen oder die Einladung wurde auf instagram.com nicht angenommen. Siehe Schritt 3, Teile 1 und 2.</td></tr>
             <tr><td>Es fehlen: ANTHROPIC_API_KEY …</td><td>Ein Secret fehlt oder ist vertippt. Namen in Schritt 6 vergleichen.</td></tr>
           </tbody>
         </table>
