@@ -1,0 +1,7 @@
+node_modules/
+build/
+.env
+assets/backgrounds/*
+assets/music/*
+!assets/backgrounds/.gitkeep
+!assets/music/.gitkeep

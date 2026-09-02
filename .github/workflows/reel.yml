@@ -1,0 +1,100 @@
+name: Reel erzeugen und veroeffentlichen
+
+on:
+  schedule:
+    # Alle 3 Stunden (UTC). GitHub startet Cron-Jobs mit ein paar Minuten Verzug.
+    - cron: "0 */3 * * *"
+  workflow_dispatch:
+    inputs:
+      publish:
+        description: "Wirklich auf Instagram veroeffentlichen?"
+        type: boolean
+        default: true
+
+permissions:
+  contents: write
+
+concurrency:
+  group: reel
+  cancel-in-progress: false
+
+jobs:
+  reel:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: ffmpeg und Schriften installieren
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg fonts-dejavu-core
+          mkdir -p assets/fonts
+          curl -fsSL --retry 2 -o assets/fonts/Anton-Regular.ttf \
+            https://raw.githubusercontent.com/google/fonts/main/ofl/anton/Anton-Regular.ttf \
+            || echo "Anton konnte nicht geladen werden - es wird DejaVu Sans verwendet."
+
+      - name: Abhaengigkeiten
+        run: |
+          npm ci --omit=optional
+          pip install --quiet -r requirements.txt
+
+      - name: Reel bauen und posten
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          IG_ACCESS_TOKEN: ${{ secrets.IG_ACCESS_TOKEN }}
+          IG_USER_ID: ${{ secrets.IG_USER_ID }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # Nur setzen, wenn du Cloudflare R2 statt GitHub Releases nutzt:
+          R2_ACCOUNT_ID: ${{ secrets.R2_ACCOUNT_ID }}
+          R2_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
+          R2_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
+          R2_BUCKET: ${{ secrets.R2_BUCKET }}
+          R2_PUBLIC_BASE: ${{ secrets.R2_PUBLIC_BASE }}
+        run: |
+          if [ "${{ inputs.publish }}" = "false" ]; then
+            node src/index.js --no-publish
+          else
+            node src/index.js
+          fi
+
+      - name: Video als Artefakt sichern
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: reel-${{ github.run_number }}
+          path: |
+            build/reel.mp4
+            build/script.json
+            build/subs.ass
+          retention-days: 7
+          if-no-files-found: ignore
+
+      - name: Historie zurueckschreiben
+        if: success()
+        run: |
+          if git diff --quiet -- data/history.json; then
+            echo "Keine Aenderung an der Historie."
+            exit 0
+          fi
+          git config user.name "geld-pinguin-bot"
+          git config user.email "bot@users.noreply.github.com"
+          git add data/history.json
+          git commit -m "Historie: neues Reel [skip ci]"
+          for i in 1 2 3; do
+            git pull --rebase --autostash origin "${GITHUB_REF_NAME}" && git push && exit 0
+            echo "Push-Versuch $i fehlgeschlagen, neuer Versuch ..."
+            sleep 5
+          done
+          echo "Historie konnte nicht gepusht werden."
+          exit 1

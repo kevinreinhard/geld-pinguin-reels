@@ -1,0 +1,30 @@
+name: Instagram-Token erneuern
+
+# Long-Lived Tokens von Instagram laufen nach 60 Tagen ab. Dieser Job
+# verlaengert sie woechentlich und schreibt den neuen Wert ins Repo-Secret.
+# Voraussetzung: Secret GH_PAT (Fine-grained PAT mit "Secrets: read and write"
+# und "Contents: read" auf genau dieses Repository).
+
+on:
+  schedule:
+    - cron: "0 4 * * 1"
+  workflow_dispatch:
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Token verlaengern und Secret aktualisieren
+        env:
+          IG_ACCESS_TOKEN: ${{ secrets.IG_ACCESS_TOKEN }}
+          GH_TOKEN: ${{ secrets.GH_PAT }}
+        run: |
+          antwort=$(curl -sS "https://graph.instagram.com/refresh_access_token?grant_type=ig_refresh_token&access_token=${IG_ACCESS_TOKEN}")
+          neu=$(echo "$antwort" | jq -r '.access_token // empty')
+          if [ -z "$neu" ]; then
+            echo "Token-Erneuerung fehlgeschlagen: $antwort"
+            exit 1
+          fi
+          gh secret set IG_ACCESS_TOKEN --body "$neu" --repo "$GITHUB_REPOSITORY"
+          tage=$(( $(echo "$antwort" | jq -r '.expires_in') / 86400 ))
+          echo "Token erneuert. Neue Gueltigkeit: $tage Tage."
