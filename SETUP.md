@@ -31,6 +31,12 @@ Eine Facebook-Seite brauchst du **nicht** – wir nutzen den Weg „Instagram AP
    **nicht** den mit Facebook-Login – der verlangt eine Facebook-Seite
 7. Geschafft, wenn du dort den Abschnitt **1. Generate access tokens** siehst
 
+> **Häufigste Falle:** Wählst du im Assistenten eine Facebook-Login-Kachel statt
+> **Andere**, bekommt die App links *Anwendungsfälle* statt *Produkte* – dann ist
+> Instagram darin nicht erreichbar und der Anwendungsfall lässt sich nicht tauschen.
+> Die Kachel **Andere** steht oft unscheinbar am Ende der Liste. Ist es passiert:
+> alte App unter *App-Einstellungen → Allgemeines* ganz unten löschen und neu anlegen.
+
 > **Sackgasse:** Die Seite *Entwickler-Tools* (Graph API Explorer, Zugriffstoken-Tool,
 > Sharing Debugger) brauchst du hier nicht. Die beiden Token-Werkzeuge dort erzeugen
 > *Facebook*-Tokens, mit denen Instagram nichts anfangen kann. Dein Token entsteht in
