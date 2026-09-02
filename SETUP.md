@@ -1,5 +1,8 @@
 # Einrichtung – Schritt für Schritt
 
+> **Bebilderte Fassung mit Fortschritts-Häkchen:** https://claude.ai/code/artifact/beac596a-e3bf-4bde-8c7f-4d7ceba2fb96
+> Diese Datei hier ist die Kurzfassung zum Nachschlagen.
+
 Du brauchst rund 45 Minuten. Reihenfolge einhalten, Schritt 2 hängt von Schritt 1 ab.
 
 ---

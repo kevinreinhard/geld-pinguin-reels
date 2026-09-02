@@ -3,7 +3,7 @@
 Baut alle drei Stunden ein fertiges Instagram-Reel und veröffentlicht es selbst.
 Kein Klick nötig, nachdem die Einrichtung einmal steht.
 
-**Einrichtung:** siehe [SETUP.md](SETUP.md).
+**Einrichtung:** [Anleitung als Webseite](https://claude.ai/code/artifact/beac596a-e3bf-4bde-8c7f-4d7ceba2fb96) · Kurzfassung in [SETUP.md](SETUP.md)
 
 ---
 

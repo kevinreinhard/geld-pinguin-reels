@@ -1,0 +1,919 @@
+<title>geld.pinguin Reel-Automat</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap">
+
+<style>
+  /* ---------- Tokens: helles Thema als Basis ---------- */
+  :root {
+    --ground: #eff2f6;
+    --surface: #ffffff;
+    --surface-sunk: #e7ecf3;
+    --ink: #10192a;
+    --ink-soft: #4a5769;
+    --ink-faint: #7b8798;
+    --line: #d8dfe9;
+    --line-strong: #c2ccda;
+    --accent: #d1690c;
+    --accent-ink: #ffffff;
+    --accent-wash: #fbeedf;
+    --teal: #0e6e79;
+    --teal-wash: #dceff1;
+    --shadow: 0 1px 2px rgba(16, 25, 42, .05), 0 8px 24px -12px rgba(16, 25, 42, .18);
+
+    --measure: 42rem;
+    --step-1: .8125rem;
+    --step-2: .9375rem;
+    --step-3: 1.0625rem;
+    --step-4: 1.375rem;
+    --step-5: 1.875rem;
+    --step-6: 3rem;
+
+    --font-display: "Anton", "Haettenschweiler", "Arial Narrow", sans-serif;
+    --font-body: "IBM Plex Sans", ui-sans-serif, "Segoe UI", system-ui, sans-serif;
+    --font-mono: "IBM Plex Mono", ui-monospace, "Cascadia Mono", Consolas, monospace;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --ground: #0d141f;
+      --surface: #141d2b;
+      --surface-sunk: #0a1119;
+      --ink: #e8edf4;
+      --ink-soft: #a3b0c2;
+      --ink-faint: #7a889b;
+      --line: #263243;
+      --line-strong: #35435a;
+      --accent: #f2933d;
+      --accent-ink: #1b1204;
+      --accent-wash: #2b1e0e;
+      --teal: #45b8c6;
+      --teal-wash: #0f2b30;
+      --shadow: 0 1px 2px rgba(0, 0, 0, .4), 0 8px 24px -12px rgba(0, 0, 0, .7);
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --ground: #0d141f;
+    --surface: #141d2b;
+    --surface-sunk: #0a1119;
+    --ink: #e8edf4;
+    --ink-soft: #a3b0c2;
+    --ink-faint: #7a889b;
+    --line: #263243;
+    --line-strong: #35435a;
+    --accent: #f2933d;
+    --accent-ink: #1b1204;
+    --accent-wash: #2b1e0e;
+    --teal: #45b8c6;
+    --teal-wash: #0f2b30;
+    --shadow: 0 1px 2px rgba(0, 0, 0, .4), 0 8px 24px -12px rgba(0, 0, 0, .7);
+  }
+
+  /* ---------- Grundgerüst ---------- */
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--ground);
+    color: var(--ink);
+    font-family: var(--font-body);
+    font-size: var(--step-3);
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .wrap {
+    max-width: 78rem;
+    margin: 0 auto;
+    padding: 0 1.5rem 6rem;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 3rem;
+  }
+
+  @media (min-width: 1120px) {
+    .wrap {
+      grid-template-columns: 15rem minmax(0, var(--measure));
+      justify-content: center;
+      align-items: start;
+      gap: 4.5rem;
+      padding-top: 1rem;
+    }
+  }
+
+  .col { min-width: 0; display: flex; flex-direction: column; gap: 3.5rem; }
+
+  /* ---------- Fortschrittsleiste ---------- */
+  .progress {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    height: 3px;
+    background: var(--line);
+    margin: 0 -1.5rem 0;
+  }
+  .progress span {
+    display: block;
+    height: 100%;
+    width: 0%;
+    background: var(--accent);
+    transition: width .35s cubic-bezier(.4, 0, .2, 1);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .progress span { transition: none; }
+  }
+
+  /* ---------- Typografie ---------- */
+  h1, h2, h3 { text-wrap: balance; margin: 0; }
+
+  h1 {
+    font-family: var(--font-display);
+    font-size: clamp(2.25rem, 7vw, var(--step-6));
+    line-height: .98;
+    letter-spacing: .005em;
+    font-weight: 400;
+  }
+
+  h2 {
+    font-family: var(--font-display);
+    font-size: var(--step-5);
+    line-height: 1.08;
+    font-weight: 400;
+    letter-spacing: .005em;
+  }
+
+  h3 {
+    font-size: var(--step-3);
+    font-weight: 600;
+    letter-spacing: -.005em;
+  }
+
+  p { margin: 0; }
+
+  .eyebrow {
+    font-family: var(--font-mono);
+    font-size: var(--step-1);
+    text-transform: uppercase;
+    letter-spacing: .14em;
+    color: var(--ink-faint);
+  }
+
+  .lead {
+    font-size: var(--step-4);
+    line-height: 1.45;
+    color: var(--ink-soft);
+    text-wrap: pretty;
+  }
+
+  a {
+    color: var(--accent);
+    text-decoration-thickness: 1px;
+    text-underline-offset: .18em;
+  }
+  a:hover { text-decoration-thickness: 2px; }
+
+  :focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  strong { font-weight: 600; }
+
+  code:not(pre code) {
+    font-family: var(--font-mono);
+    font-size: .875em;
+    background: var(--surface-sunk);
+    border: 1px solid var(--line);
+    border-radius: 3px;
+    padding: .1em .34em;
+    white-space: nowrap;
+  }
+
+  /* ---------- Kopf ---------- */
+  header { display: flex; flex-direction: column; gap: 1.25rem; padding-top: 3.5rem; }
+
+  .facts {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0 2rem;
+    padding-top: .75rem;
+    border-top: 1px solid var(--line);
+    font-family: var(--font-mono);
+    font-size: var(--step-1);
+    color: var(--ink-soft);
+  }
+  .facts b { color: var(--ink); font-weight: 500; }
+
+  /* ---------- Pipeline ---------- */
+  .pipe {
+    display: flex;
+    gap: .5rem;
+    overflow-x: auto;
+    padding-bottom: .75rem;
+    scrollbar-width: thin;
+  }
+  .pipe-item {
+    flex: 0 0 auto;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    padding: .6rem .8rem;
+    min-width: 8.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: .15rem;
+  }
+  .pipe-item .n {
+    font-family: var(--font-mono);
+    font-size: .6875rem;
+    color: var(--accent);
+    letter-spacing: .08em;
+  }
+  .pipe-item .t { font-size: var(--step-2); font-weight: 600; line-height: 1.25; }
+  .pipe-item .s { font-size: var(--step-1); color: var(--ink-faint); font-family: var(--font-mono); }
+
+  /* ---------- Schritt-Spine ---------- */
+  .steps { display: flex; flex-direction: column; gap: 0; }
+
+  .step {
+    position: relative;
+    padding: 2rem 0 2rem 3.25rem;
+    border-bottom: 1px solid var(--line);
+  }
+  .step:first-of-type { border-top: 1px solid var(--line); }
+
+  /* Die durchgehende Linie der Spine */
+  .step::before {
+    content: "";
+    position: absolute;
+    left: 1.0625rem;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background: var(--line);
+  }
+  .step:first-of-type::before { top: 2rem; }
+  .step:last-of-type::before { bottom: auto; height: 2rem; }
+
+  .marker {
+    position: absolute;
+    left: 0;
+    top: 1.85rem;
+    width: 2.125rem;
+    height: 2.125rem;
+    border-radius: 50%;
+    border: 1px solid var(--line-strong);
+    background: var(--surface);
+    color: var(--ink-soft);
+    font-family: var(--font-mono);
+    font-size: var(--step-2);
+    display: grid;
+    place-items: center;
+    cursor: pointer;
+    padding: 0;
+    transition: background .15s, border-color .15s, color .15s;
+  }
+  .marker:hover { border-color: var(--accent); color: var(--accent); }
+
+  .step[data-done="true"] .marker {
+    background: var(--teal);
+    border-color: var(--teal);
+    color: var(--surface);
+  }
+  .step[data-done="true"] .marker .num { display: none; }
+  .step[data-done="true"] .marker::after { content: "✓"; font-size: 1rem; }
+  .step[data-done="true"] > .step-head h2 { color: var(--ink-faint); }
+
+  .step-head { display: flex; flex-direction: column; gap: .25rem; margin-bottom: 1.1rem; }
+  .step-head h2 { transition: color .15s; }
+  .step-body { display: flex; flex-direction: column; gap: 1rem; }
+
+  ol.plain, ul.plain {
+    margin: 0;
+    padding-left: 1.15rem;
+    display: flex;
+    flex-direction: column;
+    gap: .55rem;
+  }
+  ol.plain li::marker { color: var(--ink-faint); font-family: var(--font-mono); font-size: .875em; }
+  ul.plain li::marker { color: var(--accent); }
+
+  /* ---------- Code ---------- */
+  .code {
+    position: relative;
+    background: var(--surface-sunk);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+  }
+  .code pre {
+    margin: 0;
+    padding: .9rem 3.5rem .9rem 1rem;
+    overflow-x: auto;
+    font-family: var(--font-mono);
+    font-size: var(--step-2);
+    line-height: 1.6;
+  }
+  .copy {
+    position: absolute;
+    top: .5rem;
+    right: .5rem;
+    font-family: var(--font-mono);
+    font-size: .6875rem;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    background: var(--surface);
+    color: var(--ink-soft);
+    border: 1px solid var(--line-strong);
+    border-radius: 3px;
+    padding: .25rem .45rem;
+    cursor: pointer;
+  }
+  .copy:hover { color: var(--accent); border-color: var(--accent); }
+
+  /* ---------- Hinweiskästen ---------- */
+  .note {
+    border-left: 3px solid var(--accent);
+    background: var(--accent-wash);
+    padding: .9rem 1.1rem;
+    border-radius: 0 4px 4px 0;
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+    font-size: var(--step-2);
+  }
+  .note .label {
+    font-family: var(--font-mono);
+    font-size: .6875rem;
+    text-transform: uppercase;
+    letter-spacing: .1em;
+    color: var(--accent);
+  }
+  .note.calm { border-left-color: var(--teal); background: var(--teal-wash); }
+  .note.calm .label { color: var(--teal); }
+
+  /* ---------- Tabellen ---------- */
+  .scroller { overflow-x: auto; border: 1px solid var(--line); border-radius: 4px; }
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    font-size: var(--step-2);
+    background: var(--surface);
+  }
+  th, td {
+    text-align: left;
+    padding: .6rem .8rem;
+    border-bottom: 1px solid var(--line);
+    vertical-align: top;
+  }
+  thead th {
+    font-family: var(--font-mono);
+    font-size: .6875rem;
+    text-transform: uppercase;
+    letter-spacing: .09em;
+    color: var(--ink-faint);
+    font-weight: 400;
+    background: var(--surface-sunk);
+    white-space: nowrap;
+  }
+  tbody tr:last-child td { border-bottom: 0; }
+  td.num { font-variant-numeric: tabular-nums; white-space: nowrap; }
+  td code { white-space: nowrap; }
+
+  /* ---------- Abschnitte ---------- */
+  section { display: flex; flex-direction: column; gap: 1.1rem; }
+  .section-head { display: flex; flex-direction: column; gap: .3rem; }
+
+  /* ---------- Seitliches Inhaltsverzeichnis ---------- */
+  .toc { display: none; }
+  @media (min-width: 1120px) {
+    .toc {
+      display: flex;
+      flex-direction: column;
+      gap: .1rem;
+      position: sticky;
+      top: 3rem;
+      padding-top: 4.5rem;
+      font-size: var(--step-2);
+    }
+    .toc a {
+      color: var(--ink-soft);
+      text-decoration: none;
+      padding: .25rem 0 .25rem .85rem;
+      border-left: 2px solid var(--line);
+      display: flex;
+      gap: .55rem;
+      line-height: 1.35;
+    }
+    .toc a:hover { color: var(--ink); border-left-color: var(--line-strong); }
+    .toc a.on { color: var(--accent); border-left-color: var(--accent); }
+    .toc a .k {
+      font-family: var(--font-mono);
+      font-size: .75rem;
+      color: var(--ink-faint);
+      flex: 0 0 1rem;
+    }
+    .toc a.on .k { color: var(--accent); }
+    .toc .toc-title {
+      font-family: var(--font-mono);
+      font-size: .6875rem;
+      text-transform: uppercase;
+      letter-spacing: .12em;
+      color: var(--ink-faint);
+      padding: 0 0 .6rem .85rem;
+    }
+  }
+
+  footer {
+    border-top: 1px solid var(--line);
+    padding-top: 1.25rem;
+    font-size: var(--step-2);
+    color: var(--ink-faint);
+    display: flex;
+    flex-direction: column;
+    gap: .4rem;
+  }
+</style>
+
+<div class="progress" aria-hidden="true"><span id="bar"></span></div>
+
+<div class="wrap">
+
+  <nav class="toc" aria-label="Inhalt">
+    <div class="toc-title">Einrichtung</div>
+    <a href="#s1"><span class="k">1</span> Instagram umstellen</a>
+    <a href="#s2"><span class="k">2</span> Meta-App anlegen</a>
+    <a href="#s3"><span class="k">3</span> Token erzeugen</a>
+    <a href="#s4"><span class="k">4</span> Anthropic-Key</a>
+    <a href="#s5"><span class="k">5</span> Repo anlegen</a>
+    <a href="#s6"><span class="k">6</span> Secrets setzen</a>
+    <a href="#s7"><span class="k">7</span> Testlauf</a>
+    <a href="#s8"><span class="k">8</span> Scharf schalten</a>
+    <div class="toc-title" style="padding-top:1.4rem">Danach</div>
+    <a href="#rhythmus"><span class="k">·</span> Rhythmus</a>
+    <a href="#stellschrauben"><span class="k">·</span> Stellschrauben</a>
+    <a href="#kosten"><span class="k">·</span> Kosten</a>
+    <a href="#klemmt"><span class="k">·</span> Wenn's klemmt</a>
+  </nav>
+
+  <div class="col">
+
+    <header>
+      <div class="eyebrow">Einrichtung · @geld.pinguin</div>
+      <h1>Der Reel-Automat</h1>
+      <p class="lead">Alle drei Stunden schreibt, vertont, rendert und veröffentlicht sich ein Reel von selbst. Acht Schritte, dann läuft es ohne dich.</p>
+      <div class="facts">
+        <span><b>45 Min.</b> einmalig</span>
+        <span><b>8</b> Schritte</span>
+        <span><b>~10 CHF</b> pro Monat</span>
+        <span><b>0</b> Klicks danach</span>
+      </div>
+    </header>
+
+    <section>
+      <div class="section-head">
+        <div class="eyebrow">Was alle drei Stunden passiert</div>
+        <h2>Die Kette</h2>
+      </div>
+      <p>Ein Lauf dauert rund vier Minuten und läuft vollständig auf GitHubs Servern. Dein Rechner darf aus sein.</p>
+      <div class="pipe">
+        <div class="pipe-item"><span class="n">01</span><span class="t">Thema ziehen</span><span class="s">pillar.js</span></div>
+        <div class="pipe-item"><span class="n">02</span><span class="t">Skript schreiben</span><span class="s">Claude Opus 5</span></div>
+        <div class="pipe-item"><span class="n">03</span><span class="t">Einsprechen</span><span class="s">Edge TTS</span></div>
+        <div class="pipe-item"><span class="n">04</span><span class="t">Video rendern</span><span class="s">ffmpeg</span></div>
+        <div class="pipe-item"><span class="n">05</span><span class="t">Ablegen</span><span class="s">GitHub Release</span></div>
+        <div class="pipe-item"><span class="n">06</span><span class="t">Posten</span><span class="s">Graph API</span></div>
+        <div class="pipe-item"><span class="n">07</span><span class="t">Thema merken</span><span class="s">history.json</span></div>
+      </div>
+      <p>Heraus kommt ein 1080 × 1920-Video mit 30 Bildern pro Sekunde, 25 bis 35 Sekunden lang, mit Titelkarte, mitlaufenden Karaoke-Untertiteln und Schweizer Sprecherstimme. Die Themen wiederholen sich nicht: Die letzten 40 Themen gehen als Negativliste an Claude, und Säulen, die zuletzt oft dran waren, werden abgewertet.</p>
+    </section>
+
+    <section>
+      <div class="section-head">
+        <div class="eyebrow">Vorher</div>
+        <h2>Was du brauchst</h2>
+      </div>
+      <p>Drei Konten. Wenn du alle drei schon hast, dauert die Einrichtung eher 20 als 45 Minuten.</p>
+      <div class="scroller">
+        <table>
+          <thead>
+            <tr><th>Konto</th><th>Wofür</th><th>Kosten</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><b>Instagram</b> @geld.pinguin</td><td>Muss ein Business-Konto sein, sonst lässt die API nichts durch</td><td class="num">gratis</td></tr>
+            <tr><td><b>Meta for Developers</b></td><td>Die App, über die gepostet wird</td><td class="num">gratis</td></tr>
+            <tr><td><b>GitHub</b></td><td>Führt die Automatisierung aus und legt die Videos ab</td><td class="num">gratis</td></tr>
+            <tr><td><b>Anthropic Console</b></td><td>Schreibt Skript, Caption und Hashtags</td><td class="num">~10 CHF/Monat</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="note calm">
+        <span class="label">Reihenfolge zählt</span>
+        <p>Schritt 3 hängt an Schritt 2, und Schritt 6 an allem davor. Arbeite von oben nach unten und hake ab — der Fortschritt wird in diesem Browser gespeichert, du kannst also zwischendrin aufhören.</p>
+      </div>
+    </section>
+
+    <div class="steps">
+
+      <!-- 1 -->
+      <div class="step" id="s1" data-step="1">
+        <button class="marker" type="button" aria-pressed="false" aria-label="Schritt 1 abhaken"><span class="num">1</span></button>
+        <div class="step-head">
+          <div class="eyebrow">Instagram-App</div>
+          <h2>Konto auf Business umstellen</h2>
+        </div>
+        <div class="step-body">
+          <p>Die Content-Publishing-API akzeptiert ausschliesslich Business- und Creator-Konten. Ein privates Konto wird kommentarlos abgelehnt.</p>
+          <ol class="plain">
+            <li>Instagram öffnen → dein Profil → Menü oben rechts</li>
+            <li><b>Kontotyp und Tools</b> → <b>Auf professionelles Konto umstellen</b></li>
+            <li><b>Business</b> wählen. Creator geht auch, Business ist bei der API die unkompliziertere Variante.</li>
+            <li>Kategorie setzen, zum Beispiel <em>Bildung</em> oder <em>Persönlicher Blog</em></li>
+          </ol>
+          <div class="note calm">
+            <span class="label">Gute Nachricht</span>
+            <p>Eine Facebook-Seite brauchst du nicht. Wir gehen über den Weg „Instagram API mit Instagram Login", der ohne Facebook-Seite auskommt.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2 -->
+      <div class="step" id="s2" data-step="2">
+        <button class="marker" type="button" aria-pressed="false" aria-label="Schritt 2 abhaken"><span class="num">2</span></button>
+        <div class="step-head">
+          <div class="eyebrow">developers.facebook.com</div>
+          <h2>Meta-App anlegen</h2>
+        </div>
+        <div class="step-body">
+          <p>Die App ist nur die Hülle, durch die deine Posts laufen. Sie wird nie veröffentlicht und niemand ausser dir sieht sie.</p>
+          <ol class="plain">
+            <li>Auf <a href="https://developers.facebook.com" target="_blank" rel="noopener">developers.facebook.com</a> anmelden. Beim ersten Mal musst du dich als Entwickler registrieren und eine Handynummer bestätigen.</li>
+            <li><b>Meine Apps</b> → <b>App erstellen</b></li>
+            <li>Anwendungsfall: <b>Andere</b> → App-Typ: <b>Business</b></li>
+            <li>Name vergeben, zum Beispiel <code>geld-pinguin-poster</code></li>
+            <li>Im Dashboard links: <b>Produkt hinzufügen</b> → bei <b>Instagram</b> auf <b>Einrichten</b></li>
+            <li>Reiter <b>API-Einrichtung mit Instagram-Login</b> öffnen <span style="color:var(--ink-faint)">(englisch: <em>API setup with Instagram login</em>)</span></li>
+          </ol>
+          <div class="note">
+            <span class="label">Meta ändert die Oberfläche gerne</span>
+            <p>Wenn die Menüpunkte anders heissen: Du suchst den Bereich, in dem Instagram mit <em>Instagram-Login</em> eingerichtet wird — nicht den mit <em>Facebook-Login</em>. Letzterer verlangt eine Facebook-Seite und macht alles komplizierter.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3 -->
+      <div class="step" id="s3" data-step="3">
+        <button class="marker" type="button" aria-pressed="false" aria-label="Schritt 3 abhaken"><span class="num">3</span></button>
+        <div class="step-head">
+          <div class="eyebrow">Der wichtigste Schritt</div>
+          <h2>Zugriffstoken erzeugen</h2>
+        </div>
+        <div class="step-body">
+          <p>Im selben Reiter, Abschnitt <b>1. Generate access tokens</b>:</p>
+          <ol class="plain">
+            <li><b>Instagram-Konto hinzufügen</b> → mit <code>geld.pinguin</code> einloggen und die Berechtigungen bestätigen</li>
+            <li>Prüfen, dass beide Berechtigungen dabei sind: <code>instagram_business_basic</code> und <code>instagram_business_content_publish</code></li>
+            <li><b>Generate token</b> klicken und den langen Token kopieren. Er beginnt mit <code>IGAA</code>.</li>
+          </ol>
+          <div class="note">
+            <span class="label">Sofort wegspeichern</span>
+            <p>Meta zeigt den Token genau einmal. Leg ihn kurz in eine Notiz, du brauchst ihn in Schritt 6. Danach kannst du die Notiz löschen — ab dann lebt er im GitHub-Secret.</p>
+          </div>
+          <p>Der Token ist 60 Tage gültig. Ein zweiter Workflow verlängert ihn jeden Montag automatisch, sobald du in Schritt 6 auch <code>GH_PAT</code> hinterlegst.</p>
+          <div class="note calm">
+            <span class="label">Kein App Review nötig</span>
+            <p>Solange du nur auf dein eigenes, in der App verknüpftes Konto postest, brauchst du keine Prüfung durch Meta. Erst wenn fremde Konten dazukommen, wird das fällig.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4 -->
+      <div class="step" id="s4" data-step="4">
+        <button class="marker" type="button" aria-pressed="false" aria-label="Schritt 4 abhaken"><span class="num">4</span></button>
+        <div class="step-head">
+          <div class="eyebrow">console.anthropic.com</div>
+          <h2>Anthropic-Key holen</h2>
+        </div>
+        <div class="step-body">
+          <p>Claude schreibt pro Reel das Skript, den Titel, die Caption und die Hashtags.</p>
+          <ol class="plain">
+            <li>Auf <a href="https://console.anthropic.com" target="_blank" rel="noopener">console.anthropic.com</a> anmelden</li>
+            <li>Unter <b>Billing</b> ein Guthaben aufladen. 20 Dollar reichen bei acht Reels pro Tag für rund zwei Monate.</li>
+            <li><b>API Keys</b> → <b>Create Key</b> → kopieren. Beginnt mit <code>sk-ant-</code>.</li>
+          </ol>
+        </div>
+      </div>
+
+      <!-- 5 -->
+      <div class="step" id="s5" data-step="5">
+        <button class="marker" type="button" aria-pressed="false" aria-label="Schritt 5 abhaken"><span class="num">5</span></button>
+        <div class="step-head">
+          <div class="eyebrow">GitHub</div>
+          <h2>Repository anlegen</h2>
+        </div>
+        <div class="step-body">
+          <p>Der Code liegt fertig auf deinem Rechner. Diese vier Zeilen schieben ihn zu GitHub, wo die Automatisierung dann läuft.</p>
+          <div class="code">
+            <button class="copy" type="button">Kopieren</button>
+            <pre>cd C:\Users\kevin\geld-pinguin-reels
+git remote -v
+gh repo create geld-pinguin-reels --public --source=. --push</pre>
+          </div>
+          <p>Ein lokales Git-Repo mit zwei Commits ist bereits angelegt, du musst also nichts mehr initialisieren.</p>
+          <div class="note">
+            <span class="label">Warum öffentlich?</span>
+            <p>Instagram lädt das fertige Video per HTTPS von einer öffentlichen Adresse herunter. Das Standardverfahren legt es als Datei an ein GitHub Release — und Release-Dateien privater Repos verlangen einen Login, den Instagram nicht hat.</p>
+            <p>Deine Zugangsdaten stehen nirgends im Code, sondern in verschlüsselten Secrets. Öffentlich ist der Programmcode, nicht dein Token.</p>
+            <p>Soll das Repo trotzdem privat bleiben: Der Code kann auch Cloudflare R2 als Ablage nutzen. Bucket anlegen, öffentliche Domain aktivieren, ein API-Token mit <em>Object Read &amp; Write</em> erzeugen und die fünf <code>R2_</code>-Secrets setzen — dann schaltet das Skript von allein um.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 6 -->
+      <div class="step" id="s6" data-step="6">
+        <button class="marker" type="button" aria-pressed="false" aria-label="Schritt 6 abhaken"><span class="num">6</span></button>
+        <div class="step-head">
+          <div class="eyebrow">Repo → Settings → Secrets and variables → Actions</div>
+          <h2>Secrets hinterlegen</h2>
+        </div>
+        <div class="step-body">
+          <p>Für jede Zeile einmal <b>New repository secret</b> klicken. Namen exakt so schreiben.</p>
+          <div class="scroller">
+            <table>
+              <thead>
+                <tr><th>Name</th><th>Wert</th><th>Pflicht</th></tr>
+              </thead>
+              <tbody>
+                <tr><td><code>ANTHROPIC_API_KEY</code></td><td>Der Key aus Schritt 4</td><td>ja</td></tr>
+                <tr><td><code>IG_ACCESS_TOKEN</code></td><td>Der <code>IGAA</code>-Token aus Schritt 3</td><td>ja</td></tr>
+                <tr><td><code>GH_PAT</code></td><td>Für die automatische Token-Verlängerung</td><td>empfohlen</td></tr>
+                <tr><td><code>IG_USER_ID</code></td><td>Deine Konto-ID, spart einen API-Aufruf</td><td>nein</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <h3><code>GH_PAT</code> erzeugen</h3>
+          <ol class="plain">
+            <li>Auf <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener">github.com/settings/personal-access-tokens/new</a></li>
+            <li><b>Repository access</b>: nur dieses eine Repository</li>
+            <li><b>Permissions</b>: <code>Secrets: Read and write</code> und <code>Contents: Read-only</code></li>
+            <li>Laufzeit ein Jahr, erzeugen, als Secret <code>GH_PAT</code> einsetzen</li>
+          </ol>
+          <div class="note">
+            <span class="label">Was ohne GH_PAT passiert</span>
+            <p>Alles läuft normal — bis der Instagram-Token nach 60 Tagen abläuft. Dann steht die Automatisierung still, bis du Schritt 3 von Hand wiederholst. Die fünf Minuten für den PAT lohnen sich.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 7 -->
+      <div class="step" id="s7" data-step="7">
+        <button class="marker" type="button" aria-pressed="false" aria-label="Schritt 7 abhaken"><span class="num">7</span></button>
+        <div class="step-head">
+          <div class="eyebrow">Probe ohne Publikum</div>
+          <h2>Testlauf</h2>
+        </div>
+        <div class="step-body">
+          <p>Erst schauen, dann senden.</p>
+          <ol class="plain">
+            <li>Im Repo auf <b>Actions</b> → links <b>Reel erzeugen und veröffentlichen</b></li>
+            <li>Rechts <b>Run workflow</b> → das Feld <b>publish</b> auf <b>false</b> setzen → starten</li>
+            <li>Rund vier Minuten warten</li>
+            <li>Den fertigen Lauf öffnen, ganz unten das Artefakt <code>reel-1</code> herunterladen und das Video anschauen</li>
+          </ol>
+          <p>Im Artefakt liegen drei Dateien: das Video, das generierte Skript samt Caption als <code>script.json</code> und die Untertiteldatei. Wenn dir der Ton zu schnell ist oder die Untertitel zu gross sind — alles steht in <code>src/config.js</code>, siehe <a href="#stellschrauben">Stellschrauben</a>.</p>
+          <div class="note calm">
+            <span class="label">Lokal geht das auch</span>
+            <p>Mit <code>node src/index.js --script-only</code> siehst du in Sekunden nur den Text, ohne zu rendern. Gut, um die Tonalität zu justieren, bevor du Videos baust.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 8 -->
+      <div class="step" id="s8" data-step="8">
+        <button class="marker" type="button" aria-pressed="false" aria-label="Schritt 8 abhaken"><span class="num">8</span></button>
+        <div class="step-head">
+          <div class="eyebrow">Ab hier läuft es allein</div>
+          <h2>Scharf schalten</h2>
+        </div>
+        <div class="step-body">
+          <p>Denselben Workflow noch einmal starten, diesmal mit <b>publish = true</b>. Wenn dieser Lauf durchläuft und der Reel auf dem Kanal steht, ist die Einrichtung fertig.</p>
+          <p>Ab dann greift der Zeitplan: alle drei Stunden ein neuer Reel, ohne dein Zutun. Du siehst jeden Lauf unter <b>Actions</b> und bekommst von GitHub eine Mail, falls einer fehlschlägt.</p>
+          <div class="note calm">
+            <span class="label">Erledigt</span>
+            <p>Nichts läuft mehr auf deinem Rechner. Der darf aus sein, im Zug liegen oder neu installiert werden — der Kanal postet weiter.</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <section id="rhythmus">
+      <div class="section-head">
+        <div class="eyebrow">Nach ein bis zwei Wochen</div>
+        <h2>Der Rhythmus</h2>
+      </div>
+      <p>Acht Reels am Tag sind viel. Die API-Grenze von 50 Beiträgen in 24 Stunden ist nicht das Problem — die Reichweite ist es. Erfahrungsgemäss verteilt sich bei dichtem Takt dieselbe Aufmerksamkeit auf mehr Beiträge, und stark gleichförmiger Auto-Content kann zusätzlich gedrosselt werden.</p>
+      <p>Lass es erst so laufen. Schau dann in den Insights auf die <b>durchschnittlichen Aufrufe pro Reel</b>. Fallen die deutlich, dreh runter — das ist eine Zeile in <code>.github/workflows/reel.yml</code>:</p>
+      <div class="code">
+        <button class="copy" type="button">Kopieren</button>
+        <pre>    - cron: "0 */3 * * *"</pre>
+      </div>
+      <div class="scroller">
+        <table>
+          <thead>
+            <tr><th>Statt dessen</th><th>Postet dann (Sommerzeit)</th><th class="num">Pro Tag</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><code>0 */3 * * *</code></td><td>02, 05, 08, 11, 14, 17, 20, 23 Uhr</td><td class="num">8×</td></tr>
+            <tr><td><code>0 5,8,11,14,17,20 * * *</code></td><td>07, 10, 13, 16, 19, 22 Uhr — nur tagsüber</td><td class="num">6×</td></tr>
+            <tr><td><code>0 6,10,16,19 * * *</code></td><td>08, 12, 18, 21 Uhr — reichweitenfreundlich</td><td class="num">4×</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="note">
+        <span class="label">Die Zeiten sind UTC</span>
+        <p>Schweizer Zeit ist UTC+1 im Winter und UTC+2 im Sommer. Bei einem festen Zeitplan verschieben sich die Posts also zweimal im Jahr um eine Stunde. Für Reels ist das folgenlos.</p>
+        <p>Zwei Eigenheiten von GitHub Actions: Geplante Läufe starten oft 5 bis 20 Minuten später als angegeben. Und nach 60 Tagen ohne Repo-Aktivität schaltet GitHub sie ab — was hier nicht passiert, weil jeder Lauf die Themen-Historie zurückschreibt.</p>
+      </div>
+    </section>
+
+    <section id="stellschrauben">
+      <div class="section-head">
+        <div class="eyebrow">src/config.js</div>
+        <h2>Stellschrauben</h2>
+      </div>
+      <p>Fast alles, was du am Kanal ändern willst, steht in einer einzigen Datei. Ändern, committen, pushen — der nächste Lauf zieht es.</p>
+      <div class="scroller">
+        <table>
+          <thead>
+            <tr><th>Was</th><th>Wo</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Themensäulen und ihre Gewichtung</td><td><code>PILLARS</code></td></tr>
+            <tr><td>Tonalität, Zielgruppe, Sprache</td><td><code>CHANNEL</code></td></tr>
+            <tr><td>Sprecherstimme und Sprechtempo</td><td><code>VOICE</code></td></tr>
+            <tr><td>Untertitel: Grösse, Farbe, Position, Wörter pro Einblendung</td><td><code>CAPTIONS</code></td></tr>
+            <tr><td>Farbpaletten der Hintergründe</td><td><code>PALETTEN</code></td></tr>
+            <tr><td>Videolänge, Qualität, Bildrate</td><td><code>VIDEO</code></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <h3>Eigene Hintergründe</h3>
+      <p>Statt der generierten Farbverläufe kannst du echte Clips verwenden: MP4-Dateien nach <code>assets/backgrounds/</code> legen, hochkant und mindestens 1080 × 1920. Pro Reel wird eine zufällig gewählt, geloopt und abgedunkelt, damit die Schrift lesbar bleibt.</p>
+      <h3>Andere Stimme</h3>
+      <p>Voreingestellt sind die Schweizer Stimmen <code>de-CH-JanNeural</code> und <code>de-CH-LeniNeural</code>. Alle verfügbaren deutschen Stimmen zeigt:</p>
+      <div class="code">
+        <button class="copy" type="button">Kopieren</button>
+        <pre>edge-tts --list-voices | grep "^de-"</pre>
+      </div>
+      <h3>Musik</h3>
+      <p>MP3s in <code>assets/music/</code> werden leise untergemischt. Achtung bei der Lizenz: Reels, die über die API kommen, können Instagrams eigene Musikbibliothek nicht nutzen. Nur lizenzfreie Tracks verwenden.</p>
+    </section>
+
+    <section id="kosten">
+      <div class="section-head">
+        <div class="eyebrow">Laufend</div>
+        <h2>Was es kostet</h2>
+      </div>
+      <div class="scroller">
+        <table>
+          <thead>
+            <tr><th>Posten</th><th class="num">Pro Reel</th><th class="num">Bei 8 Reels/Tag</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Claude Opus 5 — Skript und Caption</td><td class="num">~0.04 CHF</td><td class="num">~10 CHF/Monat</td></tr>
+            <tr><td>Edge TTS — Sprecherstimme</td><td class="num">gratis</td><td class="num">gratis</td></tr>
+            <tr><td>GitHub Actions — Rechenzeit</td><td class="num">~4 Min.</td><td class="num">gratis bei öffentlichen Repos</td></tr>
+            <tr><td>Instagram Graph API</td><td class="num">gratis</td><td class="num">gratis</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="klemmt">
+      <div class="section-head">
+        <div class="eyebrow">Fehlerbilder</div>
+        <h2>Wenn's klemmt</h2>
+      </div>
+      <p>Die Meldung steht im fehlgeschlagenen Actions-Lauf ganz unten.</p>
+      <div class="scroller">
+        <table>
+          <thead>
+            <tr><th>Meldung</th><th>Was los ist</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Die Video-URL ist nicht öffentlich abrufbar (HTTP 404)</td><td>Das Repo ist privat. Öffentlich schalten oder auf R2 wechseln.</td></tr>
+            <tr><td>Instagram API 400 … media_type</td><td>Das Konto ist noch kein Business-Konto. Schritt 1 nachholen.</td></tr>
+            <tr><td>code 190</td><td>Token abgelaufen oder ungültig. Schritt 3 wiederholen und das Secret ersetzen.</td></tr>
+            <tr><td>code 4 — Application request limit reached</td><td>Zu viele API-Aufrufe. Intervall vergrössern.</td></tr>
+            <tr><td>Zeitüberschreitung: Instagram hat das Video nicht verarbeitet</td><td>Meist eine zu grosse Datei. In <code>src/config.js</code> den Wert <code>crf</code> auf 22 setzen.</td></tr>
+            <tr><td>Edge TTS hat weder Wort- noch Satzgrenzen geliefert</td><td>Microsofts Dienst war kurz gestört. Der nächste Lauf greift wieder, nichts zu tun.</td></tr>
+            <tr><td>Es fehlen: ANTHROPIC_API_KEY …</td><td>Ein Secret fehlt oder ist vertippt. Namen in Schritt 6 vergleichen.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head">
+        <div class="eyebrow">Ehrlich gesagt</div>
+        <h2>Was der Automat nicht kann</h2>
+      </div>
+      <ul class="plain">
+        <li><b>Kein echtes Bildmaterial.</b> Die Reels sind Text auf animiertem Farbverlauf plus Stimme. Wer Clips will, füllt <code>assets/backgrounds/</code>.</li>
+        <li><b>Hörbar synthetische Stimme.</b> Edge TTS ist gut, aber erkennbar KI. Für eine natürlichere Stimme lässt sich <code>src/tts.py</code> gegen ElevenLabs tauschen — dann fallen Kosten an.</li>
+        <li><b>Kein Qualitäts-Gate.</b> Jedes generierte Skript geht live. Willst du vorher drüberschauen, setz den Zeitplan aus und starte die Läufe von Hand mit <code>publish = false</code>.</li>
+      </ul>
+    </section>
+
+    <footer>
+      <p>Der vollständige Code liegt unter <code>C:\Users\kevin\geld-pinguin-reels</code>. Die Kurzfassung dieser Anleitung steht dort auch als <code>SETUP.md</code>.</p>
+      <p>Fortschritt wird nur in diesem Browser gespeichert.</p>
+    </footer>
+
+  </div>
+</div>
+
+<script>
+  (function () {
+    "use strict";
+
+    var SPEICHER = "geldpinguin-setup-v1";
+    var schritte = Array.prototype.slice.call(document.querySelectorAll(".step"));
+    var balken = document.getElementById("bar");
+
+    function lade() {
+      try {
+        return JSON.parse(localStorage.getItem(SPEICHER)) || {};
+      } catch (e) {
+        return {};
+      }
+    }
+
+    function sichere(stand) {
+      try {
+        localStorage.setItem(SPEICHER, JSON.stringify(stand));
+      } catch (e) {
+        /* Privates Fenster oder blockierte Speicherung - die Seite funktioniert trotzdem. */
+      }
+    }
+
+    var stand = lade();
+
+    function zeichne() {
+      var fertig = 0;
+      schritte.forEach(function (el) {
+        var nr = el.dataset.step;
+        var done = stand[nr] === true;
+        el.dataset.done = done ? "true" : "false";
+        el.querySelector(".marker").setAttribute("aria-pressed", done ? "true" : "false");
+        if (done) fertig++;
+      });
+      balken.style.width = (fertig / schritte.length * 100) + "%";
+    }
+
+    schritte.forEach(function (el) {
+      el.querySelector(".marker").addEventListener("click", function () {
+        var nr = el.dataset.step;
+        stand[nr] = !stand[nr];
+        sichere(stand);
+        zeichne();
+      });
+    });
+
+    zeichne();
+
+    // Kopierknöpfe
+    Array.prototype.forEach.call(document.querySelectorAll(".copy"), function (btn) {
+      btn.addEventListener("click", function () {
+        var text = btn.parentNode.querySelector("pre").textContent;
+        var fertig = function () {
+          btn.textContent = "Kopiert";
+          setTimeout(function () { btn.textContent = "Kopieren"; }, 1600);
+        };
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(text).then(fertig, function () { btn.textContent = "Fehlgeschlagen"; });
+        } else {
+          btn.textContent = "Fehlgeschlagen";
+        }
+      });
+    });
+
+    // Aktiver Eintrag im Inhaltsverzeichnis
+    var links = Array.prototype.slice.call(document.querySelectorAll(".toc a"));
+    var ziele = links.map(function (a) { return document.getElementById(a.getAttribute("href").slice(1)); });
+
+    if ("IntersectionObserver" in window) {
+      var sichtbar = new Set();
+      var beobachter = new IntersectionObserver(function (eintraege) {
+        eintraege.forEach(function (e) {
+          if (e.isIntersecting) sichtbar.add(e.target); else sichtbar.delete(e.target);
+        });
+        var erster = ziele.find(function (z) { return z && sichtbar.has(z); });
+        links.forEach(function (a, i) { a.classList.toggle("on", ziele[i] === erster); });
+      }, { rootMargin: "-10% 0px -70% 0px" });
+      ziele.forEach(function (z) { if (z) beobachter.observe(z); });
+    }
+  })();
+</script>
