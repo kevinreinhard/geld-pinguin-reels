@@ -547,17 +547,48 @@
         </div>
         <div class="step-body">
           <p>Die App ist nur die Hülle, durch die deine Posts laufen. Sie wird nie veröffentlicht und niemand ausser dir sieht sie.</p>
-          <ol class="plain">
-            <li>Auf <a href="https://developers.facebook.com" target="_blank" rel="noopener">developers.facebook.com</a> anmelden. Beim ersten Mal musst du dich als Entwickler registrieren und eine Handynummer bestätigen.</li>
-            <li><b>Meine Apps</b> → <b>App erstellen</b></li>
-            <li>Anwendungsfall: <b>Andere</b> → App-Typ: <b>Business</b></li>
-            <li>Name vergeben, zum Beispiel <code>geld-pinguin-poster</code></li>
-            <li>Im Dashboard links: <b>Produkt hinzufügen</b> → bei <b>Instagram</b> auf <b>Einrichten</b></li>
-            <li>Reiter <b>API-Einrichtung mit Instagram-Login</b> öffnen <span style="color:var(--ink-faint)">(englisch: <em>API setup with Instagram login</em>)</span></li>
-          </ol>
+
+          <h3>Anmelden und zur richtigen Seite</h3>
+          <p>Auf <a href="https://developers.facebook.com" target="_blank" rel="noopener">developers.facebook.com</a> anmelden. Beim ersten Mal registrierst du dich als Entwickler und bestätigst eine Handynummer.</p>
+          <p>Dann im Menü oben auf <b>Meine Apps</b> — oder direkt:</p>
+          <div class="code">
+            <button class="copy" type="button">Kopieren</button>
+            <pre>https://developers.facebook.com/apps/</pre>
+          </div>
+          <p>Dort steht die Liste deiner Apps, anfangs leer, mit einem grünen Knopf <b>App erstellen</b>.</p>
+
           <div class="note">
-            <span class="label">Meta ändert die Oberfläche gerne</span>
-            <p>Wenn die Menüpunkte anders heissen: Du suchst den Bereich, in dem Instagram mit <em>Instagram-Login</em> eingerichtet wird — nicht den mit <em>Facebook-Login</em>. Letzterer verlangt eine Facebook-Seite und macht alles komplizierter.</p>
+            <span class="label">Landest du auf „Entwickler-Tools"?</span>
+            <p>Dann bist du einen Menüpunkt zu weit. Die Seite mit Graph API Explorer, Sharing Debugger und Zugriffstoken-Tool ist eine Sackgasse — für diese Einrichtung brauchst du von dort nichts. Geh zurück auf <b>Meine Apps</b>.</p>
+            <p>Zwei dieser Werkzeuge sind sogar Fallen, weil sie so plausibel klingen: <b>Graph API Explorer</b> und <b>Zugriffstoken-Tool</b> erzeugen <em>Facebook</em>-Tokens. Damit kommst du an Instagram nicht heran, und der Fehler fällt erst in Schritt 6 auf. Deinen Token holst du in Schritt 3 an einer ganz anderen Stelle.</p>
+          </div>
+
+          <h3>Der Assistent</h3>
+          <p>Meta ändert die Reihenfolge dieser Fragen immer wieder. Du bekommst diese drei, in irgendeiner Abfolge:</p>
+          <ol class="plain">
+            <li><b>Anwendungsfall</b> — eine Kachelauswahl. Nimm <b>Andere</b>. Falls es inzwischen eine eigene Instagram-Kachel gibt, geht die auch; „Andere" ist der Weg, der zuverlässig den vollen Produktkatalog freischaltet.</li>
+            <li><b>App-Typ</b> — erscheint erst nach „Andere". Nimm <b>Business</b>. Nur unter diesem Typ taucht Instagram später als Produkt auf.</li>
+            <li><b>Details</b> — App-Name, zum Beispiel <code>geld-pinguin-poster</code>, dazu eine Kontakt-E-Mail. Beim Punkt <em>Business-Portfolio</em> kannst du „kein Portfolio verknüpfen" wählen oder eines anlegen; beides funktioniert.</li>
+          </ol>
+          <p>Zum Abschluss fragt Meta meist noch einmal dein Passwort ab.</p>
+
+          <h3>Instagram als Produkt hinzufügen</h3>
+          <p>Jetzt bist du im App-Dashboard.</p>
+          <ol class="plain">
+            <li>Auf der Startseite gibt es eine Kachelliste <b>Produkte hinzufügen</b> — alternativ links in der Navigation ein <b>+</b> neben „Produkte"</li>
+            <li>Die Kachel <b>Instagram</b> suchen → <b>Einrichten</b></li>
+            <li>Instagram erscheint danach links in der Navigation</li>
+          </ol>
+
+          <h3>Die eine Weggabelung, die zählt</h3>
+          <p>Im Instagram-Bereich stehen zwei Einrichtungswege nebeneinander:</p>
+          <ul class="plain">
+            <li><b>API-Einrichtung mit Instagram-Login</b> — das ist deiner <span style="color:var(--ink-faint)">(englisch: <em>API setup with Instagram login</em>)</span></li>
+            <li>API-Einrichtung mit <em>Facebook</em>-Login — nicht nehmen, verlangt eine Facebook-Seite</li>
+          </ul>
+          <div class="note calm">
+            <span class="label">Woran du merkst, dass es geklappt hat</span>
+            <p>Du bist im Reiter <b>API-Einrichtung mit Instagram-Login</b> und siehst dort einen Abschnitt <b>1. Generate access tokens</b>. Damit ist Schritt 2 fertig — genau da geht Schritt 3 weiter.</p>
           </div>
         </div>
       </div>

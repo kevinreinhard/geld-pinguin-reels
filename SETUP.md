@@ -25,8 +25,16 @@ Eine Facebook-Seite brauchst du **nicht** – wir nutzen den Weg „Instagram AP
 2. Falls noch nie gemacht: **Registrieren** als Entwickler (Handynummer bestätigen)
 3. **Meine Apps** → **App erstellen**
 4. Anwendungsfall: **Andere** → App-Typ: **Business** → Name z. B. `geld-pinguin-poster`
-5. Im App-Dashboard links: **Produkt hinzufügen** → bei **Instagram** auf **Einrichten**
-6. Reiter **API-Einrichtung mit Instagram-Login** (englisch: *API setup with Instagram login*)
+   (Reihenfolge dieser drei Fragen wechselt je nach Meta-Version)
+5. Im App-Dashboard: **Produkt hinzufügen** → Kachel **Instagram** → **Einrichten**
+6. Reiter **API-Einrichtung mit Instagram-Login** (englisch: *API setup with Instagram login*),
+   **nicht** den mit Facebook-Login – der verlangt eine Facebook-Seite
+7. Geschafft, wenn du dort den Abschnitt **1. Generate access tokens** siehst
+
+> **Sackgasse:** Die Seite *Entwickler-Tools* (Graph API Explorer, Zugriffstoken-Tool,
+> Sharing Debugger) brauchst du hier nicht. Die beiden Token-Werkzeuge dort erzeugen
+> *Facebook*-Tokens, mit denen Instagram nichts anfangen kann. Dein Token entsteht in
+> Schritt 3 mit dem Knopf **Generate token** im Instagram-Bereich.
 
 ---
 
