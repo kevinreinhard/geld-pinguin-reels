@@ -85,6 +85,8 @@ export async function veroeffentlicheReel({ videoUrl, caption }) {
       video_url: videoUrl,
       caption,
       share_to_feed: String(IG.shareToFeed),
+      // Ohne thumb_offset nimmt Instagram Frame 0 - dort steht noch fast nichts im Bild.
+      thumb_offset: String(IG.thumbOffsetMs),
     },
   });
 

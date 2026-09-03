@@ -28,11 +28,13 @@ const TOOL = {
       body: {
         type: "array",
         items: { type: "string" },
-        description: "4 bis 7 kurze gesprochene Sätze, je max 16 Wörter, konkret mit Zahlen",
+        description:
+          "3 bis 5 kurze gesprochene Sätze, je max 14 Wörter, konkret mit Zahlen. Zusammen mit Hook und CTA höchstens 75 Wörter insgesamt.",
       },
       cta: {
         type: "string",
-        description: "Schlusssatz, max 12 Wörter, fordert zum Folgen oder Speichern auf",
+        description:
+          "Schlusssatz, max 10 Wörter, im Imperativ und in der Du-Form: 'Folge für ...' oder 'Speichere das ...'. Nicht 'Folgen für ...'.",
       },
       caption: {
         type: "string",
@@ -42,7 +44,7 @@ const TOOL = {
         type: "array",
         items: { type: "string" },
         description:
-          "12-18 Hashtags ohne #-Zeichen, Mix aus gross und Nische, Schweiz-Bezug. Hier keine Umlaute, sondern ae/oe/ue – so werden Hashtags auf Instagram gesucht.",
+          "12-18 Hashtags ohne #-Zeichen, Mix aus großen und Nischen-Tags, Bezug Deutschland. Keine Umlaute und kein ß, sondern ae/oe/ue/ss – so werden Hashtags auf Instagram gesucht. Niemals Jahreszahlen verwenden, die veralten sofort.",
       },
     },
     required: ["topic", "title", "hook", "body", "cta", "caption", "hashtags"],
@@ -51,30 +53,38 @@ const TOOL = {
 };
 
 function systemPrompt() {
-  return `Du schreibst Skripte für den Instagram-Reels-Kanal ${CHANNEL.handle} – Finanzbildung für die Schweiz.
+  return `Du schreibst Skripte für den Instagram-Reels-Kanal ${CHANNEL.handle} – Finanzbildung für Deutschland.
 
 Kanal:
 - Sprache: ${CHANNEL.sprache}
-- Währung und Kontext: ${CHANNEL.waehrung}, Schweizer Realität (Säule 3a, Krankenkasse mit Franchise, Pensionskasse, kantonale Steuern)
+- Markt: ${CHANNEL.markt}
+- Währung: ${CHANNEL.waehrung}
 - Zielgruppe: ${CHANNEL.zielgruppe}
 - Tonalität: ${CHANNEL.tonalitaet}
 
-Handwerk für ein 30-Sekunden-Reel:
-- Der Hook ist der ganze Job. Konkrete Zahl, Widerspruch oder teurer Irrtum. Keine Frage als Hook, keine Begrüssung, kein "Wusstest du".
-- Jeder Satz im Body bringt eine neue Information. Kein Satz darf gestrichen werden können, ohne dass etwas fehlt.
-- Zahlen statt Adjektive: "247 Franken im Jahr" schlägt "richtig viel Geld".
+Länge – das ist die wichtigste Regel:
+Das fertige Reel darf höchstens 30 Sekunden dauern, 20 bis 26 sind besser. Das sind
+insgesamt rund 55 bis 75 gesprochene Wörter, mehr nicht. Wie viele Zuschauer ein Reel
+zu Ende sehen, ist das stärkste Signal im Ranking – ein Gedanke weniger schlägt einen
+Satz zu viel. Ein Reel, eine einzige Idee.
+
+Handwerk:
+- Der Hook ist der ganze Job und entscheidet in zwei Sekunden. Konkrete Zahl, Widerspruch oder teurer Irrtum. Keine Frage als Hook, keine Begrüßung, kein "Wusstest du".
+- Jeder Satz bringt eine neue Information. Kein Satz darf gestrichen werden können, ohne dass etwas fehlt.
+- Zahlen statt Adjektive: "247 Euro im Jahr" schlägt "richtig viel Geld".
+- Der letzte inhaltliche Satz ist das Konkreteste im ganzen Reel: eine Handlung, die man heute erledigen kann.
 - Gesprochene Sprache, kurze Hauptsätze.
 
 Rechtschreibung – das steht so im Video und wird so vorgelesen:
 - Korrektes Deutsch mit Umlauten: ä, ö, ü. Niemals ae, oe, ue umschreiben.
-- Schweizer Konvention: immer ss, nie ß. Also "heisst", "grösser", "Strasse".
+- Deutsche Rechtschreibung mit ß, wo es hingehört: "heißt", "größer", "Straße", "dreißig".
 - Keine Aufzählungszeichen, keine Klammern, keine Emojis, kein Markdown, keine Sternchen.
-- Keine Abkürzungen wie "ca.", "z.B.", "CHF" – schreibe "zum Beispiel", "Franken".
-- Grosse Zahlen ausgeschrieben, damit die Sprachsynthese sie richtig liest: "vierundzwanzigtausend Franken" statt "24'000". Kleine Zahlen bis tausend dürfen als Ziffern stehen.
+- Keine Abkürzungen wie "ca.", "z.B.", "EUR" – schreibe "zum Beispiel", "Euro".
+- Große Zahlen ausgeschrieben, damit die Sprachsynthese sie richtig liest: "vierundzwanzigtausend Euro" statt "24.000". Zahlen bis tausend dürfen als Ziffern stehen.
 
 Bildung, keine Beratung: keine konkreten Produkt- oder Aktienempfehlungen, keine Renditeversprechen. Wo es um Anlegen geht, gehört das Risiko in einen Satz.
 
-Rufe immer das Tool reel_script auf. Antworte ausschliesslich über das Tool.`;
+Rufe immer das Tool reel_script auf. Antworte ausschließlich über das Tool.`;
 }
 
 function userPrompt(saeule, verboteneThemen) {

@@ -138,7 +138,7 @@ export function baueAss({ words, quelltext, offset, dauer, titel, handle, fontna
   if (handle) {
     zeilen.push(
       `Dialogue: 0,${zeit(0.4)},${zeit(dauer)},Handle,,0,0,0,,` +
-        `{\\pos(${mitte},${VIDEO.hoehe - 190})\\fad(400,300)\\alpha&H50&}${esc(handle)}`,
+        `{\\pos(${mitte},${c.handleY})\\fad(400,300)\\alpha&H50&}${esc(handle)}`,
     );
   }
 
