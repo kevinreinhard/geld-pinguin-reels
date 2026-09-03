@@ -463,21 +463,21 @@
     <header>
       <div class="eyebrow">Einrichtung · @geld.pinguin</div>
       <h1>Der Reel-Automat</h1>
-      <p class="lead">Alle drei Stunden schreibt, vertont, rendert und veröffentlicht sich ein Reel von selbst. Acht Schritte, dann läuft es ohne dich.</p>
+      <p class="lead">Viermal am Tag schreibt, vertont, rendert und veröffentlicht sich ein Reel von selbst. Acht Schritte, dann läuft es ohne dich.</p>
       <div class="facts">
         <span><b>45 Min.</b> einmalig</span>
         <span><b>8</b> Schritte</span>
-        <span><b>~10 CHF</b> pro Monat</span>
+        <span><b>~5 CHF</b> pro Monat</span>
         <span><b>0</b> Klicks danach</span>
       </div>
     </header>
 
     <section>
       <div class="section-head">
-        <div class="eyebrow">Was alle drei Stunden passiert</div>
+        <div class="eyebrow">Was bei jedem Lauf passiert</div>
         <h2>Die Kette</h2>
       </div>
-      <p>Ein Lauf dauert rund vier Minuten und läuft vollständig auf GitHubs Servern. Dein Rechner darf aus sein.</p>
+      <p>Ein Lauf dauert rund drei Minuten und läuft vollständig auf GitHubs Servern. Dein Rechner darf aus sein.</p>
       <div class="pipe">
         <div class="pipe-item"><span class="n">01</span><span class="t">Thema ziehen</span><span class="s">pillar.js</span></div>
         <div class="pipe-item"><span class="n">02</span><span class="t">Skript schreiben</span><span class="s">Claude Opus 5</span></div>
@@ -505,7 +505,7 @@
             <tr><td><b>Instagram</b> @geld.pinguin</td><td>Muss ein Business-Konto sein, sonst lässt die API nichts durch</td><td class="num">gratis</td></tr>
             <tr><td><b>Meta for Developers</b></td><td>Die App, über die gepostet wird</td><td class="num">gratis</td></tr>
             <tr><td><b>GitHub</b></td><td>Führt die Automatisierung aus und legt die Videos ab</td><td class="num">gratis</td></tr>
-            <tr><td><b>Anthropic Console</b></td><td>Schreibt Skript, Caption und Hashtags</td><td class="num">~10 CHF/Monat</td></tr>
+            <tr><td><b>Anthropic Console</b></td><td>Schreibt Skript, Caption und Hashtags</td><td class="num">~5 CHF/Monat</td></tr>
           </tbody>
         </table>
       </div>
@@ -779,7 +779,7 @@ gh repo create geld-pinguin-reels --public --source=. --push</pre>
         </div>
         <div class="step-body">
           <p>Denselben Workflow noch einmal starten, diesmal mit <b>publish = true</b>. Wenn dieser Lauf durchläuft und der Reel auf dem Kanal steht, ist die Einrichtung fertig.</p>
-          <p>Ab dann greift der Zeitplan: alle drei Stunden ein neuer Reel, ohne dein Zutun. Du siehst jeden Lauf unter <b>Actions</b> und bekommst von GitHub eine Mail, falls einer fehlschlägt.</p>
+          <p>Ab dann greift der Zeitplan: viermal täglich ein neuer Reel, ohne dein Zutun. Du siehst jeden Lauf unter <b>Actions</b> und bekommst von GitHub eine Mail, falls einer fehlschlägt.</p>
           <div class="note calm">
             <span class="label">Erledigt</span>
             <p>Nichts läuft mehr auf deinem Rechner. Der darf aus sein, im Zug liegen oder neu installiert werden — der Kanal postet weiter.</p>
@@ -794,27 +794,29 @@ gh repo create geld-pinguin-reels --public --source=. --push</pre>
         <div class="eyebrow">Nach ein bis zwei Wochen</div>
         <h2>Der Rhythmus</h2>
       </div>
-      <p>Acht Reels am Tag sind viel. Die API-Grenze von 100 Beiträgen in 24 Stunden ist nicht das Problem — die Reichweite ist es. Erfahrungsgemäss verteilt sich bei dichtem Takt dieselbe Aufmerksamkeit auf mehr Beiträge, und stark gleichförmiger Auto-Content kann zusätzlich gedrosselt werden.</p>
-      <p>Lass es erst so laufen. Schau dann in den Insights auf die <b>durchschnittlichen Aufrufe pro Reel</b>. Fallen die deutlich, dreh runter — das ist eine Zeile in <code>.github/workflows/reel.yml</code>:</p>
+      <p>Eingestellt sind <b>4 Reels pro Tag</b> um 8, 12, 18 und 21 Uhr deutscher Zeit.</p>
+      <p>Gestartet war der Kanal auf 8× täglich. Die Insights zeigten danach das Problem: Die kleine Testverteilung, die Instagram einem jungen Konto gibt, verteilt sich auf zu viele Beiträge — keiner sammelt genug Signal. Vier Posts bündeln dieselbe Aufmerksamkeit auf halb so vielen Reels. Die API-Grenze von 100 Beiträgen in 24 Stunden ist dabei nie der Engpass, die Reichweite ist es.</p>
+      <p>Ändern ist eine Zeile in <code>.github/workflows/reel.yml</code>:</p>
       <div class="code">
         <button class="copy" type="button">Kopieren</button>
-        <pre>    - cron: "0 */3 * * *"</pre>
+        <pre>    - cron: "0 6,10,16,19 * * *"</pre>
       </div>
       <div class="scroller">
         <table>
           <thead>
-            <tr><th>Statt dessen</th><th>Postet dann (Sommerzeit)</th><th class="num">Pro Tag</th></tr>
+            <tr><th>Cron (UTC)</th><th>Postet dann (Sommerzeit)</th><th class="num">Pro Tag</th></tr>
           </thead>
           <tbody>
+            <tr><td><code>0 6,10,16,19 * * *</code></td><td>08, 12, 18, 21 Uhr — aktuell eingestellt</td><td class="num">4×</td></tr>
+            <tr><td><code>0 7,17 * * *</code></td><td>09, 19 Uhr — sehr konzentriert</td><td class="num">2×</td></tr>
+            <tr><td><code>0 5,8,11,14,17,20 * * *</code></td><td>07, 10, 13, 16, 19, 22 Uhr</td><td class="num">6×</td></tr>
             <tr><td><code>0 */3 * * *</code></td><td>02, 05, 08, 11, 14, 17, 20, 23 Uhr</td><td class="num">8×</td></tr>
-            <tr><td><code>0 5,8,11,14,17,20 * * *</code></td><td>07, 10, 13, 16, 19, 22 Uhr — nur tagsüber</td><td class="num">6×</td></tr>
-            <tr><td><code>0 6,10,16,19 * * *</code></td><td>08, 12, 18, 21 Uhr — reichweitenfreundlich</td><td class="num">4×</td></tr>
           </tbody>
         </table>
       </div>
       <div class="note">
         <span class="label">Die Zeiten sind UTC</span>
-        <p>Schweizer Zeit ist UTC+1 im Winter und UTC+2 im Sommer. Bei einem festen Zeitplan verschieben sich die Posts also zweimal im Jahr um eine Stunde. Für Reels ist das folgenlos.</p>
+        <p>Deutsche Zeit ist UTC+1 im Winter und UTC+2 im Sommer. Bei einem festen Zeitplan verschieben sich die Posts also zweimal im Jahr um eine Stunde. Für Reels ist das folgenlos.</p>
         <p>Zwei Eigenheiten von GitHub Actions: Geplante Läufe starten oft 5 bis 20 Minuten später als angegeben. Und nach 60 Tagen ohne Repo-Aktivität schaltet GitHub sie ab — was hier nicht passiert, weil jeder Lauf die Themen-Historie zurückschreibt.</p>
       </div>
     </section>
@@ -860,10 +862,10 @@ gh repo create geld-pinguin-reels --public --source=. --push</pre>
       <div class="scroller">
         <table>
           <thead>
-            <tr><th>Posten</th><th class="num">Pro Reel</th><th class="num">Bei 8 Reels/Tag</th></tr>
+            <tr><th>Posten</th><th class="num">Pro Reel</th><th class="num">Bei 4 Reels/Tag</th></tr>
           </thead>
           <tbody>
-            <tr><td>Claude Opus 5 — Skript und Caption</td><td class="num">~0.04 CHF</td><td class="num">~10 CHF/Monat</td></tr>
+            <tr><td>Claude Opus 5 — Skript und Caption</td><td class="num">~0.04 CHF</td><td class="num">~5 CHF/Monat</td></tr>
             <tr><td>Edge TTS — Sprecherstimme</td><td class="num">gratis</td><td class="num">gratis</td></tr>
             <tr><td>GitHub Actions — Rechenzeit</td><td class="num">~4 Min.</td><td class="num">gratis bei öffentlichen Repos</td></tr>
             <tr><td>Instagram Graph API</td><td class="num">gratis</td><td class="num">gratis</td></tr>

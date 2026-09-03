@@ -1,6 +1,6 @@
 # geld.pinguin – automatische Reel-Produktion
 
-Baut alle drei Stunden ein fertiges Instagram-Reel und veröffentlicht es selbst.
+Baut viermal täglich ein fertiges Instagram-Reel und veröffentlicht es selbst.
 Kein Klick nötig, nachdem die Einrichtung einmal steht.
 
 **Einrichtung:** [Anleitung als Webseite](https://claude.ai/code/artifact/beac596a-e3bf-4bde-8c7f-4d7ceba2fb96) · Kurzfassung in [SETUP.md](SETUP.md)
@@ -81,26 +81,26 @@ Musikbibliothek nicht nutzen, also nur lizenzfreie Tracks verwenden.
 
 ## Kosten
 
-| Posten | Pro Reel | Bei 8 Reels/Tag |
+| Posten | Pro Reel | Bei 4 Reels/Tag |
 |---|---|---|
-| Claude Opus 5 (Skript) | ~0.04 CHF | ~10 CHF/Monat |
+| Claude Opus 5 (Skript) | ~0.04 CHF | ~5 CHF/Monat |
 | Edge TTS | gratis | gratis |
-| GitHub Actions | ~4 Min. | im Gratis-Kontingent öffentlicher Repos |
+| GitHub Actions | ~3 Min. | im Gratis-Kontingent öffentlicher Repos |
 | Instagram API | gratis | gratis |
 
 ---
 
 ## Zum Posting-Rhythmus
 
-Acht Reels pro Tag sind sehr viel. Instagrams API erlaubt für diesen Kanal 100 Beiträge in 24 Stunden,
-das ist nicht der Engpass – die Reichweite ist es. Erfahrungsgemäss verteilt sich bei
-diesem Takt dieselbe Aufmerksamkeit auf mehr Beiträge, und stark gleichförmiger
-Auto-Content kann zusätzlich gedrosselt werden.
+Eingestellt sind **4 Reels pro Tag** um 8, 12, 18 und 21 Uhr deutscher Zeit.
 
-Die Empfehlung: die ersten ein bis zwei Wochen auf 8× laufen lassen, in den Insights
-die durchschnittlichen Aufrufe pro Reel beobachten und dann den Cron auf
-4× oder 6× täglich reduzieren, falls die Werte pro Beitrag deutlich sinken.
-Der Zeitplan steht in einer Zeile, siehe SETUP.md Abschnitt 7.
+Ursprünglich lief der Kanal auf 8× täglich. Die Insights zeigten danach, dass die
+kleine Testverteilung, die Instagram einem jungen Konto gibt, sich auf zu viele
+Beiträge verteilt – keiner sammelt genug Signal. Vier Posts bündeln dieselbe
+Aufmerksamkeit auf halb so vielen Reels.
+
+Die API-Grenze von 100 Beiträgen in 24 Stunden ist dabei nie der Engpass, die
+Reichweite ist es. Der Zeitplan steht in einer Zeile, siehe SETUP.md Abschnitt 7.
 
 ---
 

@@ -2,8 +2,13 @@ name: Reel erzeugen und veroeffentlichen
 
 on:
   schedule:
-    # Alle 3 Stunden (UTC). GitHub startet Cron-Jobs mit ein paar Minuten Verzug.
-    - cron: "0 */3 * * *"
+    # 4x taeglich (UTC). Deutsche Ortszeit im Sommer +2, im Winter +1 Stunde:
+    #   06 UTC -> 08 Uhr  Pendelzeit
+    #   10 UTC -> 12 Uhr  Mittagspause
+    #   16 UTC -> 18 Uhr  Feierabend
+    #   19 UTC -> 21 Uhr  Abend-Peak, staerkste Reels-Zeit
+    # GitHub startet Cron-Jobs mit ein paar Minuten Verzug - fuer Reels folgenlos.
+    - cron: "0 6,10,16,19 * * *"
   workflow_dispatch:
     inputs:
       publish:

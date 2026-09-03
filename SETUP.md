@@ -127,7 +127,7 @@ erneuern, sonst steht die Automatisierung still.
 - Nach ~4 Minuten unten beim Lauf das Artefakt `reel-1` herunterladen und anschauen
 
 Passt das Ergebnis? Dann denselben Workflow noch einmal mit `publish = true` starten.
-Ab da läuft der Cron alle drei Stunden von allein.
+Ab da läuft der Cron viermal täglich von allein.
 
 ---
 
@@ -136,16 +136,17 @@ Ab da läuft der Cron alle drei Stunden von allein.
 In `.github/workflows/reel.yml`:
 
 ```yaml
-    - cron: "0 */3 * * *"
+    - cron: "0 6,10,16,19 * * *"
 ```
 
-Die Zeit ist **UTC**. Schweizer Zeit ist UTC+1 (Winter) bzw. UTC+2 (Sommer).
+Die Zeit ist **UTC**. Deutsche Zeit ist UTC+1 (Winter) bzw. UTC+2 (Sommer).
 
-| Cron (UTC) | Postet (Sommerzeit CH) |
-|---|---|
-| `0 */3 * * *` | 02, 05, 08, 11, 14, 17, 20, 23 Uhr |
-| `0 5,8,11,14,17,20 * * *` | 07, 10, 13, 16, 19, 22 Uhr – nur tagsüber, 6× statt 8× |
-| `0 6,10,16,19 * * *` | 08, 12, 18, 21 Uhr – 4× täglich, reichweitenfreundlicher |
+| Cron (UTC) | Postet (Sommerzeit DE) | Pro Tag |
+|---|---|---|
+| `0 6,10,16,19 * * *` | 08, 12, 18, 21 Uhr | **4× – aktuell eingestellt** |
+| `0 5,8,11,14,17,20 * * *` | 07, 10, 13, 16, 19, 22 Uhr | 6× |
+| `0 */3 * * *` | 02, 05, 08, 11, 14, 17, 20, 23 Uhr | 8× |
+| `0 7,17 * * *` | 09, 19 Uhr | 2× |
 
 Zwei Eigenheiten von GitHub Actions:
 - Cron-Jobs starten oft 5–20 Minuten später als angegeben. Für Reels egal.
@@ -183,4 +184,4 @@ Skript automatisch R2.
 | `(code 4) Application request limit reached` | Zu viele API-Aufrufe – Intervall vergrössern |
 | `Zeitüberschreitung: Instagram hat das Video nicht verarbeitet` | Meist zu grosse Datei oder langsamer Abruf – `crf` in `src/config.js` auf 22 erhöhen |
 | `Edge TTS hat weder Wort- noch Satzgrenzen geliefert` | Microsofts TTS-Endpunkt war kurz gestört – nächster Lauf greift wieder |
-| `Tageskontingent von Instagram ausgeschöpft` | 100 Beiträge in 24 h erreicht – kann bei 8 Posts/Tag nicht passieren |
+| `Tageskontingent von Instagram ausgeschöpft` | 100 Beiträge in 24 h erreicht – kann bei 4 Posts/Tag nicht passieren |
