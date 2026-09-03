@@ -11,16 +11,16 @@ export const CHANNEL = {
     "freundlich-frech, konkret, null Bullshit, kein Motivations-Geschwafel, keine Emoji-Flut",
 };
 
-// Themensaeulen. Pro Reel wird eine gewichtet zufaellig gezogen.
+// Themensäulen. Pro Reel wird eine gewichtet zufällig gezogen.
 export const PILLARS = [
   { key: "sparen", gewicht: 3, beschreibung: "Alltagssparen, Fixkosten senken, Abo-Fallen, Budget-Systeme" },
-  { key: "investieren", gewicht: 3, beschreibung: "ETF-Basics, Zinseszins, Diversifikation, typische Anfaengerfehler" },
-  { key: "vorsorge", gewicht: 2, beschreibung: "Saeule 3a, Pensionskasse, Einkauf PK, Vorsorge-Irrtuemer Schweiz" },
-  { key: "steuern", gewicht: 2, beschreibung: "Steuerabzuege Schweiz, Steuererklaerung, legale Optimierung" },
+  { key: "investieren", gewicht: 3, beschreibung: "ETF-Basics, Zinseszins, Diversifikation, typische Anfängerfehler" },
+  { key: "vorsorge", gewicht: 2, beschreibung: "Säule 3a, Pensionskasse, Einkauf PK, Vorsorge-Irrtümer Schweiz" },
+  { key: "steuern", gewicht: 2, beschreibung: "Steuerabzüge Schweiz, Steuererklärung, legale Optimierung" },
   { key: "schulden", gewicht: 1, beschreibung: "Leasing, Kreditkarten, Konsumkredite, Schuldenspirale" },
-  { key: "psychologie", gewicht: 2, beschreibung: "Money-Mindset, Lifestyle-Inflation, Impulskaeufe, Vergleichsfalle" },
+  { key: "psychologie", gewicht: 2, beschreibung: "Money-Mindset, Lifestyle-Inflation, Impulskäufe, Vergleichsfalle" },
   { key: "nebeneinkommen", gewicht: 1, beschreibung: "Nebenverdienst, Skills monetarisieren, realistische Zahlen" },
-  { key: "versicherung", gewicht: 1, beschreibung: "Krankenkasse, Franchise, unnoetige Versicherungen" },
+  { key: "versicherung", gewicht: 1, beschreibung: "Krankenkasse, Franchise, unnötige Versicherungen" },
 ];
 
 export const VIDEO = {

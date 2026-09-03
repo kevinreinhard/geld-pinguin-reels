@@ -7,40 +7,42 @@ const client = new Anthropic(); // liest ANTHROPIC_API_KEY aus der Umgebung
 const TOOL = {
   name: "reel_script",
   description:
-    "Liefert das fertige Skript, den Titel und die Instagram-Caption fuer ein Reel.",
+    "Liefert das fertige Skript, den Titel und die Instagram-Caption für ein Reel.",
   strict: true,
   input_schema: {
     type: "object",
     properties: {
       topic: {
         type: "string",
-        description: "Kurzer Themen-Slug in 2-5 Woertern, dient der Dubletten-Erkennung",
+        description: "Kurzer Themen-Slug in 2-5 Wörtern, dient der Dubletten-Erkennung",
       },
       title: {
         type: "string",
-        description: "Titelkarte im Video, 2-4 Woerter, GROSSBUCHSTABEN, kein Punkt",
+        description:
+          "Titelkarte im Video, 2-4 Wörter, GROSSBUCHSTABEN, kein Punkt. Umlaute als Ä, Ö, Ü schreiben, nicht umschreiben.",
       },
       hook: {
         type: "string",
-        description: "Erster gesprochener Satz. Max 12 Woerter, muss in 2 Sekunden sitzen.",
+        description: "Erster gesprochener Satz. Max 12 Wörter, muss in 2 Sekunden sitzen.",
       },
       body: {
         type: "array",
         items: { type: "string" },
-        description: "4 bis 7 kurze gesprochene Saetze, je max 16 Woerter, konkret mit Zahlen",
+        description: "4 bis 7 kurze gesprochene Sätze, je max 16 Wörter, konkret mit Zahlen",
       },
       cta: {
         type: "string",
-        description: "Schlusssatz, max 12 Woerter, fordert zum Folgen oder Speichern auf",
+        description: "Schlusssatz, max 12 Wörter, fordert zum Folgen oder Speichern auf",
       },
       caption: {
         type: "string",
-        description: "Instagram-Caption ohne Hashtags, 2-4 Saetze, endet mit einer Frage",
+        description: "Instagram-Caption ohne Hashtags, 2-4 Sätze, endet mit einer Frage",
       },
       hashtags: {
         type: "array",
         items: { type: "string" },
-        description: "12-18 Hashtags ohne #-Zeichen, Mix aus gross und Nische, Schweiz-Bezug",
+        description:
+          "12-18 Hashtags ohne #-Zeichen, Mix aus gross und Nische, Schweiz-Bezug. Hier keine Umlaute, sondern ae/oe/ue – so werden Hashtags auf Instagram gesucht.",
       },
     },
     required: ["topic", "title", "hook", "body", "cta", "caption", "hashtags"],
@@ -49,32 +51,39 @@ const TOOL = {
 };
 
 function systemPrompt() {
-  return `Du schreibst Skripte fuer den Instagram-Reels-Kanal ${CHANNEL.handle} - Finanzbildung fuer die Schweiz.
+  return `Du schreibst Skripte für den Instagram-Reels-Kanal ${CHANNEL.handle} – Finanzbildung für die Schweiz.
 
 Kanal:
 - Sprache: ${CHANNEL.sprache}
-- Waehrung und Kontext: ${CHANNEL.waehrung}, Schweizer Realitaet (Saeule 3a, Krankenkasse mit Franchise, Pensionskasse, kantonale Steuern)
+- Währung und Kontext: ${CHANNEL.waehrung}, Schweizer Realität (Säule 3a, Krankenkasse mit Franchise, Pensionskasse, kantonale Steuern)
 - Zielgruppe: ${CHANNEL.zielgruppe}
-- Tonalitaet: ${CHANNEL.tonalitaet}
+- Tonalität: ${CHANNEL.tonalitaet}
 
-Handwerk fuer ein 30-Sekunden-Reel:
-- Der Hook ist der ganze Job. Konkrete Zahl, Widerspruch oder teurer Irrtum. Keine Frage als Hook, keine Begruessung, kein "Wusstest du".
-- Jeder Satz im Body bringt eine neue Information. Kein Satz darf gestrichen werden koennen, ohne dass etwas fehlt.
-- Zahlen statt Adjektive: "247 Franken im Jahr" schlaegt "richtig viel Geld".
-- Gesprochene Sprache. Kurze Hauptsaetze. Keine Aufzaehlungszeichen, keine Klammern, keine Emojis, keine Sonderzeichen im gesprochenen Text - das Skript geht direkt in eine Sprachsynthese.
-- Zahlen ausschreiben wie gesprochen: "zweihundert Franken" oder "200 Franken" ist ok, aber keine Abkuerzungen wie "ca.", "z.B.", "CHF" - schreibe "zum Beispiel", "Franken".
-- Bildung, keine Beratung. Keine konkreten Produkt- oder Aktienempfehlungen, keine Renditeversprechen. Wo es um Anlegen geht, gehoert das Risiko in einen Satz.
+Handwerk für ein 30-Sekunden-Reel:
+- Der Hook ist der ganze Job. Konkrete Zahl, Widerspruch oder teurer Irrtum. Keine Frage als Hook, keine Begrüssung, kein "Wusstest du".
+- Jeder Satz im Body bringt eine neue Information. Kein Satz darf gestrichen werden können, ohne dass etwas fehlt.
+- Zahlen statt Adjektive: "247 Franken im Jahr" schlägt "richtig viel Geld".
+- Gesprochene Sprache, kurze Hauptsätze.
 
-Rufe immer das Tool reel_script auf. Antworte ausschliesslich ueber das Tool.`;
+Rechtschreibung – das steht so im Video und wird so vorgelesen:
+- Korrektes Deutsch mit Umlauten: ä, ö, ü. Niemals ae, oe, ue umschreiben.
+- Schweizer Konvention: immer ss, nie ß. Also "heisst", "grösser", "Strasse".
+- Keine Aufzählungszeichen, keine Klammern, keine Emojis, kein Markdown, keine Sternchen.
+- Keine Abkürzungen wie "ca.", "z.B.", "CHF" – schreibe "zum Beispiel", "Franken".
+- Grosse Zahlen ausgeschrieben, damit die Sprachsynthese sie richtig liest: "vierundzwanzigtausend Franken" statt "24'000". Kleine Zahlen bis tausend dürfen als Ziffern stehen.
+
+Bildung, keine Beratung: keine konkreten Produkt- oder Aktienempfehlungen, keine Renditeversprechen. Wo es um Anlegen geht, gehört das Risiko in einen Satz.
+
+Rufe immer das Tool reel_script auf. Antworte ausschliesslich über das Tool.`;
 }
 
 function userPrompt(saeule, verboteneThemen) {
   const negativ = verboteneThemen.length
-    ? `\n\nDiese Themen hatten wir schon - waehle etwas deutlich anderes:\n- ${verboteneThemen.join("\n- ")}`
+    ? `\n\nDiese Themen hatten wir schon – wähle etwas deutlich anderes:\n- ${verboteneThemen.join("\n- ")}`
     : "";
-  return `Schreib ein neues Reel zur Themensaeule "${saeule.key}" (${saeule.beschreibung}).
+  return `Schreib ein neues Reel zur Themensäule "${saeule.key}" (${saeule.beschreibung}).
 
-Suche dir darin einen spitzen, konkreten Einzelaspekt - nicht das Oberthema abhandeln. Ein Reel, eine Idee.${negativ}`;
+Suche dir darin einen spitzen, konkreten Einzelaspekt – nicht das Oberthema abhandeln. Ein Reel, eine Idee.${negativ}`;
 }
 
 /** Ruft Claude auf und gibt das validierte Skript-Objekt zurueck. */
