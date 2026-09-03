@@ -111,11 +111,25 @@ gh repo create geld-pinguin-reels --public --source=. --push
 | `GH_PAT` | Fine-grained PAT, nur für die Token-Erneuerung | empfohlen |
 
 **`GH_PAT` erzeugen:** <https://github.com/settings/personal-access-tokens/new>
-→ *Repository access*: nur dieses Repo → *Permissions*:
-`Secrets: Read and write` **und** `Contents: Read-only` → Laufzeit 1 Jahr.
+(Oberfläche: Profilbild → Settings → Developer settings → Personal access tokens →
+Fine-grained tokens → Generate new token)
+
+1. **Token name**: `geld-pinguin-token-refresh`
+2. **Resource owner**: dein eigenes Konto, keine Organisation
+3. **Expiration**: 1 Jahr, mehr geht bei Fine-grained-Tokens nicht
+4. **Repository access**: *Only select repositories* → `geld-pinguin-reels`
+5. **Repository permissions**: genau eine Änderung, **Secrets → Read and write**.
+   *Metadata → Read-only* schaltet GitHub automatisch dazu, alles andere bleibt
+   auf *No access*. Mehr braucht `gh secret set` nicht.
+6. **Generate token** → Wert beginnt mit `github_pat_` → als Secret `GH_PAT` einsetzen
+
+> **Erst ab 24 Stunden testbar:** Instagram verlängert einen Token erst, wenn er
+> mindestens einen Tag alt ist. Ein Handstart des Workflows *Instagram-Token erneuern*
+> davor schlägt fehl, ohne dass etwas kaputt wäre.
 
 Ohne `GH_PAT` läuft alles – aber du musst `IG_ACCESS_TOKEN` alle 60 Tage von Hand
-erneuern, sonst steht die Automatisierung still.
+erneuern, sonst steht die Automatisierung still. Wenn du dich dafür entscheidest,
+lösche `.github/workflows/refresh-token.yml`, sonst kommt jeden Montag eine Fehlermail.
 
 ---
 

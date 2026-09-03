@@ -734,15 +734,28 @@ gh repo create geld-pinguin-reels --public --source=. --push</pre>
             </table>
           </div>
           <h3><code>GH_PAT</code> erzeugen</h3>
+          <p>Direkt: <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener">github.com/settings/personal-access-tokens/new</a> — über die Oberfläche: Profilbild → <b>Settings</b> → ganz unten links <b>Developer settings</b> → <b>Personal access tokens</b> → <b>Fine-grained tokens</b> → <b>Generate new token</b>.</p>
           <ol class="plain">
-            <li>Auf <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener">github.com/settings/personal-access-tokens/new</a></li>
-            <li><b>Repository access</b>: nur dieses eine Repository</li>
-            <li><b>Permissions</b>: <code>Secrets: Read and write</code> und <code>Contents: Read-only</code></li>
-            <li>Laufzeit ein Jahr, erzeugen, als Secret <code>GH_PAT</code> einsetzen</li>
+            <li><b>Token name</b>: <code>geld-pinguin-token-refresh</code>, nur für dich sichtbar</li>
+            <li><b>Resource owner</b>: dein eigenes Konto, nicht eine Organisation</li>
+            <li><b>Expiration</b>: 1 Jahr, das Maximum bei Fine-grained-Tokens</li>
+            <li><b>Repository access</b>: <b>Only select repositories</b> → <code>geld-pinguin-reels</code> auswählen, nicht „All repositories"</li>
+            <li><b>Repository permissions</b>: in der langen Liste steht alles auf <em>No access</em>. Du brauchst genau eine Änderung: <b>Secrets → Read and write</b></li>
+            <li><b>Generate token</b> → kopieren, beginnt mit <code>github_pat_</code></li>
+            <li>Als Secret <code>GH_PAT</code> im Repo hinterlegen</li>
           </ol>
+          <div class="note calm">
+            <span class="label">Metadata kommt automatisch</span>
+            <p>Sobald du Secrets auf <em>Read and write</em> stellst, schaltet GitHub <b>Metadata → Read-only</b> selbst dazu und lässt es nicht mehr abwählen. Das ist richtig so. Alles andere bleibt auf <em>No access</em> — mehr braucht <code>gh secret set</code> nicht.</p>
+          </div>
+          <div class="note">
+            <span class="label">Erst ab 24 Stunden testbar</span>
+            <p>Instagram verlängert einen Token erst, wenn er mindestens einen Tag alt ist. Startest du den Workflow <em>Instagram-Token erneuern</em> vorher von Hand, schlägt er mit einer Meldung fehl, die nach einem echten Problem aussieht, aber keines ist.</p>
+          </div>
           <div class="note">
             <span class="label">Was ohne GH_PAT passiert</span>
-            <p>Alles läuft normal — bis der Instagram-Token nach 60 Tagen abläuft. Dann steht die Automatisierung still, bis du Schritt 3 von Hand wiederholst. Die fünf Minuten für den PAT lohnen sich.</p>
+            <p>Alles läuft normal — bis der Instagram-Token nach 60 Tagen abläuft. Dann steht die Automatisierung still, bis du Schritt 3 von Hand wiederholst.</p>
+            <p>Das ist eine legitime Entscheidung: viermal im Jahr fünf Minuten Handarbeit, dafür ein Token weniger, der herumliegt. Wenn du dich so entscheidest, lösche den Workflow <code>.github/workflows/refresh-token.yml</code>, statt ihn halb funktionsfähig stehen zu lassen — sonst schreibt dir GitHub jeden Montag eine Fehlermail.</p>
           </div>
         </div>
       </div>
