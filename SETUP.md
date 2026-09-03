@@ -123,6 +123,21 @@ Fine-grained tokens → Generate new token)
    auf *No access*. Mehr braucht `gh secret set` nicht.
 6. **Generate token** → Wert beginnt mit `github_pat_` → als Secret `GH_PAT` einsetzen
 
+> **Vier Einträge klingen richtig, nur einer ist es:** *Dependabot secrets*,
+> *Codespaces secrets* und *Environments* sind es nicht. Gesucht ist der Eintrag,
+> der schlicht **Secrets** heisst („Manage Actions repository secrets"), weit unten
+> zwischen *Secret scanning alerts* und *Security events*.
+
+> **Berechtigung vergessen?** Fine-grained-Tokens lassen sich nachträglich ändern,
+> ohne dass sich ihr Wert ändert: Tokenliste → Token anklicken → Permissions
+> anpassen → *Update token*. Ein bereits gesetztes `GH_PAT`-Secret bleibt gültig.
+> Prüfen mit (HTTP 200 = passt):
+>
+> ```bash
+> curl -o /dev/null -w '%{http_code}
+' -H "Authorization: Bearer DEIN_PAT" >   https://api.github.com/repos/kevinreinhard/geld-pinguin-reels/actions/secrets/public-key
+> ```
+
 > **Erst ab 24 Stunden testbar:** Instagram verlängert einen Token erst, wenn er
 > mindestens einen Tag alt ist. Ein Handstart des Workflows *Instagram-Token erneuern*
 > davor schlägt fehl, ohne dass etwas kaputt wäre.

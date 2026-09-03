@@ -744,9 +744,27 @@ gh repo create geld-pinguin-reels --public --source=. --push</pre>
             <li><b>Generate token</b> → kopieren, beginnt mit <code>github_pat_</code></li>
             <li>Als Secret <code>GH_PAT</code> im Repo hinterlegen</li>
           </ol>
+
+          <div class="note">
+            <span class="label">Vier Einträge klingen richtig, nur einer ist es</span>
+            <p>Die Berechtigungsliste ist lang und alphabetisch. <b>Dependabot secrets</b>, <b>Codespaces secrets</b> und <b>Environments</b> sind es alle <em>nicht</em>. Du brauchst den Eintrag, der schlicht <b>Secrets</b> heisst, mit der Beschreibung „Manage Actions repository secrets". Er sitzt zwischen <em>Secret scanning alerts</em> und <em>Security events</em>, also weit unten — leicht zu überscrollen.</p>
+          </div>
+
           <div class="note calm">
             <span class="label">Metadata kommt automatisch</span>
             <p>Sobald du Secrets auf <em>Read and write</em> stellst, schaltet GitHub <b>Metadata → Read-only</b> selbst dazu und lässt es nicht mehr abwählen. Das ist richtig so. Alles andere bleibt auf <em>No access</em> — mehr braucht <code>gh secret set</code> nicht.</p>
+          </div>
+
+          <div class="note calm">
+            <span class="label">Berechtigung vergessen? Kein neuer Token nötig</span>
+            <p>Fine-grained-Tokens lassen sich nachträglich ändern, ohne dass sich ihr Wert ändert: <a href="https://github.com/settings/personal-access-tokens" target="_blank" rel="noopener">Tokenliste</a> → Token anklicken → <b>Repository permissions</b> anpassen → unten <b>Update token</b>. Ein bereits hinterlegtes <code>GH_PAT</code>-Secret bleibt dabei gültig.</p>
+            <p>Prüfen lässt sich das ohne Ratespiel — HTTP 200 heisst, die Berechtigung sitzt:</p>
+            <div class="code" style="margin-top:.5rem">
+              <button class="copy" type="button">Kopieren</button>
+              <pre>curl -o /dev/null -w '%{http_code}\n' \
+  -H "Authorization: Bearer DEIN_PAT" \
+  https://api.github.com/repos/kevinreinhard/geld-pinguin-reels/actions/secrets/public-key</pre>
+            </div>
           </div>
           <div class="note">
             <span class="label">Erst ab 24 Stunden testbar</span>
