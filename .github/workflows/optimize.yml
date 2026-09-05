@@ -1,0 +1,83 @@
+name: Kanal analysieren und nachjustieren
+
+# Der Lernkreis des Kanals:
+#   1. Kennzahlen aller Beitraege bei Instagram abholen  -> data/performance.json
+#   2. Claude bewertet die Zahlen                        -> data/berichte/DATUM.md
+#   3. Bei ausreichender Datenlage Stellschrauben anpassen -> data/tuning.json
+#
+# Zwei Sicherungen: Die Stellschrauben sind eine kleine, hart validierte JSON-Datei
+# statt Quellcode, und Aenderungen greifen erst ab einer Mindestmenge an Daten.
+# Alles landet im Git-Verlauf und ist mit einem revert rueckgaengig zu machen.
+
+on:
+  schedule:
+    - cron: "0 5 * * 0"   # sonntags, frueh
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: optimize
+  cancel-in-progress: false
+
+jobs:
+  analysieren:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+
+      - run: npm ci --omit=optional
+
+      - name: Kennzahlen abholen
+        env:
+          IG_ACCESS_TOKEN: ${{ secrets.IG_ACCESS_TOKEN }}
+          IG_USER_ID: ${{ secrets.IG_USER_ID }}
+        run: node scripts/insights.js
+
+      - name: Analysieren und nachjustieren
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: node scripts/analyse.js
+
+      - name: Bericht in die Laufuebersicht schreiben
+        if: always()
+        run: |
+          neuester=$(ls -1 data/berichte/*.md 2>/dev/null | tail -1)
+          if [ -n "$neuester" ]; then
+            cat "$neuester" >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo "Kein Bericht erzeugt." >> "$GITHUB_STEP_SUMMARY"
+          fi
+
+      - name: Ergebnisse zurueckschreiben
+        if: success()
+        run: |
+          if git diff --quiet -- data/; then
+            echo "Nichts geaendert."
+            exit 0
+          fi
+          status=$(cat build/analyse-status.txt 2>/dev/null || echo unveraendert)
+          if [ "$status" = "geaendert" ]; then
+            nachricht="Analyse: Kennzahlen, Bericht und angepasste Stellschrauben [skip ci]"
+          else
+            nachricht="Analyse: Kennzahlen und Bericht [skip ci]"
+          fi
+          git config user.name "geld-pinguin-bot"
+          git config user.email "bot@users.noreply.github.com"
+          git add data/
+          git commit -m "$nachricht"
+          for i in 1 2 3; do
+            git pull --rebase --autostash origin "${GITHUB_REF_NAME}" && git push && exit 0
+            echo "Push-Versuch $i fehlgeschlagen, neuer Versuch ..."
+            sleep 5
+          done
+          echo "Konnte nicht pushen."
+          exit 1

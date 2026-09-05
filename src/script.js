@@ -1,6 +1,7 @@
 import Anthropic from "@anthropic-ai/sdk";
 import { CHANNEL, MODEL } from "./config.js";
 import { letzteThemen } from "./history.js";
+import { ladeTuning } from "./tuning.js";
 
 const client = new Anthropic(); // liest ANTHROPIC_API_KEY aus der Umgebung
 
@@ -53,6 +54,12 @@ const TOOL = {
 };
 
 function systemPrompt() {
+  const { zielWoerter, hookHinweise } = ladeTuning({ still: true });
+  // Was der Analyse-Agent aus den gemessenen Zahlen abgeleitet hat.
+  const gelernt = hookHinweise.length
+    ? `\n\nAus den gemessenen Zahlen dieses Kanals gelernt:\n- ${hookHinweise.join("\n- ")}`
+    : "";
+
   return `Du schreibst Skripte für den Instagram-Reels-Kanal ${CHANNEL.handle} – Finanzbildung für Deutschland.
 
 Kanal:
@@ -64,7 +71,7 @@ Kanal:
 
 Länge – das ist die wichtigste Regel:
 Das fertige Reel darf höchstens 30 Sekunden dauern, 20 bis 26 sind besser. Das sind
-insgesamt rund 55 bis 75 gesprochene Wörter, mehr nicht. Wie viele Zuschauer ein Reel
+insgesamt rund ${zielWoerter - 10} bis ${zielWoerter + 10} gesprochene Wörter, mehr nicht. Wie viele Zuschauer ein Reel
 zu Ende sehen, ist das stärkste Signal im Ranking – ein Gedanke weniger schlägt einen
 Satz zu viel. Ein Reel, eine einzige Idee.
 
@@ -84,7 +91,7 @@ Rechtschreibung – das steht so im Video und wird so vorgelesen:
 
 Bildung, keine Beratung: keine konkreten Produkt- oder Aktienempfehlungen, keine Renditeversprechen. Wo es um Anlegen geht, gehört das Risiko in einen Satz.
 
-Rufe immer das Tool reel_script auf. Antworte ausschließlich über das Tool.`;
+Rufe immer das Tool reel_script auf. Antworte ausschließlich über das Tool.${gelernt}`;
 }
 
 function userPrompt(saeule, verboteneThemen) {
