@@ -27,28 +27,24 @@ function begruendung(text) {
   process.stderr.write("  " + text + "\n");
 }
 
-/**
- * postSlots wird jetzt als Rahmen gelesen, nicht als exakte Termine:
- * die Anzahl ergibt das Tagesziel, der Bereich das erlaubte Zeitfenster.
- */
-export function regeln(postSlots) {
-  const stunden = [...postSlots].sort((a, b) => a - b);
-  const zielProTag = stunden.length;
-  const von = stunden[0];
-  const bis = stunden[stunden.length - 1];
+/** Leitet aus Tagesziel und Fenster den nötigen Mindestabstand ab. */
+export function regeln({ postsProTag, fenster }) {
+  const [von, bis] = fenster;
 
-  // Abstand etwas unter der rechnerisch gleichmäßigen Verteilung, damit ein
-  // verspäteter Lauf den Rhythmus nicht für den Rest des Tages blockiert.
-  const spanneMin = (bis - von) * 60;
-  const gleichmaessig = zielProTag > 1 ? spanneMin / (zielProTag - 1) : spanneMin;
-  const mindestabstandMin = Math.max(90, Math.round(gleichmaessig * 0.7));
+  // Bei einem Beitrag pro Tag braucht es keinen Abstand - das Tagesziel regelt
+  // alles. Bei mehreren etwas unter der rechnerisch gleichmäßigen Verteilung,
+  // damit ein verspäteter Lauf den Rest des Tages nicht blockiert.
+  const mindestabstandMin =
+    postsProTag > 1
+      ? Math.max(90, Math.round(((bis - von) * 60) / (postsProTag - 1) * 0.7))
+      : 0;
 
-  return { zielProTag, von, bis, mindestabstandMin };
+  return { zielProTag: postsProTag, von, bis, mindestabstandMin };
 }
 
 function main() {
-  const { postSlots } = ladeTuning({ still: true });
-  const { zielProTag, von, bis, mindestabstandMin } = regeln(postSlots);
+  const tuning = ladeTuning({ still: true });
+  const { zielProTag, von, bis, mindestabstandMin } = regeln(tuning);
 
   const jetzt = new Date();
   const stunde = jetzt.getUTCHours();
@@ -72,7 +68,7 @@ function main() {
   }
 
   const letzter = posts[posts.length - 1];
-  if (letzter) {
+  if (letzter && mindestabstandMin > 0) {
     const abstandMin = Math.round((jetzt - new Date(letzter.zeit)) / 60000);
     if (abstandMin < mindestabstandMin) {
       console.log("nein");

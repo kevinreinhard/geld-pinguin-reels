@@ -1,9 +1,10 @@
 {
-  "version": 1,
-  "aktualisiert": null,
-  "begruendung": "Startwerte. Noch keine Optimierung gelaufen.",
+  "version": 2,
+  "aktualisiert": "2026-09-07T16:20:00.000Z",
+  "begruendung": "Von 4 auf 1 Beitrag pro Tag reduziert. Nach der Bereinigung der Bot-Follower muss das Konto neue Qualitaetssignale aufbauen; vier Beitraege taeglich ohne jede Interaktion bedienen genau das Spam-Muster, das gedrosselt wird. Bei Kaltverteilung zaehlt nur die Durchsichtrate, und die erreicht ein gutes Reel eher als vier mittelmaessige. Fenster 11-20 UTC entspricht 13-22 Uhr deutscher Zeit und bietet der gedrosselten GitHub-Ausfuehrung genug Gelegenheiten.",
   "saeulenGewichte": {},
   "zielWoerter": 65,
   "hookHinweise": [],
-  "postSlots": [6, 10, 16, 19]
+  "postsProTag": 1,
+  "fenster": [11, 20]
 }

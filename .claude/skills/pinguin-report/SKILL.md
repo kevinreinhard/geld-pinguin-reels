@@ -50,8 +50,9 @@ hart begrenzt: Säulengewichte 0.25 bis 5, Zielwortzahl 45 bis 90, höchstens
 fünf Hook-Hinweise. Ändere sie über `speichereTuning()`, nie von Hand — die
 Funktion prüft und kappt die Werte.
 
-Die Posting-Zeiten (`postSlots`) sind bewusst der Handarbeit vorbehalten. Der
-Analyse-Agent fasst sie nicht an.
+Menge und Zeitfenster (`postsProTag`, `fenster`) sind bewusst der Handarbeit
+vorbehalten — dafür bräuchte es Publikumsdaten, die es hier noch nicht gibt.
+Der Analyse-Agent fasst sie nicht an.
 
 Änderungen am Quellcode selbst — Prompt, Rendering, Themensäulen — bespricht man
 mit dem Kanalinhaber, statt sie automatisch vorzunehmen.

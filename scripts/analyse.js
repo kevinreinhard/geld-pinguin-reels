@@ -310,7 +310,10 @@ async function main() {
         saeulenGewichte: gewichte,
         zielWoerter: a.zielWoerter,
         hookHinweise: a.hookHinweise,
-        postSlots: tuning.postSlots, // Zeiten bleiben Handarbeit
+        // Menge und Zeitfenster bleiben Handarbeit - dafuer braucht es
+        // Publikumsdaten, die es hier noch nicht gibt.
+        postsProTag: tuning.postsProTag,
+        fenster: tuning.fenster,
       },
       a.begruendung,
     );

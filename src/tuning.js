@@ -16,13 +16,18 @@ import { PILLARS } from "./config.js";
 const PFAD = path.resolve("data/tuning.json");
 
 export const STANDARD = {
-  version: 1,
+  version: 2,
   aktualisiert: null,
   begruendung: "Standardwerte",
   saeulenGewichte: {},
   zielWoerter: 65,
   hookHinweise: [],
-  postSlots: [6, 10, 16, 19],
+  // Menge und Zeitfenster sind zwei verschiedene Dinge und stehen deshalb
+  // getrennt. In Fassung 1 steckte beides in einer Stundenliste - bei einem
+  // Beitrag pro Tag schrumpfte das Fenster dadurch auf eine Stunde, die
+  // GitHub bei seiner Drosselung fast sicher verpasst hätte.
+  postsProTag: 1,
+  fenster: [11, 20], // UTC, entspricht 13-22 Uhr deutscher Sommerzeit
 };
 
 // Harte Grenzen. Der Agent kann innerhalb dieser Leitplanken nachjustieren,
@@ -31,7 +36,8 @@ export const GRENZEN = {
   gewicht: { min: 0.25, max: 5 },
   zielWoerter: { min: 45, max: 90 },
   hookHinweise: { anzahl: 5, laenge: 200 },
-  postSlots: { min: 2, max: 8 },
+  postsProTag: { min: 1, max: 8 },
+  fensterMindestbreite: 3, // Stunden - schmaler wird bei verzögerten Läufen unzuverlässig
 };
 
 const warnungen = [];
@@ -70,18 +76,37 @@ function pruefeHinweise(roh) {
     .slice(0, GRENZEN.hookHinweise.anzahl);
 }
 
-function pruefeSlots(roh) {
-  if (!Array.isArray(roh)) return STANDARD.postSlots;
-  const stunden = [...new Set(roh.map(Number).filter((n) => Number.isInteger(n) && n >= 0 && n <= 23))]
-    .sort((a, b) => a - b);
-  if (stunden.length < GRENZEN.postSlots.min || stunden.length > GRENZEN.postSlots.max) {
-    warne(
-      `postSlots hat ${stunden.length} gültige Einträge, erlaubt sind ` +
-        `${GRENZEN.postSlots.min}-${GRENZEN.postSlots.max}. Standard wird verwendet.`,
-    );
-    return STANDARD.postSlots;
+function pruefeFenster(roh) {
+  if (!Array.isArray(roh) || roh.length !== 2) return STANDARD.fenster;
+  let [von, bis] = roh.map(Number);
+  if (![von, bis].every((n) => Number.isInteger(n) && n >= 0 && n <= 23)) {
+    warne("fenster enthält keine gültigen Stunden. Standard wird verwendet.");
+    return STANDARD.fenster;
   }
-  return stunden;
+  if (bis - von < GRENZEN.fensterMindestbreite) {
+    warne(
+      `fenster ${von}-${bis} ist schmaler als ${GRENZEN.fensterMindestbreite} Stunden. ` +
+        "Bei verzögerten Läufen fiele der Beitrag oft ganz aus. Standard wird verwendet.",
+    );
+    return STANDARD.fenster;
+  }
+  return [von, bis];
+}
+
+/**
+ * Fassung 1 hatte eine Stundenliste postSlots, aus der sich Anzahl und
+ * Fenster gemeinsam ergaben. Alte Dateien werden hier übersetzt.
+ */
+function migriere(roh) {
+  if (roh.postsProTag !== undefined || !Array.isArray(roh.postSlots)) return roh;
+  const stunden = roh.postSlots.map(Number).filter((n) => Number.isInteger(n)).sort((a, b) => a - b);
+  if (!stunden.length) return roh;
+  warne("Fassung 1 erkannt: postSlots wurde in postsProTag und fenster übersetzt.");
+  return {
+    ...roh,
+    postsProTag: stunden.length,
+    fenster: [stunden[0], Math.max(stunden[stunden.length - 1], stunden[0] + GRENZEN.fensterMindestbreite)],
+  };
 }
 
 /** Liest und validiert data/tuning.json. Wirft nie. */
@@ -89,7 +114,7 @@ export function ladeTuning({ still = false } = {}) {
   warnungen.length = 0;
   let roh;
   try {
-    roh = JSON.parse(fs.readFileSync(PFAD, "utf8"));
+    roh = migriere(JSON.parse(fs.readFileSync(PFAD, "utf8")));
   } catch (e) {
     if (!still) console.warn(`  tuning.json nicht lesbar (${e.message}) - Standardwerte.`);
     return { ...STANDARD, warnungen: ["Datei fehlt oder ist kein gültiges JSON."] };
@@ -102,7 +127,8 @@ export function ladeTuning({ still = false } = {}) {
     saeulenGewichte: pruefeGewichte(roh.saeulenGewichte),
     zielWoerter: Math.round(zahl(roh.zielWoerter, GRENZEN.zielWoerter, STANDARD.zielWoerter)),
     hookHinweise: pruefeHinweise(roh.hookHinweise),
-    postSlots: pruefeSlots(roh.postSlots),
+    postsProTag: Math.round(zahl(roh.postsProTag, GRENZEN.postsProTag, STANDARD.postsProTag)),
+    fenster: pruefeFenster(roh.fenster),
   };
 
   if (!still && warnungen.length) {
@@ -114,13 +140,14 @@ export function ladeTuning({ still = false } = {}) {
 /** Schreibt geprüfte Werte zurück. Gibt die tatsächlich gespeicherte Fassung zurück. */
 export function speichereTuning(neu, begruendung) {
   const geprueft = {
-    version: 1,
+    version: 2,
     aktualisiert: new Date().toISOString(),
     begruendung: String(begruendung ?? "").slice(0, 1000),
     saeulenGewichte: pruefeGewichte(neu.saeulenGewichte),
     zielWoerter: Math.round(zahl(neu.zielWoerter, GRENZEN.zielWoerter, STANDARD.zielWoerter)),
     hookHinweise: pruefeHinweise(neu.hookHinweise),
-    postSlots: pruefeSlots(neu.postSlots),
+    postsProTag: Math.round(zahl(neu.postsProTag, GRENZEN.postsProTag, STANDARD.postsProTag)),
+    fenster: pruefeFenster(neu.fenster),
   };
   fs.writeFileSync(PFAD, JSON.stringify(geprueft, null, 2) + "\n", "utf8");
   return geprueft;
