@@ -107,16 +107,32 @@ Suche dir darin einen spitzen, konkreten Einzelaspekt – nicht das Oberthema ab
 export async function generiereSkript(saeule) {
   const verboten = letzteThemen(40);
 
+  const schlafen = (ms) => new Promise((r) => setTimeout(r, ms));
+  let letzterFehler = null;
+
   for (let versuch = 1; versuch <= 3; versuch++) {
-    const response = await client.messages.create({
-      model: MODEL.id,
-      max_tokens: MODEL.maxTokens,
-      thinking: { type: "adaptive" },
-      output_config: { effort: MODEL.effort },
-      system: systemPrompt(),
-      tools: [TOOL],
-      messages: [{ role: "user", content: userPrompt(saeule, verboten) }],
-    });
+    let response;
+    try {
+      response = await client.messages.create({
+        model: MODEL.id,
+        max_tokens: MODEL.maxTokens,
+        thinking: { type: "adaptive" },
+        output_config: { effort: MODEL.effort },
+        system: systemPrompt(),
+        tools: [TOOL],
+        messages: [{ role: "user", content: userPrompt(saeule, verboten) }],
+      });
+    } catch (e) {
+      // Das SDK wiederholt 429 und 5xx selbst, aber nicht 400. Genau so ein
+      // "Invalid request data" hat am 07.09. einen kompletten Lauf gekostet,
+      // obwohl dieselbe Anfrage unmittelbar danach durchging. Ein paar
+      // Sekunden Wartezeit sind billiger als ein ausgefallener Beitrag.
+      letzterFehler = e;
+      if (versuch === 3) break;
+      console.warn(`  Versuch ${versuch} fehlgeschlagen (${e.message.slice(0, 120)}), warte ...`);
+      await schlafen(5000 * versuch);
+      continue;
+    }
 
     if (response.stop_reason === "refusal") {
       throw new Error(
@@ -128,8 +144,14 @@ export async function generiereSkript(saeule) {
     if (toolBlock) return pruefe(toolBlock.input);
 
     console.warn(`  Versuch ${versuch}: kein Tool-Call erhalten, wiederhole ...`);
+    await schlafen(2000);
   }
-  throw new Error("Claude hat nach 3 Versuchen kein reel_script geliefert.");
+
+  throw new Error(
+    letzterFehler
+      ? `Claude nach 3 Versuchen nicht erreichbar: ${letzterFehler.message}`
+      : "Claude hat nach 3 Versuchen kein reel_script geliefert.",
+  );
 }
 
 function pruefe(s) {
