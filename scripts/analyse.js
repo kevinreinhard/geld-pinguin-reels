@@ -140,11 +140,29 @@ function bereiteDatenAuf() {
     })
     .sort((a, b) => new Date(b.veroeffentlicht) - new Date(a.veroeffentlicht));
 
+  // Feed-Beiträge gehören mit ins Bild, auch wenn die Automatisierung sie nicht
+  // erzeugt. Sie gehen fast nur an Follower und sind damit der ehrlichste
+  // Anzeiger für den Zustand des Kontos. Ohne sie war am 07.09. nicht zu sehen,
+  // dass die Reichweite schon eine Woche vor dem ersten automatisierten Reel
+  // zusammengebrochen war - der Agent suchte den Fehler folgerichtig an der
+  // falschen Stelle.
+  const feed = neueste.beitraege
+    .filter((b) => b.typ !== "REELS")
+    .map((b) => ({
+      veroeffentlicht: b.veroeffentlicht,
+      alterTage: +((Date.now() - new Date(b.veroeffentlicht)) / 864e5).toFixed(1),
+      views: b.views ?? 0,
+      reach: b.reach ?? 0,
+    }))
+    .sort((a, b) => new Date(b.veroeffentlicht) - new Date(a.veroeffentlicht))
+    .slice(0, 30);
+
   return {
     konto: neueste.konto,
     kontoVorwoche: vorherige?.konto ?? null,
     messungen: messungen.length,
     reels,
+    feed,
     gesamtViews: reels.reduce((a, r) => a + r.views, 0),
     automatisierteReels: reels.filter((r) => r.automatisiert).length,
   };
@@ -170,6 +188,8 @@ ${
 }
 
 Wie du arbeitest:
+- Sieh dir zuerst den Zustand des Kontos an, erst danach einzelne Beiträge. Feed-Beiträge gehen fast ausschliesslich an Follower und sind deshalb der ehrlichste Anzeiger: Bricht ihre Reichweite ein, liegt es am Konto, nicht an den Inhalten. Reels erreichen auch Fremde und verdecken einen solchen Einbruch eine Weile.
+- Achte auf Zeitpunkte. Wenn eine Kennzahl kippt, suche das Ereignis davor, statt das Naheliegendste zu beschuldigen. Eine Veraenderung, die zeitlich vor der vermuteten Ursache liegt, kann nicht ihre Folge sein.
 - Unterscheide zwischen Beobachtung und Erklärung. "Reel A hat mehr Views als B" ist eine Beobachtung. "Weil das Thema besser ist" ist eine Vermutung, und meist eine falsche.
 - Berücksichtige das Alter: Ein Reel von gestern hatte weniger Zeit als eines von letzter Woche. Vergleiche nie rohe Views zwischen unterschiedlich alten Beiträgen.
 - Bei ein- und zweistelligen Zahlen ist der Unterschied zwischen 3 und 9 Views Rauschen, kein Signal. Sag das, statt es zu deuten.
@@ -191,6 +211,8 @@ function berichtSchreiben(a, daten, uebernommen) {
     `**Konto:** ${daten.konto.follower} Follower, ${daten.konto.beitraege} Beiträge, ` +
       `${daten.reels.length} Reels (davon ${daten.automatisierteReels} automatisiert), ` +
       `${daten.gesamtViews} Views gesamt`,
+    `**Feed-Reichweite (Views, neueste zuerst):** ` +
+      daten.feed.slice(0, 10).map((f) => `${f.veroeffentlicht.slice(5, 10)}: ${f.views}`).join(" · "),
     "",
     "## Lage",
     "",
@@ -263,6 +285,7 @@ async function main() {
                 hookHinweise: tuning.hookHinweise,
               },
               reels: daten.reels,
+              feedBeitraege: daten.feed,
             },
             null,
             1,
