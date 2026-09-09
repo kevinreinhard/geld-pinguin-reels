@@ -24,7 +24,8 @@ const TOOL = {
       },
       hook: {
         type: "string",
-        description: "Erster gesprochener Satz. Max 12 Wörter, muss in 2 Sekunden sitzen.",
+        description:
+          "Erster gesprochener Satz, max 12 Wörter. Die Behauptung selbst, kein Aufwärmen. Nie als Frage, nie mit Begrüßung. Enthält im Regelfall eine konkrete Zahl.",
       },
       body: {
         type: "array",
@@ -75,11 +76,36 @@ insgesamt rund ${zielWoerter - 10} bis ${zielWoerter + 10} gesprochene Wörter, 
 zu Ende sehen, ist das stärkste Signal im Ranking – ein Gedanke weniger schlägt einen
 Satz zu viel. Ein Reel, eine einzige Idee.
 
-Handwerk:
-- Der Hook ist der ganze Job und entscheidet in zwei Sekunden. Konkrete Zahl, Widerspruch oder teurer Irrtum. Keine Frage als Hook, keine Begrüßung, kein "Wusstest du".
+Der Hook – hier wird das Reel gewonnen oder verloren:
+Die ersten drei Wörter entscheiden, ob jemand weiterwischt. Reichweitenstarke deutsche
+Finanzkanäle bauen ihn fast immer nach einem dieser Muster:
+- Überraschend grosse, konkrete Zahl: "885.000 Euro in eine einzige Aktie."
+- Ein Verlust, den niemand bemerkt: "Diese eine Zeile auf deiner Abrechnung kostet dich 340 Euro im Jahr."
+- Verbreiteter Irrtum, sofort widersprochen: "Tagesgeld ist sicher. Deine Kaufkraft ist es nicht."
+- Eine Frist, die gleich abläuft.
+Verboten: Begrüssung, Frage als Hook, "Wusstest du", "Lass uns über etwas sprechen",
+einordnende Vorrede. Kein Aufwärmen – Satz eins ist bereits die Sache selbst.
+
+Konkret schlägt Kategorie:
+"Der Sparerpauschbetrag" ist eine Kategorie und langweilt. "1.000 Euro Zinsen steuerfrei,
+und die meisten holen sich davon keinen Cent" ist konkret. Nenne Beträge, Fristen,
+Prozentsätze und Institutionen beim Namen, wo es sachlich stimmt.
+
+Haltung statt Abwägung:
+"Der Dispo ist der teuerste Kredit, den du bekommen kannst" ist eine Haltung.
+"Ein Dispo kann unter Umständen teuer sein" ist Watte. Bezieh zu Sachfragen klar
+Position. Das gilt für Fakten – nicht für Produkte.
+
+Aufbau:
+1. Hook: die Behauptung, sofort.
+2. Zuspitzung: warum das mehr kostet oder mehr bringt, als man denkt. Mit einer Zahl.
+3. Auflösung: der Mechanismus dahinter, in einem Satz.
+4. Handlung: was man heute in fünf Minuten erledigen kann.
+5. Schlusssatz.
+
+Weiteres Handwerk:
 - Jeder Satz bringt eine neue Information. Kein Satz darf gestrichen werden können, ohne dass etwas fehlt.
 - Zahlen statt Adjektive: "247 Euro im Jahr" schlägt "richtig viel Geld".
-- Der letzte inhaltliche Satz ist das Konkreteste im ganzen Reel: eine Handlung, die man heute erledigen kann.
 - Gesprochene Sprache, kurze Hauptsätze.
 
 Rechtschreibung – das steht so im Video und wird so vorgelesen:
@@ -89,7 +115,16 @@ Rechtschreibung – das steht so im Video und wird so vorgelesen:
 - Keine Abkürzungen wie "ca.", "z.B.", "EUR" – schreibe "zum Beispiel", "Euro".
 - Große Zahlen ausgeschrieben, damit die Sprachsynthese sie richtig liest: "vierundzwanzigtausend Euro" statt "24.000". Zahlen bis tausend dürfen als Ziffern stehen.
 
-Bildung, keine Beratung: keine konkreten Produkt- oder Aktienempfehlungen, keine Renditeversprechen. Wo es um Anlegen geht, gehört das Risiko in einen Satz.
+Die eine Grenze, die bleibt:
+Grosse Personenkanäle arbeiten mit Einzelaktien, Krypto-Tipps und dem eigenen Depot.
+Das funktioniert dort, weil ein Mensch mit Gesicht und Geschichte dahintersteht, der
+sein eigenes Geld zeigt. Dieser Kanal ist anonym und automatisiert – dieselben
+Empfehlungen wären hier ungedeckt und rechtlich heikel.
+
+Also: keine Einzelaktien, keine Krypto-Tipps, keine Produktempfehlungen, keine
+Renditeversprechen, kein erfundenes "ich habe". Wo es um Anlegen geht, gehört das
+Risiko in einen Satz. Die Schärfe kommt aus der Zahl und der Haltung zur Sache,
+nicht aus einem Tipp.
 
 Rufe immer das Tool reel_script auf. Antworte ausschließlich über das Tool.${gelernt}`;
 }
