@@ -452,6 +452,7 @@
     <a href="#s7"><span class="k">7</span> Testlauf</a>
     <a href="#s8"><span class="k">8</span> Scharf schalten</a>
     <div class="toc-title" style="padding-top:1.4rem">Danach</div>
+    <a href="#youtube"><span class="k">·</span> YouTube Shorts</a>
     <a href="#rhythmus"><span class="k">·</span> Rhythmus</a>
     <a href="#stellschrauben"><span class="k">·</span> Stellschrauben</a>
     <a href="#kosten"><span class="k">·</span> Kosten</a>
@@ -819,6 +820,54 @@ gh repo create geld-pinguin-reels --public --source=. --push</pre>
       </div>
 
     </div>
+
+    <section id="youtube">
+      <div class="section-head">
+        <div class="eyebrow">Optional, aber der grösste Hebel</div>
+        <h2>Zweitverwertung als YouTube Short</h2>
+      </div>
+      <p>Instagram zeigt ein Reel zuerst deinen eigenen Followern und an Fremde erst, wenn diese erste Gruppe positiv reagiert. Bei einer Handvoll Followern entsteht diese Gruppe nie — der Kanal kommt aus eigener Kraft nicht in Gang. YouTube Shorts verteilt neue Kanäle dagegen von Beginn an auch an Fremde.</p>
+      <p>Das Video ist ohnehin fertig gerendert. Sobald die drei Secrets gesetzt sind, lädt es jeder Lauf zusätzlich als Short hoch. Fehlen sie, wird der Schritt stillschweigend übersprungen und der Instagram-Beitrag läuft wie bisher.</p>
+
+      <h3>1. Google-Cloud-Projekt anlegen</h3>
+      <ol class="plain">
+        <li><a href="https://console.cloud.google.com/projectcreate" target="_blank" rel="noopener">console.cloud.google.com</a> → neues Projekt, Name egal</li>
+        <li>Im Suchfeld <b>YouTube Data API v3</b> → <b>Aktivieren</b></li>
+        <li>Links <b>APIs und Dienste → OAuth-Zustimmungsbildschirm</b>: Nutzertyp <b>Extern</b>, App-Name und deine E-Mail eintragen</li>
+        <li>Bei den Bereichen <code>.../auth/youtube.upload</code> hinzufügen</li>
+        <li>Links <b>Anmeldedaten → Anmeldedaten erstellen → OAuth-Client-ID</b> → Anwendungstyp <b>Desktop-App</b></li>
+        <li>Client-ID und Client-Geheimnis kopieren</li>
+      </ol>
+
+      <div class="note">
+        <span class="label">Die Falle: Veröffentlichungsstatus</span>
+        <p>Steht deine App im OAuth-Zustimmungsbildschirm auf <b>Testing</b>, verfallen Refresh-Tokens nach <b>sieben Tagen</b>. Die Automatisierung liefe eine Woche und würde dann still aufhören.</p>
+        <p>Stell den Status deshalb auf <b>In Produktion</b>. Google zeigt bei der einmaligen Anmeldung dann eine Warnung „App nicht verifiziert" — über <b>Erweitert → Weiter zu …</b> bestätigen. Das ist für eine App, die nur du selbst nutzt, unbedenklich und der Token bleibt dauerhaft gültig.</p>
+      </div>
+
+      <h3>2. Refresh-Token holen</h3>
+      <p>Einmalig auf deinem Rechner, im Projektverzeichnis:</p>
+      <div class="code">
+        <button class="copy" type="button">Kopieren</button>
+        <pre>$env:YT_CLIENT_ID="deine-client-id"
+$env:YT_CLIENT_SECRET="dein-geheimnis"
+npm run youtube-auth</pre>
+      </div>
+      <p>Der Browser öffnet sich, du meldest dich mit dem Google-Konto des Ziel-Kanals an, und der Token steht danach im Terminal.</p>
+
+      <h3>3. Secrets setzen</h3>
+      <div class="code">
+        <button class="copy" type="button">Kopieren</button>
+        <pre>gh secret set YT_CLIENT_ID --repo kevinreinhard/geld-pinguin-reels
+gh secret set YT_CLIENT_SECRET --repo kevinreinhard/geld-pinguin-reels
+gh secret set YT_REFRESH_TOKEN --repo kevinreinhard/geld-pinguin-reels</pre>
+      </div>
+
+      <div class="note calm">
+        <span class="label">Kontingent</span>
+        <p>Ein Upload kostet 1.600 von 10.000 Einheiten Tagesbudget — also rund sechs Videos pro Tag. Bei einem Beitrag täglich ist das kein Thema.</p>
+      </div>
+    </section>
 
     <section id="rhythmus">
       <div class="section-head">

@@ -17,7 +17,8 @@ Kein Klick nötig, nachdem die Einrichtung einmal steht.
 | 4 | Video rendern: Verlauf, Titelkarte, Karaoke-Untertitel | ffmpeg + libass, `src/render.js` |
 | 5 | Video öffentlich ablegen | GitHub Release oder R2, `src/upload.js` |
 | 6 | Reel-Container anlegen, warten, veröffentlichen | Instagram Graph API, `src/instagram.js` |
-| 7 | Thema in die Historie schreiben | `data/history.json` |
+| 7 | Optional: dasselbe Video als YouTube Short | `src/youtube.js` |
+| 8 | Thema in die Historie schreiben | `data/history.json` |
 
 Ergebnis: 1080 × 1920, 30 fps, H.264/AAC, ca. 25–35 Sekunden, 4–6 MB.
 

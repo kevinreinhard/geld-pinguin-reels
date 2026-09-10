@@ -6,6 +6,7 @@ import { baueCaption, generiereSkript, sprechtext } from "./script.js";
 import { lauf, rendere } from "./render.js";
 import { ladeHoch } from "./upload.js";
 import { veroeffentlicheReel, verbleibendesKontingent } from "./instagram.js";
+import { istEingerichtet as youtubeBereit, ladeShortHoch } from "./youtube.js";
 import { speicherePost } from "./history.js";
 
 const BUILD = "build";
@@ -107,7 +108,21 @@ async function main() {
   const { mediaId, permalink } = await veroeffentlicheReel({ videoUrl, caption });
   console.log(`  Veroeffentlicht: ${permalink ?? "Media-ID " + mediaId}`);
 
-  // 7 ------------------------------------------------------------- Historie
+  // 7 ------------------------------------------------------------- YouTube
+  // Zweitverwertung. Schlaegt sie fehl, ist der Instagram-Beitrag trotzdem
+  // draussen - deshalb hier abfangen statt den Lauf scheitern lassen.
+  let youtube = null;
+  if (youtubeBereit()) {
+    schritt(7, "Als YouTube Short hochladen");
+    try {
+      youtube = await ladeShortHoch({ videoPfad: video.pfad, skript, caption });
+      console.log(`  Hochgeladen: ${youtube.url}`);
+    } catch (e) {
+      console.warn(`  YouTube uebersprungen: ${e.message}`);
+    }
+  }
+
+  // 8 ------------------------------------------------------------- Historie
   speicherePost({
     topic: skript.topic,
     pillar: saeule.key,
@@ -117,6 +132,8 @@ async function main() {
     dauer: video.dauer,
     mediaId,
     permalink,
+    youtubeId: youtube?.videoId ?? null,
+    youtubeUrl: youtube?.url ?? null,
   });
 
   console.log(`\nErledigt in ${((Date.now() - start) / 1000).toFixed(0)}s.`);
