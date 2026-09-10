@@ -168,6 +168,17 @@ export async function kennzahlen({ seit } = {}) {
     }));
   }
 
+  // Wiedergabedaten je Video an die Videoliste heften. Erst damit laesst sich
+  // sagen, welches Thema wirklich gehalten hat - die Kanalsumme mischt alte
+  // und neue Inhalte und taugt dafuer nicht.
+  const proVideo = await wiedergabeProVideo(token, seit);
+  if (proVideo) {
+    for (const v of videos) {
+      const w = proVideo.get(v.id);
+      if (w) Object.assign(v, w);
+    }
+  }
+
   return {
     kanal: {
       titel: k.snippet.title,
@@ -178,6 +189,41 @@ export async function kennzahlen({ seit } = {}) {
     videos,
     wiedergabe: await wiedergabedauer(token, seit),
   };
+}
+
+/**
+ * Wiedergabedaten je Video. Gibt null zurueck, solange YouTube noch nichts
+ * verarbeitet hat - die Auswertung braucht typischerweise ein bis zwei Tage.
+ */
+async function wiedergabeProVideo(token, seit) {
+  const bis = new Date().toISOString().slice(0, 10);
+  const von = seit ?? new Date(Date.now() - 90 * 864e5).toISOString().slice(0, 10);
+  const url = new URL("https://youtubeanalytics.googleapis.com/v2/reports");
+  for (const [k, v] of Object.entries({
+    ids: "channel==MINE",
+    startDate: von,
+    endDate: bis,
+    metrics: "views,averageViewPercentage,averageViewDuration",
+    dimensions: "video",
+    sort: "-views",
+    maxResults: "50",
+  })) {
+    url.searchParams.set(k, v);
+  }
+
+  try {
+    const res = await fetch(url, { headers: { Authorization: `Bearer ${token}` } });
+    const d = await res.json().catch(() => ({}));
+    if (d.error || !d.rows?.length) return null;
+    return new Map(
+      d.rows.map((r) => [
+        r[0],
+        { viewsAnalytics: r[1], anteilGesehenProzent: r[2], dauerSekunden: r[3] },
+      ]),
+    );
+  } catch {
+    return null;
+  }
 }
 
 /**
