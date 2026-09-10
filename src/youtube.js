@@ -60,26 +60,40 @@ async function zugriffstoken() {
   return d.access_token;
 }
 
+/**
+ * YouTube weist Titel und Beschreibungen mit spitzen Klammern ab.
+ *
+ * Am 10.09. haengte das Modell ein "</caption>" an die Caption. Der Upload
+ * scheiterte mit "invalidDescription", waehrend der Instagram-Beitrag mit dem
+ * sichtbaren Tag bereits draussen war. Bereinigt wird das inzwischen schon in
+ * script.js - hier bleibt es als letzte Instanz stehen, weil ein einzelnes
+ * Zeichen sonst den ganzen Zweitkanal kostet.
+ */
+const ohneKlammern = (t) =>
+  String(t)
+    .replace(/<\/?[a-zA-Z][^>]*>/g, "")
+    .replace(/[<>]/g, "");
+
 /** YouTube-Titel: max 100 Zeichen, keine spitzen Klammern. */
 function baueTitel(skript) {
-  const roh = skript.hook.replace(/[<>]/g, "").trim();
+  const roh = ohneKlammern(skript.hook).trim();
   const kurz = roh.length > 88 ? roh.slice(0, 85).replace(/\s+\S*$/, "") + "…" : roh;
   return `${kurz} #Shorts`;
 }
 
 function baueBeschreibung(skript, caption) {
   const gesprochen = [skript.hook, ...skript.body, skript.cta].join(" ");
-  return [
-    caption.split("\n")[0],
-    "",
-    gesprochen,
-    "",
-    "Keine Anlageberatung, nur Finanzbildung.",
-    "",
-    skript.hashtags.slice(0, 12).map((h) => "#" + h).join(" ") + " #Shorts",
-  ]
-    .join("\n")
-    .slice(0, 4900);
+  return ohneKlammern(
+    [
+      caption.split("\n")[0],
+      "",
+      gesprochen,
+      "",
+      "Keine Anlageberatung, nur Finanzbildung.",
+      "",
+      skript.hashtags.slice(0, 12).map((h) => "#" + h).join(" ") + " #Shorts",
+    ].join("\n"),
+  ).slice(0, 4900);
 }
 
 /**

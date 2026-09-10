@@ -112,6 +112,8 @@ Rechtschreibung – das steht so im Video und wird so vorgelesen:
 - Korrektes Deutsch mit Umlauten: ä, ö, ü. Niemals ae, oe, ue umschreiben.
 - Deutsche Rechtschreibung mit ß, wo es hingehört: "heißt", "größer", "Straße", "dreißig".
 - Keine Aufzählungszeichen, keine Klammern, keine Emojis, kein Markdown, keine Sternchen.
+- Niemals XML- oder HTML-artige Tags wie <caption> oder </caption>. Die Feldnamen des Tools
+  gehören nicht in den Text. Spitze Klammern sind in keinem Feld erlaubt.
 - Keine Abkürzungen wie "ca.", "z.B.", "EUR" – schreibe "zum Beispiel", "Euro".
 - Große Zahlen ausgeschrieben, damit die Sprachsynthese sie richtig liest: "vierundzwanzigtausend Euro" statt "24.000". Zahlen bis tausend dürfen als Ziffern stehen.
 
@@ -189,14 +191,42 @@ export async function generiereSkript(saeule) {
   );
 }
 
+/**
+ * Entfernt verirrte Auszeichnungen aus generiertem Text.
+ *
+ * Am 10.09. haengte das Modell ein "</caption>" ans Ende der Caption. Auf
+ * Instagram stand es sichtbar unter dem Beitrag, und YouTube lehnte den Upload
+ * mit "invalidDescription" ab - spitze Klammern sind dort unzulaessig. Ein
+ * einzelnes Zeichen zu viel hat den gesamten Zweitkanal gekostet.
+ *
+ * Der Prompt verbietet solche Tags inzwischen ausdruecklich. Die Saeuberung
+ * bleibt trotzdem: Ein Modell haelt sich nicht in hundert Prozent der Faelle
+ * an eine Formatvorgabe, und der Fehler faellt erst nach dem Posten auf.
+ */
+function saeubere(text) {
+  return String(text)
+    .replace(/<\/?[a-zA-Z][^>]*>/g, "") // vollstaendige Tags
+    .replace(/[<>]/g, "") // einzelne Klammern
+    .replace(/[ \t]+\n/g, "\n")
+    .replace(/[ \t]{2,}/g, " ")
+    .trim();
+}
+
 function pruefe(s) {
   if (!s.hook || !Array.isArray(s.body) || s.body.length < 3) {
     throw new Error("Skript unvollstaendig: " + JSON.stringify(s).slice(0, 300));
   }
   return {
     ...s,
-    title: String(s.title).toUpperCase().replace(/[.!]$/, ""),
-    hashtags: s.hashtags.map((h) => h.replace(/^#/, "").trim()).filter(Boolean),
+    topic: saeubere(s.topic),
+    title: saeubere(s.title).toUpperCase().replace(/[.!]$/, ""),
+    hook: saeubere(s.hook),
+    body: s.body.map(saeubere).filter(Boolean),
+    cta: saeubere(s.cta),
+    caption: saeubere(s.caption),
+    hashtags: s.hashtags
+      .map((h) => saeubere(h).replace(/^#/, "").replace(/\s+/g, ""))
+      .filter(Boolean),
   };
 }
 
