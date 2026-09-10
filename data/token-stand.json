@@ -1,0 +1,5 @@
+{
+  "hinweis": "Wann der Instagram-Token zuletzt erneuert wurde. Der Workflow refresh-token.yml schreibt das Datum fort, sobald GH_PAT die Secrets-Berechtigung hat. Bis dahin traegt man es nach einer Erneuerung von Hand ein.",
+  "igTokenGesetzt": "2026-09-02",
+  "gueltigkeitTage": 60
+}

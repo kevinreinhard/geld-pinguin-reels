@@ -21,6 +21,35 @@ function schritt(nr, text) {
   console.log(`\n[${nr}] ${text}`);
 }
 
+/**
+ * Warnt, bevor der Instagram-Token abläuft.
+ *
+ * Er ist 60 Tage gültig. Läuft er ab, hört die Instagram-Hälfte auf zu
+ * arbeiten - ohne Fehler, der ins Auge fällt, denn der Lauf scheitert erst
+ * beim Posten. Solange die automatische Erneuerung nicht greift, ist diese
+ * Warnung die einzige Vorankündigung.
+ */
+function tokenWarnung() {
+  let stand;
+  try {
+    stand = JSON.parse(fs.readFileSync("data/token-stand.json", "utf8"));
+  } catch {
+    return;
+  }
+  if (!stand.igTokenGesetzt) return;
+
+  const alterTage = Math.floor((Date.now() - new Date(stand.igTokenGesetzt)) / 864e5);
+  const rest = (stand.gueltigkeitTage ?? 60) - alterTage;
+
+  if (rest <= 0) {
+    console.warn(`\n  ACHTUNG: Der Instagram-Token ist seit ${-rest} Tagen abgelaufen.`);
+  } else if (rest <= 14) {
+    console.warn(`\n  ACHTUNG: Der Instagram-Token laeuft in ${rest} Tagen ab.`);
+    console.warn("  Erneuern: Schritt 3 der Anleitung, dann IG_ACCESS_TOKEN und");
+    console.warn("  data/token-stand.json aktualisieren.");
+  }
+}
+
 /** Fehlende Zugangsdaten sofort melden statt mitten im Lauf. */
 function preflight() {
   const fehlt = [];
@@ -41,6 +70,7 @@ function preflight() {
 
 async function main() {
   preflight();
+  tokenWarnung();
   fs.mkdirSync(BUILD, { recursive: true });
   const start = Date.now();
 
