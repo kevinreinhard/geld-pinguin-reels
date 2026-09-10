@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>geld.pinguin Uploader</title>
+<meta name="description" content="Automatisierte Veröffentlichung kurzer Finanzbildungs-Videos auf den eigenen Kanälen von geld.pinguin.">
+<style>
+  :root{--ground:#eff2f6;--surface:#fff;--ink:#10192a;--soft:#4a5769;--faint:#7b8798;--line:#d8dfe9;--accent:#d1690c}
+  @media (prefers-color-scheme:dark){:root{--ground:#0d141f;--surface:#141d2b;--ink:#e8edf4;--soft:#a3b0c2;--faint:#7a889b;--line:#263243;--accent:#f2933d}}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--ground);color:var(--ink);line-height:1.65;
+       font-family:ui-sans-serif,"Segoe UI",system-ui,sans-serif;font-size:1.0625rem}
+  main{max-width:44rem;margin:0 auto;padding:4rem 1.5rem 6rem;display:flex;flex-direction:column;gap:2.5rem}
+  h1{font-size:2.25rem;line-height:1.1;margin:0;text-wrap:balance}
+  h2{font-size:1.3rem;margin:0 0 .6rem;text-wrap:balance}
+  p,ul{margin:0}
+  ul{padding-left:1.2rem;display:flex;flex-direction:column;gap:.4rem}
+  .eyebrow{font-size:.8125rem;text-transform:uppercase;letter-spacing:.14em;color:var(--faint);
+           font-family:ui-monospace,Consolas,monospace}
+  .lead{font-size:1.3rem;color:var(--soft)}
+  section{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:1.5rem}
+  a{color:var(--accent);text-underline-offset:.18em}
+  footer{border-top:1px solid var(--line);padding-top:1.25rem;color:var(--faint);font-size:.9375rem;
+         display:flex;flex-direction:column;gap:.35rem}
+  .nav{display:flex;gap:1.25rem;flex-wrap:wrap;font-size:.9375rem}
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <div class="eyebrow">geld.pinguin</div>
+    <h1>geld.pinguin Uploader</h1>
+    <p class="lead">Die Anwendung, mit der der Kanal geld.pinguin seine eigenen kurzen Finanzbildungs-Videos veröffentlicht.</p>
+  </header>
+
+  <section>
+    <h2>Was die Anwendung tut</h2>
+    <p>geld.pinguin ist ein deutschsprachiges Finanzbildungs-Format: kurze Videos zu Themen wie Dispozinsen, Freibeträgen, gesetzlicher Rente oder Bankgebühren. Jeden Tag eines, jeweils rund 25 Sekunden.</p>
+    <p style="margin-top:.8rem">Der Uploader ist das Werkzeug hinter diesem Kanal. Er erzeugt die Videos und veröffentlicht sie anschliessend auf den Kanälen des Betreibers — auf Instagram und als YouTube Short. Die Anwendung wird ausschliesslich vom Betreiber selbst genutzt und steht Dritten nicht zur Verfügung.</p>
+  </section>
+
+  <section>
+    <h2>Wie es funktioniert</h2>
+    <ul>
+      <li>Ein Skript wählt ein Thema und lässt dazu ein kurzes Sprechskript verfassen.</li>
+      <li>Der Text wird per Sprachsynthese vertont.</li>
+      <li>Aus Ton und Text entsteht ein Video im Hochformat mit eingebrannten Untertiteln.</li>
+      <li>Das fertige Video wird auf die Kanäle des Betreibers hochgeladen.</li>
+    </ul>
+    <p style="margin-top:.8rem">Der Quellcode ist offen einsehbar:
+      <a href="https://github.com/kevinreinhard/geld-pinguin-reels">github.com/kevinreinhard/geld-pinguin-reels</a>
+    </p>
+  </section>
+
+  <section>
+    <h2>Zugriff auf Google-Dienste</h2>
+    <p>Die Anwendung nutzt die YouTube Data API mit dem Berechtigungsbereich <code>youtube.upload</code>. Dieser erlaubt ausschliesslich das Hochladen von Videos in den Kanal des angemeldeten Kontos. Es werden keine Videos gelesen, verändert oder gelöscht, keine Kommentare abgerufen und keine Kontodaten ausgewertet.</p>
+    <p style="margin-top:.8rem">Einzelheiten dazu, welche Daten dabei anfallen und wie sie verwendet werden, stehen in der <a href="datenschutz.html">Datenschutzerklärung</a>.</p>
+  </section>
+
+  <footer>
+    <div class="nav">
+      <a href="datenschutz.html">Datenschutzerklärung</a>
+      <a href="nutzungsbedingungen.html">Nutzungsbedingungen</a>
+      <a href="https://github.com/kevinreinhard/geld-pinguin-reels">Quellcode</a>
+    </div>
+    <p>Betreiber: Kevin Reinhard, Schweiz · Kontakt: <a href="mailto:KONTAKT-EMAIL">KONTAKT-EMAIL</a></p>
+  </footer>
+</main>
+</body>
+</html>
