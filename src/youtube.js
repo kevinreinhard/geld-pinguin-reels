@@ -16,7 +16,21 @@ const TOKEN_URL = "https://oauth2.googleapis.com/token";
 const UPLOAD_URL =
   "https://www.googleapis.com/upload/youtube/v3/videos?uploadType=resumable&part=snippet,status";
 
-export const SCOPE = "https://www.googleapis.com/auth/youtube.upload";
+/**
+ * Zwei Berechtigungen, nicht eine.
+ *
+ * youtube.upload allein erlaubt kein Auslesen des Kanals. Genau daran fiel am
+ * 10.09. nicht auf, dass der Token am falschen Kanal hing: Der Testupload
+ * landete in "Moto Reinhard AG" statt bei geld.pinguin, und gemerkt hat man es
+ * erst an der Antwort - also nach dem Hochladen.
+ *
+ * Mit youtube.readonly lässt sich der Zielkanal vorher prüfen und der Upload
+ * abbrechen, bevor etwas im falschen Kanal steht.
+ */
+export const SCOPE = [
+  "https://www.googleapis.com/auth/youtube.upload",
+  "https://www.googleapis.com/auth/youtube.readonly",
+].join(" ");
 
 /** Sind die Zugangsdaten hinterlegt? */
 export function istEingerichtet() {
@@ -72,8 +86,47 @@ function baueBeschreibung(skript, caption) {
  * Lädt das Video hoch. Zweistufig (resumable): erst die Metadaten, dann die Bytes.
  * @returns {Promise<{videoId: string, url: string}>}
  */
+/** Welcher Kanal hängt an diesem Token? */
+export async function kanalInfo(token) {
+  const res = await fetch(
+    "https://www.googleapis.com/youtube/v3/channels?part=snippet&mine=true",
+    { headers: { Authorization: `Bearer ${token}` } },
+  );
+  const d = await res.json().catch(() => ({}));
+  if (d.error) throw new Error(`Kanalabfrage fehlgeschlagen: ${d.error.message}`);
+  const kanal = d.items?.[0];
+  if (!kanal) throw new Error("Kein YouTube-Kanal für dieses Konto gefunden.");
+  return { id: kanal.id, titel: kanal.snippet.title };
+}
+
+/**
+ * Bricht ab, wenn der Token nicht am erwarteten Kanal hängt.
+ * Ohne gesetzte YT_CHANNEL_ID wird nur protokolliert - so bleibt die
+ * Einrichtung möglich, ohne dass man die ID vorher kennen muss.
+ */
+async function pruefeZielkanal(token) {
+  const kanal = await kanalInfo(token);
+  const erwartet = process.env.YT_CHANNEL_ID;
+
+  if (!erwartet) {
+    console.log(`  Zielkanal: ${kanal.titel} (${kanal.id}) - ungeprüft, YT_CHANNEL_ID ist nicht gesetzt`);
+    return kanal;
+  }
+  if (kanal.id !== erwartet) {
+    throw new Error(
+      `Falscher Zielkanal: Der Token gehört zu "${kanal.titel}" (${kanal.id}), ` +
+        `erwartet war ${erwartet}. Es wurde nichts hochgeladen. ` +
+        `Zugriff unter myaccount.google.com/permissions entziehen und neu anmelden, ` +
+        `dabei den richtigen Kanal wählen.`,
+    );
+  }
+  console.log(`  Zielkanal bestätigt: ${kanal.titel}`);
+  return kanal;
+}
+
 export async function ladeShortHoch({ videoPfad, skript, caption }) {
   const token = await zugriffstoken();
+  await pruefeZielkanal(token); // vor dem Upload, nicht danach
   const daten = fs.readFileSync(videoPfad);
 
   const metadaten = {
