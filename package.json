@@ -12,7 +12,8 @@
     "analyse": "node scripts/analyse.js",
     "bericht": "node scripts/insights.js && node scripts/analyse.js",
     "faellig": "node scripts/faellig.js",
-    "youtube-auth": "node scripts/youtube-auth.js"
+    "youtube-auth": "node scripts/youtube-auth.js",
+    "banner": "node scripts/banner.js"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.71.0"
