@@ -7,10 +7,14 @@
  * niemand gesehen hat, weil dem Konto das Publikum fehlt. YouTube spielt auch
  * neue Kanaele an Fremde aus - dieselben Videos bekommen dort eine Chance.
  *
- * Warum nicht alle auf einmal: Ein Upload kostet 1.600 von 10.000 Einheiten
- * Tagesbudget. Mit dem taeglichen Reel bleiben fuenf Nachtraege pro Tag. Der
- * Workflow ruft dieses Skript einmal taeglich auf, bis der Rueckstand
- * abgearbeitet ist; danach tut es nichts mehr.
+ * Der urspruengliche Rueckstand von 19 Reels ist am 10.09. abgearbeitet worden,
+ * alle in einem Durchgang. Der dafuer gebaute taegliche Workflow wurde danach
+ * entfernt - er haette nur noch leer gedreht.
+ *
+ * Das Skript bleibt als Werkzeug fuer den Wiederholungsfall: Faellt der
+ * YouTube-Upload ueber mehrere Tage aus, etwa wegen eines abgelaufenen Tokens,
+ * holt "npm run nachtragen" die entstandene Luecke nach. Es nimmt sich nur, was
+ * in der Historie kein youtubeId hat.
  *
  * Das Skript ist wiederholbar: Bereits nachgetragene Reels traegt es nicht
  * erneut nach, erkennbar an youtubeId in der Historie.
