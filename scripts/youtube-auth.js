@@ -108,10 +108,33 @@ const server = http.createServer(async (req, res) => {
   }
 });
 
+/**
+ * Öffnet die Adresse im Standardbrowser.
+ *
+ * Die URL MUSS in Anführungszeichen stehen. Unter Windows trennt cmd.exe an
+ * jedem "&" den Befehl auf - ohne Anführungszeichen kommt beim Browser nur
+ * "?client_id=..." an und Google antwortet mit
+ * "Required parameter is missing: response_type".
+ */
+function oeffneImBrowser(url) {
+  const befehl =
+    process.platform === "win32"
+      ? `start "" "${url}"`
+      : process.platform === "darwin"
+        ? `open "${url}"`
+        : `xdg-open "${url}"`;
+  try {
+    spawn(befehl, { shell: true, stdio: "ignore", detached: true }).unref();
+    return true;
+  } catch {
+    return false;
+  }
+}
+
 server.listen(PORT, () => {
   console.log("Öffne die Zustimmungsseite im Browser ...\n");
-  console.log("Falls sie sich nicht öffnet, diese Adresse aufrufen:\n");
+  console.log("Falls sie sich nicht öffnet, diese Adresse vollständig aufrufen");
+  console.log("(eine einzige Zeile, bis zum letzten Zeichen):\n");
   console.log(authUrl + "\n");
-  const cmd = process.platform === "win32" ? "start" : process.platform === "darwin" ? "open" : "xdg-open";
-  spawn(cmd, [authUrl], { shell: true, stdio: "ignore", detached: true }).unref();
+  oeffneImBrowser(authUrl);
 });
