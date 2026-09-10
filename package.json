@@ -14,7 +14,8 @@
     "faellig": "node scripts/faellig.js",
     "youtube-auth": "node scripts/youtube-auth.js",
     "banner": "node scripts/banner.js",
-    "kanal-einrichten": "node scripts/kanal-einrichten.js"
+    "kanal-einrichten": "node scripts/kanal-einrichten.js",
+    "nachtragen": "node scripts/nachtragen.js"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.71.0"
