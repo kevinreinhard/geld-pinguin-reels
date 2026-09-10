@@ -9,6 +9,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { IG } from "../src/config.js";
+import { istEingerichtet as youtubeBereit, kennzahlen as youtubeKennzahlen } from "../src/youtube.js";
 
 const BASIS = `${IG.apiBase}/${IG.apiVersion}`;
 const PFAD = path.resolve("data/performance.json");
@@ -92,8 +93,27 @@ async function main() {
     });
   }
 
+  // YouTube ist die zweite Buehne und faellt sonst aus jeder Auswertung heraus.
+  // Ein Fehler hier darf die Instagram-Messung nicht mitreissen.
+  let youtube = null;
+  if (youtubeBereit()) {
+    try {
+      youtube = await youtubeKennzahlen();
+      const w = youtube.wiedergabe;
+      console.log(
+        `  YouTube: ${youtube.kanal.abonnenten} Abonnenten, ${youtube.videos.length} Videos, ` +
+          (w?.verfuegbar && w.anteilGesehenProzent != null
+            ? `${w.anteilGesehenProzent}% durchschnittlich gesehen`
+            : `Wiedergabedauer nicht verfuegbar (${w?.grund ?? "unbekannt"})`),
+      );
+    } catch (e) {
+      console.warn(`  YouTube uebersprungen: ${e.message}`);
+    }
+  }
+
   const messung = {
     zeitpunkt: new Date().toISOString(),
+    youtube,
     konto: {
       follower: konto.followers_count ?? null,
       folgt: konto.follows_count ?? null,

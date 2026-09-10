@@ -113,6 +113,109 @@ export async function kanalInfo(token) {
   return { id: kanal.id, titel: kanal.snippet.title };
 }
 
+async function ytGet(pfad, params, token) {
+  const url = new URL(`https://www.googleapis.com/youtube/v3/${pfad}`);
+  for (const [k, v] of Object.entries(params)) url.searchParams.set(k, v);
+  const res = await fetch(url, { headers: { Authorization: `Bearer ${token}` } });
+  const d = await res.json().catch(() => ({}));
+  if (d.error) throw new Error(`${pfad}: ${d.error.message}`);
+  return d;
+}
+
+/**
+ * Kennzahlen des Kanals und aller Videos.
+ *
+ * Aufrufe und Abonnenten liefert die Data API mit dem vorhandenen
+ * readonly-Bereich. Die eigentlich interessante Zahl - wie weit Zuschauer
+ * kommen, bevor sie wegwischen - liefert erst die Analytics API. Die ist ein
+ * eigener Dienst mit eigenem Bereich und wird hier nur versucht.
+ */
+export async function kennzahlen({ seit } = {}) {
+  const token = await zugriffstoken();
+
+  const ch = await ytGet(
+    "channels",
+    { part: "snippet,statistics,contentDetails", mine: "true" },
+    token,
+  );
+  const k = ch.items?.[0];
+  if (!k) throw new Error("Kein Kanal gefunden.");
+
+  const playlist = k.contentDetails.relatedPlaylists.uploads;
+  const eintraege = await ytGet(
+    "playlistItems",
+    { part: "contentDetails", maxResults: "50", playlistId: playlist },
+    token,
+  );
+  const ids = (eintraege.items ?? []).map((i) => i.contentDetails.videoId);
+
+  let videos = [];
+  if (ids.length) {
+    const v = await ytGet(
+      "videos",
+      { part: "snippet,statistics,contentDetails", id: ids.join(",") },
+      token,
+    );
+    videos = (v.items ?? []).map((x) => ({
+      id: x.id,
+      titel: x.snippet.title,
+      veroeffentlicht: x.snippet.publishedAt,
+      alterTage: +((Date.now() - new Date(x.snippet.publishedAt)) / 864e5).toFixed(1),
+      views: Number(x.statistics?.viewCount ?? 0),
+      likes: Number(x.statistics?.likeCount ?? 0),
+      kommentare: Number(x.statistics?.commentCount ?? 0),
+      laenge: x.contentDetails?.duration ?? null,
+    }));
+  }
+
+  return {
+    kanal: {
+      titel: k.snippet.title,
+      abonnenten: Number(k.statistics?.subscriberCount ?? 0),
+      videos: Number(k.statistics?.videoCount ?? 0),
+      aufrufeGesamt: Number(k.statistics?.viewCount ?? 0),
+    },
+    videos,
+    wiedergabe: await wiedergabedauer(token, seit),
+  };
+}
+
+/**
+ * Durchschnittliche Wiedergabedauer über die Analytics API.
+ * Gibt null zurück, wenn der Dienst nicht aktiviert oder nicht freigegeben ist -
+ * das darf die Messung nie zum Scheitern bringen.
+ */
+async function wiedergabedauer(token, seit) {
+  const bis = new Date().toISOString().slice(0, 10);
+  const von = seit ?? new Date(Date.now() - 28 * 864e5).toISOString().slice(0, 10);
+  const url = new URL("https://youtubeanalytics.googleapis.com/v2/reports");
+  url.searchParams.set("ids", "channel==MINE");
+  url.searchParams.set("startDate", von);
+  url.searchParams.set("endDate", bis);
+  url.searchParams.set(
+    "metrics",
+    "views,averageViewPercentage,averageViewDuration,subscribersGained",
+  );
+
+  try {
+    const res = await fetch(url, { headers: { Authorization: `Bearer ${token}` } });
+    const d = await res.json().catch(() => ({}));
+    if (d.error) return { verfuegbar: false, grund: d.error.message.split(".")[0] };
+    const zeile = d.rows?.[0];
+    if (!zeile) return { verfuegbar: true, hinweis: "keine Daten im Zeitraum" };
+    return {
+      verfuegbar: true,
+      zeitraum: `${von} bis ${bis}`,
+      views: zeile[0],
+      anteilGesehenProzent: zeile[1],
+      dauerSekunden: zeile[2],
+      neueAbonnenten: zeile[3],
+    };
+  } catch (e) {
+    return { verfuegbar: false, grund: e.message.slice(0, 120) };
+  }
+}
+
 /**
  * Bricht ab, wenn der Token nicht am erwarteten Kanal hängt.
  * Ohne gesetzte YT_CHANNEL_ID wird nur protokolliert - so bleibt die

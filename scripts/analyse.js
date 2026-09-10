@@ -160,6 +160,8 @@ function bereiteDatenAuf() {
   return {
     konto: neueste.konto,
     kontoVorwoche: vorherige?.konto ?? null,
+    youtube: neueste.youtube ?? null,
+    youtubeVorwoche: vorherige?.youtube ?? null,
     messungen: messungen.length,
     reels,
     feed,
@@ -187,6 +189,10 @@ ${
     : `ACHTUNG: Die Datenlage liegt unter der Mindestschwelle von ${SCHWELLE.reels} Reels und ${SCHWELLE.gesamtViews} Views. Setze aenderungen_vorgeschlagen zwingend auf false. Vorschläge würden ohnehin verworfen. Deine Aufgabe ist dann ausschliesslich das Lagebild.`
 }
 
+Zwei Plattformen, zwei Logiken:
+Derselbe Beitrag laeuft auf Instagram und als YouTube Short. Vergleiche die Zahlen nicht eins zu eins - die Plattformen verteilen voellig unterschiedlich. Instagram zeigt ein Reel zuerst den eigenen Followern und an Fremde erst, wenn diese reagieren; bei wenigen Followern entsteht dort nie Reichweite, unabhaengig von der Qualitaet. YouTube spielt auch neue Kanaele an Fremde aus. Deshalb ist YouTube die ehrlichere Rueckmeldung darueber, ob die Videos taugen, und Instagram eher ein Anzeiger fuer den Zustand des Kontos.
+Steht bei youtube.wiedergabe ein Wert fuer anteilGesehenProzent, ist das die wichtigste Zahl im ganzen Datensatz: Sie sagt, wie weit Zuschauer kommen, bevor sie wegwischen. Ueber 60 Prozent traegt das Format, unter 30 Prozent liegt das Problem am Format selbst und nicht an den Themen. Fehlt der Wert, sag das - rate ihn nicht aus Aufrufzahlen.
+
 Wie du arbeitest:
 - Sieh dir zuerst den Zustand des Kontos an, erst danach einzelne Beiträge. Feed-Beiträge gehen fast ausschliesslich an Follower und sind deshalb der ehrlichste Anzeiger: Bricht ihre Reichweite ein, liegt es am Konto, nicht an den Inhalten. Reels erreichen auch Fremde und verdecken einen solchen Einbruch eine Weile.
 - Achte auf Zeitpunkte. Wenn eine Kennzahl kippt, suche das Ereignis davor, statt das Naheliegendste zu beschuldigen. Eine Veraenderung, die zeitlich vor der vermuteten Ursache liegt, kann nicht ihre Folge sein.
@@ -211,6 +217,13 @@ function berichtSchreiben(a, daten, uebernommen) {
     `**Konto:** ${daten.konto.follower} Follower, ${daten.konto.beitraege} Beiträge, ` +
       `${daten.reels.length} Reels (davon ${daten.automatisierteReels} automatisiert), ` +
       `${daten.gesamtViews} Views gesamt`,
+    daten.youtube
+      ? `**YouTube:** ${daten.youtube.kanal.abonnenten} Abonnenten, ` +
+        `${daten.youtube.videos.length} Videos, ${daten.youtube.kanal.aufrufeGesamt} Aufrufe gesamt` +
+        (daten.youtube.wiedergabe?.anteilGesehenProzent != null
+          ? ` · ${daten.youtube.wiedergabe.anteilGesehenProzent}% durchschnittlich gesehen`
+          : " · Wiedergabedauer nicht verfügbar")
+      : "**YouTube:** nicht angebunden",
     `**Feed-Reichweite (Views, neueste zuerst):** ` +
       daten.feed.slice(0, 10).map((f) => `${f.veroeffentlicht.slice(5, 10)}: ${f.views}`).join(" · "),
     "",
@@ -286,6 +299,8 @@ async function main() {
               },
               reels: daten.reels,
               feedBeitraege: daten.feed,
+              youtube: daten.youtube,
+              youtubeVorwoche: daten.youtubeVorwoche,
             },
             null,
             1,
