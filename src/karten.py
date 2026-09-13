@@ -24,7 +24,7 @@ from pinguin import zeichne as zeichne_pinguin  # noqa: E402
 
 ANIM_FPS = 24          # Taktung der bewegten Abschnitte
 EIN = 0.42             # Einblenden
-DATEN = 0.75           # Balken wachsen, Zahlen zaehlen
+DATEN = 0.95           # Balken wachsen, Zahlen zaehlen
 AUS = 0.24             # Ausblenden
 
 
@@ -107,6 +107,22 @@ def umbrich(d, text, font, maxbreite):
     return zeilen
 
 
+def kuerze(d, text, font, maxbreite, maxzeilen):
+    """Umbricht und macht sichtbar, wenn etwas fehlt.
+
+    Ein stilles [:maxzeilen] hat auf einer Vergleichskarte aus
+    'mehrere 1.000 Euro' ein 'mehrere 1.00' gemacht - der Rest war weg, ohne
+    dass es jemand sehen konnte. Lieber ein Auslassungszeichen als ein Wert,
+    der falsch dasteht.
+    """
+    zeilen = umbrich(d, text, font, maxbreite)
+    if len(zeilen) <= maxzeilen:
+        return zeilen
+    gekuerzt = zeilen[:maxzeilen]
+    gekuerzt[-1] = gekuerzt[-1].rstrip() + "…"
+    return gekuerzt
+
+
 def passe_an(d, text, schriften, groessen, maxbreite, maxzeilen, schnitt="Black"):
     """Groesste Schriftgroesse, in der der Text noch in maxzeilen Zeilen passt.
 
@@ -119,7 +135,7 @@ def passe_an(d, text, schriften, groessen, maxbreite, maxzeilen, schnitt="Black"
         if len(zeilen) <= maxzeilen:
             return font, zeilen
     font = schriften(groessen[-1], schnitt)
-    return font, umbrich(d, text, font, maxbreite)[:maxzeilen]
+    return font, kuerze(d, text, font, maxbreite, maxzeilen)
 
 
 def schatten(bild, box, radius, staerke=95, streuung=26, versatz=16):
@@ -242,6 +258,10 @@ class Maler:
         d = ImageDraw.Draw(bild)
         d.rounded_rectangle(box, radius=46, fill=self.F["flaeche"])
         d.rounded_rectangle(box, radius=46, outline=self.F["linie"], width=2)
+        # Markenband an der Oberkante. Ohne das waren die Inhaltskarten dunkle
+        # Rechtecke, die von jedem beliebigen Kanal haetten stammen koennen.
+        d.rounded_rectangle([box[0] + 46, box[1] - 5, box[0] + 158, box[1] + 5],
+                            radius=5, fill=self.F["gold"])
         return box
 
     def kicker(self, d, text, y, farbe):
@@ -287,10 +307,10 @@ class Maler:
                    font=fe, fill=mische(akz, self.F["flaeche"], 0.3), anchor="lm")
 
         if s.get("fussnote"):
-            ff = self.f(44, "Medium")
-            for i, zeile in enumerate(umbrich(d, s["fussnote"], ff, maxb)[:2]):
-                d.text((self.W / 2, mitte_y + 122 + i * 56), zeile,
-                       font=ff, fill=self.F["textLeise"], anchor="mt")
+            ff = self.f(48, "Medium")
+            for i, zeile in enumerate(kuerze(d, s["fussnote"], ff, maxb, 2)):
+                d.text((self.W / 2, mitte_y + 122 + i * 58), zeile,
+                       font=ff, fill=self.F["textStill"], anchor="mt")
 
     def vergleich(self, bild, s, p):
         d = ImageDraw.Draw(bild)
@@ -308,8 +328,10 @@ class Maler:
                                                self.STIMMUNG["neutral"])["akzent"])
             wert = str(z.get("wert", ""))
             wb = breite(d, wert, fw)
-            for zeile in umbrich(d, z.get("label", ""), fl, x1 - x0 - wb - 30)[:1]:
-                d.text((x0, y + 8), zeile, font=fl, fill=self.F["text"], anchor="lt")
+            flz, zeilen = passe_an(d, z.get("label", ""), self.f, (44, 40, 36, 32),
+                                   x1 - x0 - wb - 30, 1, "SemiBold")
+            d.text((x0, y + 8), zeilen[0] if zeilen else "", font=flz,
+                   fill=self.F["text"], anchor="lt")
             d.text((x1, y + 2), wert, font=fw, fill=farbe, anchor="rt")
 
             by = y + 76
@@ -355,7 +377,7 @@ class Maler:
                 d.ellipse([cx - 9, cy - 9, cx + 9, cy + 9], fill=farbe)
 
             tf = self.F["text"][:3] + (alpha,)
-            for j, zeile in enumerate(umbrich(d, pt.get("text", ""), ft, box[2] - x0 - 130)[:2]):
+            for j, zeile in enumerate(kuerze(d, pt.get("text", ""), ft, box[2] - x0 - 130, 2)):
                 d.text((x0 + 94 + versatz, y + 6 + j * 54), zeile, font=ft, fill=tf, anchor="lt")
             y += 130
 
@@ -420,7 +442,7 @@ class Maler:
         ft, zeilen = passe_an(d, s.get("begriff", ""), self.f,
                               (108, 96, 84, 74, 64), maxb, 3)
         fe = self.f(46, "Medium")
-        ezeilen = umbrich(d, s["erlaeuterung"], fe, maxb)[:3] if s.get("erlaeuterung") else []
+        ezeilen = kuerze(d, s["erlaeuterung"], fe, maxb, 3) if s.get("erlaeuterung") else []
 
         hoehe = 200 + len(zeilen) * (ft.size + 18) + (len(ezeilen) * 58 + 34 if ezeilen else 0)
         box = self.karte(bild, hoehe)
@@ -432,7 +454,7 @@ class Maler:
         if ezeilen:
             y += 24
             for zeile in ezeilen:
-                d.text((self.W / 2, y), zeile, font=fe, fill=self.F["textLeise"], anchor="mt")
+                d.text((self.W / 2, y), zeile, font=fe, fill=self.F["textStill"], anchor="mt")
                 y += 58
         d.rounded_rectangle([self.W / 2 - 58, box[3] - 42, self.W / 2 + 58, box[3] - 32],
                             radius=5, fill=akz)

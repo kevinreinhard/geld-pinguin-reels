@@ -9,6 +9,9 @@ export const FARBEN = {
   flaecheHell: "#1D2A44",  // abgesetzte Zeilen in Karten
   linie: "#2A3A5C",
   text: "#FFFFFF",
+  // Fuer Fussnoten unter grossen Zahlen. #93A4C4 fiel auf dem Handy gegen die
+  // Zahl darueber komplett ab - die Bildkontrolle hat es zweimal gemeldet.
+  textStill: "#C3CEE2",
   textLeise: "#93A4C4",
   gold: "#FFC845",         // Markenfarbe, Schal des Pinguins
   gruen: "#3DDC84",        // Vorteil, Ertrag, richtig
@@ -35,11 +38,14 @@ export const LAYOUT = {
   titelY: 230,
   handleY: 292,
   // Buehne der Szenenkarte
-  buehneOben: 430,
-  buehneUnten: 1240,
+  buehneOben: 408,
+  buehneUnten: 1176,
   // darunter die Textebene, die libass zeichnet
-  untertitelY: 1350,
-  fortschrittY: 1462,
+  // Bei 1350 und 1462 lagen Untertitel und Balken laut Bildkontrolle bereits
+  // unter Instagrams Caption- und Ton-Zeile. Alles Sichtbare bleibt jetzt
+  // oberhalb von 1400.
+  untertitelY: 1282,
+  fortschrittY: 1386,
 };
 
 export const SCHRIFTEN = {

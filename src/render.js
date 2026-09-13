@@ -197,7 +197,14 @@ export async function rendere({ skript, voicePfad, wordsPfad, text, szenen, saet
 
   // Kartenebene darueber
   filter.push(`[2:v]fps=${VIDEO.fps},scale=${VIDEO.breite}:${VIDEO.hoehe},format=rgba,setsar=1[karten]`);
-  filter.push(`[${letzte}][karten]overlay=0:0:format=auto:shortest=0[mitKarten]`);
+  // Die Karte atmet. Zwischen zwei Schnitten steht sonst rund drei Sekunden
+  // lang buchstaeblich nichts im Bild - die Bildkontrolle hat genau das als
+  // schweren Mangel gemeldet, und ein Standbild ist der Moment, in dem
+  // weitergewischt wird. Fuenf Pixel reichen: Es faellt nicht auf, aber es
+  // laeuft. Kostet kein einziges zusaetzliches Einzelbild.
+  filter.push(
+    `[${letzte}][karten]overlay=x=0:y='5*sin(t/3.4)':format=auto:shortest=0[mitKarten]`,
+  );
 
   // Fortschrittsbalken: zeigt, wie kurz das Reel ist, und haelt bis zum Ende.
   const balkenBreite = 560;
