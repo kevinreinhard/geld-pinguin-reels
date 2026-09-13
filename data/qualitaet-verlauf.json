@@ -1,0 +1,15 @@
+[
+  {
+    "datum": "2026-09-13T10:18:13.992Z",
+    "gesamt": 59,
+    "noten": {
+      "hook": 52,
+      "lesbarkeit": 58,
+      "bildwechsel": 45,
+      "information": 62,
+      "marke": 64,
+      "sicherheit": 70
+    },
+    "schwere": 3
+  }
+]

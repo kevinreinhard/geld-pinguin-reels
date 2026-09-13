@@ -1,0 +1,60 @@
+{
+  "datum": "2026-09-13T10:18:13.992Z",
+  "datei": "build/reel.mp4",
+  "dauer": 25.27,
+  "noten": {
+    "hook": 52,
+    "lesbarkeit": 58,
+    "bildwechsel": 45,
+    "information": 62,
+    "marke": 64,
+    "sicherheit": 70
+  },
+  "gesamt": 59,
+  "maengel": [
+    {
+      "bereich": "lesbarkeit",
+      "schwere": "schwer",
+      "befund": "Die Kopfzeile der Karte 'DURCHSCHNITTLICHE ERSTATTUNG' laeuft in Bild 1, 2 und 3 bis an den rechten Kartenrand und wird dort abgeschnitten - das letzte G sitzt auf der Kartenkante bei x=990 (gemessen 495).",
+      "vorschlag": "Kartenueberschrift von ca. 34 px auf 28 px verkleinern oder Letterspacing von ~6 px auf 3 px reduzieren; Innenabstand der Karte links/rechts auf je 48 px setzen, damit die Zeile innerhalb von x=140..940 endet.",
+      "bild": "Bild 1-3"
+    },
+    {
+      "bereich": "bildwechsel",
+      "schwere": "schwer",
+      "befund": "Zwischen Sekunde 0.6 und 2.2 aendert sich nur die Zaehlerzahl (602 -> 1.094 -> 1.095); Karte, Hintergrund, Pinguin und Layout stehen still - danach bleibt jede Karte rund 4,5 Sekunden unveraendert stehen.",
+      "vorschlag": "Kartenwechsel alle 2,5 s statt 4,5 s takten und je Karte eine sichtbare Bewegung einbauen (z.B. Karte von y=+40 px einfahren, Fortschrittsbalken in 0,6 s fuellen, Pinguin um 8 px wippen).",
+      "bild": "Bild 1-3"
+    },
+    {
+      "bereich": "hook",
+      "schwere": "schwer",
+      "befund": "Der Einstieg zeigt eine hochlaufende Zahl ohne Spannungsaussage: 'Durchschnittliche Erstattung 1.095 EUR' - in Bild 1 steht sogar noch der Zwischenwert 602 EUR, der die Endzahl entwertet.",
+      "vorschlag": "In den ersten 2 s eine Konfliktzeile ueber die Karte setzen, z.B. '1.095 EUR liegen beim Finanzamt - und du holst sie nicht ab' in 64 px Weiss bei y=560, und den Zaehler erst ab Sekunde 0.3 in 0,8 s auf 1.095 hochlaufen lassen.",
+      "bild": "Bild 1"
+    },
+    {
+      "bereich": "lesbarkeit",
+      "schwere": "mittel",
+      "befund": "In Bild 5 sitzt die Unterzeile 'Fuer das vierte zurueckliegende Jahr' direkt unter der Zahl 31.12. ohne Abstand, die Zeile klebt an der Unterkante der Ziffern und bricht unschoen auf 'Jahr' um.",
+      "vorschlag": "Abstand zwischen Zahlblock und Unterzeile auf 48 px erhoehen und die Unterzeile auf max. 22 Zeichen pro Zeile umbrechen ('Fuer das vierte / zurueckliegende Jahr').",
+      "bild": "Bild 5"
+    },
+    {
+      "bereich": "information",
+      "schwere": "mittel",
+      "befund": "In Bild 6 traegt der gruene Balken 'Deine Werbungskosten' den Wert 'ueber 1.230 EUR' und ist vollstaendig gefuellt - ohne Ton bleibt offen, was daraus folgt (Erstattung nur oberhalb des Pauschbetrags).",
+      "vorschlag": "Unter die Balken eine Ergebniszeile in 30 px Weiss setzen, z.B. 'Nur was drueber liegt, zaehlt', und den gruenen Balken ueber die Kartenbreite hinaus bei 100 % stoppen statt bis exakt zum Rand zu laufen.",
+      "bild": "Bild 6"
+    },
+    {
+      "bereich": "marke",
+      "schwere": "mittel",
+      "befund": "Der Pinguin steht in allen Karten-Bildern unbewegt in derselben Position oben rechts und wird erst im Endbild sichtbar; er kommentiert nichts und bleibt reine Dekoration.",
+      "vorschlag": "Pinguin pro Karte eine Mini-Reaktion geben (Sprechblase 220x90 px links von ihm bei x=600/y=430 mit 2-3 Woertern, wechselnd je Karte) statt statischer Wiederholung.",
+      "bild": "Bild 1-7"
+    }
+  ],
+  "staerkste": "Das Kartenlayout ist ruhig, konsistent und gut kontrastiert: grosse gruene Zahl auf dunkler Karte, klare Hierarchie aus Label, Zahl und Unterzeile - Bild 7 mit Haken/Kreuz-Liste vermittelt seine Aussage sofort auch ohne Ton.",
+  "urteil": "Sauber gebautes, aber traeges Reel: Die Karten sind gut lesbar und der Inhalt stimmt, doch der Einstieg ist eine reine Zahlenanzeige ohne Reibung und jede Szene steht rund vier Sekunden faktisch still. Der abgeschnittene Kartentitel in den ersten drei Sekunden ist der auffaelligste handwerkliche Fehler und trifft ausgerechnet den Hook."
+}
