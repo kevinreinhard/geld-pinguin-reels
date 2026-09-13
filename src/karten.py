@@ -24,7 +24,14 @@ from pinguin import zeichne as zeichne_pinguin  # noqa: E402
 
 ANIM_FPS = 24          # Taktung der bewegten Abschnitte
 EIN = 0.42             # Einblenden
-DATEN = 0.95           # Balken wachsen, Zahlen zaehlen
+DATEN = 1.80           # Fenster fuer Bewegung innerhalb einer Szene
+
+# Innerhalb dieses Fensters laeuft die Hauptbewegung zuerst, die Nebenelemente
+# danach. Sonst ist eine Karte nach einer Sekunde fertig und steht die
+# restlichen vier still - die Bildkontrolle hat genau das zweimal als schweren
+# Mangel gemeldet.
+HAUPT = 0.42           # Anteil des Fensters fuer Zahl, Balken, Kurve
+NEBEN = (0.40, 0.72)   # Anteil, in dem Fussnoten und Werte nachziehen
 AUS = 0.24             # Ausblenden
 
 
@@ -42,6 +49,12 @@ def mische(a, b, t):
 
 def ease_out(t):
     return 1 - (1 - t) ** 3
+
+
+def nachzug(p, versatz=0.0):
+    """Fortschritt des nachziehenden Elements, 0 bis 1."""
+    a, b = NEBEN[0] + versatz, NEBEN[1] + versatz
+    return min(1.0, max(0.0, (p - a) / (b - a)))
 
 
 def ease_out_back(t):
@@ -246,7 +259,7 @@ class Maler:
     def buehne(self):
         return self.L["buehneOben"], self.L["buehneUnten"]
 
-    def karte(self, bild, hoehe, kartenbreite=None, oben=None):
+    def karte(self, bild, hoehe, kartenbreite=None, oben=None, pinguin=True):
         """Zeichnet die Grundkarte mittig auf der Buehne, liefert ihre Box."""
         o, u = self.buehne()
         b = kartenbreite or (self.W - 2 * self.L["randX"])
@@ -255,6 +268,14 @@ class Maler:
         y0 = oben if oben is not None else (o + u) / 2 - hoehe / 2
         box = [x0, y0, x0 + b, y0 + hoehe]
         schatten(bild, box, 46)
+        # Der Pinguin lugt hinter der oberen Kartenkante hervor. Er wird vor
+        # der Karte gezeichnet, damit die Karte ihn zur Haelfte verdeckt. Ohne
+        # ihn waren die Inhaltskarten dunkle Rechtecke, die von jedem
+        # beliebigen Finanzkanal haetten stammen koennen.
+        if pinguin:
+            gr = 220
+            self.setze_pinguin(bild, (int(box[2] - gr - 10), int(y0 - gr * 0.50)), gr,
+                               blick=-0.6)
         d = ImageDraw.Draw(bild)
         d.rounded_rectangle(box, radius=46, fill=self.F["flaeche"])
         d.rounded_rectangle(box, radius=46, outline=self.F["linie"], width=2)
@@ -281,10 +302,13 @@ class Maler:
         if wert is None:
             text = str(s.get("wert", ""))
         else:
-            # Hochzaehlen. Die letzten 15 Prozent stehen still, damit der
-            # Endwert ruhig ankommt und nicht im Moment des Schnitts zappelt.
-            t = min(1.0, p / 0.85)
-            text = formatiere(wert * ease_out(t), nachkomma if t >= 1 else min(nachkomma, 1),
+            # Hochzaehlen, aber nie bei null beginnen: Im ersten sichtbaren
+            # Bild stand sonst "0 %" - in einem Reel ueber zwoelf Prozent
+            # Aufschlag ist das die Gegenaussage, und die ersten Sekunden sind
+            # genau die, auf die es ankommt.
+            t = min(1.0, p / HAUPT)
+            anteil = 0.55 + 0.45 * ease_out(t)
+            text = formatiere(wert * anteil, nachkomma if t >= 1 else min(nachkomma, 1),
                               tausender)
 
         einheit = str(s.get("einheit", ""))
@@ -306,11 +330,15 @@ class Maler:
             d.text((x + breite(d, text, fz) + 20, mitte_y + groesse * 0.14), einheit,
                    font=fe, fill=mische(akz, self.F["flaeche"], 0.3), anchor="lm")
 
-        if s.get("fussnote"):
+        # Die Fussnote faehrt erst nach der Zahl ein - die zweite Bewegung in
+        # der Szene, damit die Karte nicht nach einer Sekunde erstarrt.
+        tn = nachzug(p)
+        if s.get("fussnote") and tn > 0:
             ff = self.f(48, "Medium")
+            farbe = self.F["textStill"][:3] + (int(255 * min(1.0, tn * 1.4)),)
             for i, zeile in enumerate(kuerze(d, s["fussnote"], ff, maxb, 2)):
-                d.text((self.W / 2, mitte_y + 122 + i * 58), zeile,
-                       font=ff, fill=self.F["textStill"], anchor="mt")
+                d.text((self.W / 2, mitte_y + 122 + i * 58 + (1 - ease_out(tn)) * 26), zeile,
+                       font=ff, fill=farbe, anchor="mt")
 
     def vergleich(self, bild, s, p):
         d = ImageDraw.Draw(bild)
@@ -332,12 +360,15 @@ class Maler:
                                    x1 - x0 - wb - 30, 1, "SemiBold")
             d.text((x0, y + 8), zeilen[0] if zeilen else "", font=flz,
                    fill=self.F["text"], anchor="lt")
-            d.text((x1, y + 2), wert, font=fw, fill=farbe, anchor="rt")
+            tw = nachzug(p, i * 0.06)
+            if tw > 0:
+                d.text((x1, y + 2 + (1 - ease_out(tw)) * 14), wert, font=fw,
+                       fill=farbe[:3] + (int(255 * min(1.0, tw * 1.6)),), anchor="rt")
 
             by = y + 76
             d.rounded_rectangle([x0, by, x1, by + 30], radius=15, fill=self.F["flaecheHell"])
             # Gestaffelt: Zeile i startet etwas spaeter als Zeile i-1.
-            tz = min(1.0, max(0.0, (p - i * 0.14) / 0.7))
+            tz = min(1.0, max(0.0, (p - i * 0.06) / HAUPT))
             b = (x1 - x0) * (anteile[i] / maxanteil) * ease_out(tz)
             if b > 6:
                 d.rounded_rectangle([x0, by, x0 + b, by + 30], radius=15, fill=farbe)
@@ -354,7 +385,9 @@ class Maler:
         ft = self.f(48, "SemiBold")
         for i, pt in enumerate(punkte):
             # Jeder Punkt klappt einzeln herein - der Blick wandert mit.
-            tp = min(1.0, max(0.0, (p - i * 0.16) / 0.5))
+            # Der erste Punkt hat einen Vorsprung: Sonst steht die Karte im
+            # Moment des Schnitts leer da, und das sieht nach einem Fehler aus.
+            tp = min(1.0, max(0.0, (p + 0.06 - i * 0.09) / (HAUPT * 0.8)))
             if tp <= 0:
                 y += 130
                 continue
@@ -408,7 +441,7 @@ class Maler:
                    gy1 - (gy1 - gy0) * (v - tief) / spanne) for i, v in enumerate(werte)]
 
         # Die Kurve waechst von links nach rechts.
-        t = min(1.0, p / 0.8)
+        t = min(1.0, p / HAUPT)
         bis_x = gx0 + (gx1 - gx0) * ease_out(t)
         sichtbar = [pt for pt in punkte if pt[0] <= bis_x]
         if sichtbar and len(sichtbar) < len(punkte):
@@ -451,10 +484,13 @@ class Maler:
         for zeile in zeilen:
             d.text((self.W / 2, y), zeile, font=ft, fill=self.F["text"], anchor="mt")
             y += ft.size + 18
-        if ezeilen:
+        tn = nachzug(p)
+        if ezeilen and tn > 0:
             y += 24
+            farbe = self.F["textStill"][:3] + (int(255 * min(1.0, tn * 1.4)),)
             for zeile in ezeilen:
-                d.text((self.W / 2, y), zeile, font=fe, fill=self.F["textStill"], anchor="mt")
+                d.text((self.W / 2, y + (1 - ease_out(tn)) * 22), zeile,
+                       font=fe, fill=farbe, anchor="mt")
                 y += 58
         d.rounded_rectangle([self.W / 2 - 58, box[3] - 42, self.W / 2 + 58, box[3] - 32],
                             radius=5, fill=akz)

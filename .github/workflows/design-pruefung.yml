@@ -1,0 +1,102 @@
+name: Design pruefen
+
+# Der Messstand fuer das Aussehen der Reels. Er veroeffentlicht nichts.
+#
+# Der taegliche Lauf benotet zwar auch, aber jedes Mal ein anderes Thema -
+# zwei Noten daraus sind nicht vergleichbar. Hier laufen feste Muster mit
+# festem Skript und festem Szenenplan durch. Was sich zwischen zwei Laeufen
+# aendert, ist ausschliesslich das Design, und nur dann sagt eine gestiegene
+# Note auch, dass etwas besser geworden ist.
+#
+# Das fertige Video haengt als Artefakt am Lauf und laesst sich herunterladen.
+
+on:
+  workflow_dispatch:
+    inputs:
+      muster:
+        description: "Welches Muster? (Nummer, oder 'alle')"
+        type: string
+        default: "alle"
+  push:
+    paths:
+      - "src/karten.py"
+      - "src/pinguin.py"
+      - "src/marke.js"
+      - "src/render.js"
+      - "src/ass.js"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: design-pruefung
+  cancel-in-progress: true
+
+jobs:
+  pruefen:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: ffmpeg installieren
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg fonts-dejavu-core
+
+      - name: Abhaengigkeiten
+        run: |
+          npm ci --omit=optional
+          pip install --quiet -r requirements.txt
+
+      - name: Muster rendern und benoten
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: |
+          set -euo pipefail
+          eingabe="${{ inputs.muster }}"
+          if [ -z "$eingabe" ] || [ "$eingabe" = "alle" ]; then
+            nummern=$(node -e "import('./scripts/musterreel.js').then(m=>console.log(m.MUSTER.map((_,i)=>i).join(' ')))")
+          else
+            nummern="$eingabe"
+          fi
+
+          for nr in $nummern; do
+            echo "::group::Muster $nr"
+            node scripts/musterreel.js --nr "$nr"
+            cp build/reel.mp4 "build/muster-$nr.mp4"
+            # Ohne Schluessel wird nur gerendert - das Artefakt ist dann
+            # immer noch da und laesst sich von Hand ansehen.
+            if [ -n "${ANTHROPIC_API_KEY:-}" ]; then
+              node scripts/qa.js --datei "build/muster-$nr.mp4" --kein-verlauf | tee "build/qa-$nr.txt"
+              {
+                echo "### Muster $nr"
+                echo '```'
+                cat "build/qa-$nr.txt"
+                echo '```'
+              } >> "$GITHUB_STEP_SUMMARY"
+            fi
+            echo "::endgroup::"
+          done
+
+      - name: Videos und Befunde sichern
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: design-${{ github.run_number }}
+          path: |
+            build/muster-*.mp4
+            build/qa-*.txt
+            build/szenen.json
+          retention-days: 14
+          if-no-files-found: ignore

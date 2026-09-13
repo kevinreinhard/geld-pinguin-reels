@@ -17,6 +17,7 @@
 
 import fs from "node:fs";
 import path from "node:path";
+import { pathToFileURL } from "node:url";
 import { VOICE } from "../src/config.js";
 import { lauf, rendere } from "../src/render.js";
 
@@ -148,7 +149,12 @@ async function main() {
   console.log("Beurteilen:  node scripts/qa.js");
 }
 
-main().catch((e) => {
-  console.error("\nFEHLER: " + e.message);
-  process.exit(1);
-});
+// Nur ausfuehren, wenn die Datei direkt gestartet wurde. Der Workflow
+// importiert sie, um MUSTER auszulesen - ohne diese Pruefung wuerde allein
+// der Import ein Video rendern.
+if (import.meta.url === pathToFileURL(process.argv[1] ?? "").href) {
+  main().catch((e) => {
+    console.error("\nFEHLER: " + e.message);
+    process.exit(1);
+  });
+}

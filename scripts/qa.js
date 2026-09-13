@@ -8,6 +8,7 @@
 //   node scripts/qa.js                    fertiges build/reel.mp4 pruefen
 //   node scripts/qa.js --datei x.mp4      eine andere Datei pruefen
 //   node scripts/qa.js --streng           Rueckgabecode 1, wenn die Note zu tief ist
+//   node scripts/qa.js --kein-verlauf     Ergebnis nur anzeigen, nichts speichern
 //
 // Das Ergebnis landet in data/qualitaet.json (letzter Stand) und wird an
 // data/qualitaet-verlauf.json angehaengt. Die Entwicklung ueber die Zeit ist
@@ -15,6 +16,7 @@
 
 import fs from "node:fs";
 import path from "node:path";
+import { pathToFileURL } from "node:url";
 import Anthropic from "@anthropic-ai/sdk";
 import { MODEL } from "../src/config.js";
 import { lauf } from "../src/render.js";
@@ -85,9 +87,14 @@ const TOOL = {
 const SYSTEM = `Du bist Bildkritiker fuer den deutschen Finanzbildungs-Kanal @geld.pinguin
 auf Instagram Reels und YouTube Shorts.
 
-Du siehst Einzelbilder eines fertig gerenderten Reels in zeitlicher Reihenfolge,
-Hochformat 1080x1920. Benote, was du siehst, und benenne Maengel so konkret, dass
-man sie im Code beheben kann.
+Du siehst Einzelbilder eines fertig gerenderten Reels in zeitlicher Reihenfolge.
+Benote, was du siehst, und benenne Maengel so konkret, dass man sie im Code
+beheben kann.
+
+Zu den Koordinaten - lies das genau, sonst misst du falsch:
+Das Video ist 1080x1920. Die Bilder, die du siehst, sind auf **540x960**
+verkleinert. Was du im Bild misst, musst du also verdoppeln, bevor du eine
+Pixelangabe nennst. Nenne Pixelwerte immer im Massstab 1080x1920.
 
 Worauf es ankommt:
 ${Object.entries(DIMENSIONEN).map(([k, v]) => `- ${k}: ${v}`).join("\n")}
@@ -96,9 +103,14 @@ Massstab ist nicht "ganz nett fuer ein automatisch erzeugtes Video", sondern der
 Vergleich mit dem, was auf Instagram taeglich gegen dieses Reel antritt. 60 ist
 brauchbar, 80 ist gut, 90 vergibst du nur, wenn du nichts mehr zu bemaengeln hast.
 
-Instagram legt ueber das Bild: oben eine Kopfzeile (rund 200 Pixel), unten Caption,
-Ton-Zeile und Fortschritt (rund 420 Pixel), rechts eine Spalte mit Buttons
-(rund 140 Pixel breit, untere Bildhaelfte). Was dort liegt, ist verdeckt.
+Instagram legt ueber das Bild (Angaben in 1080x1920, in Klammern das, was du im
+verkleinerten Bild misst):
+- oben eine Kopfzeile bis y=200 (bei dir: bis y=100)
+- unten Caption und Ton-Zeile ab y=1500 (bei dir: ab y=750)
+- rechts eine Buttonspalte ab x=940 in der unteren Bildhaelfte (bei dir: ab x=470)
+Was dort liegt, ist verdeckt. Was ausserhalb dieser Zonen liegt, ist in Ordnung -
+melde es nicht. Pruefe vor jedem Befund zu Sicherheitsraendern, ob die Zahl nach
+der Umrechnung wirklich in der Zone liegt.
 
 Sei streng und praezise. "Koennte besser sein" hilft niemandem - "Die Fussnote in
 Bild 2 steht in 44 Pixel Grauton auf dunkelblau und ist auf dem Handy nicht lesbar"
@@ -245,8 +257,7 @@ async function main() {
   }
 }
 
-if (import.meta.url === `file://${process.argv[1].replace(/\\/g, "/")}` ||
-    process.argv[1].endsWith("qa.js")) {
+if (import.meta.url === pathToFileURL(process.argv[1] ?? "").href) {
   main().catch((e) => {
     console.error("\nFEHLER: " + e.message);
     process.exit(1);
