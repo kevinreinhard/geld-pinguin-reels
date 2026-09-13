@@ -11,5 +11,18 @@
       "sicherheit": 70
     },
     "schwere": 3
+  },
+  {
+    "datum": "2026-09-13T20:47:23.379Z",
+    "gesamt": 58,
+    "noten": {
+      "hook": 48,
+      "lesbarkeit": 62,
+      "bildwechsel": 45,
+      "information": 63,
+      "marke": 58,
+      "sicherheit": 70
+    },
+    "schwere": 3
   }
 ]
