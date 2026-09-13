@@ -101,6 +101,28 @@ jobs:
             node src/index.js
           fi
 
+      # Der Kanal misst seine eigene Bildqualitaet. Die Note blockiert den
+      # Beitrag bewusst nicht - ein Modellurteil ueber Geschmack darf den
+      # Tagesbeitrag nicht kosten. Der Wert im Verlauf zeigt ueber Wochen,
+      # ob eine Designaenderung etwas gebracht hat.
+      - name: Bildqualitaet messen
+        if: always()
+        continue-on-error: true
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: |
+          if [ ! -f build/reel.mp4 ]; then
+            echo "Kein Video vorhanden - Bildkontrolle uebersprungen."
+            exit 0
+          fi
+          node scripts/qa.js | tee build/qa-ausgabe.txt
+          {
+            echo "## Bildkontrolle"
+            echo '```'
+            cat build/qa-ausgabe.txt
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+
       - name: Video als Artefakt sichern
         if: always()
         uses: actions/upload-artifact@v4
@@ -109,6 +131,7 @@ jobs:
           path: |
             build/reel.mp4
             build/script.json
+            build/szenenplan.json
             build/subs.ass
           retention-days: 7
           if-no-files-found: ignore
@@ -116,13 +139,15 @@ jobs:
       - name: Historie zurueckschreiben
         if: success()
         run: |
-          if git diff --quiet -- data/history.json; then
-            echo "Keine Aenderung an der Historie."
+          if git diff --quiet -- data/history.json data/qualitaet-verlauf.json; then
+            echo "Keine Aenderung an Historie oder Qualitaetsverlauf."
             exit 0
           fi
           git config user.name "geld-pinguin-bot"
           git config user.email "bot@users.noreply.github.com"
           git add data/history.json
+          # Die Qualitaetsdateien entstehen erst beim ersten Lauf mit Bildkontrolle.
+          git add data/qualitaet.json data/qualitaet-verlauf.json 2>/dev/null || true
           git commit -m "Historie: neues Reel [skip ci]"
           for i in 1 2 3; do
             git pull --rebase --autostash origin "${GITHUB_REF_NAME}" && git push && exit 0

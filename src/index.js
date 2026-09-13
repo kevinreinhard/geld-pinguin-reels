@@ -2,7 +2,8 @@ import fs from "node:fs";
 import path from "node:path";
 import { CHANNEL, VOICE } from "./config.js";
 import { waehleSaeule } from "./pillar.js";
-import { baueCaption, generiereSkript, sprechtext } from "./script.js";
+import { baueCaption, generiereSkript, saetzeVon, sprechtext } from "./script.js";
+import { planeBilder } from "./regie.js";
 import { lauf, rendere } from "./render.js";
 import { ladeHoch } from "./upload.js";
 import { veroeffentlicheReel, verbleibendesKontingent } from "./instagram.js";
@@ -111,9 +112,19 @@ async function main() {
   await lauf(pythonBin, ["src/tts.py", ttsInput]);
   console.log(`  Stimme: ${stimme}`);
 
-  // 4 ------------------------------------------------------------- Video
-  schritt(4, "Video rendern");
-  const video = await rendere({ skript, voicePfad, wordsPfad, text });
+  // 4 ------------------------------------------------------------- Bildregie
+  // Erst hier steht fest, was waehrend jedes Satzes zu sehen ist. Vorher lief
+  // 25 Sekunden lang derselbe Farbverlauf - der Grund, warum die Reels nichts
+  // gehalten haben.
+  schritt(4, "Bildregie: Szenen planen");
+  const saetze = saetzeVon(skript);
+  const szenen = await planeBilder(skript, saetze);
+  szenen.forEach((sz, i) => console.log(`  ${i + 1}. ${sz.typ} (${sz.stimmung})`));
+  fs.writeFileSync(path.join(BUILD, "szenenplan.json"), JSON.stringify(szenen, null, 2));
+
+  // 5 ------------------------------------------------------------- Video
+  schritt(5, "Video rendern");
+  const video = await rendere({ skript, voicePfad, wordsPfad, text, szenen, saetze });
 
   if (ohneVeroeffentlichung) {
     console.log(`\nFertig ohne Veroeffentlichung. Datei: ${video.pfad}`);
@@ -121,12 +132,12 @@ async function main() {
     return;
   }
 
-  // 5 ------------------------------------------------------------- Upload
-  schritt(5, "Video oeffentlich bereitstellen");
+  // 6 ------------------------------------------------------------- Upload
+  schritt(6, "Video oeffentlich bereitstellen");
   const videoUrl = await ladeHoch(video.pfad);
 
-  // 6 ------------------------------------------------------------- Instagram
-  schritt(6, `Auf ${CHANNEL.handle} veroeffentlichen`);
+  // 7 ------------------------------------------------------------- Instagram
+  schritt(7, `Auf ${CHANNEL.handle} veroeffentlichen`);
   const kontingent = await verbleibendesKontingent();
   if (kontingent) {
     console.log(`  Kontingent: ${kontingent.genutzt}/${kontingent.limit} Beitraege in 24h`);
@@ -138,12 +149,12 @@ async function main() {
   const { mediaId, permalink } = await veroeffentlicheReel({ videoUrl, caption });
   console.log(`  Veroeffentlicht: ${permalink ?? "Media-ID " + mediaId}`);
 
-  // 7 ------------------------------------------------------------- YouTube
+  // 8 ------------------------------------------------------------- YouTube
   // Zweitverwertung. Schlaegt sie fehl, ist der Instagram-Beitrag trotzdem
   // draussen - deshalb hier abfangen statt den Lauf scheitern lassen.
   let youtube = null;
   if (youtubeBereit()) {
-    schritt(7, "Als YouTube Short hochladen");
+    schritt(8, "Als YouTube Short hochladen");
     try {
       youtube = await ladeShortHoch({ videoPfad: video.pfad, skript, caption });
       console.log(`  Hochgeladen: ${youtube.url}`);
@@ -152,7 +163,7 @@ async function main() {
     }
   }
 
-  // 8 ------------------------------------------------------------- Historie
+  // 9 ------------------------------------------------------------- Historie
   speicherePost({
     topic: skript.topic,
     pillar: saeule.key,

@@ -230,12 +230,20 @@ function pruefe(s) {
   };
 }
 
+/**
+ * Die gesprochenen Saetze in ihrer Reihenfolge.
+ *
+ * Die Bildregie plant eine Karte je Eintrag, und src/regie.js findet die
+ * Zeitfenster wieder, indem es genau diese Liste mit einem Leerzeichen
+ * zusammensetzt. Wer hier die Trennung aendert, verschiebt die Szenen.
+ */
+export function saetzeVon(skript) {
+  return [skript.hook, ...skript.body, skript.cta].map((s) => s.trim()).filter(Boolean);
+}
+
 /** Der Text, der wirklich vorgelesen wird. */
 export function sprechtext(skript) {
-  return [skript.hook, ...skript.body, skript.cta]
-    .map((s) => s.trim())
-    .filter(Boolean)
-    .join(" ");
+  return saetzeVon(skript).join(" ");
 }
 
 /** Die fertige Instagram-Caption inkl. Hashtags und Disclaimer. */

@@ -107,8 +107,8 @@ YCbCr Matrix: TV.709
 [V4+ Styles]
 Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
 Style: Cap,${fontname},${c.fontSize},${c.aktivFarbe},${c.ruheFarbe},${c.outlineFarbe},&H64000000,0,0,0,0,100,100,2,0,1,${c.outlineStaerke},4,5,90,90,0,1
-Style: Titel,${fontname},${c.titleFontSize},&H00FFFFFF&,&H00FFFFFF&,${c.outlineFarbe},&H64000000,0,0,0,0,100,100,6,0,1,6,3,5,90,90,0,1
-Style: Handle,${fontname},44,&H00FFFFFF&,&H00FFFFFF&,${c.outlineFarbe},&H64000000,0,0,0,0,100,100,3,0,1,4,2,5,60,60,0,1
+Style: Titel,${fontname},${c.titleFontSize},${c.aktivFarbe},${c.aktivFarbe},${c.outlineFarbe},&H64000000,0,0,0,0,100,100,9,0,1,4,2,5,90,90,0,1
+Style: Handle,${fontname},38,&H00FFFFFF&,&H00FFFFFF&,${c.outlineFarbe},&H64000000,0,0,0,0,100,100,4,0,1,3,2,5,60,60,0,1
 
 [Events]
 Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text

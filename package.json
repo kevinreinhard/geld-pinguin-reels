@@ -8,6 +8,8 @@
     "reel": "node src/index.js",
     "dry": "node src/index.js --dry-run",
     "render-only": "node src/index.js --no-publish",
+    "muster": "node scripts/musterreel.js",
+    "qa": "node scripts/qa.js",
     "insights": "node scripts/insights.js",
     "analyse": "node scripts/analyse.js",
     "bericht": "node scripts/insights.js && node scripts/analyse.js",

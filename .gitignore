@@ -1,6 +1,7 @@
 node_modules/
 build/
 .env
+__pycache__/
 assets/backgrounds/*
 assets/music/*
 !assets/backgrounds/.gitkeep
