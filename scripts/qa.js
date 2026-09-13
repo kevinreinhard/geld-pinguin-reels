@@ -47,14 +47,14 @@ const TOOL = {
   input_schema: {
     type: "object",
     properties: {
-      noten: {
-        type: "object",
-        description: "Je Dimension 0 bis 100.",
-        properties: Object.fromEntries(
-          Object.keys(DIMENSIONEN).map((k) => [k, { type: "integer" }]),
-        ),
-        required: Object.keys(DIMENSIONEN),
-      },
+      // Die sechs Noten stehen flach nebeneinander, nicht in einem
+      // Unterobjekt. Verschachtelt kam beim ersten Messlauf eine Zeichenkette
+      // statt eines Objekts zurueck, und die Auswertung zeigte "0/100" an.
+      ...Object.fromEntries(
+        Object.entries(DIMENSIONEN).map(([k, frage]) => [
+          k, { type: "integer", description: `0 bis 100. ${frage}` },
+        ]),
+      ),
       maengel: {
         type: "array",
         description:
@@ -80,7 +80,7 @@ const TOOL = {
       staerkste: { type: "string", description: "Was an diesem Reel am besten funktioniert" },
       urteil: { type: "string", description: "Zwei Saetze Gesamteindruck" },
     },
-    required: ["noten", "maengel", "staerkste", "urteil"],
+    required: [...Object.keys(DIMENSIONEN), "maengel", "staerkste", "urteil"],
   },
 };
 
@@ -154,9 +154,19 @@ async function einzelbilder(datei, anzahl = 8) {
   return { dauer, bilder };
 }
 
-function schnitt(noten) {
-  const werte = Object.values(noten).filter((v) => Number.isFinite(v));
-  return werte.length ? Math.round(werte.reduce((a, b) => a + b, 0) / werte.length) : 0;
+/** Holt die sechs Noten aus der Antwort und begrenzt sie auf 0 bis 100. */
+function noten(eingabe) {
+  const raus = {};
+  for (const k of Object.keys(DIMENSIONEN)) {
+    const n = Number(eingabe?.[k] ?? eingabe?.noten?.[k]);
+    raus[k] = Number.isFinite(n) ? Math.min(100, Math.max(0, Math.round(n))) : null;
+  }
+  return raus;
+}
+
+function schnitt(werte) {
+  const zahlen = Object.values(werte).filter((v) => Number.isFinite(v));
+  return zahlen.length ? Math.round(zahlen.reduce((a, b) => a + b, 0) / zahlen.length) : 0;
 }
 
 export async function pruefe(datei) {
@@ -194,12 +204,20 @@ export async function pruefe(datei) {
   const block = antwort.content.find((b) => b.type === "tool_use");
   if (!block) throw new Error("Keine Bewertung erhalten.");
 
+  const werte = noten(block.input);
+  if (Object.values(werte).every((v) => v === null)) {
+    throw new Error("Antwort enthaelt keine lesbaren Noten: " +
+      JSON.stringify(block.input).slice(0, 300));
+  }
   return {
     datum: new Date().toISOString(),
     datei,
     dauer: +dauer.toFixed(2),
-    gesamt: schnitt(block.input.noten),
-    ...block.input,
+    noten: werte,
+    gesamt: schnitt(werte),
+    maengel: Array.isArray(block.input.maengel) ? block.input.maengel : [],
+    staerkste: String(block.input.staerkste ?? ""),
+    urteil: String(block.input.urteil ?? ""),
   };
 }
 
@@ -226,6 +244,10 @@ function speichere(ergebnis) {
 export function zeige(e) {
   console.log(`\n  Gesamtnote: ${e.gesamt}/100`);
   for (const [k, v] of Object.entries(e.noten)) {
+    if (v === null) {
+      console.log(`    ${k.padEnd(13)}   -  (keine Note)`);
+      continue;
+    }
     const balken = "#".repeat(Math.round(v / 5)).padEnd(20, ".");
     console.log(`    ${k.padEnd(13)} ${String(v).padStart(3)}  ${balken}`);
   }

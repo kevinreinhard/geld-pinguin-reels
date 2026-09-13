@@ -51,8 +51,15 @@ def ease_out(t):
     return 1 - (1 - t) ** 3
 
 
-def nachzug(p, versatz=0.0):
-    """Fortschritt des nachziehenden Elements, 0 bis 1."""
+def nachzug(p, versatz=0.0, sofort=False):
+    """Fortschritt des nachziehenden Elements, 0 bis 1.
+
+    In der Eroeffnungsszene zieht nichts nach: Dort stand die Zahl sekundenlang
+    ohne ihre Bezugsgroesse im Bild, und die ersten zwei Sekunden sind genau
+    die, in denen jemand entscheidet, ob er bleibt.
+    """
+    if sofort:
+        return 1.0
     a, b = NEBEN[0] + versatz, NEBEN[1] + versatz
     return min(1.0, max(0.0, (p - a) / (b - a)))
 
@@ -289,9 +296,9 @@ class Maler:
         """Kleine gesperrte Ueberschrift ueber der eigentlichen Aussage."""
         if not text:
             return y
-        font = self.f(34, "Bold")
+        font = self.f(40, "Bold")
         sperr(d, (self.W / 2, y), str(text).upper(), font, farbe, 6, anchor_mitte=True)
-        return y + 58
+        return y + 66
 
     # -------------------------------------------------- Szenentypen
 
@@ -332,7 +339,7 @@ class Maler:
 
         # Die Fussnote faehrt erst nach der Zahl ein - die zweite Bewegung in
         # der Szene, damit die Karte nicht nach einer Sekunde erstarrt.
-        tn = nachzug(p)
+        tn = nachzug(p, sofort=s.get("satz") == 0)
         if s.get("fussnote") and tn > 0:
             ff = self.f(48, "Medium")
             farbe = self.F["textStill"][:3] + (int(255 * min(1.0, tn * 1.4)),)
@@ -484,7 +491,7 @@ class Maler:
         for zeile in zeilen:
             d.text((self.W / 2, y), zeile, font=ft, fill=self.F["text"], anchor="mt")
             y += ft.size + 18
-        tn = nachzug(p)
+        tn = nachzug(p, sofort=s.get("satz") == 0)
         if ezeilen and tn > 0:
             y += 24
             farbe = self.F["textStill"][:3] + (int(255 * min(1.0, tn * 1.4)),)
