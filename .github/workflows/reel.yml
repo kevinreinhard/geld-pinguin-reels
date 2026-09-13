@@ -14,6 +14,10 @@ on:
         description: "Wirklich auf Instagram veroeffentlichen?"
         type: boolean
         default: true
+      skript:
+        description: "Fertiges Skript wiederholen statt ein neues schreiben (Pfad, z.B. data/wiederholung.json)"
+        type: string
+        default: ""
 
 permissions:
   contents: write
@@ -102,11 +106,23 @@ jobs:
           R2_BUCKET: ${{ secrets.R2_BUCKET }}
           R2_PUBLIC_BASE: ${{ secrets.R2_PUBLIC_BASE }}
         run: |
+          set -euo pipefail
+          argumente=""
           if [ "${{ inputs.publish }}" = "false" ]; then
-            node src/index.js --no-publish
-          else
-            node src/index.js
+            argumente="--no-publish"
           fi
+          # Wiederholung: derselbe Text noch einmal, neu gerendert. Gedacht
+          # fuer den Fall, dass am Renderer etwas kaputt war - dann soll genau
+          # dieser Beitrag zurueck, nicht irgendein anderer.
+          vorlage="${{ inputs.skript }}"
+          if [ -n "$vorlage" ]; then
+            if [ ! -f "$vorlage" ]; then
+              echo "Skriptdatei $vorlage gibt es nicht."
+              exit 1
+            fi
+            argumente="$argumente --skript $vorlage"
+          fi
+          node src/index.js $argumente
 
       # Der Kanal misst seine eigene Bildqualitaet. Die Note blockiert den
       # Beitrag bewusst nicht - ein Modellurteil ueber Geschmack darf den

@@ -13,6 +13,15 @@ import { speicherePost } from "./history.js";
 const BUILD = "build";
 const flags = new Set(process.argv.slice(2));
 const nurSkript = flags.has("--script-only");
+// Ein fertiges Skript erneut veroeffentlichen, statt ein neues schreiben zu
+// lassen. Gebaut fuer den Fall, dass am Renderer etwas kaputt war: Der Text
+// ist in Ordnung, nur das Bild war es nicht - dann soll genau dieser Beitrag
+// noch einmal raus, nicht irgendein anderer.
+const argumente = process.argv.slice(2);
+// indexOf liefert -1, wenn der Schalter fehlt - ohne diese Pruefung zeigte
+// "+ 1" auf das erste Argument und machte aus --no-publish einen Dateinamen.
+const skriptPos = argumente.indexOf("--skript");
+const vorlage = skriptPos >= 0 ? argumente[skriptPos + 1] : null;
 const ohneVeroeffentlichung = flags.has("--no-publish") || flags.has("--dry-run") || nurSkript;
 
 const pythonBin =
@@ -20,6 +29,41 @@ const pythonBin =
 
 function schritt(nr, text) {
   console.log(`\n[${nr}] ${text}`);
+}
+
+/**
+ * Lädt ein zuvor erzeugtes Skript von der Platte.
+ *
+ * Die Datei ist dieselbe, die jeder Lauf als `build/script.json` ablegt und
+ * als Artefakt am Workflow hängt — ein misslungener Beitrag lässt sich damit
+ * ohne Abtippen wiederholen.
+ */
+function ladeSkript(pfad) {
+  let s;
+  try {
+    s = JSON.parse(fs.readFileSync(pfad, "utf8"));
+  } catch (e) {
+    throw new Error(`${pfad} laesst sich nicht lesen: ${e.message}`);
+  }
+  const fehlt = ["topic", "title", "hook", "cta", "hashtags"].filter((k) => !s[k]);
+  if (!Array.isArray(s.body) || !s.body.length) fehlt.push("body");
+  if (fehlt.length) {
+    throw new Error(`${pfad} ist kein vollstaendiges Skript. Es fehlt: ${fehlt.join(", ")}.`);
+  }
+  return s;
+}
+
+/**
+ * Die Caption, die unter den Beitrag kommt.
+ *
+ * `build/script.json` enthält bereits die fertige Caption samt Hinweis und
+ * Hashtags — `baueCaption` ein zweites Mal darauf loszulassen würde beides
+ * verdoppeln. Der Rechtshinweis ist das verlässliche Erkennungszeichen.
+ */
+function vollstaendigeCaption(skript) {
+  return String(skript.caption ?? "").includes("Keine Anlageberatung")
+    ? skript.caption
+    : baueCaption(skript);
 }
 
 /**
@@ -54,7 +98,11 @@ function tokenWarnung() {
 /** Fehlende Zugangsdaten sofort melden statt mitten im Lauf. */
 function preflight() {
   const fehlt = [];
-  if (!process.env.ANTHROPIC_API_KEY && !process.env.ANTHROPIC_AUTH_TOKEN) {
+  // Ohne Modellaufruf braucht es keinen Schluessel: Ein vorhandenes Skript
+  // nur anzeigen kommt ganz ohne aus. Gerendert wird dagegen nie ohne - die
+  // Bildregie laeuft auch bei einer Wiederholung.
+  const brauchtModell = !(vorlage && nurSkript);
+  if (brauchtModell && !process.env.ANTHROPIC_API_KEY && !process.env.ANTHROPIC_AUTH_TOKEN) {
     fehlt.push("ANTHROPIC_API_KEY");
   }
   if (!ohneVeroeffentlichung) {
@@ -77,14 +125,14 @@ async function main() {
 
   // 1 ------------------------------------------------------------- Thema
   schritt(1, "Thema waehlen");
-  const saeule = waehleSaeule();
+  const saeule = vorlage ? { key: "wiederholung", beschreibung: vorlage } : waehleSaeule();
   console.log(`  Saeule: ${saeule.key} - ${saeule.beschreibung}`);
 
   // 2 ------------------------------------------------------------- Skript
-  schritt(2, "Skript von Claude generieren");
-  const skript = await generiereSkript(saeule);
+  schritt(2, vorlage ? `Skript aus ${vorlage} laden` : "Skript von Claude generieren");
+  const skript = vorlage ? ladeSkript(vorlage) : await generiereSkript(saeule);
   const text = sprechtext(skript);
-  const caption = baueCaption(skript);
+  const caption = vollstaendigeCaption(skript);
 
   console.log(`  Thema:  ${skript.topic}`);
   console.log(`  Titel:  ${skript.title}`);

@@ -71,7 +71,16 @@ node src/index.js --no-publish
 
 # Alles inklusive Veröffentlichung
 node src/index.js
+
+# Einen fertigen Beitrag wiederholen, statt ein neues Skript zu schreiben
+node src/index.js --skript data/wiederholung.json
 ```
+
+`--skript` lädt eine zuvor erzeugte `script.json` (sie hängt als Artefakt an
+jedem Workflow-Lauf). Gedacht für den Fall, dass am Renderer etwas kaputt war:
+Der Text ist in Ordnung, nur das Bild war es nicht — dann soll genau dieser
+Beitrag zurück, nicht irgendein anderer. Im Workflow steht dafür das Feld
+**skript**.
 
 Voraussetzung: `ANTHROPIC_API_KEY` in der Umgebung, für den letzten Befehl zusätzlich
 `IG_ACCESS_TOKEN` sowie `GITHUB_REPOSITORY` und `GITHUB_TOKEN` (oder die R2-Variablen).
