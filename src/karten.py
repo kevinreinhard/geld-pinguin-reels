@@ -292,13 +292,26 @@ class Maler:
                             radius=5, fill=self.F["gold"])
         return box
 
-    def kicker(self, d, text, y, farbe):
-        """Kleine gesperrte Ueberschrift ueber der eigentlichen Aussage."""
+    def kicker(self, d, text, y, farbe, box=None):
+        """Kleine gesperrte Ueberschrift ueber der eigentlichen Aussage.
+
+        Sie passt sich der Karte an. Bei fester Groesse lief
+        'DURCHSCHNITTLICHE ERSTATTUNG' ueber die Kartenkante hinaus - und zwar
+        im Hook, also genau dort, wo es am meisten kostet. Erst wird der
+        Buchstabenabstand enger, dann die Schrift kleiner; der gesperrte Satz
+        ist ein Gestaltungsmittel und nicht wichtiger als ein vollstaendiges
+        Wort.
+        """
+        text = str(text or "").upper()
         if not text:
             return y
-        font = self.f(40, "Bold")
-        sperr(d, (self.W / 2, y), str(text).upper(), font, farbe, 6, anchor_mitte=True)
-        return y + 66
+        maxbreite = (box[2] - box[0] - 76) if box else (self.W - 2 * self.L["randX"] - 76)
+        for groesse, spacing in ((40, 6), (40, 4), (36, 4), (32, 3), (28, 3), (24, 2)):
+            font = self.f(groesse, "Bold")
+            if breite(d, text, font, spacing) <= maxbreite:
+                break
+        sperr(d, (self.W / 2, y), text, font, farbe, spacing, anchor_mitte=True)
+        return y + groesse + 26
 
     # -------------------------------------------------- Szenentypen
 
@@ -321,15 +334,25 @@ class Maler:
         einheit = str(s.get("einheit", ""))
         box = self.karte(bild, 540)
         y = box[1] + 66
-        y = self.kicker(d, s.get("kicker", ""), y, akz)
+        y = self.kicker(d, s.get("kicker", ""), y, akz, box)
 
+        # Zahl und Einheit muessen zusammen in die Karte passen. Die letzte
+        # Stufe rechnet die Groesse aus, statt sie zu raten: Bei einer langen
+        # Einheit lief die Zeile sonst auf beiden Seiten ueber die Karte hinaus.
         maxb = box[2] - box[0] - 120
-        for groesse in (240, 210, 180, 155, 130, 110):
+        groesse, ges = 240, 0
+        for stufe in (240, 210, 180, 155, 130, 110, 92, 78):
+            groesse = stufe
             fz = self.f(groesse, "Black")
             fe = self.f(groesse * 0.52, "Bold")
             ges = breite(d, text, fz) + (breite(d, einheit, fe) + 20 if einheit else 0)
             if ges <= maxb:
                 break
+        if ges > maxb:
+            groesse = max(40, int(groesse * maxb / ges))
+            fz = self.f(groesse, "Black")
+            fe = self.f(groesse * 0.52, "Bold")
+            ges = breite(d, text, fz) + (breite(d, einheit, fe) + 20 if einheit else 0)
         mitte_y = y + 132
         x = self.W / 2 - ges / 2
         d.text((x, mitte_y), text, font=fz, fill=akz, anchor="lm")
@@ -352,7 +375,7 @@ class Maler:
         zeilen = list(s.get("zeilen", []))[:3]
         box = self.karte(bild, 210 + len(zeilen) * 152)
         y = box[1] + 64
-        y = self.kicker(d, s.get("kicker", ""), y, self.akzent(s))
+        y = self.kicker(d, s.get("kicker", ""), y, self.akzent(s), box)
 
         x0, x1 = box[0] + 58, box[2] - 58
         anteile = [max(0.02, float(z.get("anteil", 0.5))) for z in zeilen] or [1]
@@ -386,7 +409,7 @@ class Maler:
         punkte = list(s.get("punkte", []))[:4]
         box = self.karte(bild, 180 + len(punkte) * 130)
         y = box[1] + 64
-        y = self.kicker(d, s.get("kicker", ""), y, self.akzent(s))
+        y = self.kicker(d, s.get("kicker", ""), y, self.akzent(s), box)
 
         x0 = box[0] + 56
         ft = self.f(48, "SemiBold")
@@ -429,7 +452,7 @@ class Maler:
             werte = [0.0] + werte
         box = self.karte(bild, 600)
         y = box[1] + 64
-        y = self.kicker(d, s.get("kicker", ""), y, akz)
+        y = self.kicker(d, s.get("kicker", ""), y, akz, box)
 
         # Der Endwert steht ueber dem Raster und braucht seine eigene Zeile -
         # direkt am Kurvenende ueberdeckt er die oberste Hilfslinie.
@@ -487,7 +510,7 @@ class Maler:
         hoehe = 200 + len(zeilen) * (ft.size + 18) + (len(ezeilen) * 58 + 34 if ezeilen else 0)
         box = self.karte(bild, hoehe)
         y = box[1] + 64
-        y = self.kicker(d, s.get("kicker", ""), y, akz)
+        y = self.kicker(d, s.get("kicker", ""), y, akz, box)
         for zeile in zeilen:
             d.text((self.W / 2, y), zeile, font=ft, fill=self.F["text"], anchor="mt")
             y += ft.size + 18

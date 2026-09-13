@@ -75,6 +75,13 @@ jobs:
           npm ci --omit=optional
           pip install --quiet -r requirements.txt
 
+      # Statische Probe, fuenf Sekunden, kein Modellaufruf. Sie faellt nur aus,
+      # wenn der Renderer kaputt ist - und dann ist ein ausgefallener Beitrag
+      # besser als einer mit abgeschnittenen Zahlen. Genau das ist am 13.09.
+      # live gegangen, bevor es diese Probe gab.
+      - name: Kartenlayout pruefen
+        run: python scripts/layoutprobe.py
+
       - name: Reel bauen und posten
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}

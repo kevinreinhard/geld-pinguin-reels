@@ -79,6 +79,7 @@ Voraussetzung: `ANTHROPIC_API_KEY` in der Umgebung, für den letzten Befehl zus�
 **Am Design arbeiten – ohne Modellaufrufe:**
 
 ```bash
+npm run layout                  # läuft ein Kartentyp über? (5 Sekunden, statisch)
 npm run muster                  # festes Musterreel rendern, kein API-Schlüssel nötig
 node scripts/musterreel.js --liste
 npm run qa                      # Claude benotet build/reel.mp4 (braucht den Schlüssel)

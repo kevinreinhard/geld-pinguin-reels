@@ -31,6 +31,9 @@ bevor du sie für erledigt erklärst. Ein Layout, das im Code plausibel aussieht
 kann im Bild kollidieren — das lässt sich nicht wegdenken, nur nachsehen.
 
 ```bash
+# Zuerst die Belastungsprobe - sie findet Ueberlauf in fuenf Sekunden:
+python scripts/layoutprobe.py
+
 # Nur die Bildebene, ohne Ton und ohne ffmpeg (schnell, rund 15 Sekunden):
 python src/karten.py build/szenen.json
 
@@ -53,8 +56,10 @@ Fürs ganze Video mit Ton siehe die Skill `reel-qualitaet`.
   andere muss in GitHub Actions ohne Zusatzinstallation laufen.
 - Die Sicherheitsränder sind keine Geschmacksfrage: oben 200, unten 420, rechts
   140 Pixel bleiben frei von allem, was gesehen werden muss.
-- Textkarten fangen Überlänge selbst ab (`passe_an` in `karten.py`). Wenn du eine
-  neue Textstelle einbaust, gib ihr dieselbe Absicherung — abgeschnittener Text
-  ist der peinlichste Fehler, den dieses System machen kann.
+- Textkarten fangen Überlänge selbst ab (`passe_an`, `kuerze`, `kicker` in
+  `karten.py`). Wenn du eine neue Textstelle einbaust, gib ihr dieselbe
+  Absicherung und ergänze `scripts/layoutprobe.py` um einen Fall, der sie
+  auf die Probe stellt. Abgeschnittener Text ist der peinlichste Fehler, den
+  dieses System machen kann — er ist zweimal passiert, einmal bis auf Instagram.
 - Ändere eine Sache pro Durchgang und render neu. Fünf Änderungen auf einmal, und
   niemand weiß mehr, welche die Verbesserung war.

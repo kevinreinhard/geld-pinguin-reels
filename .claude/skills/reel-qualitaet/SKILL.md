@@ -12,9 +12,16 @@ nicht an einer Vermutung.
 ## Der Kreis
 
 ```bash
+python scripts/layoutprobe.py         # läuft irgendein Kartentyp über? (5 Sekunden)
 node scripts/musterreel.js --nr 0     # rendert build/reel.mp4, kein API-Schlüssel nötig
 node scripts/qa.js                    # Claude benotet das Ergebnis (braucht ANTHROPIC_API_KEY)
 ```
+
+`layoutprobe.py` rendert jeden Kartentyp mit absichtlich zu langen Texten und
+prüft, ob Farbe außerhalb der erlaubten Fläche liegt. Sie läuft in beiden
+Workflows als Sperre, bevor irgendetwas gerendert oder gepostet wird. Zweimal
+ist genau dieser Fehler vorher durchgerutscht — einmal bis auf Instagram. Wer
+einen Kartentyp ändert, führt sie aus, bevor er rendert.
 
 `musterreel.js` arbeitet mit festen Skripten und festen Szenenplänen. Das ist der
 Punkt: Zwischen zwei Läufen ändert sich nur das Design, nie der Inhalt — sonst

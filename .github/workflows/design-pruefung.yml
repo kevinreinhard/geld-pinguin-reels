@@ -59,6 +59,9 @@ jobs:
           npm ci --omit=optional
           pip install --quiet -r requirements.txt
 
+      - name: Kartenlayout pruefen
+        run: python scripts/layoutprobe.py
+
       - name: Muster rendern und benoten
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
