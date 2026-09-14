@@ -479,7 +479,16 @@ class Maler:
             # live gegangen.
             tf = (self.F["rot"] if zeichen == "nein" else self.F["text"])[:3] + (alpha,)
             for j, zeile in enumerate(kuerze(d, pt.get("text", ""), ft, box[2] - x0 - 130, 2)):
-                d.text((x0 + 94 + versatz, y + 6 + j * 54), zeile, font=ft, fill=tf, anchor="lt")
+                tx, ty = x0 + 94 + versatz, y + 6 + j * 54
+                d.text((tx, ty), zeile, font=ft, fill=tf, anchor="lt")
+                # Durchgestrichen. Die Bildregie formuliert verneinte Punkte
+                # trotz ausdruecklicher Ansage immer wieder bejahend - "Ja, in
+                # Euro" mit rotem Kreuz las sich wie eine Empfehlung. Farbe und
+                # Kreuz allein reichen nicht, ein Strich laesst keine Frage offen.
+                if zeichen == "nein":
+                    d.line([(tx - 6, ty + ft.size * 0.62),
+                            (tx + breite(d, zeile, ft) + 6, ty + ft.size * 0.62)],
+                           fill=tf, width=5)
             y += 130
 
     def verlauf(self, bild, s, p):
