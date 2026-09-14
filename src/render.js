@@ -86,7 +86,7 @@ function hintergrundQuelle(dauer, farben) {
   const seed = Math.floor(Math.random() * 1e6);
   return (
     `gradients=s=1220x2160:c0=${ff(farben.grundTief)}:c1=${ff(farben.grund)}` +
-    `:c2=${ff(farben.flaeche)}:n=3:type=radial:speed=0.014` +
+    `:c2=${ff(farben.grundHell)}:n=3:type=radial:speed=0.014` +
     `:d=${Math.ceil(dauer)}:r=${VIDEO.fps}:seed=${seed}`
   );
 }
@@ -167,7 +167,9 @@ export async function rendere({ skript, voicePfad, wordsPfad, text, szenen, saet
   filter.push(
     `[1:v]crop=${VIDEO.breite}:${VIDEO.hoehe}:` +
       `x='(in_w-out_w)/2+58*sin(t/11)':y='(in_h-out_h)/2+70*sin(t/15+1)',` +
-      `noise=alls=7:allf=t+u,vignette=PI/4.2,setsar=1,format=rgba[grund]`,
+      `noise=alls=${farben.koernung}:allf=t+u,` +
+      (farben.vignette ? `vignette=${farben.vignette},` : "") +
+      `setsar=1,format=rgba[grund]`,
   );
 
   // Filmmaterial: abgedunkelt und weichgezeichnet, mit weichen Kanten eingeblendet.
@@ -212,10 +214,13 @@ export async function rendere({ skript, voicePfad, wordsPfad, text, szenen, saet
   const balkenBreite = 560;
   const balkenX = Math.round((VIDEO.breite - balkenBreite) / 2);
   const balkenY = LAYOUT.fortschrittY;
+  // Balken und Spur nehmen ihre Farbe aus dem Thema: Auf hellem Grund ist eine
+  // weisse Spur unsichtbar, auf dunklem eine dunkle.
   const fortschritt =
-    `drawbox=x=${balkenX}:y=${balkenY}:w=${balkenBreite}:h=5:color=white@0.18:t=fill,` +
+    `drawbox=x=${balkenX}:y=${balkenY}:w=${balkenBreite}:h=5` +
+    `:color=${ff(farben.balken)}@0.22:t=fill,` +
     `drawbox=x=${balkenX}:y=${balkenY}:w='${balkenBreite}*min(t/${dauer},1)':h=5` +
-    `:color=${ff(farben.gold)}@0.95:t=fill`;
+    `:color=${ff(farben.balken)}@0.95:t=fill`;
 
   filter.push(
     `[mitKarten]subtitles=${assPfad}:fontsdir=assets/fonts,${fortschritt},format=yuv420p[v]`,

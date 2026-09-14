@@ -113,6 +113,20 @@ Fast alles steckt in **`src/config.js`**:
 | Untertitel: Grösse, Farbe, Wörter pro Einblendung | `CAPTIONS` |
 | Videolänge-Grenzen, Qualität | `VIDEO` |
 
+**Zwei Themen.** `gelb` (Voreinstellung) und `dunkel`, umschaltbar über die
+Umgebungsvariable `REEL_THEMA`:
+
+```bash
+REEL_THEMA=dunkel npm run muster
+```
+
+Die Karten bleiben in beiden Themen dunkelblau — sie tragen Zahlen, Balken und
+Kurven, und dafür ist heller Text auf dunklem Grund die verlässlichste
+Kombination. Getauscht wird, was sie umgibt: Hintergrund, Titelzeile,
+Wasserzeichen, Fortschrittsbalken und der Lichtsaum des Pinguins. Auf hellem
+Grund bekommen die Untertitel zusätzlich einen dunklen Kasten, weil weisse
+Schrift auf Gelb verschwindet.
+
 Alles Gestalterische steht in **`src/marke.js`**: Farben, Stimmungen,
 Schriftpfade und die Bildaufteilung (wo Titel, Karte, Untertitel und
 Fortschrittsbalken sitzen). Von dort wandern die Werte als JSON nach

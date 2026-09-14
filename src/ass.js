@@ -137,6 +137,18 @@ export function chunkeWoerter(words) {
 
 function kopf(fontname) {
   const c = CAPTIONS;
+  // Auf hellem Grund bekommen die Untertitel einen deckenden Kasten
+  // (BorderStyle 3), auf dunklem eine Kontur (BorderStyle 1). Der Text darin
+  // bleibt in beiden Faellen derselbe - was sich aendert, ist nur, worauf er
+  // liegt. Ohne Kasten verschwindet weisse Schrift auf Gelb.
+  const rand = c.kasten
+    ? { stil: 3, staerke: 18, schatten: 0 }
+    : { stil: 1, staerke: c.outlineStaerke, schatten: 4 };
+  // Der Kasten nutzt BackColour; ohne Kasten bleibt dort ein weicher Schatten.
+  const kastenFarbe = c.kasten ? c.outlineFarbe.replace("&H00", "&H14") : "&H64000000";
+
+  // Titel und Wasserzeichen liegen direkt auf dem Hintergrund und tragen ihre
+  // Farbe aus dem Thema - deshalb hier weder Kontur noch Schatten.
   // ASS-Format: Name, Fontname, Fontsize, Primary(gesungen), Secondary(ungesungen),
   // Outline, Back, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle,
   // BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
@@ -150,9 +162,9 @@ YCbCr Matrix: TV.709
 
 [V4+ Styles]
 Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
-Style: Cap,${fontname},${c.fontSize},${c.gesprochenFarbe},${c.kommendFarbe},${c.outlineFarbe},&H64000000,0,0,0,0,100,100,2,0,1,${c.outlineStaerke},4,5,90,90,0,1
-Style: Titel,${fontname},${c.titleFontSize},${c.aktivFarbe},${c.aktivFarbe},${c.outlineFarbe},&H64000000,0,0,0,0,100,100,9,0,1,4,2,5,90,90,0,1
-Style: Handle,${fontname},38,&H00FFFFFF&,&H00FFFFFF&,${c.outlineFarbe},&H64000000,0,0,0,0,100,100,4,0,1,3,2,5,60,60,0,1
+Style: Cap,${fontname},${c.fontSize},${c.gesprochenFarbe},${c.kommendFarbe},${c.outlineFarbe},${kastenFarbe},0,0,0,0,100,100,2,0,${rand.stil},${rand.staerke},${rand.schatten},5,90,90,0,1
+Style: Titel,${fontname},${c.titleFontSize},${c.aktivFarbe},${c.aktivFarbe},${c.outlineFarbe},&H64000000,0,0,0,0,100,100,9,0,1,0,0,5,90,90,0,1
+Style: Handle,${fontname},38,${c.handleFarbe},${c.handleFarbe},${c.outlineFarbe},&H64000000,0,0,0,0,100,100,4,0,1,0,0,5,60,60,0,1
 
 [Events]
 Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text

@@ -1,10 +1,15 @@
 // Das Designsystem des Kanals. Einzige Quelle der Wahrheit fuer Farben,
 // Schriftgroessen und Bildaufteilung - src/karten.py bekommt diese Werte als
 // JSON und malt danach. Wer den Look aendern will, aendert ihn hier.
+//
+// Zwei Themen. Umschalten ueber REEL_THEMA=dunkel oder REEL_THEMA=gelb.
+//
+// Der Unterschied liegt nur im Hintergrund und in dem, was direkt darauf
+// liegt. Die Karten bleiben in beiden Themen dunkel - sie tragen Zahlen,
+// Balken und Kurven, und dafuer ist heller Text auf dunklem Grund die
+// verlaesslichste Kombination. Getauscht wird, was sie umgibt.
 
-export const FARBEN = {
-  grund: "#0A1020",        // Basis des Hintergrunds
-  grundTief: "#060A14",    // Vignette aussen
+const GEMEINSAM = {
   flaeche: "#141E33",      // Karten
   flaecheHell: "#1D2A44",  // abgesetzte Zeilen in Karten
   linie: "#2A3A5C",
@@ -19,14 +24,75 @@ export const FARBEN = {
   blau: "#5AA9FF",         // neutrale Hervorhebung
 };
 
+export const THEMEN = {
+  dunkel: {
+    ...GEMEINSAM,
+    grund: "#0A1020",       // Basis des Hintergrunds
+    grundTief: "#060A14",   // Vignette aussen
+    grundHell: "#141E33",   // heller Pol des Verlaufs
+    // Was direkt auf dem Hintergrund liegt: Titelzeile, Wasserzeichen,
+    // Fortschrittsbalken, Lichtsaum des Pinguins.
+    aufGrund: "#FFC845",
+    aufGrundLeise: "#FFFFFF",
+    balken: "#FFC845",
+    saum: "#FFC845",
+    // Untertitel stehen frei auf dem Hintergrund und brauchen dort keinen
+    // Kasten - dunkler Grund traegt hellen Text von allein.
+    untertitelKasten: false,
+    schimmerStaerke: 210,
+    // Vignette und Koernung sind auf dunkle Flaechen abgestimmt: Sie geben
+    // Tiefe und nehmen dem Verlauf das Digitale.
+    vignette: "PI/4.2",
+    koernung: 7,
+  },
+  gelb: {
+    ...GEMEINSAM,
+    grund: "#FFC845",
+    grundTief: "#E8A317",
+    grundHell: "#FFE08A",
+    // Auf Gelb muss alles Freistehende dunkel sein, sonst verschwindet es.
+    aufGrund: "#1C1406",
+    aufGrundLeise: "#5A4413",
+    balken: "#1C1406",
+    saum: "#1C1406",
+    // Freistehender Text auf Gelb ist der schwierige Fall: Weiss verschwindet,
+    // Dunkel schlaegt sich mit dem Karaoke-Wechsel. Deshalb bekommen die
+    // Untertitel einen dunklen Kasten - dieselbe Flaeche wie die Karten, und
+    // die Schriftfarben bleiben in beiden Themen dieselben.
+    untertitelKasten: true,
+    schimmerStaerke: 90,
+    // Auf Gelb wirkt beides anders. Die Vignette zieht die Raender selbst bei
+    // PI/11 sichtbar ins Olivbraune - auf hellem Grund gibt sie keine Tiefe,
+    // sie macht nur schmutzig. Sie entfaellt hier ganz. Koernung auf einer
+    // flachen hellen Flaeche sieht nach Schmutz aus statt nach Film, bleibt
+    // aber ganz leicht drin, damit der Verlauf nicht bandet.
+    vignette: null,
+    koernung: 2,
+  },
+};
+
+const GEWAEHLT = process.env.REEL_THEMA === "dunkel" ? "dunkel" : "gelb";
+
+export const THEMA = GEWAEHLT;
+export const FARBEN = THEMEN[GEWAEHLT];
+
 // Jede Szene bekommt eine Stimmung. Sie faerbt Akzent, Hintergrundschimmer und
 // die Balken - damit ein Kostenblock rot und ein Ertragsblock gruen wirkt,
 // ohne dass das Modell Farbwerte erfinden muss.
+//
+// Der Schimmer liegt im Hintergrund und muss deshalb zum Thema passen: auf
+// Dunkel ein farbiger Schein, auf Gelb ein warmer Ton, der die Flaeche nicht
+// schmutzig macht.
+const SCHIMMER = {
+  dunkel: { neutral: "#1B2A4A", warnung: "#33161F", gut: "#123123", info: "#122744" },
+  gelb: { neutral: "#FFD873", warnung: "#F58A6A", gut: "#9BD9A6", info: "#8FC4F0" },
+};
+
 export const STIMMUNGEN = {
-  neutral: { akzent: FARBEN.gold, schimmer: "#1B2A4A" },
-  warnung: { akzent: FARBEN.rot, schimmer: "#33161F" },
-  gut: { akzent: FARBEN.gruen, schimmer: "#123123" },
-  info: { akzent: FARBEN.blau, schimmer: "#122744" },
+  neutral: { akzent: FARBEN.gold, schimmer: SCHIMMER[GEWAEHLT].neutral },
+  warnung: { akzent: FARBEN.rot, schimmer: SCHIMMER[GEWAEHLT].warnung },
+  gut: { akzent: FARBEN.gruen, schimmer: SCHIMMER[GEWAEHLT].gut },
+  info: { akzent: FARBEN.blau, schimmer: SCHIMMER[GEWAEHLT].info },
 };
 
 export const LAYOUT = {

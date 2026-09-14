@@ -1,4 +1,10 @@
-import { LAYOUT } from "./marke.js";
+import { FARBEN, LAYOUT } from "./marke.js";
+
+/** #RRGGBB -> ASS-Farbe &H00BBGGRR& (ASS dreht die Kanaele um). */
+const ass = (hex) => {
+  const h = hex.replace("#", "");
+  return `&H00${h.slice(4, 6)}${h.slice(2, 4)}${h.slice(0, 2)}&`;
+};
 
 // Zentrale Konfiguration fuer den Kanal @geld.pinguin.
 // Alles was du am Look/Content drehen willst, steht hier.
@@ -73,10 +79,16 @@ export const CAPTIONS = {
   // steht alles in Weiss. Vorher faerbte sich die Zeile fortschreitend gold ein
   // und war am Ende komplett golden - die Bildkontrolle hat sie zweimal als
   // praktisch unlesbar gemeldet.
-  gesprochenFarbe: "&H00FFFFFF&",  // Weiss
-  kommendFarbe: "&H0045C8FF&",     // ASS = &HBBGGRR -> #FFC845 (Markengold)
-  aktivFarbe: "&H0045C8FF&",       // Markengold, fuer Titelzeile und Balken
-  outlineFarbe: "&H00140A05&",
+  //
+  // Diese beiden Farben bleiben in jedem Thema gleich. Auf hellem Grund
+  // bekommen die Untertitel stattdessen einen dunklen Kasten (siehe marke.js),
+  // damit derselbe Text weiter traegt.
+  gesprochenFarbe: "&H00FFFFFF&",       // Weiss
+  kommendFarbe: ass(FARBEN.gold),
+  aktivFarbe: ass(FARBEN.aufGrund),     // Titelzeile, liegt direkt auf dem Grund
+  handleFarbe: ass(FARBEN.aufGrundLeise),
+  outlineFarbe: ass(FARBEN.flaeche),    // Kontur und, mit Kasten, dessen Farbe
+  kasten: Boolean(FARBEN.untertitelKasten),
   outlineStaerke: 7,
 };
 

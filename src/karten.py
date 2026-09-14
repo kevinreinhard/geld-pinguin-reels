@@ -229,7 +229,12 @@ def formatiere(wert, nachkomma, tausender):
 class Maler:
     def __init__(self, spec):
         self.spec = spec
-        self.F = {k: hexfarbe(v) for k, v in spec["marke"]["farben"].items()}
+        # In den Themen stehen neben Farben auch Schalter und Zahlen. Nur was
+        # wie eine Farbe aussieht, wird auch als eine gelesen.
+        roh = spec["marke"]["farben"]
+        self.F = {k: hexfarbe(v) for k, v in roh.items()
+                  if isinstance(v, str) and v.startswith("#")}
+        self.schimmerStaerke = int(roh.get("schimmerStaerke", 210))
         self.STIMMUNG = spec["marke"]["stimmungen"]
         self.L = spec["marke"]["layout"]
         self.f = Schriften(spec["marke"]["schriften"]["display"])
@@ -252,7 +257,8 @@ class Maler:
             ebene = Image.new("RGBA", (self.W // 4, self.H // 4), (0, 0, 0, 0))
             d = ImageDraw.Draw(ebene)
             cx, cy = self.W / 8, (self.L["buehneOben"] + self.L["buehneUnten"]) / 8
-            d.ellipse([cx - 170, cy - 150, cx + 170, cy + 150], fill=farbe[:3] + (210,))
+            d.ellipse([cx - 170, cy - 150, cx + 170, cy + 150],
+                      fill=farbe[:3] + (self.schimmerStaerke,))
             ebene = ebene.filter(ImageFilter.GaussianBlur(52)).resize(
                 (self.W, self.H), Image.BILINEAR)
             self._glanz[name] = ebene
@@ -271,7 +277,7 @@ class Maler:
         deshalb passt er immer, egal wie die Figur steht.
         """
         ping = self.pinguin(groesse, blick=blick, augen=augen)
-        saum = Image.new("RGBA", ping.size, self.F["gold"][:3] + (0,))
+        saum = Image.new("RGBA", ping.size, self.F["saum"][:3] + (0,))
         saum.putalpha(
             ping.getchannel("A").filter(ImageFilter.GaussianBlur(groesse / 20))
             .point(lambda v: min(104, int(v * 0.55)))

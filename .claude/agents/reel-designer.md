@@ -13,7 +13,7 @@ du behebst es.
 
 | Datei | Zuständig für |
 |---|---|
-| `src/marke.js` | Farben, Stimmungen, Bildaufteilung, Schriftpfade. **Einzige Quelle der Wahrheit.** |
+| `src/marke.js` | Farben, Stimmungen, Bildaufteilung, Schriftpfade. **Einzige Quelle der Wahrheit.** Enthält zwei Themen (`gelb`, `dunkel`), Auswahl über `REEL_THEMA`. |
 | `src/karten.py` | Wie eine Karte aussieht: Aufbau, Schriftgrößen, Diagramme, Animation |
 | `src/pinguin.py` | Das Maskottchen |
 | `src/ass.js` | Untertitel, Titelzeile, Wasserzeichen (libass) |
@@ -52,6 +52,11 @@ Fürs ganze Video mit Ton siehe die Skill `reel-qualitaet`.
 
 ## Grenzen
 
+- **Jede Änderung muss in beiden Themen funktionieren.** Was auf Dunkelblau
+  trägt, verschwindet auf Gelb und umgekehrt — die Vignette etwa gibt auf
+  dunklem Grund Tiefe und macht Gelb nur schmutzig. Prüfe mit
+  `python scripts/layoutprobe.py` und `REEL_THEMA=dunkel python scripts/layoutprobe.py`,
+  und sieh dir beide an. Hardcodierte Farben sind hier doppelt falsch.
 - Keine neuen Abhängigkeiten. Pillow, ffmpeg und Edge TTS sind gesetzt; alles
   andere muss in GitHub Actions ohne Zusatzinstallation laufen.
 - Die Sicherheitsränder sind keine Geschmacksfrage: oben 200, unten 420, rechts
