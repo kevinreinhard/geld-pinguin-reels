@@ -1,60 +1,60 @@
 {
-  "datum": "2026-09-14T16:33:03.980Z",
+  "datum": "2026-09-14T17:01:29.473Z",
   "datei": "build/reel.mp4",
-  "dauer": 21.63,
+  "dauer": 26.23,
   "noten": {
     "hook": 52,
     "lesbarkeit": 68,
     "bildwechsel": 58,
-    "information": 70,
+    "information": 64,
     "marke": 62,
     "sicherheit": 74
   },
-  "gesamt": 64,
+  "gesamt": 63,
   "maengel": [
     {
       "bereich": "hook",
       "schwere": "schwer",
-      "befund": "Bild 1 (Sek. 0,9) zeigt als Hook nur eine Karte mit '12 %' und der Kleinzeile 'AM GELDAUTOMATEN IM AUSLAND' - die eigentliche Reizaussage steht als 44-px-Fliesstext unter der Zahl und ist beim Wischen nicht erfassbar; ein grosser Reizsatz fehlt.",
+      "befund": "Bild 1: Der Einstieg zeigt nur eine Karte mit '6 %' und der kleinen Zeile 'KOSTEN JE SPARPLAN-KAUF' - die Zahl sitzt mittig auf ca. y=910 (gemessen 455), die obere Bildhaelfte bis y=560 ist leer. In den ersten zwei Sekunden gibt es keinen Konfliktsatz, der das Wischen stoppt.",
       "bild": "Bild 1",
-      "vorschlag": "In Szene 1 die Kartenueberschrift durch eine Hook-Zeile ersetzen: 'JA ZU EURO = 12% TEURER' in 96 px Bold Weiss, zweizeilig, zentriert bei y=760, und die Zahl 12% erst ab Sek. 1,2 darunter einblenden."
-    },
-    {
-      "bereich": "sicherheit",
-      "schwere": "mittel",
-      "befund": "Die Untertitelzeile liegt bei y=1400 (gemessen 700) und die Fortschrittslinie bei y=1478 (gemessen 739) - beides direkt an der Kante der Instagram-Caption-Zone ab y=1500; bei laengeren Untertiteln, die zweizeilig umbrechen (z. B. Bild 4 'dynamische Waehrungsumrechnung.'), rutscht die zweite Zeile unter die Caption.",
-      "bild": "Bild 4",
-      "vorschlag": "Untertitel-Baseline von y=1400 auf y=1290 heben und die Fortschrittslinie auf y=1360 setzen, damit auch zwei Zeilen à 60 px oberhalb y=1500 bleiben."
-    },
-    {
-      "bereich": "bildwechsel",
-      "schwere": "mittel",
-      "befund": "Zwischen Bild 9 und Bild 10 (Szene 7, Sek. 19,1 bis 21,3) veraendert sich nur, dass der Untertitel verschwindet - Pinguin, Titel und Handle stehen die letzten 2,5 Sekunden voellig still, das Reel endet als Standbild.",
-      "bild": "Bild 10",
-      "vorschlag": "Auf der Endkarte den Pinguin ab Sek. 19,5 mit einer Loop-Animation versehen (z. B. ±12 px vertikales Wippen, 1,2 s Periode) und den Handle-Button ab Sek. 20,0 einmal um 6 % pulsen lassen."
-    },
-    {
-      "bereich": "bildwechsel",
-      "schwere": "mittel",
-      "befund": "Szene 3 (Bild 5 zu Bild 6) veraendert nur die zwei Labels 'schlecht'/'fair' rechts; die Balken haben bereits in Bild 5 ihre Endlaenge, es gibt keine sichtbare Fuellbewegung.",
-      "bild": "Bild 5",
-      "vorschlag": "Balken in Szene 3 von Breite 0 auf Endbreite animieren: roter Balken 0,0-0,6 s, gruener Balken 0,3-0,9 s nach Szenenstart, Easing ease-out."
+      "vorschlag": "Hook-Zeile ueber die Karte setzen: Text 'Diese 6 % zahlst du, bevor der ETF ueberhaupt laeuft' in 76 px Bold Weiss auf y=430-560, Karte von y=640 nach unten schieben; '6' von 200 px auf 260 px vergroessern."
     },
     {
       "bereich": "lesbarkeit",
+      "schwere": "schwer",
+      "befund": "Bild 8: Der Fliesstext 'Viele Broker fuehren ETF-Sparplaene gratis aus' beginnt direkt unter dem '0 €'-Block auf y=1020 und klebt mit nur ca. 20 px Abstand am Euro-Zeichen; die Karte endet bei y=1170, unterer Innenabstand ist deutlich kleiner als der obere.",
+      "bild": "Bild 8",
+      "vorschlag": "Abstand zwischen Kennzahlblock und Beschreibungstext auf 60 px setzen und Karte um 60 px nach oben verlaengern (Kartenoberkante von y=630 auf y=570), damit oben und unten je 56 px Innenrand bleiben."
+    },
+    {
+      "bereich": "bildwechsel",
       "schwere": "mittel",
-      "befund": "Der Kartenfliesstext 'Aufschlag, wenn du Ja zu Euro waehlst' (Bild 1/2) und 'Verlust allein durch die Umrechnung' (Bild 8) steht in hellgrau-blauem Ton auf dunkelblauer Karte bei ca. 44 px Hoehe - deutlich schwaecher als die weisse Ueberschrift und auf dem Handy grenzwertig.",
-      "bild": "Bild 2",
-      "vorschlag": "Fliesstext in der Karte auf reines Weiss (#FFFFFF) und 52 px anheben, Zeilenabstand 1,25."
+      "befund": "Szene 1 (Bild 1 zu Bild 2) veraendert in 2,4 Sekunden ausser dem Untertitel nichts - die Karte steht identisch, die 6 % zaehlt nicht hoch, kein Balken, keine Bewegung. Gleiches gilt fuer Szene 4 (Bild 7 zu Bild 8), wo nur eine Textzeile dazukommt.",
+      "bild": "Bild 1 / Bild 2",
+      "vorschlag": "Count-up der Kennzahl von 0 auf 6 ueber 0,6 s einbauen und nach 1,2 s einen roten Balken einblenden, der 6 % der Kartenbreite (ca. 50 px von 830 px Karteninnenbreite) markiert."
+    },
+    {
+      "bereich": "bildwechsel",
+      "schwere": "mittel",
+      "befund": "Bild 10 (Sekunde 25,9): Die Endkarte steht ohne Untertitel und ohne Text im gelben Button-Balken auf y=1180-1270 - ein leeres Pillen-Element fuer die letzte Sekunde des Reels.",
+      "bild": "Bild 10",
+      "vorschlag": "In die gelbe Pille bei y=1220 den Text 'Folgen fuer mehr' in 40 px dunkelblau Bold zentrieren, sonst das Element entfernen."
+    },
+    {
+      "bereich": "information",
+      "schwere": "mittel",
+      "befund": "Bild 3: Die beiden Balken 'Sparrate' und 'Ordergebuehr' stehen ohne Zahlenwerte da, der rote Ordergebuehr-Punkt ist nur ca. 30 px breit - ohne Ton ist nicht erkennbar, dass 1,50 € von 25 € gemeint sind. Erst Bild 4 liefert die Werte.",
+      "bild": "Bild 3",
+      "vorschlag": "Werte '25 €' und '1,50 €' bereits beim Szenenstart rechtsbuendig auf x=880 einblenden, Balkenanimation danach in 0,5 s wachsen lassen."
     },
     {
       "bereich": "marke",
       "schwere": "klein",
-      "befund": "Der Pinguin haengt in Bild 1-8 immer identisch am rechten oberen Kartenrand (Mitte ca. x=868, y=612) und bewegt sich nicht; die Karte selbst ist eine neutrale abgerundete Box, wie sie in tausenden Templates vorkommt.",
-      "bild": "Bild 3",
-      "vorschlag": "Pinguin pro Szene um 10-15 px seitlich versetzen und beim Schnitt 0,3 s einfliegen lassen; zusaetzlich die gelbe Akzentlinie oben links (x=140-250, y=650) auf Kartenbreite waehrend der Szene wachsen lassen als wiedererkennbares Markenelement."
+      "befund": "Der Pinguin lugt in Bild 1-8 immer identisch an derselben Stelle (Kartenoberkante rechts, ca. x=865, y=545) hinter der Karte hervor und bewegt sich nie - er wirkt wie ein aufgeklebtes Logo statt wie ein Kanalcharakter.",
+      "bild": "Bild 1-8",
+      "vorschlag": "Pinguin je Szene an wechselnder Kartenseite platzieren (Szene 2 links bei x=180) und beim Szenenstart 0,3 s um 20 px nach oben huepfen lassen."
     }
   ],
-  "staerkste": "Die visuelle Sprache ist konsequent durchgehalten: dunkle Karte, rote Kennzahl, gelber Marken-Akzent, Pinguin am Kartenrand - Szene 3 mit dem roten/gruenen Balkenvergleich traegt die Aussage 'Automatenkurs ist schlechter' voellig ohne Ton.",
-  "urteil": "Sauber gebautes, ruhig getaktetes Erklaerreel mit klarer Farb- und Kartenlogik, das seine Kernaussage in Szene 3 und 4 auch stumm vermittelt. Es verliert aber in den ersten zwei Sekunden, weil die Hook nur eine kleine Zahl in einer Box ist statt eines grossen Reizsatzes, und es endet auf einem 2,5 Sekunden langen Standbild."
+  "staerkste": "Das Kartenlayout ist konsequent durchgehalten: dunkelblaue Karte auf warmem Gelbverlauf, roter Akzent fuer Kosten, gruener fuer 0 € - der Farbwechsel in Bild 7/8 erzaehlt die Wendung von 'teuer' zu 'kostenlos' allein ueber die Farbe, und die Untertitelbox mit gelber Wort-Hervorhebung sitzt in allen Bildern stabil bei y=1330-1450, also sauber ueber der Caption-Zone.",
+  "urteil": "Ein sauber gebautes, ruhiges Template mit klarer Farblogik und guter Untertitelspur, das aber wie ein Standbild-Karussell laeuft: Innerhalb der Szenen passiert fast nur, dass Text nachrutscht. Vor allem der Einstieg verschenkt die entscheidenden zwei Sekunden, weil er mit einer nackten Zahl statt mit einer Behauptung oeffnet."
 }
