@@ -1,60 +1,60 @@
 {
-  "datum": "2026-09-14T09:17:04.657Z",
+  "datum": "2026-09-14T09:26:18.513Z",
   "datei": "build/reel.mp4",
-  "dauer": 20.44,
+  "dauer": 22.03,
   "noten": {
-    "hook": 58,
-    "lesbarkeit": 64,
-    "bildwechsel": 62,
-    "information": 55,
-    "marke": 70,
+    "hook": 54,
+    "lesbarkeit": 68,
+    "bildwechsel": 58,
+    "information": 70,
+    "marke": 64,
     "sicherheit": 72
   },
   "gesamt": 64,
   "maengel": [
     {
-      "bereich": "information",
+      "bereich": "hook",
       "schwere": "schwer",
-      "befund": "In Bild 3 steht auf der Kennzahlkarte '944 €', in Bild 4 derselben Szene '1.095 €' - der Zaehler laeuft sichtbar hoch, aber der Untertitel dazu lautet 'gibt es tausendfünfundneunzig', sodass in Bild 3 Zahl und Text widerspruechlich sind und ein Screenshot des Zwischenstands eine falsche Zahl zeigt.",
-      "bild": "Bild 3",
-      "vorschlag": "Count-Up auf max. 0.4 s verkuerzen oder ganz streichen und die Zahl 1.095 € ab Szenenstart statisch setzen; Zwischenwerte nur in kleinerer Opazitaet, damit kein falscher Wert als Standbild wirkt."
+      "befund": "Der Einstieg in Bild 1 zeigt nur eine Karte mit Ueberschrift 'EIN KLICK AM AUTOMATEN' und der Zahl 12 % - keine Reibung, keine Frage, keine Konsequenz; der eigentliche Aufreger ('15 Euro weg') kommt erst bei Sekunde 14.",
+      "bild": "Bild 1",
+      "vorschlag": "Kennzahl-Karte in Szene 1 auf eine Zeile mit Konfliktwort umbauen: Ueberschrift auf '300 EURO ABHEBEN = 15 EURO WEG?' und die 12 % auf 240 px Schriftgroesse hochziehen, Karte von y=650 auf y=500 (1080x1920) nach oben setzen, damit Zahl und Aussage in den ersten 2 Sekunden zusammen im oberen Bilddrittel stehen."
     },
     {
-      "bereich": "lesbarkeit",
+      "bereich": "information",
       "schwere": "schwer",
-      "befund": "Die Quellenzeile 'Statistisches Bundesamt, pro Steuerjahr' in Bild 4 steht in hellgrauem Text von etwa 44 px Hoehe (22 px gemessen) auf dunkelblauer Karte und bricht ausserdem unschoen auf zwei Zeilen mit einem einzelnen Wort 'Steuerjahr'.",
-      "bild": "Bild 4",
-      "vorschlag": "Schriftgroesse auf 52 px anheben, Farbe von #9AA4B8 auf #C9D3E4 aufhellen und die Kartenbreite fuer diese Zeile auf 860 px begrenzen, damit 'pro Steuerjahr' zusammen in die zweite Zeile faellt."
+      "befund": "Die Listenzeile in Bild 5/6 lautet 'Ja, in Euro: Betreiber setzt den Kurs' mit rotem X - Listenpunkt und Icon widersprechen sich logisch, weil das 'Ja' bejaht wird, aber als Fehler markiert ist; ohne Ton unverstaendlich.",
+      "bild": "Bild 5",
+      "vorschlag": "Ersten Listeneintrag auf 'In Euro: Betreiber setzt den Kurs' kuerzen (das 'Ja,' streichen), dann passt das rote X. Zweite Zeile auf 'In Landeswaehrung: deine Bank rechnet' angleichen, damit beide Zeilen parallel gebaut sind und einzeilig bleiben."
     },
     {
       "bereich": "bildwechsel",
       "schwere": "mittel",
-      "befund": "Die Endkarte (Bild 9 und 10) veraendert sich zwischen Sekunde 17.58 und 20.09 fast nicht - nur die Untertitelzeile 'Folge für Steuerwissen' verschwindet, sodass die letzten rund 2 Sekunden wie ein Standbild wirken.",
-      "bild": "Bild 10",
-      "vorschlag": "Auf der Endkarte eine wiederkehrende Bewegung ergaenzen: Pinguin um +/- 12 px vertikal pulsieren lassen (Loop 1.2 s) und den @geld.pinguin-Button alle 1.5 s um 4 % skalieren."
-    },
-    {
-      "bereich": "information",
-      "schwere": "mittel",
-      "befund": "Die Vergleichskarte in Bild 5 zeigt 1.5 Sekunden lang nur Balken ohne Werte; erst in Bild 6 stehen '1.095 €' und '4.380 €' daneben, und die Karte hat unterhalb des zweiten Balkens etwa 180 px leere Flaeche.",
+      "befund": "Szene 3 (Bild 5 vs. Bild 6) zeigt ueber 2,7 Sekunden praktisch dasselbe Standbild - beide Listenzeilen sind bereits im ersten Frame komplett sichtbar, es aendert sich nur die Untertitelzeile.",
       "bild": "Bild 5",
-      "vorschlag": "Werte gleichzeitig mit den Balken einblenden (Delay von 1.2 s auf 0.2 s) und die Kartenhoehe von 520 px auf 400 px reduzieren, damit unter dem 4-Jahres-Balken kein leerer Block bleibt."
+      "vorschlag": "Listenzeilen gestaffelt einblenden: Zeile 1 bei 0,0 s, Zeile 2 erst bei 1,4 s nach Szenenstart, je 250 ms Fade plus 30 px Slide-in von links; Icon jeweils 150 ms vor dem Text setzen."
     },
     {
-      "bereich": "hook",
+      "bereich": "bildwechsel",
       "schwere": "mittel",
-      "befund": "Der Hook besteht nur aus der Wortwiederholung 'VIER JAHRE / ZURÜCK' ueber dem Logo - in Bild 1 ist bis Sekunde 0.9 nur 'VIER JAHRE' zu lesen, es gibt keine Zahl, kein Geld, keinen konkreten Nutzen im Bild.",
-      "bild": "Bild 1",
-      "vorschlag": "In den ersten 0.8 s zusaetzlich den Betrag '4.380 €' als gelbes Badge unter dem Logo bei y=1180 einblenden, damit der Nutzen sofort sichtbar ist statt erst in Szene 3."
+      "befund": "Szene 6 (Bild 9 vs. Bild 10) steht ebenfalls still; ausser dem Verschwinden der Untertitelzeile aendert sich nichts, Pinguin und Handle bleiden statisch.",
+      "bild": "Bild 10",
+      "vorschlag": "Auf der Endkarte den Handle-Button '@geld.pinguin' ab Sekunde 20,0 mit einem Puls von Skalierung 1.0 auf 1.06 und zurueck (Dauer 600 ms, zweimal) versehen und den Pinguin um 2 Grad hin und her wippen lassen."
     },
     {
-      "bereich": "information",
+      "bereich": "lesbarkeit",
+      "schwere": "mittel",
+      "befund": "In Bild 1 und 2 bricht der Untertext 'Aufschlag bei Abrechnung in Euro' unguenstig um, so dass 'Euro' allein in der zweiten Zeile steht; in Bild 5/6 brechen beide Listenzeilen mit einem einzelnen Wort ('Kurs', 'rechnet') in Zeile 2.",
+      "bild": "Bild 5",
+      "vorschlag": "Textbreite der Karte von 890 px auf 820 px reduzieren und Zeilenumbrueche manuell setzen ('Aufschlag bei Abrechnung / in Euro'); Listenzeilen auf max. 32 Zeichen kuerzen, damit kein Einzelwort-Umbruch entsteht."
+    },
+    {
+      "bereich": "marke",
       "schwere": "klein",
-      "befund": "Die Stichwortkarte in Bild 7 zeigt 1.7 Sekunden lang nur 'Freiwillig abgeben' auf grossem leerem Kartenraum, der Erklaersatz erscheint erst in Bild 8.",
-      "bild": "Bild 7",
-      "vorschlag": "Den Untertext 'Ohne Pflicht bleiben dir vier Jahre Zeit' bereits nach 0.4 s statt nach ca. 1.5 s einblenden und die Karte von 580 px auf 460 px Hoehe kuerzen."
+      "befund": "Der Pinguin sitzt in Bild 1 bis 8 unveraendert als halb hinter der Karte abgeschnittener Kopf bei x=870, y=600 (1080x1920) und wirkt eher wie ein Platzhalter als wie eine Figur mit Funktion.",
+      "bild": "Bild 3",
+      "vorschlag": "Pinguin je Szene reagieren lassen: bei der Negativ-Szene 3 mit Skalierung 0.95 nach unten sinken, bei Szene 4 (15 Euro weg) um -8 Grad neigen; Kopf mindestens 40 px hoeher setzen (y=560), damit Augen und Schnabel nicht von der Kartenkante beschnitten werden."
     }
   ],
-  "staerkste": "Die visuelle Handschrift ist konsistent und wiedererkennbar: gelber Akzentbalken oben links auf jeder Karte, der Pinguin als Ecken-Maskottchen und der farbcodierte Szenenwechsel von Blau (Hook) zu Gruen (Zahlen) zu Blau (Stichwort) geben dem Reel eine ruhige, eigene Ordnung.",
-  "urteil": "Sauber gebautes, markentreues Template mit klarer Farbdramaturgie und guter Untertitel-Lesbarkeit, das aber inhaltlich zu langsam liefert - der Hook zeigt in zwei Sekunden nur eine Wortwiederholung statt einer Zahl, und die Kernaussage 4.380 € kommt erst nach sieben Sekunden. Dazu kommen ein widerspruechlicher Zwischenwert im Zaehler, eine zu kleine Quellenzeile und eine Endkarte, die zwei Sekunden lang stillsteht."
+  "staerkste": "Die Vergleichsszene 4: Der Fortschrittsbalken 'Abhebung 300 €' in Gelb gegen 'Versteckte Kosten 15 €' in Rot erklaert den Kernpunkt rein visuell und die Zahlenwerte erscheinen erst spaeter - das ist die einzige Szene mit echter Dramaturgie im Bild.",
+  "urteil": "Ein saubere, konsistente Kartenvorlage mit klarer Farblogik (Gelb = Marke, Rot = Kosten, Gruen = richtig), guten Untertiteln mit Keyword-Highlight und einer wirklich starken Vergleichsszene. Es verliert aber ueber den schwachen, informationsarmen Hook und zwei fast bewegungslose Szenen, und die widerspruechliche 'Ja, in Euro'-Zeile mit rotem X kostet ohne Ton die Verstaendlichkeit."
 }
