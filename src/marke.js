@@ -22,6 +22,7 @@ const GEMEINSAM = {
   gruen: "#3DDC84",        // Vorteil, Ertrag, richtig
   rot: "#FF6B6B",          // Kosten, Verlust, falsch
   blau: "#5AA9FF",         // neutrale Hervorhebung
+  tinte: "#101828",        // Text auf farbigen Flaechen (Hook-Balken, Pillen)
 };
 
 export const THEMEN = {
@@ -34,6 +35,10 @@ export const THEMEN = {
     // Fortschrittsbalken, Lichtsaum des Pinguins.
     aufGrund: "#FFC845",
     aufGrundLeise: "#FFFFFF",
+    // Grosse Schrift, die frei auf dem Hintergrund steht - die Endkarte.
+    aufGrundStark: "#FFFFFF",
+    pille: "#FFC845",
+    pilleTinte: "#101828",
     balken: "#FFC845",
     saum: "#FFC845",
     // Untertitel stehen frei auf dem Hintergrund und brauchen dort keinen
@@ -53,6 +58,12 @@ export const THEMEN = {
     // Auf Gelb muss alles Freistehende dunkel sein, sonst verschwindet es.
     aufGrund: "#1C1406",
     aufGrundLeise: "#5A4413",
+    // Auf Gelb muss die Endkarte dunkel schreiben, und die Pille dreht sich
+    // um: dunkle Flaeche, helle Schrift. Weiss auf Gelb war unlesbar, und eine
+    // goldene Pille auf goldenem Grund verschwand ganz.
+    aufGrundStark: "#16213E",
+    pille: "#16213E",
+    pilleTinte: "#FFD873",
     balken: "#1C1406",
     saum: "#1C1406",
     // Freistehender Text auf Gelb ist der schwierige Fall: Weiss verschwindet,

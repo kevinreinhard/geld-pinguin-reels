@@ -631,8 +631,10 @@ class Maler:
             ed.rounded_rectangle([self.W / 2 - b / 2 - 26, y - 8 + versatz,
                                   self.W / 2 + b / 2 + 26, y + ft.size + 16 + versatz],
                                  radius=18, fill=akz)
+            # Der Balken traegt die Akzentfarbe, die Schrift darauf muss in
+            # jedem Thema dunkel bleiben - grund waere im hellen Thema gelb.
             ed.text((self.W / 2, y + 2 + versatz), zeile, font=ft,
-                    fill=self.F["grund"], anchor="mt")
+                    fill=self.F["tinte"], anchor="mt")
             if e < 1:
                 ebene.putalpha(ebene.getchannel("A").point(lambda v: int(v * e)))
             bild.alpha_composite(ebene)
@@ -651,7 +653,9 @@ class Maler:
                               (84, 74, 66, 58, 50), self.W - 2 * self.L["randX"], 2)
         y = o + 30 + groesse + 36
         for zeile in zeilen:
-            d.text((self.W / 2, y), zeile, font=ft, fill=self.F["text"], anchor="mt")
+            # Die Endkarte hat keine Karte unter sich - ihre Schrift liegt
+            # direkt auf dem Hintergrund und kommt deshalb aus dem Thema.
+            d.text((self.W / 2, y), zeile, font=ft, fill=self.F["aufGrundStark"], anchor="mt")
             y += ft.size + 14
 
         handle = str(self.spec.get("handle", ""))
@@ -660,8 +664,8 @@ class Maler:
             b = breite(d, handle, fh)
             y += 24
             d.rounded_rectangle([self.W / 2 - b / 2 - 36, y, self.W / 2 + b / 2 + 36, y + 92],
-                                radius=46, fill=self.F["gold"])
-            d.text((self.W / 2, y + 46), handle, font=fh, fill=self.F["grund"], anchor="mm")
+                                radius=46, fill=self.F["pille"])
+            d.text((self.W / 2, y + 46), handle, font=fh, fill=self.F["pilleTinte"], anchor="mm")
 
     TYPEN = {
         "kennzahl": kennzahl, "vergleich": vergleich, "liste": liste,
