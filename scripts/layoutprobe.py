@@ -50,6 +50,12 @@ FAELLE = [
     {"typ": "stichwort", "stimmung": "warnung", "kicker": LANG,
      "begriff": LAENGER, "erlaeuterung": LAENGER},
     {"typ": "hook", "stimmung": "neutral", "begriff": LAENGER},
+    # Ein einziges, nicht umbrechbares Wort. Genau daran ist die Pruefung
+    # vorbeigelaufen: Die Zeilenzahl stimmte, die Breite nicht.
+    {"typ": "hook", "stimmung": "warnung", "begriff": "Gehaltserhoehungsverhandlung"},
+    {"typ": "stichwort", "stimmung": "info",
+     "begriff": "Grundstuecksverkehrsgenehmigungszustaendigkeit",
+     "erlaeuterung": "Rentenversicherungsbeitragsbemessungsgrenze"},
     {"typ": "endkarte", "stimmung": "neutral", "begriff": LAENGER},
 ]
 

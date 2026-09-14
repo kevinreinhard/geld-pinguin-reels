@@ -27,13 +27,11 @@ EIN = 0.42             # Einblenden
 DATEN = 2.60           # Fenster fuer Bewegung innerhalb einer Szene
 
 # Innerhalb dieses Fensters laeuft die Hauptbewegung zuerst, die Nebenelemente
-# danach. Sonst ist eine Karte nach einer Sekunde fertig und steht die
-# restlichen vier still - die Bildkontrolle hat genau das zweimal als schweren
-# Mangel gemeldet.
-# Schneller Aufbau, danach eine zweite, kleinere Bewegung. Zieht sich der
-# Aufbau, erwischt jedes Standbild eine halbfertige Karte - die Bildkontrolle
-# hat eine Liste, von der erst eine Zeile stand, als "zu drei Vierteln leer"
-# gemeldet. Was gezeigt wird, soll schnell vollstaendig dastehen.
+# danach - eine Karte, die nach einer Sekunde fertig ist, steht die restlichen
+# vier still. Der Aufbau selbst bleibt aber schnell: Die Bildkontrolle sieht
+# Standbilder, kein Video, und eine Liste, von der erst eine Zeile stand, hat
+# sie als "zu drei Vierteln leer" gemeldet. Schnell aufbauen, danach eine
+# zweite, kleinere Bewegung.
 HAUPT = 0.32           # Anteil des Fensters fuer Zahl, Balken, Kurve
 NEBEN = (0.46, 0.80)   # Anteil, in dem Fussnoten und Werte nachziehen
 
@@ -162,10 +160,22 @@ def passe_an(d, text, schriften, groessen, maxbreite, maxzeilen, schnitt="Black"
     for groesse in groessen:
         font = schriften(groesse, schnitt)
         zeilen = umbrich(d, text, font, maxbreite)
-        if len(zeilen) <= maxzeilen:
+        # Die Zeilenzahl allein genuegt nicht: "GEHALTSERHOEHUNG" ist ein
+        # einziges Wort, das sich nicht umbrechen laesst. umbrich() setzt es
+        # trotzdem in eine Zeile, und die war dann breiter als die Karte.
+        breiteste = max((breite(d, z, font) for z in zeilen), default=0)
+        if len(zeilen) <= maxzeilen and breiteste <= maxbreite:
             return font, zeilen
+    # Keine Stufe passt. Dann wird die Groesse ausgerechnet statt geraten -
+    # sonst laeuft ein einzelnes langes Wort ueber die Karte hinaus, und die
+    # Stufenliste endet einfach, ohne dass es jemand merkt.
     font = schriften(groessen[-1], schnitt)
-    return font, kuerze(d, text, font, maxbreite, maxzeilen)
+    zeilen = kuerze(d, text, font, maxbreite, maxzeilen)
+    breiteste = max((breite(d, z, font) for z in zeilen), default=0)
+    if breiteste > maxbreite:
+        font = schriften(max(28, int(groessen[-1] * maxbreite / breiteste)), schnitt)
+        zeilen = kuerze(d, text, font, maxbreite, maxzeilen)
+    return font, zeilen
 
 
 def schatten(bild, box, radius, staerke=95, streuung=26, versatz=16):
@@ -521,8 +531,14 @@ class Maler:
         maxb = self.W - 2 * self.L["randX"] - 120
         ft, zeilen = passe_an(d, s.get("begriff", ""), self.f,
                               (108, 96, 84, 74, 64), maxb, 3)
-        fe = self.f(46, "Medium")
-        ezeilen = kuerze(d, s["erlaeuterung"], fe, maxb, 3) if s.get("erlaeuterung") else []
+        # Auch die Erlaeuterung wird angepasst, nicht nur der Begriff. Bei
+        # fester Groesse sprengt ein langes Wort wie
+        # "Rentenversicherungsbeitragsbemessungsgrenze" die Karte.
+        if s.get("erlaeuterung"):
+            fe, ezeilen = passe_an(d, s["erlaeuterung"], self.f, (46, 42, 38, 34, 30),
+                                   maxb, 3, "Medium")
+        else:
+            fe, ezeilen = self.f(46, "Medium"), []
 
         hoehe = 200 + len(zeilen) * (ft.size + 18) + (len(ezeilen) * 58 + 34 if ezeilen else 0)
         box = self.karte(bild, hoehe)
@@ -552,7 +568,10 @@ class Maler:
         # Wippt herein und atmet danach weiter. Die Hook-Karte war die einzige
         # ohne eigene Bewegung, und sie steht ausgerechnet dort, wo entschieden
         # wird, ob jemand bleibt.
-        hoch = (1 - ease_out_back(t)) * 90 + math.sin(p * 6.0) * 5 * t
+        # Setzt sich von oben herab statt von unten heraufzuwippen. Der alte
+        # Weg liess ihn zu Beginn 90 Pixel tiefer stehen - genau dort, wo die
+        # erste Textzeile liegt, und der Balken schnitt ihm die Fuesse ab.
+        hoch = -(1 - ease_out_back(t)) * 46 + math.sin(p * 6.0) * 5 * t
         self.setze_pinguin(bild, (int(self.W / 2 - groesse / 2), int(o + 10 + hoch)), groesse)
 
         text = str(s.get("begriff", "")).strip()
@@ -560,7 +579,7 @@ class Maler:
             return
         ft, zeilen = passe_an(d, text.upper(), self.f, (92, 82, 72, 62, 54),
                               self.W - 2 * self.L["randX"] - 90, 3)
-        y = o + 10 + groesse + 46
+        y = o + 10 + groesse + 58
         for i, zeile in enumerate(zeilen):
             # Zeile fuer Zeile, jede mit kurzem Versatz - so passiert in der
             # Eroeffnung ueber mehr als eine Sekunde etwas.
