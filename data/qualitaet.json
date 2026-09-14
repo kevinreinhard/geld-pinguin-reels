@@ -1,67 +1,60 @@
 {
-  "datum": "2026-09-14T06:22:55.734Z",
+  "datum": "2026-09-14T09:17:04.657Z",
   "datei": "build/reel.mp4",
-  "dauer": 23.37,
+  "dauer": 20.44,
   "noten": {
-    "hook": 62,
-    "lesbarkeit": 70,
-    "bildwechsel": 66,
-    "information": 64,
-    "marke": 72,
-    "sicherheit": 55
+    "hook": 58,
+    "lesbarkeit": 64,
+    "bildwechsel": 62,
+    "information": 55,
+    "marke": 70,
+    "sicherheit": 72
   },
-  "gesamt": 65,
+  "gesamt": 64,
   "maengel": [
     {
-      "bereich": "sicherheit",
-      "schwere": "schwer",
-      "befund": "Die Untertitelzeile liegt konstant bei y≈1288 (gemessen y≈644) und die gelbe Trennlinie bei y≈1378 (gemessen y≈689) - das ist zwar knapp ueber y=1500, aber der gesamte Bereich darunter bis 1920 bleibt leer, waehrend die Bildkarten bereits bei y≈1080 enden. Der Inhalt sitzt dadurch unnoetig hoch und der Sicherheitsraum wird verschenkt statt genutzt.",
-      "bild": "alle Bilder",
-      "vorschlag": "Karten- und Untertitelblock um ca. 120 px nach unten schieben (Karte von y=530..1080 auf y=650..1200, Untertitel von y=1288 auf y=1400), damit die obere Haelfte nicht so leer wirkt und der Blick nicht in die Kopfzeile laeuft."
-    },
-    {
-      "bereich": "hook",
-      "schwere": "schwer",
-      "befund": "In Bild 1 ueberlagert der rote Hook-Balken 'GEHALTSERHOEHUNG' den unteren Teil des Pinguins - die Fuesse und der Bauch werden vom Balken angeschnitten, das wirkt wie ein Layoutfehler statt wie Absicht.",
-      "bild": "Bild 1",
-      "vorschlag": "Hook-Balken erst ab y=900 beginnen lassen (aktuell Oberkante bei y≈858) oder den Pinguin auf y=400..800 verkleinern, sodass zwischen Pinguinfuss und Balkenoberkante mindestens 40 px Luft bleiben."
-    },
-    {
-      "bereich": "hook",
-      "schwere": "mittel",
-      "befund": "Der Hook-Text 'GEHALTSERHOEHUNG' laeuft in Bild 1 bis an beide Bildraender (Balken von x≈24 bis x≈1056), das 'G' und das 'G' am Ende stehen nur ca. 20 px vom Rand - randbeschnitten wirkend und unruhig.",
-      "bild": "Bild 1",
-      "vorschlag": "Schriftgroesse des Hooks von ca. 78 px auf 66 px reduzieren oder auf zwei Zeilen umbrechen, Balken auf x=60..1020 begrenzen."
-    },
-    {
       "bereich": "information",
-      "schwere": "mittel",
-      "befund": "In Bild 3 steht '142 EUR' als 'RIESTER GRUNDZULAGE', in Bild 4 derselbe Titel mit '175 EUR' - ohne Ton ist nicht erkennbar, ob es sich um eine Hochzaehl-Animation oder um zwei verschiedene Werte handelt; die 142 ist zudem sachlich der alte Wert.",
-      "bild": "Bild 3 und 4",
-      "vorschlag": "Zaehler-Animation nur von 0 auf 175 laufen lassen oder den Zwischenwert ausblenden; Untertitel-Label 'ab 2018' bzw. 'aktuell' unter die Zahl setzen (y≈900, 34 px, Weiss 80 %)."
+      "schwere": "schwer",
+      "befund": "In Bild 3 steht auf der Kennzahlkarte '944 €', in Bild 4 derselben Szene '1.095 €' - der Zaehler laeuft sichtbar hoch, aber der Untertitel dazu lautet 'gibt es tausendfünfundneunzig', sodass in Bild 3 Zahl und Text widerspruechlich sind und ein Screenshot des Zwischenstands eine falsche Zahl zeigt.",
+      "bild": "Bild 3",
+      "vorschlag": "Count-Up auf max. 0.4 s verkuerzen oder ganz streichen und die Zahl 1.095 € ab Szenenstart statisch setzen; Zwischenwerte nur in kleinerer Opazitaet, damit kein falscher Wert als Standbild wirkt."
+    },
+    {
+      "bereich": "lesbarkeit",
+      "schwere": "schwer",
+      "befund": "Die Quellenzeile 'Statistisches Bundesamt, pro Steuerjahr' in Bild 4 steht in hellgrauem Text von etwa 44 px Hoehe (22 px gemessen) auf dunkelblauer Karte und bricht ausserdem unschoen auf zwei Zeilen mit einem einzelnen Wort 'Steuerjahr'.",
+      "bild": "Bild 4",
+      "vorschlag": "Schriftgroesse auf 52 px anheben, Farbe von #9AA4B8 auf #C9D3E4 aufhellen und die Kartenbreite fuer diese Zeile auf 860 px begrenzen, damit 'pro Steuerjahr' zusammen in die zweite Zeile faellt."
     },
     {
       "bereich": "bildwechsel",
       "schwere": "mittel",
-      "befund": "In Szene 3 (Bild 5 zu 6) aendert sich nur, dass zwei Zeilen Fliesstext erscheinen; die Karte bleibt sonst 2,6 Sekunden statisch und wirkt wie ein Standbild.",
-      "bild": "Bild 5 und 6",
-      "vorschlag": "In Szene 3 eine Balken- oder Prozent-Animation ergaenzen (z.B. Ring, der auf 4 % fuellt, 240 px Durchmesser bei x=540, y=880) oder den Karteninhalt zeilenweise mit 0,3 s Versatz einfliegen lassen."
+      "befund": "Die Endkarte (Bild 9 und 10) veraendert sich zwischen Sekunde 17.58 und 20.09 fast nicht - nur die Untertitelzeile 'Folge für Steuerwissen' verschwindet, sodass die letzten rund 2 Sekunden wie ein Standbild wirken.",
+      "bild": "Bild 10",
+      "vorschlag": "Auf der Endkarte eine wiederkehrende Bewegung ergaenzen: Pinguin um +/- 12 px vertikal pulsieren lassen (Loop 1.2 s) und den @geld.pinguin-Button alle 1.5 s um 4 % skalieren."
     },
     {
-      "bereich": "lesbarkeit",
+      "bereich": "information",
       "schwere": "mittel",
-      "befund": "Die Fliesstextzeile 'So hoch muss dein Eigenbeitrag sein (inkl. Zulagen).' in Bild 6 steht in ca. 36 px hellgrau auf dunkelblau und ist deutlich kleiner als jeder andere Text im Reel.",
-      "bild": "Bild 6",
-      "vorschlag": "Schriftgroesse auf 46 px erhoehen, Farbe von #B8C4D9 auf reines Weiss #FFFFFF setzen, Zeilenabstand 1,25."
+      "befund": "Die Vergleichskarte in Bild 5 zeigt 1.5 Sekunden lang nur Balken ohne Werte; erst in Bild 6 stehen '1.095 €' und '4.380 €' daneben, und die Karte hat unterhalb des zweiten Balkens etwa 180 px leere Flaeche.",
+      "bild": "Bild 5",
+      "vorschlag": "Werte gleichzeitig mit den Balken einblenden (Delay von 1.2 s auf 0.2 s) und die Kartenhoehe von 520 px auf 400 px reduzieren, damit unter dem 4-Jahres-Balken kein leerer Block bleibt."
+    },
+    {
+      "bereich": "hook",
+      "schwere": "mittel",
+      "befund": "Der Hook besteht nur aus der Wortwiederholung 'VIER JAHRE / ZURÜCK' ueber dem Logo - in Bild 1 ist bis Sekunde 0.9 nur 'VIER JAHRE' zu lesen, es gibt keine Zahl, kein Geld, keinen konkreten Nutzen im Bild.",
+      "bild": "Bild 1",
+      "vorschlag": "In den ersten 0.8 s zusaetzlich den Betrag '4.380 €' als gelbes Badge unter dem Logo bei y=1180 einblenden, damit der Nutzen sofort sichtbar ist statt erst in Szene 3."
     },
     {
       "bereich": "information",
       "schwere": "klein",
-      "befund": "In Bild 7 sind die Balken zu '40.000 EUR Brutto' und '50.000 EUR Brutto' ohne Zahlenwerte gefuellt; erst in Bild 8 stehen 1.600 EUR und 2.000 EUR - der rote Balken ist dabei laenger als der gelbe, obwohl der Unterschied nur 400 EUR betraegt, was den Abstand optisch uebertreibt.",
-      "bild": "Bild 7 und 8",
-      "vorschlag": "Balkenlaengen proportional zu 1600 und 2000 skalieren (gelb 80 % der Maximalbreite, rot 100 %) und die Eurobetraege von Anfang an einblenden statt nachtraeglich."
+      "befund": "Die Stichwortkarte in Bild 7 zeigt 1.7 Sekunden lang nur 'Freiwillig abgeben' auf grossem leerem Kartenraum, der Erklaersatz erscheint erst in Bild 8.",
+      "bild": "Bild 7",
+      "vorschlag": "Den Untertext 'Ohne Pflicht bleiben dir vier Jahre Zeit' bereits nach 0.4 s statt nach ca. 1.5 s einblenden und die Karte von 580 px auf 460 px Hoehe kuerzen."
     }
   ],
-  "staerkste": "Die Szenen 2 und 4 tragen ihre Aussage vollstaendig im Bild: grosse Zahl mit Label bzw. zwei beschriftete Vergleichsbalken - man versteht den Punkt auch stumm, und die Farbcodierung gruen fuer Zulage, gelb/rot fuer Beitrag ist konsistent durchgehalten.",
-  "urteil": "Solide gebaute Karten-Vorlage mit erkennbarer Handschrift (Pinguin, gelbe Akzentlinie, Karaoke-Untertitel), aber der Hook verschenkt Sekunde 1 an einen Balken, der den Pinguin anschneidet und den Rand beruehrt. Inhaltlich stark in den Kennzahl- und Vergleichsszenen, schwach in Szene 3, die fast ein Standbild ist, und die untere Bildhaelfte bleibt durchgehend ungenutzt leer."
+  "staerkste": "Die visuelle Handschrift ist konsistent und wiedererkennbar: gelber Akzentbalken oben links auf jeder Karte, der Pinguin als Ecken-Maskottchen und der farbcodierte Szenenwechsel von Blau (Hook) zu Gruen (Zahlen) zu Blau (Stichwort) geben dem Reel eine ruhige, eigene Ordnung.",
+  "urteil": "Sauber gebautes, markentreues Template mit klarer Farbdramaturgie und guter Untertitel-Lesbarkeit, das aber inhaltlich zu langsam liefert - der Hook zeigt in zwei Sekunden nur eine Wortwiederholung statt einer Zahl, und die Kernaussage 4.380 € kommt erst nach sieben Sekunden. Dazu kommen ein widerspruechlicher Zwischenwert im Zaehler, eine zu kleine Quellenzeile und eine Endkarte, die zwei Sekunden lang stillsteht."
 }
