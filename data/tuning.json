@@ -1,10 +1,13 @@
 {
-  "version": 2,
-  "aktualisiert": "2026-09-07T16:20:00.000Z",
-  "begruendung": "Von 4 auf 1 Beitrag pro Tag reduziert. Nach der Bereinigung der Bot-Follower muss das Konto neue Qualitaetssignale aufbauen; vier Beitraege taeglich ohne jede Interaktion bedienen genau das Spam-Muster, das gedrosselt wird. Bei Kaltverteilung zaehlt nur die Durchsichtrate, und die erreicht ein gutes Reel eher als vier mittelmaessige. Fenster 11-20 UTC entspricht 13-22 Uhr deutscher Zeit und bietet der gedrosselten GitHub-Ausfuehrung genug Gelegenheiten.",
+  "version": 3,
+  "aktualisiert": "2026-09-14T12:23:21.833Z",
+  "begruendung": "Von 1 auf 3 Beitraege pro Tag auf ausdrueckliche Anweisung von Kevin am 14.09.2026. Das kehrt die Entscheidung vom 07.09. um, die aus den Zahlen kam: Damals wurde von 4 auf 1 reduziert, weil sich die kleine Testverteilung eines jungen Kontos sonst auf zu viele Beitraege verteilt und keiner genug Signal sammelt. Diese Ueberlegung gilt unveraendert - der Kanal hat weiterhin einstellige Viewzahlen. Gegenargument fuer mehr Beitraege: Auf YouTube, wo neue Kanaele Kaltverteilung bekommen, ist mehr Material schlicht mehr Chancen, und der Hook-Waechter in src/hook.js haelt die Qualitaet je Beitrag jetzt hoeher als im September. Die naechste Auswertung sonntags zeigt, welche Seite recht behaelt: Steigen die Views pro Beitrag nicht mindestens proportional, gehoert die Zahl zurueck auf 1. Fenster 11-20 UTC ergibt bei drei Beitraegen rund drei Stunden Mindestabstand.",
   "saeulenGewichte": {},
   "zielWoerter": 65,
   "hookHinweise": [],
-  "postsProTag": 1,
-  "fenster": [11, 20]
+  "postsProTag": 3,
+  "fenster": [
+    11,
+    20
+  ]
 }

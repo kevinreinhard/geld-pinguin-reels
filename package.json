@@ -14,6 +14,7 @@
     "qa": "node scripts/qa.js",
     "insights": "node scripts/insights.js",
     "analyse": "node scripts/analyse.js",
+    "hooks": "node scripts/hooks.js",
     "bericht": "node scripts/insights.js && node scripts/analyse.js",
     "faellig": "node scripts/faellig.js",
     "youtube-auth": "node scripts/youtube-auth.js",

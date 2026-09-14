@@ -47,6 +47,22 @@ jobs:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
         run: node scripts/analyse.js
 
+      # Der erste Satz entscheidet ueber die Durchsichtrate. src/hook.js prueft
+      # jeden neuen Hook vor dem Rendern; hier wird ausgewertet, was der Kanal
+      # bisher gemacht hat, und daraus werden Anweisungen fuer den Prompt.
+      - name: Hooks auswerten
+        continue-on-error: true
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: |
+          node scripts/hooks.js --schreiben | tee build/hooks.txt
+          {
+            echo "## Hook-Auswertung"
+            echo '```'
+            cat build/hooks.txt
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+
       - name: Bericht in die Laufuebersicht schreiben
         if: always()
         run: |

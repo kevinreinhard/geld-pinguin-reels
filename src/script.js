@@ -2,6 +2,7 @@ import Anthropic from "@anthropic-ai/sdk";
 import { CHANNEL, MODEL } from "./config.js";
 import { letzteThemen } from "./history.js";
 import { ladeTuning } from "./tuning.js";
+import { pruefeHook } from "./hook.js";
 
 const client = new Anthropic(); // liest ANTHROPIC_API_KEY aus der Umgebung
 
@@ -151,13 +152,10 @@ nicht aus einem Tipp.
 Rufe immer das Tool reel_script auf. Antworte ausschließlich über das Tool.${gelernt}`;
 }
 
-function userPrompt(saeule, verboteneThemen, zuLang = 0) {
-  const kuerzer = zuLang
-    ? `
+function userPrompt(saeule, verboteneThemen, rueckmeldung = "") {
+  const kuerzer = rueckmeldung ? `
 
-Der vorige Entwurf hatte ${zuLang} gesprochene Wörter und wurde damit zu lang. ` +
-      "Streich einen ganzen Gedanken heraus, statt Sätze zusammenzuziehen."
-    : "";
+${rueckmeldung}` : "";
   const negativ = verboteneThemen.length
     ? `\n\nDiese Themen hatten wir schon – wähle etwas deutlich anderes:\n- ${verboteneThemen.join("\n- ")}`
     : "";
@@ -172,30 +170,61 @@ function woerter(skript) {
 }
 
 /**
+ * Prueft einen Entwurf auf die zwei Dinge, die sich vorher pruefen lassen:
+ * Laenge und Hook. Beides entscheidet ueber die Durchsichtrate, und beides
+ * faellt sonst erst am fertigen Video auf - dann ist es zu spaet.
+ */
+async function beurteile(skript, zielWoerter) {
+  const maengel = [];
+  const anzahl = woerter(skript);
+  if (anzahl > zielWoerter + 4) {
+    maengel.push(
+      `Der Entwurf hatte ${anzahl} gesprochene Woerter und war damit zu lang (Ziel ${zielWoerter}). ` +
+        "Streich einen ganzen Gedanken heraus, statt Saetze zusammenzuziehen.",
+    );
+  }
+
+  const hook = await pruefeHook(skript.hook, skript.topic);
+  if (!hook.tauglich) {
+    maengel.push(
+      `Der erste Satz traegt nicht: "${skript.hook}" - ${hook.maengel.join("; ")}. ` +
+        "Satz eins nennt, was schiefgeht oder was es kostet; die Zahl belegt das, " +
+        "sie ersetzt es nicht." +
+        (hook.besser ? ` So koennte er klingen: "${hook.besser}"` : ""),
+    );
+  }
+  return { maengel, hookNote: hook.note, woerter: anzahl };
+}
+
+/**
  * Ruft Claude auf und gibt das validierte Skript-Objekt zurueck.
  *
- * Ist das Ergebnis deutlich zu lang, wird einmal nachgefordert. Die Laenge ist
- * die einzige Kennzahl, an der dieser Kanal wirklich haengt - ein Reel von 32
- * Sekunden sieht kaum jemand zu Ende, und gemerkt haben wir es bisher erst am
- * fertigen Video. Faellt der zweite Versuch aus, bleibt der erste: Ein etwas
- * zu langer Beitrag ist besser als keiner.
+ * Ist der Entwurf zu lang oder traegt sein erster Satz nicht, wird einmal
+ * nachgefordert - mit der konkreten Rueckmeldung, woran es lag. Faellt der
+ * zweite Versuch aus oder wird er nicht besser, bleibt der erste: Ein
+ * mittelmaessiger Beitrag ist besser als keiner.
  */
 export async function generiereSkript(saeule) {
   const { zielWoerter } = ladeTuning({ still: true });
-  const erster = await eineRunde(saeule);
-  if (woerter(erster) <= zielWoerter + 4) return erster;
 
-  console.warn(`  Skript hat ${woerter(erster)} Woerter (Ziel ${zielWoerter}) - fordere kuerzer nach.`);
+  const erster = await eineRunde(saeule);
+  const a = await beurteile(erster, zielWoerter);
+  console.log(`  Hook-Note: ${a.hookNote ?? "-"} | Woerter: ${a.woerter}`);
+  if (!a.maengel.length) return erster;
+
+  for (const m of a.maengel) console.warn(`  Nachbesserung: ${m.slice(0, 150)}`);
   try {
-    const zweiter = await eineRunde(saeule, woerter(erster));
-    if (woerter(zweiter) < woerter(erster)) return zweiter;
+    const zweiter = await eineRunde(saeule, a.maengel.join("\n\n"));
+    const b = await beurteile(zweiter, zielWoerter);
+    console.log(`  Zweiter Entwurf - Hook-Note: ${b.hookNote ?? "-"} | Woerter: ${b.woerter}`);
+    if (b.maengel.length <= a.maengel.length) return zweiter;
   } catch (e) {
     console.warn(`  Nachforderung fehlgeschlagen: ${e.message.slice(0, 120)}`);
   }
   return erster;
 }
 
-async function eineRunde(saeule, zuLang = 0) {
+async function eineRunde(saeule, rueckmeldung = "") {
   const verboten = letzteThemen(40);
 
   const schlafen = (ms) => new Promise((r) => setTimeout(r, ms));
@@ -211,7 +240,7 @@ async function eineRunde(saeule, zuLang = 0) {
         output_config: { effort: MODEL.effort },
         system: systemPrompt(),
         tools: [TOOL],
-        messages: [{ role: "user", content: userPrompt(saeule, verboten, zuLang) }],
+        messages: [{ role: "user", content: userPrompt(saeule, verboten, rueckmeldung) }],
       });
     } catch (e) {
       // Das SDK wiederholt 429 und 5xx selbst, aber nicht 400. Genau so ein
