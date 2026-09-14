@@ -1,60 +1,60 @@
 {
-  "datum": "2026-09-14T12:29:58.100Z",
+  "datum": "2026-09-14T16:33:03.980Z",
   "datei": "build/reel.mp4",
-  "dauer": 26.44,
+  "dauer": 21.63,
   "noten": {
-    "hook": 48,
-    "lesbarkeit": 66,
+    "hook": 52,
+    "lesbarkeit": 68,
     "bildwechsel": 58,
-    "information": 62,
-    "marke": 64,
-    "sicherheit": 72
+    "information": 70,
+    "marke": 62,
+    "sicherheit": 74
   },
-  "gesamt": 62,
+  "gesamt": 64,
   "maengel": [
     {
       "bereich": "hook",
       "schwere": "schwer",
-      "befund": "In Bild 1 (Sekunde 0.9) steht auf der Karte nur 'WEIHNACHTSGELD' mit den Labels 'Brutto' und 'Auf dem Konto' - beide Zahlenwerte fehlen noch, der Untertitel sagt bloss 'Von 1.000 Euro'. Die ersten zwei Sekunden liefern keine Aussage, nur eine leere Huelle.",
-      "vorschlag": "Die Wertlabels '1.000 €' und 'ca. 500 €' bereits ab Frame 0 einblenden (Fade-in-Delay von ~1.5 s auf 0.2 s reduzieren) und die Balken in 0.4 s statt ueber 4 s fuellen; Kopfzeile der Karte auf eine Spannungsfrage aendern, z.B. 'Von 1.000 € bleiben...' in 64 px Rot #F87171.",
-      "bild": "Bild 1"
+      "befund": "Bild 1 (Sek. 0,9) zeigt als Hook nur eine Karte mit '12 %' und der Kleinzeile 'AM GELDAUTOMATEN IM AUSLAND' - die eigentliche Reizaussage steht als 44-px-Fliesstext unter der Zahl und ist beim Wischen nicht erfassbar; ein grosser Reizsatz fehlt.",
+      "bild": "Bild 1",
+      "vorschlag": "In Szene 1 die Kartenueberschrift durch eine Hook-Zeile ersetzen: 'JA ZU EURO = 12% TEURER' in 96 px Bold Weiss, zweizeilig, zentriert bei y=760, und die Zahl 12% erst ab Sek. 1,2 darunter einblenden."
     },
     {
-      "bereich": "hook",
+      "bereich": "sicherheit",
       "schwere": "mittel",
-      "befund": "Der obere Bildbereich bis y=560 (gemessen 280) ist in allen Szenen leer bis auf die kleine Kopfzeile 'WEIHNACHTSGELD NETTO' in ca. 24 px Gelb - die visuell staerkste Zone des Reels bleibt ungenutzt.",
-      "vorschlag": "Karte von y=660 auf y=420 hochziehen oder eine Headline in 72-80 px Weiss bei y=430 setzen; Kopfzeilentext auf mindestens 34 px vergroessern.",
-      "bild": "Bild 1"
-    },
-    {
-      "bereich": "bildwechsel",
-      "schwere": "mittel",
-      "befund": "Szene 7 laeuft von 22.6 bis 26.4 s praktisch als Standbild: Bild 9 und Bild 10 unterscheiden sich nur dadurch, dass der Untertitel verschwunden ist - Pinguin, Text und Badge stehen unveraendert.",
-      "vorschlag": "Pinguin ab 23.5 s mit leichtem Puls (Scale 1.0 -> 1.04, 0.8 s Loop) animieren und den gelben Badge '@geld.pinguin' um 24.5 s einmal von 0.9 auf 1.05 skalieren.",
-      "bild": "Bild 10"
+      "befund": "Die Untertitelzeile liegt bei y=1400 (gemessen 700) und die Fortschrittslinie bei y=1478 (gemessen 739) - beides direkt an der Kante der Instagram-Caption-Zone ab y=1500; bei laengeren Untertiteln, die zweizeilig umbrechen (z. B. Bild 4 'dynamische Waehrungsumrechnung.'), rutscht die zweite Zeile unter die Caption.",
+      "bild": "Bild 4",
+      "vorschlag": "Untertitel-Baseline von y=1400 auf y=1290 heben und die Fortschrittslinie auf y=1360 setzen, damit auch zwei Zeilen à 60 px oberhalb y=1500 bleiben."
     },
     {
       "bereich": "bildwechsel",
       "schwere": "mittel",
-      "befund": "Die letzten 1.4 Sekunden (Bild 10) zeigen gar keinen Untertitel mehr, es bleibt nur die leere Trennlinie bei y=1478 stehen - das Video laeuft ohne Textinhalt aus.",
-      "vorschlag": "Untertitelzeile bis Videoende mit einem Schlusssatz belegen (z.B. 'Steuererklaerung nicht vergessen.') oder die Linie bei y=1478 in den letzten 1.5 s ausblenden.",
-      "bild": "Bild 10"
+      "befund": "Zwischen Bild 9 und Bild 10 (Szene 7, Sek. 19,1 bis 21,3) veraendert sich nur, dass der Untertitel verschwindet - Pinguin, Titel und Handle stehen die letzten 2,5 Sekunden voellig still, das Reel endet als Standbild.",
+      "bild": "Bild 10",
+      "vorschlag": "Auf der Endkarte den Pinguin ab Sek. 19,5 mit einer Loop-Animation versehen (z. B. ±12 px vertikales Wippen, 1,2 s Periode) und den Handle-Button ab Sek. 20,0 einmal um 6 % pulsen lassen."
+    },
+    {
+      "bereich": "bildwechsel",
+      "schwere": "mittel",
+      "befund": "Szene 3 (Bild 5 zu Bild 6) veraendert nur die zwei Labels 'schlecht'/'fair' rechts; die Balken haben bereits in Bild 5 ihre Endlaenge, es gibt keine sichtbare Fuellbewegung.",
+      "bild": "Bild 5",
+      "vorschlag": "Balken in Szene 3 von Breite 0 auf Endbreite animieren: roter Balken 0,0-0,6 s, gruener Balken 0,3-0,9 s nach Szenenstart, Easing ease-out."
     },
     {
       "bereich": "lesbarkeit",
       "schwere": "mittel",
-      "befund": "In Bild 5 ueberlagert die grosse rote '1' das Wort 'Monat' - die Ziffer sitzt direkt auf dem M, waehrend 'Monat' noch rot-transparent einfliegt; der Ausdruck ist im Standbild nicht sauber lesbar.",
-      "vorschlag": "Abstand zwischen Ziffer und Einheit auf mindestens 24 px erhoehen (Zeile als Flex mit gap:24px) und die Einfliege-Animation von 'Monat' erst nach Ende der Ziffer-Animation starten.",
-      "bild": "Bild 5"
+      "befund": "Der Kartenfliesstext 'Aufschlag, wenn du Ja zu Euro waehlst' (Bild 1/2) und 'Verlust allein durch die Umrechnung' (Bild 8) steht in hellgrau-blauem Ton auf dunkelblauer Karte bei ca. 44 px Hoehe - deutlich schwaecher als die weisse Ueberschrift und auf dem Handy grenzwertig.",
+      "bild": "Bild 2",
+      "vorschlag": "Fliesstext in der Karte auf reines Weiss (#FFFFFF) und 52 px anheben, Zeilenabstand 1,25."
     },
     {
-      "bereich": "information",
-      "schwere": "mittel",
-      "befund": "Die Kernzahl bleibt vage: Bild 2 nennt 'ca. 500 €' ohne Bezug zum Steuersatz, Bild 6 sagt nur 'hoeherer Steuersatz' - eine konkrete Netto-Zahl oder ein Prozentwert, der die Aussage traegt, fehlt im Bild.",
-      "vorschlag": "In Szene 3 unter '1 Monat' eine zweite Kennzahl ergaenzen, z.B. 'ca. 42 % Grenzsteuersatz' in 44 px Weiss bei y=1080, und in Szene 1 die Differenz '-500 €' in Rot rechts neben dem roten Balken setzen.",
-      "bild": "Bild 6"
+      "bereich": "marke",
+      "schwere": "klein",
+      "befund": "Der Pinguin haengt in Bild 1-8 immer identisch am rechten oberen Kartenrand (Mitte ca. x=868, y=612) und bewegt sich nicht; die Karte selbst ist eine neutrale abgerundete Box, wie sie in tausenden Templates vorkommt.",
+      "bild": "Bild 3",
+      "vorschlag": "Pinguin pro Szene um 10-15 px seitlich versetzen und beim Schnitt 0,3 s einfliegen lassen; zusaetzlich die gelbe Akzentlinie oben links (x=140-250, y=650) auf Kartenbreite waehrend der Szene wachsen lassen als wiedererkennbares Markenelement."
     }
   ],
-  "staerkste": "Der Balkenvergleich in Szene 1 ist das beste Element: Brutto-Balken voll, Konto-Balken halb - die Aussage 'die Haelfte ist weg' steht rein visuell da, ohne Ton, und die Farbcodierung Blau/Rot ist sofort verstaendlich.",
-  "urteil": "Sauber gebautes, konsistentes Kartenlayout mit erkennbarer Handschrift (Pinguin, gelbe Akzentlinie, Karaoke-Untertitel), aber der Einstieg verschenkt die entscheidenden zwei Sekunden mit einer noch leeren Karte und viel totem Raum im oberen Drittel. Inhaltlich bleibt es bei runden Naeherungen statt harter Zahlen, und die Endkarte steht knapp vier Sekunden fast bewegungslos."
+  "staerkste": "Die visuelle Sprache ist konsequent durchgehalten: dunkle Karte, rote Kennzahl, gelber Marken-Akzent, Pinguin am Kartenrand - Szene 3 mit dem roten/gruenen Balkenvergleich traegt die Aussage 'Automatenkurs ist schlechter' voellig ohne Ton.",
+  "urteil": "Sauber gebautes, ruhig getaktetes Erklaerreel mit klarer Farb- und Kartenlogik, das seine Kernaussage in Szene 3 und 4 auch stumm vermittelt. Es verliert aber in den ersten zwei Sekunden, weil die Hook nur eine kleine Zahl in einer Box ist statt eines grossen Reizsatzes, und es endet auf einem 2,5 Sekunden langen Standbild."
 }
