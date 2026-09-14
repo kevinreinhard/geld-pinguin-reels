@@ -57,8 +57,10 @@ export const VOICE = {
 // Untertitel-Design (Karaoke-Style, Wort faerbt sich beim Sprechen ein).
 // Die Positionen stammen aus src/marke.js - dort steht die Bildaufteilung.
 export const CAPTIONS = {
-  maxWoerterProChunk: 3,
-  maxSekundenProChunk: 1.3,
+  // Vier statt drei Woerter: Mit nur drei Plaetzen bleibt der Segmentierung in
+  // src/ass.js keine Wahl, und sie muss mitten in eine Wortgruppe schneiden.
+  maxWoerterProChunk: 4,
+  maxSekundenProChunk: 1.5,
   fontSize: 82,          // kleiner als frueher: die Karte darueber traegt jetzt die Aussage
   titleFontSize: 40,     // Titel ist nur noch eine Marke am oberen Rand
   yPosition: LAYOUT.untertitelY,

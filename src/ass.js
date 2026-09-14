@@ -47,18 +47,66 @@ export function annotiereWoerter(words, quelltext) {
   });
 }
 
-/** Teilt n Elemente moeglichst gleichmaessig auf gruppen Gruppen auf. */
-function verteile(elemente, gruppen) {
-  const basis = Math.floor(elemente.length / gruppen);
-  const rest = elemente.length % gruppen;
-  const ergebnis = [];
-  let i = 0;
-  for (let g = 0; g < gruppen; g++) {
-    const groesse = basis + (g < rest ? 1 : 0);
-    ergebnis.push(elemente.slice(i, i + groesse));
-    i += groesse;
+/**
+ * Woerter, an denen eine Untertitelzeile nicht enden darf.
+ *
+ * Artikel, Praepositionen und Konjunktionen zeigen auf das, was danach kommt.
+ * Endet die Zeile auf ihnen, steht ein Fragment im Bild, das ohne Ton nichts
+ * bedeutet - "mehr ab wegen" war eines. Wer ein Reel stumm schaut, und das ist
+ * die Mehrheit, liest genau diese Zeile.
+ */
+const KLEBER = new Set(
+  ("der die das den dem des ein eine einen einem einer eines kein keine keinen " +
+   "mein dein sein ihr ihre deinen deiner deinem " +
+   "in im an am auf aus bei beim mit nach von vom zu zum zur fuer für ueber über " +
+   "unter vor hinter neben zwischen ohne gegen um durch wegen trotz seit ab als " +
+   "und oder aber denn sondern dass weil wenn ob wie damit obwohl also " +
+   "nicht nur schon noch mehr rund etwa circa bis pro je").split(" "),
+);
+
+/** Grobe Kosten fuer eine Zeile von Wort s bis e. Kleiner ist besser. */
+function kosten(worte, s, e, n, maxSekunden) {
+  const laenge = e - s;
+  let k = Math.abs(laenge - 3) * 1.2;
+
+  // Eine Zeile, die zu lange steht, ist ein Standbild fuer sich.
+  const dauer = worte[e - 1].end - worte[s].start;
+  if (dauer > maxSekunden) k += (dauer - maxSekunden) * 9;
+
+  if (e < n) {
+    const letztes = String(worte[e - 1].anzeige ?? worte[e - 1].text ?? "");
+    const blank = letztes.replace(/[.,!?…:;]+$/, "").toLowerCase();
+    if (KLEBER.has(blank)) k += 9;          // Zeile endet auf einem Fuellwort
+    if (/^[\d.,]+$/.test(blank)) k += 8;    // "100" gehoert zu seiner Einheit
+    if (/[,;:]$/.test(letztes)) k -= 3;     // Komma ist eine echte Atempause
+    if (laenge === 1) k += 4;               // Einzelwortzeilen wirken wie Fehler
   }
-  return ergebnis.filter((g) => g.length);
+  return k;
+}
+
+/**
+ * Teilt einen Satz in Zeilen - nicht nach fester Wortzahl, sondern an den
+ * Stellen, an denen ein Umbruch am wenigsten weh tut. Vollstaendige Suche
+ * ueber alle Aufteilungen; bei hoechstens rund fuenfzehn Woertern je Satz
+ * kostet das nichts.
+ */
+function segmentiere(worte, maxWorte, maxSekunden) {
+  const n = worte.length;
+  if (n <= 1) return [worte];
+
+  const besser = Array(n + 1).fill(null);
+  besser[0] = { summe: 0, von: 0 };
+  for (let e = 1; e <= n; e++) {
+    for (let s = Math.max(0, e - maxWorte); s < e; s++) {
+      if (!besser[s]) continue;
+      const summe = besser[s].summe + kosten(worte, s, e, n, maxSekunden);
+      if (!besser[e] || summe < besser[e].summe) besser[e] = { summe, von: s };
+    }
+  }
+
+  const zeilen = [];
+  for (let e = n; e > 0; e = besser[e].von) zeilen.unshift(worte.slice(besser[e].von, e));
+  return zeilen;
 }
 
 /**
@@ -80,13 +128,9 @@ export function chunkeWoerter(words) {
 
   const chunks = [];
   for (const satz of saetze) {
-    const dauer = satz[satz.length - 1].end - satz[0].start;
-    const gruppen = Math.max(
-      1,
-      Math.ceil(satz.length / CAPTIONS.maxWoerterProChunk),
-      Math.ceil(dauer / CAPTIONS.maxSekundenProChunk),
+    chunks.push(
+      ...segmentiere(satz, CAPTIONS.maxWoerterProChunk, CAPTIONS.maxSekundenProChunk),
     );
-    chunks.push(...verteile(satz, gruppen));
   }
   return chunks;
 }
@@ -169,9 +213,12 @@ export function baueAss({ words, quelltext, offset, dauer, titel, handle, fontna
     // 40 Prozent, und die Bildkontrolle hat das gelbe Wort auf dunklem Grund
     // zweimal als praktisch unlesbar gemeldet. Ein Untertitel, den man in
     // dem Moment liest, in dem er verschwindet, ist nutzlos.
+    // Auch nicht eingeblendet: Die 60 Millisekunden Blende haben genuegt, um
+    // eine Zeile auf einem Standbild halb durchsichtig zu erwischen. Das
+    // Hereinskalieren unten reicht als Auftritt vollkommen.
     const ausblenden = letzterChunk ? 180 : 0;
     const tags =
-      `{\\pos(${mitte},${c.yPosition})\\fad(60,${ausblenden})` +
+      `{\\pos(${mitte},${c.yPosition})\\fad(0,${ausblenden})` +
       `\\fscx86\\fscy86\\t(0,110,\\fscx100\\fscy100)}`;
 
     zeilen.push(

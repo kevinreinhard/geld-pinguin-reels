@@ -135,6 +135,11 @@ Die Kartentypen und wann sie passen:
              werte sind Stuetzpunkte, keine Beschriftung, nur die Form der Kurve.
 - liste      Zwei bis vier Schritte oder Merkmale. ja fuer richtig, nein fuer falsch,
              punkt fuer neutral. Gut fuer den Handlungssatz gegen Ende.
+             Ein nein-Punkt muss als Verneinung dastehen: "Keine Mini-Ansprueche
+             mehr", nicht "Mini-Ansprueche wie im Minijob". Sonst liest er sich
+             unter einem Kicker wie "Dein Vorteil" wie ein weiterer Vorteil -
+             das Kreuz allein reicht nicht. Und ein Kicker muss zu allen
+             Punkten passen, auch zu den verneinten.
 - stichwort  Ein Begriff oder eine Aussage, die kein Diagramm hergibt. Sparsam
              einsetzen - hoechstens zweimal pro Reel.
 - hook       Nur fuer Satz 0 erlaubt. Der Pinguin bringt die Behauptung mit.

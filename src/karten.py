@@ -439,7 +439,11 @@ class Maler:
             else:
                 d.ellipse([cx - 9, cy - 9, cx + 9, cy + 9], fill=farbe)
 
-            tf = self.F["text"][:3] + (alpha,)
+            # Ein Punkt mit rotem Kreuz muss sich auch im Text vom Haken
+            # abheben. Sonst liest sich "Mini-Ansprueche wie im Minijob" unter
+            # der Ueberschrift "DEIN VORTEIL" wie ein Vorteil - genau so ist es
+            # live gegangen.
+            tf = (self.F["rot"] if zeichen == "nein" else self.F["text"])[:3] + (alpha,)
             for j, zeile in enumerate(kuerze(d, pt.get("text", ""), ft, box[2] - x0 - 130, 2)):
                 d.text((x0 + 94 + versatz, y + 6 + j * 54), zeile, font=ft, fill=tf, anchor="lt")
             y += 130
