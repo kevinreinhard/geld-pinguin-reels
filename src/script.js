@@ -31,7 +31,7 @@ const TOOL = {
         type: "array",
         items: { type: "string" },
         description:
-          "5 bis 7 kurze gesprochene Sätze, je max 10 Wörter, konkret mit Zahlen. Lieber zwei kurze Sätze als einen langen. Zusammen mit Hook und CTA höchstens 75 Wörter insgesamt.",
+          "4 bis 6 kurze gesprochene Sätze, je max 10 Wörter, konkret mit Zahlen. Lieber zwei kurze Sätze als einen langen. Zusammen mit Hook und CTA höchstens 65 Wörter insgesamt – das ist eine harte Grenze, keine Richtgrösse.",
       },
       cta: {
         type: "string",
@@ -72,7 +72,11 @@ Kanal:
 
 Länge – das ist die wichtigste Regel:
 Das fertige Reel darf höchstens 30 Sekunden dauern, 20 bis 26 sind besser. Das sind
-insgesamt rund ${zielWoerter - 10} bis ${zielWoerter + 10} gesprochene Wörter, mehr nicht. Wie viele Zuschauer ein Reel
+insgesamt rund ${zielWoerter - 15} bis ${zielWoerter} gesprochene Wörter, mehr nicht.
+Rechne mit: Jeder Satz kostet zusätzlich eine kurze Sprechpause. Sieben kurze Sätze
+mit zusammen ${zielWoerter} Wörtern sind bereits rund 30 Sekunden – die Zahl der Sätze
+geht also mit in die Länge ein, nicht nur die Zahl der Wörter. Im Zweifel einen
+Gedanken streichen, nicht kürzer formulieren. Wie viele Zuschauer ein Reel
 zu Ende sehen, ist das stärkste Signal im Ranking – ein Gedanke weniger schlägt einen
 Satz zu viel. Ein Reel, eine einzige Idee.
 
@@ -147,17 +151,51 @@ nicht aus einem Tipp.
 Rufe immer das Tool reel_script auf. Antworte ausschließlich über das Tool.${gelernt}`;
 }
 
-function userPrompt(saeule, verboteneThemen) {
+function userPrompt(saeule, verboteneThemen, zuLang = 0) {
+  const kuerzer = zuLang
+    ? `
+
+Der vorige Entwurf hatte ${zuLang} gesprochene Wörter und wurde damit zu lang. ` +
+      "Streich einen ganzen Gedanken heraus, statt Sätze zusammenzuziehen."
+    : "";
   const negativ = verboteneThemen.length
     ? `\n\nDiese Themen hatten wir schon – wähle etwas deutlich anderes:\n- ${verboteneThemen.join("\n- ")}`
     : "";
   return `Schreib ein neues Reel zur Themensäule "${saeule.key}" (${saeule.beschreibung}).
 
-Suche dir darin einen spitzen, konkreten Einzelaspekt – nicht das Oberthema abhandeln. Ein Reel, eine Idee.${negativ}`;
+Suche dir darin einen spitzen, konkreten Einzelaspekt – nicht das Oberthema abhandeln. Ein Reel, eine Idee.${negativ}${kuerzer}`;
 }
 
-/** Ruft Claude auf und gibt das validierte Skript-Objekt zurueck. */
+/** Wortzahl des gesprochenen Textes. */
+function woerter(skript) {
+  return sprechtext(skript).split(/\s+/).filter(Boolean).length;
+}
+
+/**
+ * Ruft Claude auf und gibt das validierte Skript-Objekt zurueck.
+ *
+ * Ist das Ergebnis deutlich zu lang, wird einmal nachgefordert. Die Laenge ist
+ * die einzige Kennzahl, an der dieser Kanal wirklich haengt - ein Reel von 32
+ * Sekunden sieht kaum jemand zu Ende, und gemerkt haben wir es bisher erst am
+ * fertigen Video. Faellt der zweite Versuch aus, bleibt der erste: Ein etwas
+ * zu langer Beitrag ist besser als keiner.
+ */
 export async function generiereSkript(saeule) {
+  const { zielWoerter } = ladeTuning({ still: true });
+  const erster = await eineRunde(saeule);
+  if (woerter(erster) <= zielWoerter + 4) return erster;
+
+  console.warn(`  Skript hat ${woerter(erster)} Woerter (Ziel ${zielWoerter}) - fordere kuerzer nach.`);
+  try {
+    const zweiter = await eineRunde(saeule, woerter(erster));
+    if (woerter(zweiter) < woerter(erster)) return zweiter;
+  } catch (e) {
+    console.warn(`  Nachforderung fehlgeschlagen: ${e.message.slice(0, 120)}`);
+  }
+  return erster;
+}
+
+async function eineRunde(saeule, zuLang = 0) {
   const verboten = letzteThemen(40);
 
   const schlafen = (ms) => new Promise((r) => setTimeout(r, ms));
@@ -173,7 +211,7 @@ export async function generiereSkript(saeule) {
         output_config: { effort: MODEL.effort },
         system: systemPrompt(),
         tools: [TOOL],
-        messages: [{ role: "user", content: userPrompt(saeule, verboten) }],
+        messages: [{ role: "user", content: userPrompt(saeule, verboten, zuLang) }],
       });
     } catch (e) {
       // Das SDK wiederholt 429 und 5xx selbst, aber nicht 400. Genau so ein

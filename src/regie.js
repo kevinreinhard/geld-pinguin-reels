@@ -141,7 +141,9 @@ Die Kartentypen und wann sie passen:
              das Kreuz allein reicht nicht. Und ein Kicker muss zu allen
              Punkten passen, auch zu den verneinten.
 - stichwort  Ein Begriff oder eine Aussage, die kein Diagramm hergibt. Sparsam
-             einsetzen - hoechstens zweimal pro Reel.
+             einsetzen - hoechstens zweimal pro Reel. Immer mit erlaeuterung:
+             Eine Karte, auf der nur "Freiwillig? Vier Jahre." steht, haengt
+             sechs Sekunden fast leer im Bild und sagt ohne Ton nichts.
 - hook       Nur fuer Satz 0 erlaubt. Der Pinguin bringt die Behauptung mit.
 - endkarte   Nur fuer den letzten Satz. Aufruf und Kanalname.
 
@@ -258,10 +260,20 @@ export function pruefeSzenen(roh, saetze) {
         szene.endwert = TEXT(s.endwert, 14);
         break;
       }
-      default:
+      default: {
         szene.begriff = TEXT(s.begriff, 60) || kurzfassung(satz);
+        // Eine Stichwortkarte ohne Erlaeuterung steht fast leer im Bild. Fehlt
+        // sie, traegt der gesprochene Satz die Karte - er sagt ohnehin genau
+        // das, was in diesem Moment zu sehen sein soll.
+        const satztext = TEXT(satz, 80);
         szene.erlaeuterung = TEXT(s.erlaeuterung, 80);
+        if (typ === "stichwort" && !szene.erlaeuterung &&
+            satztext.length > szene.begriff.length + 12) {
+          szene.erlaeuterung = satztext;
+        }
         szene.bildsuche = TEXT(s.bildsuche, 48).replace(/[^A-Za-z0-9 ]/g, "");
+        break;
+      }
     }
     return szene;
   });
