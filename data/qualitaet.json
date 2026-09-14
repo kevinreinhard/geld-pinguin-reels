@@ -1,60 +1,60 @@
 {
-  "datum": "2026-09-14T06:03:29.103Z",
+  "datum": "2026-09-14T06:15:33.574Z",
   "datei": "build/reel.mp4",
-  "dauer": 25.91,
+  "dauer": 28.07,
   "noten": {
-    "hook": 62,
-    "lesbarkeit": 64,
-    "bildwechsel": 48,
-    "information": 58,
-    "marke": 66,
-    "sicherheit": 70
+    "hook": 52,
+    "lesbarkeit": 68,
+    "bildwechsel": 45,
+    "information": 62,
+    "marke": 64,
+    "sicherheit": 72
   },
   "gesamt": 61,
   "maengel": [
     {
-      "bereich": "bildwechsel",
+      "bereich": "hook",
       "schwere": "schwer",
-      "befund": "Bild 1 bis 3 (Sekunde 0,6 bis 2,2) zeigen exakt dieselbe Hook-Karte in identischer Position; nur der Pinguin rutscht minimal und die Untertitelzeile wechselt - die ersten drei Sekunden wirken wie ein Standbild.",
+      "befund": "Die ersten 2,2 Sekunden zeigen dreimal dieselbe Karte, es aendert sich nur die Ziffer 2 auf 3 - der Einstieg besteht aus einem Zaehler statt aus einer Aussage, die jemanden stoppt.",
       "bild": "Bild 1-3",
-      "vorschlag": "Hook-Block nach 1,2 s umbauen: zweite Zeile 'ABRECHNEN?' per Scale-Pop von 0.85 auf 1.0 nachziehen und 'NEIN.' erst bei 1,4 s mit Slide-in von y=1220 auf y=1160 einblenden; Pinguin zusaetzlich mit +-3 Grad Wackel-Loop."
+      "vorschlag": "Hookzeile in Bild 1 ersetzen: statt der Kleinueberschrift '1,50 € AUF 50 € RATE' eine grosse Frage/Behauptung in weiss, ca. 96 px, z.B. 'Dein Sparplan kostet 3 % - jedes Mal.' Der Zaehler darf erst ab Sekunde 1,0 starten und in 0,5 s durchlaufen, damit bei Sekunde 0,6 bereits die volle Aussage steht."
     },
     {
       "bereich": "bildwechsel",
       "schwere": "schwer",
-      "befund": "Zwischen Bild 3 (2,2 s) und Bild 4 (6,8 s) liegen ueber vier Sekunden, in denen laut Sample offenbar nur eine Karte steht; auch Bild 6 zeigt eine Karte, die zu drei Vierteln leer ist - der Mittelteil hat kaum Bewegung.",
-      "bild": "Bild 6",
-      "vorschlag": "Jede Karte maximal 2,5 s stehen lassen; in Bild 6 die drei Haken-Zeilen gestaffelt mit je 0,4 s Versatz einfliegen lassen statt eine Zeile allein zu zeigen."
-    },
-    {
-      "bereich": "lesbarkeit",
-      "schwere": "schwer",
-      "befund": "In Bild 6 steht 'Landeswaehrung waehlen' in mittlerem Grau (ca. #8b93a3) auf dunkelblauer Karte und ist deutlich schwaecher als die gruene Ueberschrift - auf dem Handy kaum lesbar.",
-      "bild": "Bild 6",
-      "vorschlag": "Textfarbe der Listenzeilen auf #FFFFFF setzen, Groesse von ca. 44 px auf 56 px (1080er Massstab) erhoehen."
+      "befund": "Zwischen Sekunde 2,2 und 7,2 sowie zwischen 12,2 und 17,2 gibt es je fuenf Sekunden, in denen nur der Untertitel unten wechselt - die Karte in der Bildmitte steht still.",
+      "bild": "Bild 3 bis Bild 6",
+      "vorschlag": "Jede Szene auf maximal 3 s begrenzen und innerhalb der Szene mindestens ein Bewegungsereignis setzen: Karte alle 2,5 s um 8 px hoch/runter faden, Kennzahl mit Skalierung 1.0 -> 1.06 -> 1.0 pulsen, oder einen zweiten Karteninhalt einblenden."
     },
     {
       "bereich": "information",
       "schwere": "mittel",
-      "befund": "Die Karte in Bild 6 ist bis y=1000 leer, weil nur ein einziger Listenpunkt gefuellt ist; die Karte in Bild 7 hat unterhalb von y=780 (1080er Massstab) ebenfalls rund 300 px Leerraum.",
-      "bild": "Bild 6",
-      "vorschlag": "Kartenhoehe dynamisch an den Inhalt anpassen (min-height entfernen) oder die restlichen Punkte 'Nie EUR bestaetigen' und 'Immer Landeswaehrung' mit einblenden."
-    },
-    {
-      "bereich": "information",
-      "schwere": "mittel",
-      "befund": "Bild 4 nennt nur den englischen Fachbegriff 'Dynamic Currency Conversion'; die Unterzeile 'Der Automat rechnet um - nicht deine Bank.' steht in Grau auf ca. 44 px und traegt die eigentliche Aussage zu schwach.",
+      "befund": "Bild 4 zeigt nur den Satz 'Minus ab Sekunde eins' auf leerer Karte - fuenf Sekunden ohne Zahl, Grafik oder Beleg; die Aussage haengt vollstaendig am Ton.",
       "bild": "Bild 4",
-      "vorschlag": "Unterzeile auf 52 px und #E6E9F0 setzen, Schluesselwort 'nicht deine Bank' in Gelb #F5C518 hervorheben."
+      "vorschlag": "Unter die Headline eine Zahl setzen, z.B. '50 € Rate -> 48,50 € investiert' in 56 px weiss bei y=800, plus einen kleinen Balken, der die 1,50 € rot abschneidet."
     },
     {
       "bereich": "lesbarkeit",
+      "schwere": "mittel",
+      "befund": "Die Untertitelzeile laeuft in Bild 7 mit 'eine Gebuehr wechsle' auf ein abgeschnittenes Wort hinaus, in Bild 5 endet sie mit 'Viele Broker fuehren' - Fragmente ohne Sinn.",
+      "bild": "Bild 5 und Bild 7",
+      "vorschlag": "Untertitel an Satzgrenzen segmentieren statt an fester Wortzahl: max. 4 Woerter pro Karte, nie ein Wort abschneiden, Umbruch nur nach Satzzeichen oder vollstaendiger Phrase."
+    },
+    {
+      "bereich": "lesbarkeit",
+      "schwere": "mittel",
+      "befund": "In Bild 6 laeuft 'Preisverzeichnis' bis an beide Kartenraender und reicht ueber die Karte hinaus (von x=70 bis x=1050 in 1080er Massstab), das P sitzt nur 70 px vom linken Bildrand.",
+      "bild": "Bild 6",
+      "vorschlag": "Schriftgroesse der Headline von ca. 108 px auf 86 px reduzieren oder Auto-Fit auf maximale Textbreite 820 px begrenzen, damit links und rechts mindestens 130 px Rand zum Bildrand bleiben."
+    },
+    {
+      "bereich": "marke",
       "schwere": "klein",
-      "befund": "Die Kopfzeile 'SAG NEIN ZU EURO' bei y=232 und der Handle '@geld.pinguin' bei y=294 (1080er Massstab) sind nur ca. 24 px hoch und mit starkem Sperrsatz in Grau - reine Deko, kaum lesbar.",
-      "bild": "Bild 1",
-      "vorschlag": "Handle-Zeile auf 30 px anheben und Deckkraft von ca. 45 % auf 70 % erhoehen, oder Kopfzeile ganz streichen, da sie ohnehin dicht an der Instagram-Kopfzone bis y=200 liegt."
+      "befund": "Der Pinguin sitzt in allen Szenen 1-7 unbewegt in derselben Position am rechten Kartenrand und ist dort zur Haelfte hinter der Karte versteckt - er wirkt wie ein Aufkleber, nicht wie eine Figur.",
+      "bild": "Bild 1-7",
+      "vorschlag": "Pinguin pro Szene reagieren lassen: bei der roten Gebuehren-Szene nach unten kippen (Rotation -8°), bei der gruenen 0-€-Szene ganz ueber die Kartenkante steigen (y um 40 px nach oben), sonst alle 4 s ein 0,4-s-Wackeln."
     }
   ],
-  "staerkste": "Der Schlussframe: grosser Pinguin, klare Handlungsaufforderung 'SPEICHERN VOR DER REISE' und der gelbe Handle-Button sitzen sauber in der Bildmitte, weit weg von Caption- und Buttonzone - das ist ein wiedererkennbarer Marken-Abbinder.",
-  "urteil": "Visuell konsistent, dunkle Palette mit Korallenrot und Gelb, klare Kartenlogik - handwerklich sauber, aber dramaturgisch traege: drei nahezu identische Hook-Frames und halbleere Karten im Mittelteil kosten genau die Aufmerksamkeit, die in Sekunde 1 bis 3 entscheidet. Die Aussage ist ohne Ton grundsaetzlich verstaendlich, verliert aber Kraft, weil die Kernzahl (12 %) und der Merksatz (Landeswaehrung waehlen) nicht mit gleicher visueller Wucht behandelt werden."
+  "staerkste": "Die Farbdramaturgie traegt die Story ohne Ton: rot fuer die Gebuehr, gruen fuer die 0-€-Alternative, blau fuer den Pruef-Tipp, gelb fuer den Abschluss - dazu eine saubere, ruhige Kartentypografie mit gutem Kontrast auf dunklem Grund.",
+  "urteil": "Handwerklich sauberes, konsistent gebrandetes Reel mit klarer Farblogik und einem starken Schlussbild, das Speichern und Handle klar setzt. Es verliert aber Publikum, weil der Einstieg nur eine Zahl hochzaehlt statt eine Aussage zu machen und drei Szenen jeweils fuenf Sekunden lang praktisch als Standbild stehen."
 }
