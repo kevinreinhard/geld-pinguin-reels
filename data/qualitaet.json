@@ -1,60 +1,67 @@
 {
-  "datum": "2026-09-14T06:15:33.574Z",
+  "datum": "2026-09-14T06:22:55.734Z",
   "datei": "build/reel.mp4",
-  "dauer": 28.07,
+  "dauer": 23.37,
   "noten": {
-    "hook": 52,
-    "lesbarkeit": 68,
-    "bildwechsel": 45,
-    "information": 62,
-    "marke": 64,
-    "sicherheit": 72
+    "hook": 62,
+    "lesbarkeit": 70,
+    "bildwechsel": 66,
+    "information": 64,
+    "marke": 72,
+    "sicherheit": 55
   },
-  "gesamt": 61,
+  "gesamt": 65,
   "maengel": [
+    {
+      "bereich": "sicherheit",
+      "schwere": "schwer",
+      "befund": "Die Untertitelzeile liegt konstant bei y≈1288 (gemessen y≈644) und die gelbe Trennlinie bei y≈1378 (gemessen y≈689) - das ist zwar knapp ueber y=1500, aber der gesamte Bereich darunter bis 1920 bleibt leer, waehrend die Bildkarten bereits bei y≈1080 enden. Der Inhalt sitzt dadurch unnoetig hoch und der Sicherheitsraum wird verschenkt statt genutzt.",
+      "bild": "alle Bilder",
+      "vorschlag": "Karten- und Untertitelblock um ca. 120 px nach unten schieben (Karte von y=530..1080 auf y=650..1200, Untertitel von y=1288 auf y=1400), damit die obere Haelfte nicht so leer wirkt und der Blick nicht in die Kopfzeile laeuft."
+    },
     {
       "bereich": "hook",
       "schwere": "schwer",
-      "befund": "Die ersten 2,2 Sekunden zeigen dreimal dieselbe Karte, es aendert sich nur die Ziffer 2 auf 3 - der Einstieg besteht aus einem Zaehler statt aus einer Aussage, die jemanden stoppt.",
-      "bild": "Bild 1-3",
-      "vorschlag": "Hookzeile in Bild 1 ersetzen: statt der Kleinueberschrift '1,50 € AUF 50 € RATE' eine grosse Frage/Behauptung in weiss, ca. 96 px, z.B. 'Dein Sparplan kostet 3 % - jedes Mal.' Der Zaehler darf erst ab Sekunde 1,0 starten und in 0,5 s durchlaufen, damit bei Sekunde 0,6 bereits die volle Aussage steht."
+      "befund": "In Bild 1 ueberlagert der rote Hook-Balken 'GEHALTSERHOEHUNG' den unteren Teil des Pinguins - die Fuesse und der Bauch werden vom Balken angeschnitten, das wirkt wie ein Layoutfehler statt wie Absicht.",
+      "bild": "Bild 1",
+      "vorschlag": "Hook-Balken erst ab y=900 beginnen lassen (aktuell Oberkante bei y≈858) oder den Pinguin auf y=400..800 verkleinern, sodass zwischen Pinguinfuss und Balkenoberkante mindestens 40 px Luft bleiben."
     },
     {
-      "bereich": "bildwechsel",
-      "schwere": "schwer",
-      "befund": "Zwischen Sekunde 2,2 und 7,2 sowie zwischen 12,2 und 17,2 gibt es je fuenf Sekunden, in denen nur der Untertitel unten wechselt - die Karte in der Bildmitte steht still.",
-      "bild": "Bild 3 bis Bild 6",
-      "vorschlag": "Jede Szene auf maximal 3 s begrenzen und innerhalb der Szene mindestens ein Bewegungsereignis setzen: Karte alle 2,5 s um 8 px hoch/runter faden, Kennzahl mit Skalierung 1.0 -> 1.06 -> 1.0 pulsen, oder einen zweiten Karteninhalt einblenden."
+      "bereich": "hook",
+      "schwere": "mittel",
+      "befund": "Der Hook-Text 'GEHALTSERHOEHUNG' laeuft in Bild 1 bis an beide Bildraender (Balken von x≈24 bis x≈1056), das 'G' und das 'G' am Ende stehen nur ca. 20 px vom Rand - randbeschnitten wirkend und unruhig.",
+      "bild": "Bild 1",
+      "vorschlag": "Schriftgroesse des Hooks von ca. 78 px auf 66 px reduzieren oder auf zwei Zeilen umbrechen, Balken auf x=60..1020 begrenzen."
     },
     {
       "bereich": "information",
       "schwere": "mittel",
-      "befund": "Bild 4 zeigt nur den Satz 'Minus ab Sekunde eins' auf leerer Karte - fuenf Sekunden ohne Zahl, Grafik oder Beleg; die Aussage haengt vollstaendig am Ton.",
-      "bild": "Bild 4",
-      "vorschlag": "Unter die Headline eine Zahl setzen, z.B. '50 € Rate -> 48,50 € investiert' in 56 px weiss bei y=800, plus einen kleinen Balken, der die 1,50 € rot abschneidet."
+      "befund": "In Bild 3 steht '142 EUR' als 'RIESTER GRUNDZULAGE', in Bild 4 derselbe Titel mit '175 EUR' - ohne Ton ist nicht erkennbar, ob es sich um eine Hochzaehl-Animation oder um zwei verschiedene Werte handelt; die 142 ist zudem sachlich der alte Wert.",
+      "bild": "Bild 3 und 4",
+      "vorschlag": "Zaehler-Animation nur von 0 auf 175 laufen lassen oder den Zwischenwert ausblenden; Untertitel-Label 'ab 2018' bzw. 'aktuell' unter die Zahl setzen (y≈900, 34 px, Weiss 80 %)."
+    },
+    {
+      "bereich": "bildwechsel",
+      "schwere": "mittel",
+      "befund": "In Szene 3 (Bild 5 zu 6) aendert sich nur, dass zwei Zeilen Fliesstext erscheinen; die Karte bleibt sonst 2,6 Sekunden statisch und wirkt wie ein Standbild.",
+      "bild": "Bild 5 und 6",
+      "vorschlag": "In Szene 3 eine Balken- oder Prozent-Animation ergaenzen (z.B. Ring, der auf 4 % fuellt, 240 px Durchmesser bei x=540, y=880) oder den Karteninhalt zeilenweise mit 0,3 s Versatz einfliegen lassen."
     },
     {
       "bereich": "lesbarkeit",
       "schwere": "mittel",
-      "befund": "Die Untertitelzeile laeuft in Bild 7 mit 'eine Gebuehr wechsle' auf ein abgeschnittenes Wort hinaus, in Bild 5 endet sie mit 'Viele Broker fuehren' - Fragmente ohne Sinn.",
-      "bild": "Bild 5 und Bild 7",
-      "vorschlag": "Untertitel an Satzgrenzen segmentieren statt an fester Wortzahl: max. 4 Woerter pro Karte, nie ein Wort abschneiden, Umbruch nur nach Satzzeichen oder vollstaendiger Phrase."
-    },
-    {
-      "bereich": "lesbarkeit",
-      "schwere": "mittel",
-      "befund": "In Bild 6 laeuft 'Preisverzeichnis' bis an beide Kartenraender und reicht ueber die Karte hinaus (von x=70 bis x=1050 in 1080er Massstab), das P sitzt nur 70 px vom linken Bildrand.",
+      "befund": "Die Fliesstextzeile 'So hoch muss dein Eigenbeitrag sein (inkl. Zulagen).' in Bild 6 steht in ca. 36 px hellgrau auf dunkelblau und ist deutlich kleiner als jeder andere Text im Reel.",
       "bild": "Bild 6",
-      "vorschlag": "Schriftgroesse der Headline von ca. 108 px auf 86 px reduzieren oder Auto-Fit auf maximale Textbreite 820 px begrenzen, damit links und rechts mindestens 130 px Rand zum Bildrand bleiben."
+      "vorschlag": "Schriftgroesse auf 46 px erhoehen, Farbe von #B8C4D9 auf reines Weiss #FFFFFF setzen, Zeilenabstand 1,25."
     },
     {
-      "bereich": "marke",
+      "bereich": "information",
       "schwere": "klein",
-      "befund": "Der Pinguin sitzt in allen Szenen 1-7 unbewegt in derselben Position am rechten Kartenrand und ist dort zur Haelfte hinter der Karte versteckt - er wirkt wie ein Aufkleber, nicht wie eine Figur.",
-      "bild": "Bild 1-7",
-      "vorschlag": "Pinguin pro Szene reagieren lassen: bei der roten Gebuehren-Szene nach unten kippen (Rotation -8°), bei der gruenen 0-€-Szene ganz ueber die Kartenkante steigen (y um 40 px nach oben), sonst alle 4 s ein 0,4-s-Wackeln."
+      "befund": "In Bild 7 sind die Balken zu '40.000 EUR Brutto' und '50.000 EUR Brutto' ohne Zahlenwerte gefuellt; erst in Bild 8 stehen 1.600 EUR und 2.000 EUR - der rote Balken ist dabei laenger als der gelbe, obwohl der Unterschied nur 400 EUR betraegt, was den Abstand optisch uebertreibt.",
+      "bild": "Bild 7 und 8",
+      "vorschlag": "Balkenlaengen proportional zu 1600 und 2000 skalieren (gelb 80 % der Maximalbreite, rot 100 %) und die Eurobetraege von Anfang an einblenden statt nachtraeglich."
     }
   ],
-  "staerkste": "Die Farbdramaturgie traegt die Story ohne Ton: rot fuer die Gebuehr, gruen fuer die 0-€-Alternative, blau fuer den Pruef-Tipp, gelb fuer den Abschluss - dazu eine saubere, ruhige Kartentypografie mit gutem Kontrast auf dunklem Grund.",
-  "urteil": "Handwerklich sauberes, konsistent gebrandetes Reel mit klarer Farblogik und einem starken Schlussbild, das Speichern und Handle klar setzt. Es verliert aber Publikum, weil der Einstieg nur eine Zahl hochzaehlt statt eine Aussage zu machen und drei Szenen jeweils fuenf Sekunden lang praktisch als Standbild stehen."
+  "staerkste": "Die Szenen 2 und 4 tragen ihre Aussage vollstaendig im Bild: grosse Zahl mit Label bzw. zwei beschriftete Vergleichsbalken - man versteht den Punkt auch stumm, und die Farbcodierung gruen fuer Zulage, gelb/rot fuer Beitrag ist konsistent durchgehalten.",
+  "urteil": "Solide gebaute Karten-Vorlage mit erkennbarer Handschrift (Pinguin, gelbe Akzentlinie, Karaoke-Untertitel), aber der Hook verschenkt Sekunde 1 an einen Balken, der den Pinguin anschneidet und den Rand beruehrt. Inhaltlich stark in den Kennzahl- und Vergleichsszenen, schwach in Szene 3, die fast ein Standbild ist, und die untere Bildhaelfte bleibt durchgehend ungenutzt leer."
 }
