@@ -1,67 +1,60 @@
 {
-  "datum": "2026-09-14T05:38:17.537Z",
+  "datum": "2026-09-14T05:48:44.277Z",
   "datei": "build/reel.mp4",
-  "dauer": 25.1,
+  "dauer": 31.83,
   "noten": {
     "hook": 58,
-    "lesbarkeit": 55,
-    "bildwechsel": 48,
-    "information": 52,
-    "marke": 64,
+    "lesbarkeit": 64,
+    "bildwechsel": 45,
+    "information": 57,
+    "marke": 62,
     "sicherheit": 70
   },
-  "gesamt": 58,
+  "gesamt": 59,
   "maengel": [
+    {
+      "bereich": "bildwechsel",
+      "schwere": "schwer",
+      "befund": "Zwischen Bild 3 (2,2 s) und Bild 4 (8,0 s) bleibt die Szene sichtbar gleich - Pinguin mittig, identischer Titelblock '4 JAHRE LIEGEN OFFEN' von Sekunde 0,6 bis mindestens 2,2, danach fast sechs Sekunden ohne erkennbaren neuen Bildbaustein ausser der Untertitelzeile.",
+      "bild": "Bild 1-3",
+      "vorschlag": "Titelblock nach spaetestens 2,5 s abraeumen und die erste Karte (Bild 4) bereits bei ca. 3,0 s einblenden; im Segment 3-8 s zusaetzlich einen Zahlen-Einschub (z.B. '2021-2024' als vier aufpoppende Jahres-Chips) animieren."
+    },
     {
       "bereich": "information",
       "schwere": "schwer",
-      "befund": "Die Untertitel sind willkuerlich in Satzfragmente zerhackt: 'mehr ab wegen' (Bild 3), 'an nicht sprunghaft.' (Bild 6), 'Brutto-Netto-Rechner durch.' (Bild 8) - ohne Ton ergibt keine dieser Zeilen einen Sinn.",
-      "bild": "Bild 3, 6, 8",
-      "vorschlag": "Untertitel nicht nach fester Wortzahl, sondern nach Sinneinheiten segmentieren: Zeilen erst an Satz-/Teilsatzgrenzen umbrechen, max. 32 Zeichen pro Zeile, zwei Zeilen erlaubt (Block bei y=1240-1360)."
+      "befund": "Die Karte in Bild 4 sagt nur 'Freiwillig? Vier Jahre.' - ohne Ton bleibt offen, worum es geht; die Karte steht knapp 6 Sekunden mit zwei Zeilen Text auf 480 px Hoehe fast leer.",
+      "bild": "Bild 4",
+      "vorschlag": "Karte mit Substanz fuellen: Unterzeile in 44 px Weiss ergaenzen, z.B. 'Keine Pflicht? Dann darfst du 2021-2024 noch nachreichen.' bei y=880, und die vier Jahreszahlen als Chips bei y=1000 einblenden."
     },
     {
       "bereich": "lesbarkeit",
-      "schwere": "schwer",
-      "befund": "In Bild 7 steht der Untertitel 'statt Mini-Ansprueche.' in dunklem Grau auf dunkelgruenem Hintergrund und ist praktisch unsichtbar - offenbar ein halbtransparenter Ein-/Ausblendzustand, der auf dem Standbild als Fehler wirkt.",
-      "bild": "Bild 7",
-      "vorschlag": "Untertitel-Opacity nie unter 1.0 halten (Fade-Dauer auf 0 setzen) und Fuellfarbe fix auf #FFFFFF mit schwarzem Rand 4 px sowie Schattenkasten rgba(0,0,0,0.55) hinterlegen."
-    },
-    {
-      "bereich": "information",
-      "schwere": "schwer",
-      "befund": "Die Aussagekarte in Bild 7 widerspricht sich selbst: 'Mini-Ansprueche wie im Minijob' steht mit rotem X unter der Ueberschrift 'DEIN VORTEIL', ohne dass erkennbar ist, dass es sich um das Gegenteil handelt.",
-      "bild": "Bild 7",
-      "vorschlag": "Zeile umformulieren zu 'Keine Mini-Ansprueche mehr' oder die Karte in zwei Spalten 'Vorteil / Entfaellt' teilen; rote Zeile optisch absetzen (Textfarbe #FF8A8A statt Weiss)."
-    },
-    {
-      "bereich": "bildwechsel",
       "schwere": "mittel",
-      "befund": "Bilder 1-3 zeigen ueber 2,2 Sekunden dieselbe Komposition; die einzige Bewegung ist ein leichtes Hochfahren des Pinguins. Danach folgen vier gleich gebaute Karten (Bild 4-7) an identischer Position - der Mittelteil wirkt wie eine Diaschau.",
-      "bild": "Bild 1-3, 4-7",
-      "vorschlag": "Karten abwechselnd von links/rechts einfliegen lassen (x-Offset +-120 px, 0.35 s) und pro Karte ein Element animieren: Zahl in Bild 4 von 0 auf 556 hochzaehlen, Kurve in Bild 6 von links aufziehen, Haken in Bild 7 gestaffelt einblenden (0.25 s Versatz)."
+      "befund": "In Bild 7 ist der dritte Listenpunkt 'Kein Risiko bei freiwilliger Abgabe' in mittlerem Grau auf dunkelblau gesetzt und hebt sich kaum vom Kartenhintergrund ab.",
+      "bild": "Bild 7",
+      "vorschlag": "Alle Listenpunkte auf #FFFFFF bzw. mindestens #E6E9F0 setzen; wenn der Punkt noch nicht 'aktiv' ist, statt Graustufe lieber Opacity 0 und erst per Einblendung erscheinen lassen."
     },
     {
       "bereich": "hook",
       "schwere": "mittel",
-      "befund": "Der Hook-Titel '100 EURO ABGELEHNT' ist inhaltlich unklar - wer lehnt was ab? Die erste Sekunde liefert keinen Konflikt, nur zwei rote Balken ueber dem Logo.",
+      "befund": "Der Hook-Balken '4 JAHRE LIEGEN OFFEN' liegt in zwei rosa Kaesten (y=852 bis y=1096 in 1080er Skalierung) direkt ueber dem Pinguin und verdeckt dessen Koerper; die Aussage ist zudem abstrakt ohne Zahl mit Geldbezug.",
       "bild": "Bild 1",
-      "vorschlag": "Hooktext auf eine konkrete Frage aendern, z.B. '100 EURO MEHR - NETTO WENIGER?' und die Zeile auf 2 statt 2 Balken in 96 px Versalien setzen, Position von y=880 auf y=700 hochziehen, damit der Blick zuerst dort landet."
-    },
-    {
-      "bereich": "lesbarkeit",
-      "schwere": "mittel",
-      "befund": "Die Kanalzeile '@geld.pinguin' unter dem Header (bei y=294 im Original) steht in ca. 24 px grauem Text auf fast schwarzem Grund und ist auf dem Handy kaum zu entziffern; zudem liegt der Header-Block y=200-300 direkt unter der Instagram-Kopfzeile.",
-      "bild": "Bild 1-8",
-      "vorschlag": "Header-Block von y=220 auf y=340 verschieben, Schriftgroesse der Handle-Zeile von 24 auf 34 px erhoehen und Farbe von Grau auf #E8C766 mit 70 % Deckkraft setzen."
+      "vorschlag": "Hook auf Geldnutzen umtexten, z.B. 'BIS ZU 1.200 EUR LIEGEN 4 JAHRE RUM', und den Block auf y=1150-1400 verschieben, damit der Pinguin frei steht."
     },
     {
       "bereich": "marke",
+      "schwere": "mittel",
+      "befund": "Die Hintergrundfarbe springt von Weinrot (Bild 1-3, 5) zu Marineblau (Bild 4, 7), Dunkelgruen (Bild 6) und wieder Blau (Bild 8) - ohne erkennbare Systematik, das wirkt wie Vorlagenwechsel statt Handschrift.",
+      "bild": "Bild 6",
+      "vorschlag": "Auf zwei Hintergruende festlegen: Marineblau #101A2E als Standard, Weinrot nur fuer Hook und Deadline. Gruenen Verlauf in Bild 6 durch Marineblau ersetzen, Akzentgruen nur in den Haken-Icons belassen."
+    },
+    {
+      "bereich": "information",
       "schwere": "klein",
-      "befund": "Der Pinguin sitzt ab Bild 4 nur noch als angeschnittener Kopf hinter der Kartenecke bei x=870/y=430 und wirkt dort wie ein Rendering-Ueberrest statt wie eine Figur.",
-      "bild": "Bild 4-7",
-      "vorschlag": "Pinguin entweder vollstaendig neben die Karte setzen (x=830, y=390, Hoehe 180 px) oder konsequent hinter die Karte legen, sodass nur Kopf ab Oberkante sichtbar ist - aktuell schneidet die Kartenkante mitten durchs Gesicht."
+      "befund": "In Bild 6 widersprechen sich Icon und Text: 'Kein Steuerberater noetig' steht mit rotem X-Icon und roter Schrift in einer Liste, die sonst positive Schritte zeigt - das liest sich wie ein Verbot.",
+      "bild": "Bild 6",
+      "vorschlag": "Zeile auf gruenen Haken und weisse Schrift umstellen oder in 'Steuerberater? Nicht noetig' umtexten; das rote X nur fuer echte Negativpunkte reservieren."
     }
   ],
-  "staerkste": "Die Kartenoptik ist handwerklich sauber: konsistentes Layout, gutes Kontrastverhaeltnis der grossen Kennzahl '556 €' und ein farblicher Wechsel der Hintergrund-Stimmung (rot, blau, gruen) pro Abschnitt, der dem Video eine erkennbare Kapitelstruktur gibt.",
-  "urteil": "Optisch sauber gebautes, aber dramaturgisch flaches Reel: Der Hook ruht zweieinhalb Sekunden fast bewegungslos, danach folgen vier baugleiche Karten ohne eigene Animation. Groesster Schaden sind die sinnfrei zerhackten Untertitel und der praktisch unsichtbare Text in Bild 7 - ohne Ton bleibt die Kernaussage (Uebergangsbereich statt Minijob) unverstanden."
+  "staerkste": "Die Deadline-Karte in Bild 5: '31.12.' in grossem Rot mit Kicker 'DEADLINE' und Erklaerzeile darunter ist sofort ohne Ton verstaendlich und die einzige Szene mit echter Blickhierarchie.",
+  "urteil": "Handwerklich sauber gebaut - gute Typo, konsistente Untertitel, klare Karten - aber dramaturgisch zu traege: Der Hook steht ueber drei Bilder unveraendert, und das Segment bis Sekunde 8 traegt kaum Information. Farbwelt und Icon-Logik sind uneinheitlich, dadurch wirkt das Ganze eher wie ein sauber befuelltes Template als wie ein Kanal mit Handschrift."
 }
