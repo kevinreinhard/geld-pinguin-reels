@@ -62,7 +62,7 @@ export const CAPTIONS = {
   maxWoerterProChunk: 4,
   maxSekundenProChunk: 1.5,
   fontSize: 82,          // kleiner als frueher: die Karte darueber traegt jetzt die Aussage
-  titleFontSize: 40,     // Titel ist nur noch eine Marke am oberen Rand
+  titleFontSize: 52,     // Marke am oberen Rand - die Zone darueber ist sonst leer
   yPosition: LAYOUT.untertitelY,
   titleYPosition: LAYOUT.titelY,
   handleY: LAYOUT.handleY,

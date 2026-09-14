@@ -410,6 +410,10 @@ class Maler:
         # Rechts mehr Luft als links: Ab y=980 liegt dort Instagrams
         # Buttonspalte (Gefaellt mir, Kommentar, Teilen). Der Kartenrand darf
         # darunter verschwinden, ein Geldbetrag nicht.
+        # In der Eroeffnungsszene wartet nichts. Sonst steht dort eine Karte
+        # mit Beschriftungen, aber ohne Zahlen und ohne Balken - eine leere
+        # Huelle in genau der Sekunde, in der entschieden wird.
+        erste = s.get("satz") == 0
         x0, x1 = box[0] + 58, box[2] - 96
         anteile = [max(0.02, float(z.get("anteil", 0.5))) for z in zeilen] or [1]
         maxanteil = max(anteile)
@@ -423,15 +427,16 @@ class Maler:
                                    x1 - x0 - wb - 30, 1, "SemiBold")
             d.text((x0, y + 8), zeilen[0] if zeilen else "", font=flz,
                    fill=self.F["text"], anchor="lt")
-            tw = nachzug(p, i * 0.06)
+            tw = nachzug(p, i * 0.06, sofort=erste)
             if tw > 0:
                 d.text((x1, y + 2 + (1 - ease_out(tw)) * 14), wert, font=fw,
                        fill=farbe[:3] + (int(255 * min(1.0, tw * 1.6)),), anchor="rt")
 
             by = y + 76
             d.rounded_rectangle([x0, by, x1, by + 30], radius=15, fill=self.F["flaecheHell"])
-            # Gestaffelt: Zeile i startet etwas spaeter als Zeile i-1.
-            tz = min(1.0, max(0.0, (p - i * 0.06) / HAUPT))
+            # Gestaffelt: Zeile i startet etwas spaeter als Zeile i-1. In der
+            # Eroeffnung fuellen sich die Balken doppelt so schnell.
+            tz = min(1.0, max(0.0, (p - i * 0.06) / (HAUPT * (0.45 if erste else 1.0))))
             b = (x1 - x0) * (anteile[i] / maxanteil) * ease_out(tz)
             if b > 6:
                 d.rounded_rectangle([x0, by, x0 + b, by + 30], radius=15, fill=farbe)
