@@ -106,7 +106,7 @@ YCbCr Matrix: TV.709
 
 [V4+ Styles]
 Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
-Style: Cap,${fontname},${c.fontSize},${c.aktivFarbe},${c.ruheFarbe},${c.outlineFarbe},&H64000000,0,0,0,0,100,100,2,0,1,${c.outlineStaerke},4,5,90,90,0,1
+Style: Cap,${fontname},${c.fontSize},${c.gesprochenFarbe},${c.kommendFarbe},${c.outlineFarbe},&H64000000,0,0,0,0,100,100,2,0,1,${c.outlineStaerke},4,5,90,90,0,1
 Style: Titel,${fontname},${c.titleFontSize},${c.aktivFarbe},${c.aktivFarbe},${c.outlineFarbe},&H64000000,0,0,0,0,100,100,9,0,1,4,2,5,90,90,0,1
 Style: Handle,${fontname},38,&H00FFFFFF&,&H00FFFFFF&,${c.outlineFarbe},&H64000000,0,0,0,0,100,100,4,0,1,3,2,5,60,60,0,1
 
@@ -162,9 +162,16 @@ export function baueAss({ words, quelltext, offset, dauer, titel, handle, fontna
       text += `{\\kf${cs}}${esc(w.anzeige ?? w.text)} `;
     });
 
-    // Pop-in: kurz kleiner starten, dann auf 100 % skalieren
+    // Pop-in: kurz kleiner starten, dann auf 100 % skalieren.
+    //
+    // Ausgeblendet wird nur der allerletzte Chunk. Dazwischen loest ein Chunk
+    // den naechsten hart ab: Beim Ausblenden sank die Deckkraft auf rund
+    // 40 Prozent, und die Bildkontrolle hat das gelbe Wort auf dunklem Grund
+    // zweimal als praktisch unlesbar gemeldet. Ein Untertitel, den man in
+    // dem Moment liest, in dem er verschwindet, ist nutzlos.
+    const ausblenden = letzterChunk ? 180 : 0;
     const tags =
-      `{\\pos(${mitte},${c.yPosition})\\fad(70,70)` +
+      `{\\pos(${mitte},${c.yPosition})\\fad(60,${ausblenden})` +
       `\\fscx86\\fscy86\\t(0,110,\\fscx100\\fscy100)}`;
 
     zeilen.push(

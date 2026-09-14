@@ -65,8 +65,15 @@ export const CAPTIONS = {
   titleYPosition: LAYOUT.titelY,
   handleY: LAYOUT.handleY,
   fortschrittY: LAYOUT.fortschrittY,
-  aktivFarbe: "&H0045C8FF&",  // ASS = &HBBGGRR -> #FFC845 (Markengold)
-  ruheFarbe: "&H00FFFFFF&",   // Weiss
+  // Karaoke, umgekehrt herum gedacht: Noch nicht gesprochene Woerter stehen in
+  // Markengold und ziehen den Blick nach vorn, gesprochene werden weiss. So ist
+  // der gelesene Teil der Zeile immer der kontrastreichste, und am Satzende
+  // steht alles in Weiss. Vorher faerbte sich die Zeile fortschreitend gold ein
+  // und war am Ende komplett golden - die Bildkontrolle hat sie zweimal als
+  // praktisch unlesbar gemeldet.
+  gesprochenFarbe: "&H00FFFFFF&",  // Weiss
+  kommendFarbe: "&H0045C8FF&",     // ASS = &HBBGGRR -> #FFC845 (Markengold)
+  aktivFarbe: "&H0045C8FF&",       // Markengold, fuer Titelzeile und Balken
   outlineFarbe: "&H00140A05&",
   outlineStaerke: 7,
 };

@@ -201,9 +201,11 @@ export async function rendere({ skript, voicePfad, wordsPfad, text, szenen, saet
   // lang buchstaeblich nichts im Bild - die Bildkontrolle hat genau das als
   // schweren Mangel gemeldet, und ein Standbild ist der Moment, in dem
   // weitergewischt wird. Fuenf Pixel reichen: Es faellt nicht auf, aber es
-  // laeuft. Kostet kein einziges zusaetzliches Einzelbild.
+  // laeuft. Kostet kein einziges zusaetzliches Einzelbild. Von fuenf auf zehn
+  // Pixel erhoeht, nachdem die Bildkontrolle den Stillstand dreimal in Folge
+  // gemeldet hat.
   filter.push(
-    `[${letzte}][karten]overlay=x=0:y='5*sin(t/3.4)':format=auto:shortest=0[mitKarten]`,
+    `[${letzte}][karten]overlay=x=0:y='10*sin(t/2.8)':format=auto:shortest=0[mitKarten]`,
   );
 
   // Fortschrittsbalken: zeigt, wie kurz das Reel ist, und haelt bis zum Ende.

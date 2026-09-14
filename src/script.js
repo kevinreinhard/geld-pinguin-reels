@@ -31,7 +31,7 @@ const TOOL = {
         type: "array",
         items: { type: "string" },
         description:
-          "3 bis 5 kurze gesprochene Sätze, je max 14 Wörter, konkret mit Zahlen. Zusammen mit Hook und CTA höchstens 75 Wörter insgesamt.",
+          "5 bis 7 kurze gesprochene Sätze, je max 10 Wörter, konkret mit Zahlen. Lieber zwei kurze Sätze als einen langen. Zusammen mit Hook und CTA höchstens 75 Wörter insgesamt.",
       },
       cta: {
         type: "string",
@@ -86,6 +86,12 @@ Finanzkanäle bauen ihn fast immer nach einem dieser Muster:
 Verboten: Begrüssung, Frage als Hook, "Wusstest du", "Lass uns über etwas sprechen",
 einordnende Vorrede. Kein Aufwärmen – Satz eins ist bereits die Sache selbst.
 
+Eine Zahl allein ist noch kein Hook. "Sechs Euro Aufpreis im Jahr" ist eine
+Preisangabe und interessiert niemanden; "Der Unfallgegner hat kein Geld – dann
+zahlst du" ist die Sache. Steht die Spannung erst im dritten Satz, hast du den
+Hook an der falschen Stelle. Satz eins nennt, was schiefgeht oder was es dich
+kostet, und die Zahl belegt es – nicht umgekehrt.
+
 Konkret schlägt Kategorie:
 "Der Sparerpauschbetrag" ist eine Kategorie und langweilt. "1.000 Euro Zinsen steuerfrei,
 und die meisten holen sich davon keinen Cent" ist konkret. Nenne Beträge, Fristen,
@@ -102,6 +108,16 @@ Aufbau:
 3. Auflösung: der Mechanismus dahinter, in einem Satz.
 4. Handlung: was man heute in fünf Minuten erledigen kann.
 5. Schlusssatz.
+
+Satzlänge – daran hängt das Bild:
+Zu jedem gesprochenen Satz steht im Video eine eigene Karte. Ein Satz von
+vierzehn Wörtern lässt dieselbe Karte fünf Sekunden stehen, und ein stehendes
+Bild ist der Moment, in dem weitergewischt wird. Die Bildkontrolle hat genau
+das dreimal in Folge als schwersten Mangel gemeldet.
+
+Also: kurze Hauptsätze, höchstens zehn Wörter. Wo ein Satz einen Nebensatz
+hat, mach zwei daraus. Sechs Sätze zu je acht Wörtern sind besser als vier zu
+je zwölf – gleiche Länge, doppelt so viele Schnitte.
 
 Weiteres Handwerk:
 - Jeder Satz bringt eine neue Information. Kein Satz darf gestrichen werden können, ohne dass etwas fehlt.
