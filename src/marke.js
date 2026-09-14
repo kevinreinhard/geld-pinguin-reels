@@ -32,20 +32,23 @@ export const STIMMUNGEN = {
 export const LAYOUT = {
   breite: 1080,
   hoehe: 1920,
-  // Instagram legt unten Caption und Ton-Zeile darueber und rechts die Buttons.
-  // Alles Wichtige bleibt deshalb zwischen 200 und 1480 und haelt rechts Abstand.
+  // Die Bildaufteilung. Sie ist ein Kompromiss zwischen zwei Kraeften: Oben
+  // liegt Instagrams Kopfzeile, unten Caption und Ton-Zeile - aber wer nur
+  // deshalb alles nach oben schiebt, verschenkt die halbe Flaeche und der
+  // Blick landet in der Kopfzeile. Der Inhalt sitzt darum so tief, wie es
+  // geht, ohne unter die Bedienelemente zu geraten.
+  //
+  // Nachpruefen statt schaetzen: scripts/instagram-vorschau.py legt die
+  // Oberflaeche ueber ein echtes Einzelbild.
   randX: 92,
-  titelY: 230,
-  handleY: 292,
+  titelY: 262,
+  handleY: 324,
   // Buehne der Szenenkarte
-  buehneOben: 408,
-  buehneUnten: 1176,
+  buehneOben: 528,
+  buehneUnten: 1296,
   // darunter die Textebene, die libass zeichnet
-  // Bei 1350 und 1462 lagen Untertitel und Balken laut Bildkontrolle bereits
-  // unter Instagrams Caption- und Ton-Zeile. Alles Sichtbare bleibt jetzt
-  // oberhalb von 1400.
-  untertitelY: 1282,
-  fortschrittY: 1386,
+  untertitelY: 1396,
+  fortschrittY: 1478,
 };
 
 export const SCHRIFTEN = {

@@ -89,6 +89,7 @@ Voraussetzung: `ANTHROPIC_API_KEY` in der Umgebung, für den letzten Befehl zus�
 
 ```bash
 npm run layout                  # läuft ein Kartentyp über? (5 Sekunden, statisch)
+npm run vorschau                # Instagram-Oberfläche über das Bild legen
 npm run muster                  # festes Musterreel rendern, kein API-Schlüssel nötig
 node scripts/musterreel.js --liste
 npm run qa                      # Claude benotet build/reel.mp4 (braucht den Schlüssel)

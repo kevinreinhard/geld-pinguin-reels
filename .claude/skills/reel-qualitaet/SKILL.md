@@ -79,10 +79,25 @@ Standbild — und genau dort wird weitergewischt.
 
 ## Sicherheitsränder
 
-Instagram legt über das Bild: oben rund 200 Pixel Kopfzeile, unten rund 420 Pixel
-Caption und Ton-Zeile, rechts eine rund 140 Pixel breite Buttonspalte in der
-unteren Bildhälfte. Die Bildaufteilung in `marke.js` hält das ein. Wer etwas
-verschiebt, prüft es gegen diese Ränder.
+```bash
+python scripts/instagram-vorschau.py        # legt die App-Oberfläche über drei Einzelbilder
+python scripts/instagram-vorschau.py build/reel.mp4 12.6   # ein bestimmter Zeitpunkt
+```
+
+Instagram legt über das Bild: oben rund 210 Pixel Kopfzeile, unten ab y=1500
+Profilzeile, Caption und Ton-Zeile, rechts ab x=920 eine Buttonspalte zwischen
+y=980 und y=1520. Die Bildaufteilung in `marke.js` hält das ein.
+
+**Streite darüber nicht, sieh nach.** Die Vorschau zeichnet die Oberfläche über ein
+echtes Einzelbild — sie hat den Kompromiss zwischen „zu weit oben, halbe Fläche
+verschenkt" und „unter der Caption" in einem Bild entschieden, nachdem zwei Runden
+Meinung gegen Meinung standen. Sie hat dabei gleich gefunden, dass die
+Buttonspalte in die Karten schnitt.
+
+Die Bildkontrolle beurteilt ein nacktes 1080×1920-Bild, nicht die App. Ihre
+Befunde zu Sicherheitsrändern sind deshalb unzuverlässig in beide Richtungen —
+sie hat sowohl Ränder gemeldet, die keine waren, als auch freie Fläche
+angemahnt, die von der App belegt ist. Nimm für diese Frage die Vorschau.
 
 ## Neuer Kartentyp
 

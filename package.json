@@ -10,6 +10,7 @@
     "render-only": "node src/index.js --no-publish",
     "muster": "node scripts/musterreel.js",
     "layout": "python scripts/layoutprobe.py",
+    "vorschau": "python scripts/instagram-vorschau.py",
     "qa": "node scripts/qa.js",
     "insights": "node scripts/insights.js",
     "analyse": "node scripts/analyse.js",

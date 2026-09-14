@@ -399,7 +399,10 @@ class Maler:
         y = box[1] + 64
         y = self.kicker(d, s.get("kicker", ""), y, self.akzent(s), box, s.get("satz") == 0)
 
-        x0, x1 = box[0] + 58, box[2] - 58
+        # Rechts mehr Luft als links: Ab y=980 liegt dort Instagrams
+        # Buttonspalte (Gefaellt mir, Kommentar, Teilen). Der Kartenrand darf
+        # darunter verschwinden, ein Geldbetrag nicht.
+        x0, x1 = box[0] + 58, box[2] - 96
         anteile = [max(0.02, float(z.get("anteil", 0.5))) for z in zeilen] or [1]
         maxanteil = max(anteile)
         fl, fw = self.f(44, "SemiBold"), self.f(50, "Black")
@@ -484,7 +487,8 @@ class Maler:
         # Der Endwert steht ueber dem Raster und braucht seine eigene Zeile -
         # direkt am Kurvenende ueberdeckt er die oberste Hilfslinie.
         endwert = str(s.get("endwert", "") or "")
-        gx0, gx1 = box[0] + 74, box[2] - 74
+        # gx1 haelt Abstand zur Buttonspalte - dort steht der Endwert.
+        gx0, gx1 = box[0] + 74, box[2] - 104
         gy0, gy1 = y + (108 if endwert else 40), box[3] - 120
         hoch, tief = max(werte), min(werte)
         spanne = (hoch - tief) or 1.0
