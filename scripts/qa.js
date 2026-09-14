@@ -118,8 +118,67 @@ schon. Erfinde nichts, was auf den Bildern nicht zu sehen ist.
 
 Antworte ausschliesslich ueber das Tool bildkontrolle.`;
 
-/** Holt gleichmaessig verteilte Einzelbilder, plus einen fruehen Blick auf den Hook. */
-async function einzelbilder(datei, anzahl = 8) {
+/**
+ * Der Szenenplan des zuletzt gerenderten Reels, sofern er zur Datei passt.
+ *
+ * Ohne ihn werden die Bilder gleichmaessig verteilt - und dann liegen bei
+ * sieben Szenen und acht Bildern regelmaessig zwei Schnitte zwischen zwei
+ * Proben. Die Bildkontrolle sieht die Schnitte nicht und meldet Stillstand,
+ * den es nicht gibt. Das war ein Fehler im Messgeraet, nicht im Video.
+ */
+function szenenplan(dauer) {
+  try {
+    const spez = JSON.parse(fs.readFileSync(path.posix.join(BUILD, "szenen.json"), "utf8"));
+    if (Math.abs(spez.dauer - dauer) > 1.5) return null;   // gehoert zu einem anderen Video
+    return spez.szenen.filter((s) => s.ende - s.start > 0.8);
+  } catch {
+    return null;
+  }
+}
+
+/**
+ * Waehlt die Zeitpunkte aus.
+ *
+ * Mit Szenenplan wird je Szene zweimal geschaut: kurz nach dem Schnitt und
+ * kurz davor. Zwei Bilder derselben Szene zeigen, ob sich innerhalb der Szene
+ * etwas bewegt; der Sprung zum naechsten Paar zeigt den Schnitt. Beides laesst
+ * sich so beurteilen, statt es zu erraten.
+ */
+function zeitpunkte(dauer, szenen, anzahl) {
+  if (!szenen?.length) {
+    const zeiten = [{ t: 0.6 }, { t: 1.4 }];
+    for (let i = 0; i < anzahl - 2; i++) {
+      zeiten.push({ t: +(2.2 + ((dauer - 3.0) * i) / (anzahl - 3)).toFixed(2) });
+    }
+    return zeiten;
+  }
+
+  const paare = [];
+  for (const [i, s] of szenen.entries()) {
+    const frueh = +Math.min(s.ende - 0.15, s.start + 0.55).toFixed(2);
+    const spaet = +Math.max(s.start + 0.15, s.ende - 0.35).toFixed(2);
+    paare.push([
+      { t: frueh, szene: i + 1, typ: s.typ, wann: "kurz nach dem Schnitt" },
+      { t: spaet, szene: i + 1, typ: s.typ, wann: "kurz vor dem naechsten Schnitt" },
+    ]);
+  }
+
+  // Passen nicht alle Paare ins Budget, entfallen mittlere Szenen - Anfang und
+  // Ende des Reels wiegen schwerer als die Mitte.
+  const zeiten = [];
+  const reihenfolge = [...paare.keys()].sort((a, b) => {
+    const rang = (i) => (i === 0 ? 0 : i === paare.length - 1 ? 1 : 2 + i);
+    return rang(a) - rang(b);
+  });
+  for (const i of reihenfolge) {
+    if (zeiten.length + 2 > anzahl) break;
+    zeiten.push(...paare[i]);
+  }
+  return zeiten.sort((a, b) => a.t - b.t);
+}
+
+/** Schneidet die Einzelbilder heraus, an denen die Beurteilung haengt. */
+async function einzelbilder(datei, anzahl = 10) {
   const out = await lauf(
     "ffprobe",
     ["-v", "error", "-show_entries", "format=duration", "-of", "csv=p=0", datei],
@@ -132,26 +191,23 @@ async function einzelbilder(datei, anzahl = 8) {
   fs.rmSync(ordner, { recursive: true, force: true });
   fs.mkdirSync(ordner, { recursive: true });
 
-  // Der Hook entscheidet, deshalb liegen zwei der Zeitpunkte in der ersten Sekunde.
-  const zeiten = [0.6, 1.4];
-  for (let i = 0; i < anzahl - 2; i++) {
-    zeiten.push(+(2.2 + ((dauer - 3.0) * i) / (anzahl - 3)).toFixed(2));
-  }
+  const szenen = szenenplan(dauer);
+  const zeiten = zeitpunkte(dauer, szenen, anzahl);
 
   const bilder = [];
-  for (const [i, t] of zeiten.entries()) {
+  for (const [i, z] of zeiten.entries()) {
     const ziel = path.posix.join(ordner, `b${i}.jpg`);
     // Halbe Kantenlaenge reicht: Was hier nicht mehr lesbar ist, ist auf dem
     // Handy auch nicht lesbar.
     await lauf(
       "ffmpeg",
-      ["-hide_banner", "-loglevel", "error", "-y", "-ss", String(t), "-i", datei,
+      ["-hide_banner", "-loglevel", "error", "-y", "-ss", String(z.t), "-i", datei,
         "-frames:v", "1", "-vf", "scale=540:960", "-q:v", "4", ziel],
       { still: true },
     );
-    if (fs.existsSync(ziel)) bilder.push({ zeit: t, datei: ziel });
+    if (fs.existsSync(ziel)) bilder.push({ ...z, datei: ziel });
   }
-  return { dauer, bilder };
+  return { dauer, bilder, szenen };
 }
 
 /** Holt die sechs Noten aus der Antwort und begrenzt sie auf 0 bis 100. */
@@ -170,12 +226,18 @@ function schnitt(werte) {
 }
 
 export async function pruefe(datei) {
-  const { dauer, bilder } = await einzelbilder(datei);
-  console.log(`  ${bilder.length} Einzelbilder aus ${dauer.toFixed(1)}s entnommen`);
+  const { dauer, bilder, szenen } = await einzelbilder(datei);
+  console.log(
+    `  ${bilder.length} Einzelbilder aus ${dauer.toFixed(1)}s entnommen` +
+      (szenen ? ` (${szenen.length} Szenen, je zwei Bilder)` : " (gleichmaessig verteilt)"),
+  );
 
   const inhalt = [];
   bilder.forEach((b, i) => {
-    inhalt.push({ type: "text", text: `Bild ${i + 1} - Sekunde ${b.zeit}` });
+    const woher = b.szene
+      ? `Bild ${i + 1} - Sekunde ${b.t}, Szene ${b.szene} (${b.typ}), ${b.wann}`
+      : `Bild ${i + 1} - Sekunde ${b.t}`;
+    inhalt.push({ type: "text", text: woher });
     inhalt.push({
       type: "image",
       source: {
@@ -185,10 +247,19 @@ export async function pruefe(datei) {
       },
     });
   });
-  inhalt.push({
-    type: "text",
-    text: `Das Reel ist ${dauer.toFixed(1)} Sekunden lang. Benote es.`,
-  });
+  const rahmen = szenen
+    ? `Das Reel ist ${dauer.toFixed(1)} Sekunden lang und hat ${szenen.length} Szenen, ` +
+      `also ${szenen.length - 1} Schnitte: ${szenen.map((s) => s.start.toFixed(1)).slice(1).join(", ")} Sekunden.
+
+` +
+      "Zu jeder Szene siehst du zwei Bilder - eines kurz nach ihrem Schnitt, eines kurz " +
+      "vor dem naechsten. Beurteile damit zweierlei getrennt: Unterscheiden sich die " +
+      "beiden Bilder einer Szene, bewegt sich innerhalb der Szene etwas. Unterscheiden " +
+      "sich die Bilder benachbarter Szenen, traegt der Schnitt. Schliesse nicht von " +
+      "zwei aehnlichen Bildern auf einen fehlenden Schnitt - die Schnittzeiten stehen " +
+      "oben, und zwischen zwei Bildern koennen mehrere liegen."
+    : `Das Reel ist ${dauer.toFixed(1)} Sekunden lang. Benote es.`;
+  inhalt.push({ type: "text", text: rahmen });
 
   const client = new Anthropic();
   const antwort = await client.messages.create({
