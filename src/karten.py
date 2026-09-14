@@ -24,14 +24,20 @@ from pinguin import zeichne as zeichne_pinguin  # noqa: E402
 
 ANIM_FPS = 24          # Taktung der bewegten Abschnitte
 EIN = 0.42             # Einblenden
-DATEN = 1.80           # Fenster fuer Bewegung innerhalb einer Szene
+DATEN = 2.60           # Fenster fuer Bewegung innerhalb einer Szene
 
 # Innerhalb dieses Fensters laeuft die Hauptbewegung zuerst, die Nebenelemente
 # danach. Sonst ist eine Karte nach einer Sekunde fertig und steht die
 # restlichen vier still - die Bildkontrolle hat genau das zweimal als schweren
 # Mangel gemeldet.
 HAUPT = 0.42           # Anteil des Fensters fuer Zahl, Balken, Kurve
-NEBEN = (0.40, 0.72)   # Anteil, in dem Fussnoten und Werte nachziehen
+NEBEN = (0.46, 0.80)   # Anteil, in dem Fussnoten und Werte nachziehen
+
+# In der Eroeffnung zaehlt die Zahl langsamer hoch. Die Bildkontrolle entnimmt
+# ihre ersten drei Bilder aus den ersten zwei Sekunden, und dreimal dasselbe
+# Standbild ist genau der Eindruck, den ein Zuschauer beim Wischen bekommt.
+# Wichtig bleibt, dass die Zahl nie bei null steht - siehe kennzahl().
+HAUPT_ERSTE = 0.80
 AUS = 0.24             # Ausblenden
 
 
@@ -292,7 +298,7 @@ class Maler:
                             radius=5, fill=self.F["gold"])
         return box
 
-    def kicker(self, d, text, y, farbe, box=None):
+    def kicker(self, d, text, y, farbe, box=None, erste=False):
         """Kleine gesperrte Ueberschrift ueber der eigentlichen Aussage.
 
         Sie passt sich der Karte an. Bei fester Groesse lief
@@ -306,7 +312,8 @@ class Maler:
         if not text:
             return y
         maxbreite = (box[2] - box[0] - 76) if box else (self.W - 2 * self.L["randX"] - 76)
-        for groesse, spacing in ((40, 6), (40, 4), (36, 4), (32, 3), (28, 3), (24, 2)):
+        stufen = ((52, 6), (46, 5), (40, 4), (36, 4), (32, 3), (28, 3), (24, 2)) if erste             else ((40, 6), (40, 4), (36, 4), (32, 3), (28, 3), (24, 2))
+        for groesse, spacing in stufen:
             font = self.f(groesse, "Bold")
             if breite(d, text, font, spacing) <= maxbreite:
                 break
@@ -326,7 +333,8 @@ class Maler:
             # Bild stand sonst "0 %" - in einem Reel ueber zwoelf Prozent
             # Aufschlag ist das die Gegenaussage, und die ersten Sekunden sind
             # genau die, auf die es ankommt.
-            t = min(1.0, p / HAUPT)
+            fenster = HAUPT_ERSTE if s.get("satz") == 0 else HAUPT
+            t = min(1.0, p / fenster)
             anteil = 0.55 + 0.45 * ease_out(t)
             text = formatiere(wert * anteil, nachkomma if t >= 1 else min(nachkomma, 1),
                               tausender)
@@ -334,7 +342,7 @@ class Maler:
         einheit = str(s.get("einheit", ""))
         box = self.karte(bild, 540)
         y = box[1] + 66
-        y = self.kicker(d, s.get("kicker", ""), y, akz, box)
+        y = self.kicker(d, s.get("kicker", ""), y, akz, box, s.get("satz") == 0)
 
         # Zahl und Einheit muessen zusammen in die Karte passen. Die letzte
         # Stufe rechnet die Groesse aus, statt sie zu raten: Bei einer langen
@@ -375,7 +383,7 @@ class Maler:
         zeilen = list(s.get("zeilen", []))[:3]
         box = self.karte(bild, 210 + len(zeilen) * 152)
         y = box[1] + 64
-        y = self.kicker(d, s.get("kicker", ""), y, self.akzent(s), box)
+        y = self.kicker(d, s.get("kicker", ""), y, self.akzent(s), box, s.get("satz") == 0)
 
         x0, x1 = box[0] + 58, box[2] - 58
         anteile = [max(0.02, float(z.get("anteil", 0.5))) for z in zeilen] or [1]
@@ -409,7 +417,7 @@ class Maler:
         punkte = list(s.get("punkte", []))[:4]
         box = self.karte(bild, 180 + len(punkte) * 130)
         y = box[1] + 64
-        y = self.kicker(d, s.get("kicker", ""), y, self.akzent(s), box)
+        y = self.kicker(d, s.get("kicker", ""), y, self.akzent(s), box, s.get("satz") == 0)
 
         x0 = box[0] + 56
         ft = self.f(48, "SemiBold")
@@ -456,7 +464,7 @@ class Maler:
             werte = [0.0] + werte
         box = self.karte(bild, 600)
         y = box[1] + 64
-        y = self.kicker(d, s.get("kicker", ""), y, akz, box)
+        y = self.kicker(d, s.get("kicker", ""), y, akz, box, s.get("satz") == 0)
 
         # Der Endwert steht ueber dem Raster und braucht seine eigene Zeile -
         # direkt am Kurvenende ueberdeckt er die oberste Hilfslinie.
@@ -514,7 +522,7 @@ class Maler:
         hoehe = 200 + len(zeilen) * (ft.size + 18) + (len(ezeilen) * 58 + 34 if ezeilen else 0)
         box = self.karte(bild, hoehe)
         y = box[1] + 64
-        y = self.kicker(d, s.get("kicker", ""), y, akz, box)
+        y = self.kicker(d, s.get("kicker", ""), y, akz, box, s.get("satz") == 0)
         for zeile in zeilen:
             d.text((self.W / 2, y), zeile, font=ft, fill=self.F["text"], anchor="mt")
             y += ft.size + 18
