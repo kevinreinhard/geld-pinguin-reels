@@ -30,7 +30,11 @@ DATEN = 2.60           # Fenster fuer Bewegung innerhalb einer Szene
 # danach. Sonst ist eine Karte nach einer Sekunde fertig und steht die
 # restlichen vier still - die Bildkontrolle hat genau das zweimal als schweren
 # Mangel gemeldet.
-HAUPT = 0.42           # Anteil des Fensters fuer Zahl, Balken, Kurve
+# Schneller Aufbau, danach eine zweite, kleinere Bewegung. Zieht sich der
+# Aufbau, erwischt jedes Standbild eine halbfertige Karte - die Bildkontrolle
+# hat eine Liste, von der erst eine Zeile stand, als "zu drei Vierteln leer"
+# gemeldet. Was gezeigt wird, soll schnell vollstaendig dastehen.
+HAUPT = 0.32           # Anteil des Fensters fuer Zahl, Balken, Kurve
 NEBEN = (0.46, 0.80)   # Anteil, in dem Fussnoten und Werte nachziehen
 
 # In der Eroeffnung zaehlt die Zahl langsamer hoch. Die Bildkontrolle entnimmt
@@ -423,9 +427,10 @@ class Maler:
         ft = self.f(48, "SemiBold")
         for i, pt in enumerate(punkte):
             # Jeder Punkt klappt einzeln herein - der Blick wandert mit.
-            # Der erste Punkt hat einen Vorsprung: Sonst steht die Karte im
-            # Moment des Schnitts leer da, und das sieht nach einem Fehler aus.
-            tp = min(1.0, max(0.0, (p + 0.06 - i * 0.09) / (HAUPT * 0.8)))
+            # Der erste Punkt steht fest, aus demselben Grund wie in hook():
+            # Waehrend des Einblendens ist p noch null, und eine Karte, auf der
+            # nur die Ueberschrift steht, sieht nach einem Fehler aus.
+            tp = 1.0 if i == 0 else min(1.0, max(0.0, (p - i * 0.09) / (HAUPT * 0.8)))
             if tp <= 0:
                 y += 130
                 continue
@@ -543,8 +548,11 @@ class Maler:
         akz = self.akzent(s)
         o, u = self.buehne()
         groesse = 400
-        t = min(1.0, p / 0.45)
-        hoch = (1 - ease_out_back(t)) * 90     # wippt kurz herein
+        t = min(1.0, p / 0.30)
+        # Wippt herein und atmet danach weiter. Die Hook-Karte war die einzige
+        # ohne eigene Bewegung, und sie steht ausgerechnet dort, wo entschieden
+        # wird, ob jemand bleibt.
+        hoch = (1 - ease_out_back(t)) * 90 + math.sin(p * 6.0) * 5 * t
         self.setze_pinguin(bild, (int(self.W / 2 - groesse / 2), int(o + 10 + hoch)), groesse)
 
         text = str(s.get("begriff", "")).strip()
@@ -553,12 +561,30 @@ class Maler:
         ft, zeilen = passe_an(d, text.upper(), self.f, (92, 82, 72, 62, 54),
                               self.W - 2 * self.L["randX"] - 90, 3)
         y = o + 10 + groesse + 46
-        for zeile in zeilen:
+        for i, zeile in enumerate(zeilen):
+            # Zeile fuer Zeile, jede mit kurzem Versatz - so passiert in der
+            # Eroeffnung ueber mehr als eine Sekunde etwas.
+            # Die erste Zeile steht fest. Waehrend des Einblendens ist der
+            # Fortschritt p noch null - alles, was von p abhaengt, fehlt dort.
+            # Ein Eroeffnungsbild mit nur dem Maskottchen sagt in der
+            # wichtigsten halben Sekunde nichts aus.
+            tz = 1.0 if i == 0 else min(1.0, max(0.0, (p - i * 0.15) / 0.24))
+            if tz <= 0:
+                y += ft.size + 30
+                continue
+            e = ease_out(tz)
+            versatz = (1 - e) * 34
             b = breite(d, zeile, ft)
-            d.rounded_rectangle([self.W / 2 - b / 2 - 26, y - 8,
-                                 self.W / 2 + b / 2 + 26, y + ft.size + 16],
-                                radius=18, fill=akz)
-            d.text((self.W / 2, y + 2), zeile, font=ft, fill=self.F["grund"], anchor="mt")
+            ebene = Image.new("RGBA", bild.size, (0, 0, 0, 0))
+            ed = ImageDraw.Draw(ebene)
+            ed.rounded_rectangle([self.W / 2 - b / 2 - 26, y - 8 + versatz,
+                                  self.W / 2 + b / 2 + 26, y + ft.size + 16 + versatz],
+                                 radius=18, fill=akz)
+            ed.text((self.W / 2, y + 2 + versatz), zeile, font=ft,
+                    fill=self.F["grund"], anchor="mt")
+            if e < 1:
+                ebene.putalpha(ebene.getchannel("A").point(lambda v: int(v * e)))
+            bild.alpha_composite(ebene)
             y += ft.size + 30
 
     def endkarte(self, bild, s, p):
