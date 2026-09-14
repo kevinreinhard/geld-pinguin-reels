@@ -35,11 +35,15 @@ DATEN = 2.60           # Fenster fuer Bewegung innerhalb einer Szene
 HAUPT = 0.32           # Anteil des Fensters fuer Zahl, Balken, Kurve
 NEBEN = (0.46, 0.80)   # Anteil, in dem Fussnoten und Werte nachziehen
 
-# In der Eroeffnung zaehlt die Zahl langsamer hoch. Die Bildkontrolle entnimmt
-# ihre ersten drei Bilder aus den ersten zwei Sekunden, und dreimal dasselbe
-# Standbild ist genau der Eindruck, den ein Zuschauer beim Wischen bekommt.
-# Wichtig bleibt, dass die Zahl nie bei null steht - siehe kennzahl().
-HAUPT_ERSTE = 0.80
+# Wie lange die Zahl hochzaehlt - in Sekunden, nicht als Anteil.
+#
+# Waehrend sie laeuft, steht eine falsche Zahl im Bild. Bei einem Reel ueber
+# 1.095 Euro Erstattung zeigte ein Standbild "944 €", waehrend der Untertitel
+# schon die richtige Zahl sprach. Fuer einen Finanzkanal ist das schlimmer als
+# eine ruhige Sekunde: Wer davon einen Screenshot macht, teilt eine falsche
+# Zahl. Deshalb kurz, und deshalb startet der Zaehler bei 55 Prozent des
+# Endwerts statt bei null - die Groessenordnung stimmt von Anfang an.
+ZAEHLDAUER = 0.45
 AUS = 0.24             # Ausblenden
 
 
@@ -347,8 +351,9 @@ class Maler:
             # Bild stand sonst "0 %" - in einem Reel ueber zwoelf Prozent
             # Aufschlag ist das die Gegenaussage, und die ersten Sekunden sind
             # genau die, auf die es ankommt.
-            fenster = HAUPT_ERSTE if s.get("satz") == 0 else HAUPT
-            t = min(1.0, p / fenster)
+            # p ist der Anteil am Bewegungsfenster; ZAEHLDAUER sind Sekunden.
+            fenster = max(0.3, float(s.get("_fenster") or DATEN))
+            t = min(1.0, p / max(0.08, ZAEHLDAUER / fenster))
             anteil = 0.55 + 0.45 * ease_out(t)
             text = formatiere(wert * anteil, nachkomma if t >= 1 else min(nachkomma, 1),
                               tausender)
@@ -386,9 +391,12 @@ class Maler:
         # der Szene, damit die Karte nicht nach einer Sekunde erstarrt.
         tn = nachzug(p, sofort=s.get("satz") == 0)
         if s.get("fussnote") and tn > 0:
-            ff = self.f(48, "Medium")
+            # Angepasst statt fest: Bei fester Groesse rutschte regelmaessig ein
+            # einzelnes Wort in die zweite Zeile.
+            ff, fzeilen = passe_an(d, s["fussnote"], self.f, (52, 48, 44, 40), maxb, 2,
+                                   "Medium")
             farbe = self.F["textStill"][:3] + (int(255 * min(1.0, tn * 1.4)),)
-            for i, zeile in enumerate(kuerze(d, s["fussnote"], ff, maxb, 2)):
+            for i, zeile in enumerate(fzeilen):
                 d.text((self.W / 2, mitte_y + 122 + i * 58 + (1 - ease_out(tn)) * 26), zeile,
                        font=ff, fill=farbe, anchor="mt")
 
@@ -699,15 +707,25 @@ def baue(spec):
         daten = min(DATEN, max(0.0, laenge - ein - aus - 0.25))
         schritt = 1.0 / ANIM_FPS
 
+        # Der Fortschritt p laeuft ueber Einblenden UND Bewegungsfenster, nicht
+        # erst danach. Vorher stand er waehrend des Einblendens auf null - die
+        # Zahl blieb 0,42 Sekunden auf ihrem Startwert stehen, und genau dieser
+        # falsche Wert war lange genug im Bild fuer einen Screenshot.
+        gesamt = ein + daten
+        szene["_fenster"] = gesamt
+
         n = max(1, round(ein / schritt))
         for i in range(n):
-            e = ease_out((i + 1) / n)
-            schreibe(maler.zeichne_szene(szene, 0.0, e, (1 - e) * 46), ein / n)
+            anteil = (i + 1) / n
+            e = ease_out(anteil)
+            schreibe(maler.zeichne_szene(szene, ein * anteil / gesamt, e, (1 - e) * 46),
+                     ein / n)
 
         if daten > 0.02:
             n = max(1, round(daten / schritt))
             for i in range(n):
-                schreibe(maler.zeichne_szene(szene, (i + 1) / n, 1.0, 0), daten / n)
+                p = (ein + daten * (i + 1) / n) / gesamt
+                schreibe(maler.zeichne_szene(szene, p, 1.0, 0), daten / n)
 
         halten = laenge - ein - daten - aus
         if halten > 0.01:
