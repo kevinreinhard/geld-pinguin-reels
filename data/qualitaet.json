@@ -1,60 +1,60 @@
 {
-  "datum": "2026-09-14T05:48:44.277Z",
+  "datum": "2026-09-14T05:56:12.366Z",
   "datei": "build/reel.mp4",
-  "dauer": 31.83,
+  "dauer": 26.11,
   "noten": {
-    "hook": 58,
+    "hook": 52,
     "lesbarkeit": 64,
-    "bildwechsel": 45,
-    "information": 57,
-    "marke": 62,
+    "bildwechsel": 48,
+    "information": 62,
+    "marke": 58,
     "sicherheit": 70
   },
   "gesamt": 59,
   "maengel": [
     {
+      "bereich": "hook",
+      "schwere": "schwer",
+      "befund": "Die ersten 2,2 Sekunden zeigen dreimal exakt dasselbe Layout - nur die Zahl zaehlt von 7 auf 12 hoch. Es gibt keine Schlagzeile, die Neugier erzeugt; die Kopfzeile 'ZAHLUNG IN EURO IM AUSLAND' ist mit ca. 34 px Versalhoehe die kleinste Ueberschrift im ganzen Reel.",
+      "bild": "Bild 1-3",
+      "vorschlag": "Hook-Karte umbauen: Zeile 'ZAHLUNG IN EURO IM AUSLAND' auf 72 px hochsetzen und als eigentliche Headline an y=560 legen; die Zahl '12 %' auf 320 px Hoehe bringen und ab Frame 0 stehen lassen, den Count-up stattdessen auf 0.0-0.5 s verkuerzen."
+    },
+    {
       "bereich": "bildwechsel",
       "schwere": "schwer",
-      "befund": "Zwischen Bild 3 (2,2 s) und Bild 4 (8,0 s) bleibt die Szene sichtbar gleich - Pinguin mittig, identischer Titelblock '4 JAHRE LIEGEN OFFEN' von Sekunde 0,6 bis mindestens 2,2, danach fast sechs Sekunden ohne erkennbaren neuen Bildbaustein ausser der Untertitelzeile.",
-      "bild": "Bild 1-3",
-      "vorschlag": "Titelblock nach spaetestens 2,5 s abraeumen und die erste Karte (Bild 4) bereits bei ca. 3,0 s einblenden; im Segment 3-8 s zusaetzlich einen Zahlen-Einschub (z.B. '2021-2024' als vier aufpoppende Jahres-Chips) animieren."
+      "befund": "Bild 2 (1.4 s) und Bild 3 (2.2 s) sind bis auf die Untertitelzeile identisch - die Karte steht ueber ca. 1,5 s voellig bewegungslos. Gleiches gilt fuer Bild 7: Die Karte 'Echter Wechselkurs' hat eine leere untere Haelfte von y=800 bis y=1000 (1080er Massstab: y=800-1050) ohne jeden Inhalt.",
+      "bild": "Bild 3 und Bild 7",
+      "vorschlag": "Pro Szene mindestens ein zweites visuelles Ereignis takten: in Szene 1 ab 1.8 s die Zeile 'Aufschlag auf den Wechselkurs' rot einfaerben oder ein Muenz-Icon einfliegen lassen; in Bild 7 den leeren Kartenbereich y=820-1040 mit einer Vergleichszeile 'Bank: ~0-1 % statt 12 %' fuellen."
     },
     {
       "bereich": "information",
-      "schwere": "schwer",
-      "befund": "Die Karte in Bild 4 sagt nur 'Freiwillig? Vier Jahre.' - ohne Ton bleibt offen, worum es geht; die Karte steht knapp 6 Sekunden mit zwei Zeilen Text auf 480 px Hoehe fast leer.",
-      "bild": "Bild 4",
-      "vorschlag": "Karte mit Substanz fuellen: Unterzeile in 44 px Weiss ergaenzen, z.B. 'Keine Pflicht? Dann darfst du 2021-2024 noch nachreichen.' bei y=880, und die vier Jahreszahlen als Chips bei y=1000 einblenden."
+      "schwere": "mittel",
+      "befund": "In Bild 1-3 steht die Zahl '7 %' bzw. '12 %' ueber dem Satz 'Aufschlag auf den Wechselkurs, bis zu' - die Leserichtung ist verdreht, man liest erst das Ergebnis, dann die Einschraenkung 'bis zu'.",
+      "bild": "Bild 1",
+      "vorschlag": "Textreihenfolge in der Karte tauschen: 'Aufschlag auf den Wechselkurs, bis zu' als Zeile bei y=700 (1080er) ueber die Zahl setzen, die Zahl darunter auf y=820."
     },
     {
       "bereich": "lesbarkeit",
       "schwere": "mittel",
-      "befund": "In Bild 7 ist der dritte Listenpunkt 'Kein Risiko bei freiwilliger Abgabe' in mittlerem Grau auf dunkelblau gesetzt und hebt sich kaum vom Kartenhintergrund ab.",
-      "bild": "Bild 7",
-      "vorschlag": "Alle Listenpunkte auf #FFFFFF bzw. mindestens #E6E9F0 setzen; wenn der Punkt noch nicht 'aktiv' ist, statt Graustufe lieber Opacity 0 und erst per Einblendung erscheinen lassen."
-    },
-    {
-      "bereich": "hook",
-      "schwere": "mittel",
-      "befund": "Der Hook-Balken '4 JAHRE LIEGEN OFFEN' liegt in zwei rosa Kaesten (y=852 bis y=1096 in 1080er Skalierung) direkt ueber dem Pinguin und verdeckt dessen Koerper; die Aussage ist zudem abstrakt ohne Zahl mit Geldbezug.",
-      "bild": "Bild 1",
-      "vorschlag": "Hook auf Geldnutzen umtexten, z.B. 'BIS ZU 1.200 EUR LIEGEN 4 JAHRE RUM', und den Block auf y=1150-1400 verschieben, damit der Pinguin frei steht."
+      "befund": "In Bild 6 ist die zweite Zeile 'Kronen in Schweden oder Daenemark' in mattem Grau (ca. #8a8f9a) auf dunkelblau gesetzt, waehrend Zeile 1 weiss ist - auf dem Handy wirkt sie wie ausgegraut/deaktiviert, obwohl sie derselbe Tipp ist.",
+      "bild": "Bild 6",
+      "vorschlag": "Beide Listenzeilen auf dieselbe Deckkraft bringen (#FFFFFF, 100 %), sobald sie eingeblendet sind; die gestaffelte Einblendung nur ueber 0.2 s Fade laufen lassen statt als Dauerzustand."
     },
     {
       "bereich": "marke",
       "schwere": "mittel",
-      "befund": "Die Hintergrundfarbe springt von Weinrot (Bild 1-3, 5) zu Marineblau (Bild 4, 7), Dunkelgruen (Bild 6) und wieder Blau (Bild 8) - ohne erkennbare Systematik, das wirkt wie Vorlagenwechsel statt Handschrift.",
-      "bild": "Bild 6",
-      "vorschlag": "Auf zwei Hintergruende festlegen: Marineblau #101A2E als Standard, Weinrot nur fuer Hook und Deadline. Gruenen Verlauf in Bild 6 durch Marineblau ersetzen, Akzentgruen nur in den Haken-Icons belassen."
+      "befund": "Der Pinguin sitzt in Bild 1-7 immer in derselben Position halb hinter der Karte (Kopf bei ca. x=866, y=470 im 1080er Massstab) und bewegt sich nie - er wirkt wie ein angeklebtes Sticker-Element statt wie eine Figur.",
+      "bild": "Bild 1-7",
+      "vorschlag": "Pinguin pro Szene die Seite wechseln lassen (z.B. Szene 3 links bei x=180) oder ihm eine kleine Reaktion geben: bei der 12-%-Zahl 4 px Wackeln, bei der gruenen Empfehlungsszene ein Nicken ueber 0.4 s."
     },
     {
-      "bereich": "information",
+      "bereich": "lesbarkeit",
       "schwere": "klein",
-      "befund": "In Bild 6 widersprechen sich Icon und Text: 'Kein Steuerberater noetig' steht mit rotem X-Icon und roter Schrift in einer Liste, die sonst positive Schritte zeigt - das liest sich wie ein Verbot.",
-      "bild": "Bild 6",
-      "vorschlag": "Zeile auf gruenen Haken und weisse Schrift umstellen oder in 'Steuerberater? Nicht noetig' umtexten; das rote X nur fuer echte Negativpunkte reservieren."
+      "befund": "Der Untertitel liegt durchgehend bei y=1286 (gemessen 643) mit der Trennlinie bei y=1378 - das ist noch ueber der Caption-Zone, aber die Zeile steht mit ca. 130 px Abstand zur Karte in einem sonst leeren Feld und hat keinen abgesetzten Hintergrund, nur Schattenkontur.",
+      "bild": "Bild 5",
+      "vorschlag": "Untertitelzeile auf y=1340 absenken und mit einer halbtransparenten Box (Schwarz, 45 % Deckkraft, 16 px Radius, 24 px Innenabstand) hinterlegen, damit sie auf dem hellen Verlauf sicher steht."
     }
   ],
-  "staerkste": "Die Deadline-Karte in Bild 5: '31.12.' in grossem Rot mit Kicker 'DEADLINE' und Erklaerzeile darunter ist sofort ohne Ton verstaendlich und die einzige Szene mit echter Blickhierarchie.",
-  "urteil": "Handwerklich sauber gebaut - gute Typo, konsistente Untertitel, klare Karten - aber dramaturgisch zu traege: Der Hook steht ueber drei Bilder unveraendert, und das Segment bis Sekunde 8 traegt kaum Information. Farbwelt und Icon-Logik sind uneinheitlich, dadurch wirkt das Ganze eher wie ein sauber befuelltes Template als wie ein Kanal mit Handschrift."
+  "staerkste": "Die Endkarte (Bild 8) ist klar gebaut: grosser Pinguin, fetter Call-to-Action 'SPEICHERN VOR DEM URLAUB' und der gelbe Handle-Button darunter - das ist sofort lesbar und markentypisch.",
+  "urteil": "Sauber gesetztes, farblich konsistentes Reel mit einem dramaturgisch sinnvollen Bogen von Problem (12 % Aufschlag) ueber Terminalfrage bis zur Handlungsempfehlung und CTA. Es scheitert aber am Anfang und am Tempo: Die ersten drei Sekunden zeigen dreimal dasselbe Standbild mit einer zu kleinen Ueberschrift, und mehrere Karten bleiben ueber Sekunden unbewegt - beim schnellen Wischen bleibt hier niemand haengen."
 }
