@@ -1,74 +1,60 @@
 {
-  "datum": "2026-09-15T08:34:04.496Z",
+  "datum": "2026-09-15T14:45:04.844Z",
   "datei": "build/reel.mp4",
-  "dauer": 26.4,
+  "dauer": 20.2,
   "noten": {
-    "hook": 58,
-    "lesbarkeit": 66,
-    "bildwechsel": 62,
-    "information": 70,
-    "marke": 64,
-    "sicherheit": 72
+    "hook": 62,
+    "lesbarkeit": 64,
+    "bildwechsel": 55,
+    "information": 66,
+    "marke": 68,
+    "sicherheit": 78
   },
-  "gesamt": 65,
+  "gesamt": 66,
   "maengel": [
     {
       "bereich": "lesbarkeit",
       "schwere": "schwer",
-      "befund": "In Bild 6 sind die rechten Statuslabels abgeschnitten: 'zaehlt oft ni' bricht am rechten Kartenrand ab, das Wort 'nicht' fehlt - die Kernaussage der Szene ist damit zerstoert.",
-      "bild": "Bild 6",
-      "vorschlag": "Label-Text auf 'zaehlt nicht' kuerzen und Schriftgroesse von ca. 44 px auf 36 px senken, rechten Innenabstand der Karte auf 48 px setzen (Karte endet bei x=988, Text also spaetestens bei x=940 enden lassen).",
-      "schwere_hinweis": null
-    },
-    {
-      "bereich": "lesbarkeit",
-      "schwere": "schwer",
-      "befund": "In Bild 7 liegen die Listeneintraege 'Elternzeit' und 'Krankengeld' in rot-orange auf dunkelblau mit durchgestrichener Linie; bei nur ca. 36 px Hoehe und geringem Kontrast sind sie auf dem Handy kaum zu entziffern.",
-      "bild": "Bild 7",
-      "vorschlag": "Listentext auf Weiss (#FFFFFF) mit 44 px setzen, Durchstreichung in Rot (#FF5A5F) nur als Linie, Zeilenabstand von ca. 128 px auf 140 px erhoehen.",
-      "schwere_hinweis": null
-    },
-    {
-      "bereich": "hook",
-      "schwere": "mittel",
-      "befund": "Der Hook zeigt nur die Zahl '120 EUR Kontofuehrung pro Jahr' mit kleiner roter Vorzeile; zwischen Bild 1 und Bild 2 (Sek 0.9 bis 3.5) aendert sich ausser der Untertitelzeile praktisch nichts - keine Bewegung, kein Zahlenaufbau.",
-      "bild": "Bild 1 / Bild 2",
-      "vorschlag": "Die 120 in den ersten 0.6 s von 0 hochzaehlen lassen und mit Scale-Pop von 0.85 auf 1.0 einblenden; Zahlengroesse von ca. 240 px auf 300 px anheben.",
-      "schwere_hinweis": null
+      "befund": "In Bild 1 ist die zweite Hook-Zeile '300 € WEG.' noch mitten in der Einblendung: grauer Text auf halbtransparentem Rot, Kontrast praktisch null - genau in der Sekunde, in der entschieden wird, ob weitergewischt wird.",
+      "bild": "Bild 1",
+      "vorschlag": "Einblende-Animation der zweiten Zeile auf maximal 0.25 s verkuerzen und erst ab Deckkraft 1.0 des Hintergrunds starten; Textfarbe fest auf #111111, kein Alpha-Fade auf der Schrift, nur Y-Versatz von 20 px."
     },
     {
       "bereich": "bildwechsel",
-      "schwere": "mittel",
-      "befund": "Innerhalb der Szenen bewegt sich fast nur der Untertitel: In Bild 1/2, 5/6 und 7/8 bleibt die Karte an identischer Position, nur Textzeilen erscheinen - der Gesamteindruck ist statisch.",
-      "bild": "Bild 5 / Bild 6",
-      "vorschlag": "Die Balken in Szene 3 von 0 auf Zielbreite animieren (gruen 0 bis 780 px, rot 0 bis 160 px ueber 0.8 s) und die Karte je Szene um 20 px vertikal einschweben lassen.",
-      "schwere_hinweis": null
+      "schwere": "schwer",
+      "befund": "Szene 6 ist von Sekunde 17.2 bis 19.9 ein Standbild: zwischen Bild 9 und Bild 10 aendert sich ausser dem verschwundenen Untertitel nichts, die letzten 2.7 Sekunden stehen still.",
+      "bild": "Bild 10",
+      "vorschlag": "Ab Sekunde 18 einen weiteren Textbaustein einblenden (z.B. 'Naechste Falle: Ratenschutz' bei y=1300) und den Pinguin mit einer Skalierung von 1.0 auf 1.04 pulsieren lassen, 0.8 s Zyklus."
     },
     {
       "bereich": "information",
-      "schwere": "mittel",
-      "befund": "In Bild 8 sind alle drei Listenpunkte gleich durchgestrichen und identisch rot markiert; der Unterschied zum gelben Warnzustand aus Bild 7 verpufft, der Zuschauer erfaehrt nicht, warum genau diese drei Faelle die Bedingung reissen.",
-      "bild": "Bild 8",
-      "vorschlag": "Pro Zeile eine kurze Begruendung in 32 px Grauweiss unter dem Stichwort setzen, z.B. 'kein Gehaltseingang' - Kartenhoehe dafuer von ca. 580 px auf 700 px erhoehen.",
-      "schwere_hinweis": null
+      "schwere": "schwer",
+      "befund": "In Bild 3 stehen die Balken 'Vollpreis' und 'Mit Barzahlerrabatt' ueber 3 Sekunden ohne Zahlen da - die Aussage entsteht erst in Bild 4, bis dahin traegt nur der Ton.",
+      "bild": "Bild 3",
+      "vorschlag": "Die Werte '1.500 €' und '1.200 €' bereits 0.4 s nach Szenenstart einblenden statt erst am Szenenende; Balkenwachstum auf 0.6 s begrenzen."
     },
     {
-      "bereich": "marke",
-      "schwere": "klein",
-      "befund": "Der Pinguin lugt in Bild 1 bis 8 immer an derselben Stelle (ca. x=865, y=590) hinter der Karte hervor und reagiert nie auf den Inhalt - er wirkt wie ein aufgeklebtes Logo statt wie eine Figur.",
-      "bild": "Bild 3",
-      "vorschlag": "Pinguin pro Szene um 6 Grad kippen oder 15 px auf und ab wippen lassen und in Szene 4 (Liste) auf die linke Kartenseite bei x=180 versetzen.",
-      "schwere_hinweis": null
+      "bereich": "lesbarkeit",
+      "schwere": "mittel",
+      "befund": "Die Kopfzeile '@geld.pinguin' in Bild 1-10 steht bei y=324 (gemessen 162) in dunklem Braun auf dem gelben Verlauf und ist bei ca. 24 px Schrifthoehe auf dem Handy kaum entzifferbar.",
+      "bild": "Bild 2",
+      "vorschlag": "Schriftgroesse des Handles von ca. 24 px auf 34 px erhoehen und Farbe auf #1B2440 (Marineblau des Pinguins) setzen."
+    },
+    {
+      "bereich": "lesbarkeit",
+      "schwere": "mittel",
+      "befund": "Der Fliesstext in Bild 8 ('Zurueckgeholt ueber den starren Vollpreis') laeuft in hellem Grau direkt unter die Riesenzahl 300 € und beruehrt sie fast - kein Abstand, konkurrierender Kontrast.",
+      "bild": "Bild 8",
+      "vorschlag": "Abstand zwischen Kennzahl und Zusatztext von ca. 10 px auf 60 px erhoehen, Textfarbe von Grau auf #FFFFFF bei 80 % Deckkraft, Schriftgroesse 46 px."
     },
     {
       "bereich": "sicherheit",
-      "schwere": "klein",
-      "befund": "Die Untertitelbox sitzt mit Oberkante bei ca. y=1310 und Unterkante bei ca. y=1430 knapp ueber der Caption-Zone, die Trennlinie darunter liegt bei ca. y=1482 - sehr dicht an der Grenze y=1500.",
-      "bild": "Bild 4",
-      "vorschlag": "Untertitelblock und Trennlinie gemeinsam um 80 px nach oben schieben, Linie damit auf y=1400.",
-      "schwere_hinweis": null
+      "schwere": "mittel",
+      "befund": "Der Untertitel-Balken sitzt in allen Szenen mit Unterkante bei ca. y=1440 und die Trennlinie bei y=1482 - das liegt nur knapp ueber der Caption-Zone ab y=1500 und kollidiert bei Instagram-Layouts mit langer Caption.",
+      "bild": "Bild 5",
+      "vorschlag": "Untertitel-Block samt Trennlinie um 120 px nach oben schieben, Unterkante der Linie auf maximal y=1360 setzen."
     }
   ],
-  "staerkste": "Die durchgehende Kartenmetapher mit dunkelblauer Flaeche auf warmem Gelbverlauf ist ruhig, hochwertig und ueber alle acht Szenen konsequent gehalten - das Reel sieht aus einem Guss aus und die Endkarte mit Pinguin plus Handle schliesst sauber ab.",
-  "urteil": "Handwerklich sauberes, ruhiges Layout mit klarer Farblogik, das aber zu wenig passiert: Die Szenen stehen praktisch still, und der Hook liefert in den ersten zwei Sekunden nur eine statische Zahl ohne Spannung. Zwei echte Lesbarkeitsfehler - der abgeschnittene Text 'zaehlt oft ni' in Bild 6 und die kontrastarme rote Liste in Bild 7 - kosten inhaltlich am meisten und sind mit wenigen Zeilen Code zu beheben."
+  "staerkste": "Die Vergleichskarte in Szene 2 mit rotem Vollpreis- und gruenem Rabattbalken macht den Preisunterschied ohne Ton sofort begreifbar - das ist der visuell staerkste Moment des Reels.",
+  "urteil": "Solide, aufgeraeumte Karten-Optik mit wiedererkennbarem Pinguin und konsistenter gelb-marineblauer Farbwelt, die Aussage 'Null Prozent kostet 300 Euro' kommt an. Es verliert Punkte, weil die Hook-Zeile in den entscheidenden ersten Sekunden noch halbtransparent grau ist, Szene 2 drei Sekunden ohne Zahlen dasteht und die Endkarte fast drei Sekunden komplett stillsteht."
 }
