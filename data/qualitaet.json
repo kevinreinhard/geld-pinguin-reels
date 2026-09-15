@@ -1,60 +1,74 @@
 {
-  "datum": "2026-09-14T17:01:29.473Z",
+  "datum": "2026-09-15T08:34:04.496Z",
   "datei": "build/reel.mp4",
-  "dauer": 26.23,
+  "dauer": 26.4,
   "noten": {
-    "hook": 52,
-    "lesbarkeit": 68,
-    "bildwechsel": 58,
-    "information": 64,
-    "marke": 62,
-    "sicherheit": 74
+    "hook": 58,
+    "lesbarkeit": 66,
+    "bildwechsel": 62,
+    "information": 70,
+    "marke": 64,
+    "sicherheit": 72
   },
-  "gesamt": 63,
+  "gesamt": 65,
   "maengel": [
     {
-      "bereich": "hook",
+      "bereich": "lesbarkeit",
       "schwere": "schwer",
-      "befund": "Bild 1: Der Einstieg zeigt nur eine Karte mit '6 %' und der kleinen Zeile 'KOSTEN JE SPARPLAN-KAUF' - die Zahl sitzt mittig auf ca. y=910 (gemessen 455), die obere Bildhaelfte bis y=560 ist leer. In den ersten zwei Sekunden gibt es keinen Konfliktsatz, der das Wischen stoppt.",
-      "bild": "Bild 1",
-      "vorschlag": "Hook-Zeile ueber die Karte setzen: Text 'Diese 6 % zahlst du, bevor der ETF ueberhaupt laeuft' in 76 px Bold Weiss auf y=430-560, Karte von y=640 nach unten schieben; '6' von 200 px auf 260 px vergroessern."
+      "befund": "In Bild 6 sind die rechten Statuslabels abgeschnitten: 'zaehlt oft ni' bricht am rechten Kartenrand ab, das Wort 'nicht' fehlt - die Kernaussage der Szene ist damit zerstoert.",
+      "bild": "Bild 6",
+      "vorschlag": "Label-Text auf 'zaehlt nicht' kuerzen und Schriftgroesse von ca. 44 px auf 36 px senken, rechten Innenabstand der Karte auf 48 px setzen (Karte endet bei x=988, Text also spaetestens bei x=940 enden lassen).",
+      "schwere_hinweis": null
     },
     {
       "bereich": "lesbarkeit",
       "schwere": "schwer",
-      "befund": "Bild 8: Der Fliesstext 'Viele Broker fuehren ETF-Sparplaene gratis aus' beginnt direkt unter dem '0 €'-Block auf y=1020 und klebt mit nur ca. 20 px Abstand am Euro-Zeichen; die Karte endet bei y=1170, unterer Innenabstand ist deutlich kleiner als der obere.",
-      "bild": "Bild 8",
-      "vorschlag": "Abstand zwischen Kennzahlblock und Beschreibungstext auf 60 px setzen und Karte um 60 px nach oben verlaengern (Kartenoberkante von y=630 auf y=570), damit oben und unten je 56 px Innenrand bleiben."
+      "befund": "In Bild 7 liegen die Listeneintraege 'Elternzeit' und 'Krankengeld' in rot-orange auf dunkelblau mit durchgestrichener Linie; bei nur ca. 36 px Hoehe und geringem Kontrast sind sie auf dem Handy kaum zu entziffern.",
+      "bild": "Bild 7",
+      "vorschlag": "Listentext auf Weiss (#FFFFFF) mit 44 px setzen, Durchstreichung in Rot (#FF5A5F) nur als Linie, Zeilenabstand von ca. 128 px auf 140 px erhoehen.",
+      "schwere_hinweis": null
     },
     {
-      "bereich": "bildwechsel",
+      "bereich": "hook",
       "schwere": "mittel",
-      "befund": "Szene 1 (Bild 1 zu Bild 2) veraendert in 2,4 Sekunden ausser dem Untertitel nichts - die Karte steht identisch, die 6 % zaehlt nicht hoch, kein Balken, keine Bewegung. Gleiches gilt fuer Szene 4 (Bild 7 zu Bild 8), wo nur eine Textzeile dazukommt.",
+      "befund": "Der Hook zeigt nur die Zahl '120 EUR Kontofuehrung pro Jahr' mit kleiner roter Vorzeile; zwischen Bild 1 und Bild 2 (Sek 0.9 bis 3.5) aendert sich ausser der Untertitelzeile praktisch nichts - keine Bewegung, kein Zahlenaufbau.",
       "bild": "Bild 1 / Bild 2",
-      "vorschlag": "Count-up der Kennzahl von 0 auf 6 ueber 0,6 s einbauen und nach 1,2 s einen roten Balken einblenden, der 6 % der Kartenbreite (ca. 50 px von 830 px Karteninnenbreite) markiert."
+      "vorschlag": "Die 120 in den ersten 0.6 s von 0 hochzaehlen lassen und mit Scale-Pop von 0.85 auf 1.0 einblenden; Zahlengroesse von ca. 240 px auf 300 px anheben.",
+      "schwere_hinweis": null
     },
     {
       "bereich": "bildwechsel",
       "schwere": "mittel",
-      "befund": "Bild 10 (Sekunde 25,9): Die Endkarte steht ohne Untertitel und ohne Text im gelben Button-Balken auf y=1180-1270 - ein leeres Pillen-Element fuer die letzte Sekunde des Reels.",
-      "bild": "Bild 10",
-      "vorschlag": "In die gelbe Pille bei y=1220 den Text 'Folgen fuer mehr' in 40 px dunkelblau Bold zentrieren, sonst das Element entfernen."
+      "befund": "Innerhalb der Szenen bewegt sich fast nur der Untertitel: In Bild 1/2, 5/6 und 7/8 bleibt die Karte an identischer Position, nur Textzeilen erscheinen - der Gesamteindruck ist statisch.",
+      "bild": "Bild 5 / Bild 6",
+      "vorschlag": "Die Balken in Szene 3 von 0 auf Zielbreite animieren (gruen 0 bis 780 px, rot 0 bis 160 px ueber 0.8 s) und die Karte je Szene um 20 px vertikal einschweben lassen.",
+      "schwere_hinweis": null
     },
     {
       "bereich": "information",
       "schwere": "mittel",
-      "befund": "Bild 3: Die beiden Balken 'Sparrate' und 'Ordergebuehr' stehen ohne Zahlenwerte da, der rote Ordergebuehr-Punkt ist nur ca. 30 px breit - ohne Ton ist nicht erkennbar, dass 1,50 € von 25 € gemeint sind. Erst Bild 4 liefert die Werte.",
-      "bild": "Bild 3",
-      "vorschlag": "Werte '25 €' und '1,50 €' bereits beim Szenenstart rechtsbuendig auf x=880 einblenden, Balkenanimation danach in 0,5 s wachsen lassen."
+      "befund": "In Bild 8 sind alle drei Listenpunkte gleich durchgestrichen und identisch rot markiert; der Unterschied zum gelben Warnzustand aus Bild 7 verpufft, der Zuschauer erfaehrt nicht, warum genau diese drei Faelle die Bedingung reissen.",
+      "bild": "Bild 8",
+      "vorschlag": "Pro Zeile eine kurze Begruendung in 32 px Grauweiss unter dem Stichwort setzen, z.B. 'kein Gehaltseingang' - Kartenhoehe dafuer von ca. 580 px auf 700 px erhoehen.",
+      "schwere_hinweis": null
     },
     {
       "bereich": "marke",
       "schwere": "klein",
-      "befund": "Der Pinguin lugt in Bild 1-8 immer identisch an derselben Stelle (Kartenoberkante rechts, ca. x=865, y=545) hinter der Karte hervor und bewegt sich nie - er wirkt wie ein aufgeklebtes Logo statt wie ein Kanalcharakter.",
-      "bild": "Bild 1-8",
-      "vorschlag": "Pinguin je Szene an wechselnder Kartenseite platzieren (Szene 2 links bei x=180) und beim Szenenstart 0,3 s um 20 px nach oben huepfen lassen."
+      "befund": "Der Pinguin lugt in Bild 1 bis 8 immer an derselben Stelle (ca. x=865, y=590) hinter der Karte hervor und reagiert nie auf den Inhalt - er wirkt wie ein aufgeklebtes Logo statt wie eine Figur.",
+      "bild": "Bild 3",
+      "vorschlag": "Pinguin pro Szene um 6 Grad kippen oder 15 px auf und ab wippen lassen und in Szene 4 (Liste) auf die linke Kartenseite bei x=180 versetzen.",
+      "schwere_hinweis": null
+    },
+    {
+      "bereich": "sicherheit",
+      "schwere": "klein",
+      "befund": "Die Untertitelbox sitzt mit Oberkante bei ca. y=1310 und Unterkante bei ca. y=1430 knapp ueber der Caption-Zone, die Trennlinie darunter liegt bei ca. y=1482 - sehr dicht an der Grenze y=1500.",
+      "bild": "Bild 4",
+      "vorschlag": "Untertitelblock und Trennlinie gemeinsam um 80 px nach oben schieben, Linie damit auf y=1400.",
+      "schwere_hinweis": null
     }
   ],
-  "staerkste": "Das Kartenlayout ist konsequent durchgehalten: dunkelblaue Karte auf warmem Gelbverlauf, roter Akzent fuer Kosten, gruener fuer 0 € - der Farbwechsel in Bild 7/8 erzaehlt die Wendung von 'teuer' zu 'kostenlos' allein ueber die Farbe, und die Untertitelbox mit gelber Wort-Hervorhebung sitzt in allen Bildern stabil bei y=1330-1450, also sauber ueber der Caption-Zone.",
-  "urteil": "Ein sauber gebautes, ruhiges Template mit klarer Farblogik und guter Untertitelspur, das aber wie ein Standbild-Karussell laeuft: Innerhalb der Szenen passiert fast nur, dass Text nachrutscht. Vor allem der Einstieg verschenkt die entscheidenden zwei Sekunden, weil er mit einer nackten Zahl statt mit einer Behauptung oeffnet."
+  "staerkste": "Die durchgehende Kartenmetapher mit dunkelblauer Flaeche auf warmem Gelbverlauf ist ruhig, hochwertig und ueber alle acht Szenen konsequent gehalten - das Reel sieht aus einem Guss aus und die Endkarte mit Pinguin plus Handle schliesst sauber ab.",
+  "urteil": "Handwerklich sauberes, ruhiges Layout mit klarer Farblogik, das aber zu wenig passiert: Die Szenen stehen praktisch still, und der Hook liefert in den ersten zwei Sekunden nur eine statische Zahl ohne Spannung. Zwei echte Lesbarkeitsfehler - der abgeschnittene Text 'zaehlt oft ni' in Bild 6 und die kontrastarme rote Liste in Bild 7 - kosten inhaltlich am meisten und sind mit wenigen Zeilen Code zu beheben."
 }
