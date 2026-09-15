@@ -185,21 +185,30 @@ async function main() {
   const videoUrl = await ladeHoch(video.pfad);
 
   // 7 ------------------------------------------------------------- Instagram
+  // Faellt Instagram aus - abgelaufener Token, ausgeschoepftes Kontingent -,
+  // darf das die Zweitverwertung nicht mitreissen. Genau das ist am 14.09.
+  // passiert: Fehler 190, und der YouTube-Short blieb deshalb auch liegen,
+  // obwohl an YouTube nichts kaputt war.
   schritt(7, `Auf ${CHANNEL.handle} veroeffentlichen`);
-  const kontingent = await verbleibendesKontingent();
-  if (kontingent) {
-    console.log(`  Kontingent: ${kontingent.genutzt}/${kontingent.limit} Beitraege in 24h`);
-    if (kontingent.genutzt >= kontingent.limit) {
-      throw new Error("Tageskontingent von Instagram ausgeschoepft - dieser Lauf wird uebersprungen.");
+  let instagram = null;
+  try {
+    const kontingent = await verbleibendesKontingent();
+    if (kontingent) {
+      console.log(`  Kontingent: ${kontingent.genutzt}/${kontingent.limit} Beitraege in 24h`);
+      if (kontingent.genutzt >= kontingent.limit) {
+        throw new Error("Tageskontingent von Instagram ausgeschoepft.");
+      }
     }
+    instagram = await veroeffentlicheReel({ videoUrl, caption });
+    console.log(`  Veroeffentlicht: ${instagram.permalink ?? "Media-ID " + instagram.mediaId}`);
+  } catch (e) {
+    console.warn(`  Instagram uebersprungen: ${e.message}`);
   }
 
-  const { mediaId, permalink } = await veroeffentlicheReel({ videoUrl, caption });
-  console.log(`  Veroeffentlicht: ${permalink ?? "Media-ID " + mediaId}`);
-
   // 8 ------------------------------------------------------------- YouTube
-  // Zweitverwertung. Schlaegt sie fehl, ist der Instagram-Beitrag trotzdem
-  // draussen - deshalb hier abfangen statt den Lauf scheitern lassen.
+  // Zweitverwertung, und nach dem Follower-Einbruch der Kanal, der ueberhaupt
+  // noch kalt verteilt. Wie Instagram faengt sie ihren Fehler selbst ab - der
+  // Lauf scheitert erst, wenn keiner der beiden den Beitrag genommen hat.
   let youtube = null;
   if (youtubeBereit()) {
     schritt(8, "Als YouTube Short hochladen");
@@ -211,6 +220,16 @@ async function main() {
     }
   }
 
+  // Hat kein Kanal den Beitrag genommen, war der Lauf vergeblich und soll auch
+  // so enden. Sonst stuende ein Beitrag in der Historie, den niemand sehen
+  // kann - und wuerde ueber Tagesziel und Mindestabstand den naechsten
+  // Versuch blockieren.
+  if (!instagram && !youtube) {
+    throw new Error(
+      "Weder Instagram noch YouTube hat den Beitrag angenommen - Ursachen siehe oben.",
+    );
+  }
+
   // 9 ------------------------------------------------------------- Historie
   speicherePost({
     topic: skript.topic,
@@ -219,13 +238,16 @@ async function main() {
     hook: skript.hook,
     stimme,
     dauer: video.dauer,
-    mediaId,
-    permalink,
+    mediaId: instagram?.mediaId ?? null,
+    permalink: instagram?.permalink ?? null,
     youtubeId: youtube?.videoId ?? null,
     youtubeUrl: youtube?.url ?? null,
   });
 
-  console.log(`\nErledigt in ${((Date.now() - start) / 1000).toFixed(0)}s.`);
+  const kanaele = [instagram && CHANNEL.handle, youtube && "YouTube"].filter(Boolean);
+  console.log(
+    `\nErledigt in ${((Date.now() - start) / 1000).toFixed(0)}s. Draussen auf: ${kanaele.join(", ")}.`,
+  );
 }
 
 main().catch((e) => {
