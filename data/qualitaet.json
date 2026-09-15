@@ -1,60 +1,67 @@
 {
-  "datum": "2026-09-15T14:45:04.844Z",
+  "datum": "2026-09-15T18:49:28.927Z",
   "datei": "build/reel.mp4",
-  "dauer": 20.2,
+  "dauer": 22.07,
   "noten": {
     "hook": 62,
-    "lesbarkeit": 64,
-    "bildwechsel": 55,
-    "information": 66,
-    "marke": 68,
-    "sicherheit": 78
+    "lesbarkeit": 58,
+    "bildwechsel": 64,
+    "information": 70,
+    "marke": 66,
+    "sicherheit": 72
   },
-  "gesamt": 66,
+  "gesamt": 65,
   "maengel": [
     {
       "bereich": "lesbarkeit",
       "schwere": "schwer",
-      "befund": "In Bild 1 ist die zweite Hook-Zeile '300 € WEG.' noch mitten in der Einblendung: grauer Text auf halbtransparentem Rot, Kontrast praktisch null - genau in der Sekunde, in der entschieden wird, ob weitergewischt wird.",
+      "befund": "In Bild 1 steht die zweite Hook-Zeile 'ZAHLT KEINEN' in einem stumpfen Braun-Grau auf lachsfarbenem Balken - der Kontrast ist deutlich schwaecher als bei Zeile 1 und auf dem Handy kaum lesbar, offenbar ein noch nicht fertig eingeblendeter Zustand.",
       "bild": "Bild 1",
-      "vorschlag": "Einblende-Animation der zweiten Zeile auf maximal 0.25 s verkuerzen und erst ab Deckkraft 1.0 des Hintergrunds starten; Textfarbe fest auf #111111, kein Alpha-Fade auf der Schrift, nur Y-Versatz von 20 px."
-    },
-    {
-      "bereich": "bildwechsel",
-      "schwere": "schwer",
-      "befund": "Szene 6 ist von Sekunde 17.2 bis 19.9 ein Standbild: zwischen Bild 9 und Bild 10 aendert sich ausser dem verschwundenen Untertitel nichts, die letzten 2.7 Sekunden stehen still.",
-      "bild": "Bild 10",
-      "vorschlag": "Ab Sekunde 18 einen weiteren Textbaustein einblenden (z.B. 'Naechste Falle: Ratenschutz' bei y=1300) und den Pinguin mit einer Skalierung von 1.0 auf 1.04 pulsieren lassen, 0.8 s Zyklus."
-    },
-    {
-      "bereich": "information",
-      "schwere": "schwer",
-      "befund": "In Bild 3 stehen die Balken 'Vollpreis' und 'Mit Barzahlerrabatt' ueber 3 Sekunden ohne Zahlen da - die Aussage entsteht erst in Bild 4, bis dahin traegt nur der Ton.",
-      "bild": "Bild 3",
-      "vorschlag": "Die Werte '1.500 €' und '1.200 €' bereits 0.4 s nach Szenenstart einblenden statt erst am Szenenende; Balkenwachstum auf 0.6 s begrenzen."
+      "vorschlag": "Text der Hook-Zeilen ohne Farb-/Deckkraft-Fade einblenden: Textfarbe konstant #10182F bei opacity 1, nur der Balken darf von 0 auf 1 fahren. Fade-Dauer pro Zeile auf max. 0.2 s."
     },
     {
       "bereich": "lesbarkeit",
-      "schwere": "mittel",
-      "befund": "Die Kopfzeile '@geld.pinguin' in Bild 1-10 steht bei y=324 (gemessen 162) in dunklem Braun auf dem gelben Verlauf und ist bei ca. 24 px Schrifthoehe auf dem Handy kaum entzifferbar.",
+      "schwere": "schwer",
+      "befund": "In Bild 2 ueberlappt der Untertitel-Kasten 'Deutschland keinen Cent.' die dritte Hook-Zeile 'CENT' - der lachsfarbene Balken laeuft hinter dem schwarzen Kasten weiter und die Buchstaben werden unten beschnitten.",
       "bild": "Bild 2",
-      "vorschlag": "Schriftgroesse des Handles von ca. 24 px auf 34 px erhoehen und Farbe auf #1B2440 (Marineblau des Pinguins) setzen."
+      "vorschlag": "Hook-Block in Szene 1 um ca. 120 px nach oben schieben (Blockmitte von y=1140 auf y=1020) oder den Untertitel-Kasten von y=1330 auf y=1400 setzen, damit mindestens 60 px Luft zwischen Balkenunterkante und Kastenoberkante bleiben."
     },
     {
       "bereich": "lesbarkeit",
       "schwere": "mittel",
-      "befund": "Der Fliesstext in Bild 8 ('Zurueckgeholt ueber den starren Vollpreis') laeuft in hellem Grau direkt unter die Riesenzahl 300 € und beruehrt sie fast - kein Abstand, konkurrierender Kontrast.",
-      "bild": "Bild 8",
-      "vorschlag": "Abstand zwischen Kennzahl und Zusatztext von ca. 10 px auf 60 px erhoehen, Textfarbe von Grau auf #FFFFFF bei 80 % Deckkraft, Schriftgroesse 46 px."
+      "befund": "Der Handle '@geld.pinguin' unter dem Kicker steht in duennem Grau auf gelbem Verlauf (Bild 1-10, y≈324) und verschwindet praktisch; zusaetzlich liegt er mit y=324 dicht unter der IG-Kopfzeile.",
+      "bild": "Bild 1",
+      "vorschlag": "Handle in #10182F bei opacity 1 setzen, Schriftgroesse von ca. 22 auf 30 px erhoehen, oder ganz weglassen - er wird auf der Endkarte ohnehin gross gezeigt."
     },
     {
       "bereich": "sicherheit",
       "schwere": "mittel",
-      "befund": "Der Untertitel-Balken sitzt in allen Szenen mit Unterkante bei ca. y=1440 und die Trennlinie bei y=1482 - das liegt nur knapp ueber der Caption-Zone ab y=1500 und kollidiert bei Instagram-Layouts mit langer Caption.",
-      "bild": "Bild 5",
-      "vorschlag": "Untertitel-Block samt Trennlinie um 120 px nach oben schieben, Unterkante der Linie auf maximal y=1360 setzen."
+      "befund": "Der Untertitel-Kasten sitzt mit Unterkante bei y≈1440 und die weisse Trennlinie bei y≈1482 direkt an der Caption-Zone ab y=1500 - in Bild 6 reicht der Kasten bis y≈1444, es bleiben nur ca. 56 px Puffer.",
+      "bild": "Bild 6",
+      "vorschlag": "Untertitel-Block samt Trennlinie um 120 px nach oben versetzen (Kastenmitte von y=1396 auf y=1276), Trennlinie entfernen oder auf y=1340 legen."
+    },
+    {
+      "bereich": "bildwechsel",
+      "schwere": "mittel",
+      "befund": "In Szene 4 (Bild 7 zu 8) aendert sich ausser der eingeblendeten Zeile 'pro Kunde und Bank' nichts - Karte, Zahl und Pinguin stehen unbewegt, der Abschnitt wirkt ueber 2,5 s wie ein Standbild.",
+      "bild": "Bild 7",
+      "vorschlag": "Die Zahl 100.000 als Count-up von 0 auf 100.000 ueber 0.8 s animieren und das Euro-Zeichen mit 0.15 s Delay einsetzen; zusaetzlich die Karte um 1-2 % skalieren (1.00 auf 1.02 ueber die Szenendauer)."
+    },
+    {
+      "bereich": "bildwechsel",
+      "schwere": "klein",
+      "befund": "In Bild 10 ist die Untertitelzeile ganz verschwunden, uebrig bleibt eine nackte Trennlinie bei y≈1482 - die Endkarte steht dadurch die letzten Sekunden nahezu leer.",
+      "bild": "Bild 10",
+      "vorschlag": "Trennlinie ausblenden, sobald kein Untertitel mehr laeuft, und stattdessen ab Sekunde 20 einen Hinweis-Chip (z.B. 'Mehr dazu im Profil') an y=1360 einblenden."
+    },
+    {
+      "bereich": "marke",
+      "schwere": "klein",
+      "befund": "Der Pinguin wird ab Szene 2 bis Szene 4 hinter der Karte halb verdeckt (nur Kopf ab y≈500 sichtbar) und bleibt in allen vier Karten-Szenen in identischer Position - das Markenelement wirkt wie ein festgeklebter Sticker.",
+      "bild": "Bild 3",
+      "vorschlag": "Pinguin je Szene an wechselnde Kartenecke setzen (z.B. Szene 2 rechts oben x=860, Szene 3 links oben x=220) und ihn beim Szeneneinstieg 0.3 s von y=560 auf y=500 hochfahren lassen."
     }
   ],
-  "staerkste": "Die Vergleichskarte in Szene 2 mit rotem Vollpreis- und gruenem Rabattbalken macht den Preisunterschied ohne Ton sofort begreifbar - das ist der visuell staerkste Moment des Reels.",
-  "urteil": "Solide, aufgeraeumte Karten-Optik mit wiedererkennbarem Pinguin und konsistenter gelb-marineblauer Farbwelt, die Aussage 'Null Prozent kostet 300 Euro' kommt an. Es verliert Punkte, weil die Hook-Zeile in den entscheidenden ersten Sekunden noch halbtransparent grau ist, Szene 2 drei Sekunden ohne Zahlen dasteht und die Endkarte fast drei Sekunden komplett stillsteht."
+  "staerkste": "Die Szenenwechsel tragen klar: gelbe Hook-Flaeche, dunkelblaue Karten mit Kicker, Balkenvergleich und grosse Kennzahl liefern vier optisch unterschiedliche Bilder, und jede Kartenszene ist ohne Ton verstaendlich.",
+  "urteil": "Solide, aufgeraeumte Bildsprache mit erkennbarem Farbsystem und Szenen, die die Aussage auch stumm tragen. Gebremst wird das Reel vom Hook: blasse Zweitzeile, eine von der Untertitelbox angeschnittene dritte Zeile und ein nahezu unsichtbarer Handle - dazu eine Kennzahl-Szene, die sich zweieinhalb Sekunden nicht bewegt."
 }
