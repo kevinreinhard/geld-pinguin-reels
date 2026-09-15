@@ -45,8 +45,8 @@ const TOOL = {
                 "'Dispozins im Schnitt', '2.000 Euro, ein Jahr'. Leer lassen, wenn die " +
                 "Karte ohne auskommt.",
             },
-            wert: { type: "string", description: "kennzahl: die Zahl selbst, deutsch geschrieben, z.B. '11,7' oder '1.247'" },
-            einheit: { type: "string", description: "kennzahl: '%', '€', 'Jahre' - kurz" },
+            wert: { type: "string", description: "kennzahl: die Zahl selbst, deutsch geschrieben, z.B. '11,7' oder '1.247'. Hoechstens 12 Zeichen" },
+            einheit: { type: "string", description: "kennzahl: '%', '€', 'Jahre' - hoechstens 8 Zeichen" },
             fussnote: { type: "string", description: "kennzahl: worauf sich die Zahl bezieht, hoechstens 60 Zeichen" },
             zeilen: {
               type: "array",
@@ -55,7 +55,13 @@ const TOOL = {
                 type: "object",
                 properties: {
                   label: { type: "string", description: "hoechstens 22 Zeichen" },
-                  wert: { type: "string", description: "z.B. '234 €'" },
+                  wert: {
+                    type: "string",
+                    description:
+                      "Die Groesse am Balken, hoechstens 12 Zeichen: '234 €', '11,7 %'. " +
+                      "Kein Satz und keine Wertung - was hier nicht passt, kostet die " +
+                      "ganze Karte.",
+                  },
                   anteil: { type: "number", description: "Balkenlaenge relativ, 0 bis 1" },
                   stimmung: { type: "string", enum: Object.keys(STIMMUNGEN) },
                 },
@@ -82,11 +88,11 @@ const TOOL = {
             },
             von: { type: "string", description: "verlauf: Beschriftung links, z.B. 'heute'" },
             bis: { type: "string", description: "verlauf: Beschriftung rechts, z.B. 'in 20 Jahren'" },
-            endwert: { type: "string", description: "verlauf: der Wert am Ende, z.B. '104.000 €'" },
+            endwert: { type: "string", description: "verlauf: der Wert am Ende, z.B. '104.000 €'. Hoechstens 14 Zeichen" },
             begriff: {
               type: "string",
               description:
-                "stichwort, hook, endkarte: die grosse Zeile. Hoechstens 5 Woerter.",
+                "stichwort, hook, endkarte: die grosse Zeile. Hoechstens 5 Woerter und 60 Zeichen.",
             },
             erlaeuterung: {
               type: "string",
@@ -182,13 +188,41 @@ const ZAHL = (v, min, max, standard) => {
   return Number.isFinite(n) ? Math.min(max, Math.max(min, n)) : standard;
 };
 
-const TEXT = (v, max) =>
+const SAUBER = (v) =>
   String(v ?? "")
     .replace(/<\/?[a-zA-Z][^>]*>/g, "")
     .replace(/[<>]/g, "")
     .replace(/\s+/g, " ")
-    .trim()
-    .slice(0, max);
+    .trim();
+
+/**
+ * Fliesstext fuer die Karte, gekuerzt an der Wortgrenze.
+ *
+ * Hier stand ein hartes slice(0, max). Am 15.09. wurde daraus "zaehlt oft ni" -
+ * mitten durch "nicht", und die Szene sagte im Bild das Gegenteil dessen, was
+ * gesprochen wurde. Ein angeschnittenes Wort ist immer falsch; lieber ein Wort
+ * weniger.
+ */
+const TEXT = (v, max) => {
+  const sauber = SAUBER(v);
+  if (sauber.length <= max) return sauber;
+  const grenze = sauber.slice(0, max + 1).lastIndexOf(" ");
+  // Ein einzelnes Wort, das schon allein zu lang ist, bleibt ganz - der
+  // Renderer verkleinert es, und die Layoutprobe haelt genau diesen Fall wach.
+  return grenze > 0 ? sauber.slice(0, grenze) : sauber;
+};
+
+/**
+ * Schluesselfelder, die nicht gekuerzt werden duerfen: eine Zahl, eine Einheit,
+ * ein Balkenwert. Kuerzen verfaelscht sie, statt sie nur zu beschneiden - aus
+ * "zaehlt oft nicht" wird an jeder Wortgrenze eine andere Aussage. Passt der
+ * Inhalt nicht, liefert diese Funktion null, und die Karte faellt auf ein
+ * Stichwort zurueck, das den gesprochenen Satz traegt.
+ */
+const KURZ = (v, max) => {
+  const sauber = SAUBER(v);
+  return sauber.length <= max ? sauber : null;
+};
 
 /**
  * Macht aus der Modellantwort einen Szenenplan, auf den sich der Renderer
@@ -220,24 +254,36 @@ export function pruefeSzenen(roh, saetze) {
     };
 
     switch (typ) {
-      case "kennzahl":
-        szene.wert = TEXT(s.wert, 12);
-        szene.einheit = TEXT(s.einheit, 8);
+      case "kennzahl": {
+        const wert = KURZ(s.wert, 12);
+        szene.wert = wert ?? "";
+        // Passt die Einheit nicht, steht die Zahl allein - lieber unvollstaendig
+        // als falsch beschriftet.
+        szene.einheit = KURZ(s.einheit, 8) ?? "";
         szene.fussnote = TEXT(s.fussnote, 70);
-        if (!/\d/.test(szene.wert)) return zuStichwort(szene, satz);
+        if (!wert || !/\d/.test(wert)) return zuStichwort(szene, satz);
         break;
-      case "vergleich":
-        szene.zeilen = (Array.isArray(s.zeilen) ? s.zeilen : [])
+      }
+      case "vergleich": {
+        const zeilen = (Array.isArray(s.zeilen) ? s.zeilen : [])
           .slice(0, 3)
           .map((z) => ({
             label: TEXT(z?.label, 26),
-            wert: TEXT(z?.wert, 12),
+            wert: KURZ(z?.wert, 12),
             anteil: ZAHL(z?.anteil, 0.05, 1, 0.5),
             stimmung: Object.keys(STIMMUNGEN).includes(z?.stimmung) ? z.stimmung : "neutral",
           }))
           .filter((z) => z.label || z.wert);
-        if (szene.zeilen.length < 2) return zuStichwort(szene, satz);
+        // Ein Wert, der nicht auf die Zeile passt, macht den ganzen Vergleich
+        // unbrauchbar: Gekuerzt stuende neben "Elterngeld" dasselbe "zaehlt" wie
+        // neben "Gehalt vom Arbeitgeber" - die Karte behauptete das Gegenteil
+        // des gesprochenen Satzes. Dann lieber ein Stichwort.
+        if (zeilen.length < 2 || zeilen.some((z) => z.wert === null)) {
+          return zuStichwort(szene, satz);
+        }
+        szene.zeilen = zeilen;
         break;
+      }
       case "liste":
         szene.punkte = (Array.isArray(s.punkte) ? s.punkte : [])
           .slice(0, 4)
@@ -257,7 +303,9 @@ export function pruefeSzenen(roh, saetze) {
         szene.werte = werte;
         szene.von = TEXT(s.von, 20);
         szene.bis = TEXT(s.bis, 20);
-        szene.endwert = TEXT(s.endwert, 14);
+        // Anders als beim Vergleich bleibt die Karte ohne Endbeschriftung
+        // brauchbar - die Kurve bewegt sich, und ein Standbild kostet mehr.
+        szene.endwert = KURZ(s.endwert, 14) ?? "";
         break;
       }
       default: {

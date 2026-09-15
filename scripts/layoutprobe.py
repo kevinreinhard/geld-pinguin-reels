@@ -7,8 +7,15 @@ Hook, wo es am meisten kostet. Beide Male ist es erst der Bildkontrolle
 aufgefallen, also nach dem Rendern und einmal sogar nach dem Posten.
 
 Diese Probe rendert jeden Kartentyp mit absichtlich zu langen Texten und
-prueft, ob Farbe ausserhalb der erlaubten Flaeche liegt. Sie braucht weder
-Modellaufruf noch ffmpeg und laeuft in wenigen Sekunden.
+prueft, ob Farbe ausserhalb der erlaubten Flaeche liegt.
+
+Der dritte Durchrutscher hatte dann eine andere Ursache: Am 15.09. stand
+"zaehlt oft ni" im Bild, und die Karte war nicht schuld - sie hat gezeichnet,
+was ihr gegeben wurde. Gekuerzt hatte die Bildregie, mit einem harten Schnitt
+mitten durch "nicht". Seither prueft diese Datei beides: ob eine Karte
+ueberlaeuft, und ob der Szenenplan davor ein Wort anschneidet.
+
+Beides braucht weder Modellaufruf noch ffmpeg und laeuft in wenigen Sekunden.
 
     python scripts/layoutprobe.py
 
@@ -95,7 +102,8 @@ def pruefe(maler, szene, rand):
     return fehler
 
 
-def main():
+def karten_probe():
+    """Teil 1: Laeuft eine Karte ueber die erlaubte Flaeche hinaus?"""
     spez = marke()
     L = spez["layout"]
     maler = karten.Maler({"marke": spez, "handle": "@geld.pinguin"})
@@ -126,6 +134,129 @@ def main():
         return 1
     print(f"\nAlle {len(FAELLE)} Kartentypen halten die Flaeche ein.")
     return 0
+
+
+# ------------------------------------------------------------------ Szenenplan
+
+# Die zweite Stelle, an der Text verstuemmelt werden kann, liegt vor dem
+# Zeichnen: pruefeSzenen in src/regie.js haelt die Modellantwort auf die
+# Laengen, die auf die Karte passen. Schneidet sie mitten in ein Wort, ist das
+# Bild technisch fehlerfrei und die Aussage trotzdem kaputt - der Fall vom
+# 15.09., der hier als erster Prueffall steht.
+
+SAETZE = [
+    "Viele Gratis-Konten kosten 120 Euro Kontofuehrung pro Jahr.",
+    "Der Gehaltseingang vom Arbeitgeber zaehlt, Elterngeld zaehlt oft nicht.",
+    "Diese drei Faelle reissen die Bedingung fast immer.",
+    "Ueber zwanzig Jahre summiert sich der Betrag still weiter.",
+    "Pruefe heute, welche Bedingung in deinem Vertrag steht.",
+    "Speichern, bevor die Elternzeit beginnt.",
+]
+
+ROHSZENEN = [
+    {"satz": 0, "typ": "kennzahl", "stimmung": "warnung",
+     "kicker": "Wenn der Gehaltseingang ueber Monate fehlt",
+     "wert": "120", "einheit": "Euro pro Jahr", "fussnote": LAENGER},
+    # Der echte Fall: ein Wert, der als Aussage kommt statt als Zahl. Gekuerzt
+    # stuende neben "Elterngeld" dasselbe "zaehlt" wie in der Zeile darueber.
+    {"satz": 1, "typ": "vergleich", "stimmung": "warnung", "kicker": "", "zeilen": [
+        {"label": "Gehalt vom Arbeitgeber", "wert": "zaehlt", "anteil": 1, "stimmung": "gut"},
+        {"label": "Elterngeld von der Kasse", "wert": "zaehlt oft nicht",
+         "anteil": 0.3, "stimmung": "warnung"},
+    ]},
+    {"satz": 2, "typ": "liste", "stimmung": "warnung", "kicker": LANG, "punkte": [
+        {"text": LAENGER, "zeichen": "nein"},
+        {"text": "Jobwechsel mit einer Luecke von mehreren Wochen", "zeichen": "nein"},
+        {"text": "Krankengeld", "zeichen": "nein"},
+    ]},
+    {"satz": 3, "typ": "verlauf", "stimmung": "warnung", "kicker": LANG,
+     "werte": [0, 120, 240, 360, 480, 600], "von": "im ersten Jahr",
+     "bis": "nach zwanzig Jahren", "endwert": "2.400,00 Euro insgesamt"},
+    {"satz": 4, "typ": "stichwort", "stimmung": "info", "kicker": "",
+     "begriff": LAENGER, "erlaeuterung": LAENGER},
+    {"satz": 5, "typ": "endkarte", "stimmung": "neutral", "kicker": "",
+     "begriff": LAENGER, "erlaeuterung": "@geld.pinguin"},
+]
+
+
+def einsammeln(wert, sammlung):
+    """Alle Zeichenketten aus einem verschachtelten Objekt."""
+    if isinstance(wert, str):
+        if wert.strip():
+            sammlung.append(wert.strip())
+    elif isinstance(wert, dict):
+        for v in wert.values():
+            einsammeln(v, sammlung)
+    elif isinstance(wert, list):
+        for v in wert:
+            einsammeln(v, sammlung)
+    return sammlung
+
+
+def angeschnitten(ausgabe, quellen):
+    """Ausgabetexte, die ein Wort ihrer Vorlage mittendrin abschneiden.
+
+    Ein an der Wortgrenze gekuerzter Text ist in Ordnung - er sagt weniger,
+    aber nichts Falsches. Bricht er dagegen im Wort ab, steht Unsinn im Bild.
+    """
+    treffer = []
+    for text in ausgabe:
+        for quelle in quellen:
+            if len(text) < len(quelle) and quelle.startswith(text) and quelle[len(text)] != " ":
+                treffer.append(f"'{text}' bricht '{quelle}' im Wort ab")
+                break
+    return treffer
+
+
+def szenenplan(roh, saetze):
+    """Laesst src/regie.js dieselbe Pruefung rechnen wie im echten Lauf."""
+    code = (
+        "let d='';process.stdin.on('data',c=>d+=c).on('end',()=>"
+        "import('./src/regie.js').then(m=>{const e=JSON.parse(d);"
+        "console.log(JSON.stringify(m.pruefeSzenen(e.szenen,e.saetze)))}))"
+    )
+    # Das SDK verlangt den Schluessel schon beim Laden des Moduls. Benutzt wird
+    # er nicht - diese Probe ruft kein Modell auf und soll ohne Zugangsdaten
+    # laufen, auch auf einem frischen Rechner.
+    umgebung = {**os.environ, "ANTHROPIC_API_KEY": os.environ.get("ANTHROPIC_API_KEY") or "probe"}
+    ergebnis = subprocess.run(
+        ["node", "-e", code],
+        input=json.dumps({"szenen": roh, "saetze": saetze}),
+        capture_output=True, text=True, encoding="utf-8", check=True, env=umgebung,
+    )
+    return json.loads(ergebnis.stdout)
+
+
+def regie_probe():
+    """Teil 2: Schneidet der Szenenplan ein Wort an?"""
+    szenen = szenenplan(ROHSZENEN, SAETZE)
+    quellen = einsammeln(ROHSZENEN, []) + SAETZE
+
+    schlecht = 0
+    for i, szene in enumerate(szenen):
+        fehler = angeschnitten(einsammeln(szene, []), quellen)
+        if fehler:
+            schlecht += 1
+            print(f"  FEHLER  Satz {i} ({szene['typ']}): {fehler[0]}")
+        else:
+            print(f"  ok      Satz {i} ({szene['typ']})")
+
+    if schlecht:
+        print()
+        print(f"{schlecht} von {len(szenen)} Szenen schneiden ein Wort an.")
+        return 1
+    print()
+    print(f"Alle {len(szenen)} Szenen kuerzen nur an Wortgrenzen.")
+    return 0
+
+
+def main():
+    print("Teil 1 - laeuft eine Karte ueber?")
+    karten = karten_probe()
+    print()
+    print("Teil 2 - schneidet der Szenenplan ein Wort an?")
+    regie = regie_probe()
+    return 1 if (karten or regie) else 0
 
 
 if __name__ == "__main__":
