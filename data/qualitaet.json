@@ -1,67 +1,67 @@
 {
-  "datum": "2026-09-15T18:49:28.927Z",
+  "datum": "2026-09-16T14:46:52.516Z",
   "datei": "build/reel.mp4",
-  "dauer": 22.07,
+  "dauer": 29.4,
   "noten": {
-    "hook": 62,
-    "lesbarkeit": 58,
-    "bildwechsel": 64,
-    "information": 70,
-    "marke": 66,
-    "sicherheit": 72
+    "hook": 52,
+    "lesbarkeit": 66,
+    "bildwechsel": 45,
+    "information": 62,
+    "marke": 61,
+    "sicherheit": 70
   },
-  "gesamt": 65,
+  "gesamt": 59,
   "maengel": [
     {
-      "bereich": "lesbarkeit",
+      "bereich": "hook",
       "schwere": "schwer",
-      "befund": "In Bild 1 steht die zweite Hook-Zeile 'ZAHLT KEINEN' in einem stumpfen Braun-Grau auf lachsfarbenem Balken - der Kontrast ist deutlich schwaecher als bei Zeile 1 und auf dem Handy kaum lesbar, offenbar ein noch nicht fertig eingeblendeter Zustand.",
-      "bild": "Bild 1",
-      "vorschlag": "Text der Hook-Zeilen ohne Farb-/Deckkraft-Fade einblenden: Textfarbe konstant #10182F bei opacity 1, nur der Balken darf von 0 auf 1 fahren. Fade-Dauer pro Zeile auf max. 0.2 s."
-    },
-    {
-      "bereich": "lesbarkeit",
-      "schwere": "schwer",
-      "befund": "In Bild 2 ueberlappt der Untertitel-Kasten 'Deutschland keinen Cent.' die dritte Hook-Zeile 'CENT' - der lachsfarbene Balken laeuft hinter dem schwarzen Kasten weiter und die Buchstaben werden unten beschnitten.",
-      "bild": "Bild 2",
-      "vorschlag": "Hook-Block in Szene 1 um ca. 120 px nach oben schieben (Blockmitte von y=1140 auf y=1020) oder den Untertitel-Kasten von y=1330 auf y=1400 setzen, damit mindestens 60 px Luft zwischen Balkenunterkante und Kastenoberkante bleiben."
-    },
-    {
-      "bereich": "lesbarkeit",
-      "schwere": "mittel",
-      "befund": "Der Handle '@geld.pinguin' unter dem Kicker steht in duennem Grau auf gelbem Verlauf (Bild 1-10, y≈324) und verschwindet praktisch; zusaetzlich liegt er mit y=324 dicht unter der IG-Kopfzeile.",
-      "bild": "Bild 1",
-      "vorschlag": "Handle in #10182F bei opacity 1 setzen, Schriftgroesse von ca. 22 auf 30 px erhoehen, oder ganz weglassen - er wird auf der Endkarte ohnehin gross gezeigt."
-    },
-    {
-      "bereich": "sicherheit",
-      "schwere": "mittel",
-      "befund": "Der Untertitel-Kasten sitzt mit Unterkante bei y≈1440 und die weisse Trennlinie bei y≈1482 direkt an der Caption-Zone ab y=1500 - in Bild 6 reicht der Kasten bis y≈1444, es bleiben nur ca. 56 px Puffer.",
-      "bild": "Bild 6",
-      "vorschlag": "Untertitel-Block samt Trennlinie um 120 px nach oben versetzen (Kastenmitte von y=1396 auf y=1276), Trennlinie entfernen oder auf y=1340 legen."
+      "befund": "Bild 1 zeigt in Sekunde 0.9 nur eine Karte mit 'RIESTER-ZULAGE / 175 €' und dem Untertitel 'Gehalt gestiegen' - kein Konflikt, keine Frage, keine Drohung, die das Wischen unterbricht; der eigentliche Aufhaenger 'Zulage gekuerzt' steht winzig (ca. 26 px Hoehe) in der Kopfzone.",
+      "vorschlag": "Erste 1.5 s eine vollflaechige Hook-Karte ohne Zahlenkarte: Text 'Riester-Zulage gekuerzt?' in 130 px Bold weiss, darunter '175 € weg' in 180 px Korallrot, zentriert auf y=700-1000. Zahlenkarte erst ab Sekunde 1.5 einfahren.",
+      "bild": "Bild 1"
     },
     {
       "bereich": "bildwechsel",
-      "schwere": "mittel",
-      "befund": "In Szene 4 (Bild 7 zu 8) aendert sich ausser der eingeblendeten Zeile 'pro Kunde und Bank' nichts - Karte, Zahl und Pinguin stehen unbewegt, der Abschnitt wirkt ueber 2,5 s wie ein Standbild.",
-      "bild": "Bild 7",
-      "vorschlag": "Die Zahl 100.000 als Count-up von 0 auf 100.000 ueber 0.8 s animieren und das Euro-Zeichen mit 0.15 s Delay einsetzen; zusaetzlich die Karte um 1-2 % skalieren (1.00 auf 1.02 ueber die Szenendauer)."
+      "schwere": "schwer",
+      "befund": "Innerhalb der Szenen bewegt sich nur die Untertitelzeile und eine nachgeschobene Textzeile; Bild 5 zu Bild 6 unterscheidet sich fast nur um wenige Pixel Listenposition, Bild 9 zu Bild 10 nur dadurch, dass der Untertitel verschwindet - die Karte selbst steht ueber 3-5 Sekunden absolut still.",
+      "vorschlag": "Pro Szene eine sichtbare Bewegung einbauen: Kennzahl von 0 auf 175 bzw. 1.600 in 0.8 s hochzaehlen, Listenpunkte in Szene 3 einzeln mit 0.25 s Versatz einfliegen lassen, Karte mit leichtem Scale von 1.0 auf 1.03 ueber die Szenendauer.",
+      "bild": "Bild 5 / Bild 6"
     },
     {
-      "bereich": "bildwechsel",
-      "schwere": "klein",
-      "befund": "In Bild 10 ist die Untertitelzeile ganz verschwunden, uebrig bleibt eine nackte Trennlinie bei y≈1482 - die Endkarte steht dadurch die letzten Sekunden nahezu leer.",
-      "bild": "Bild 10",
-      "vorschlag": "Trennlinie ausblenden, sobald kein Untertitel mehr laeuft, und stattdessen ab Sekunde 20 einen Hinweis-Chip (z.B. 'Mehr dazu im Profil') an y=1360 einblenden."
+      "bereich": "lesbarkeit",
+      "schwere": "mittel",
+      "befund": "Der durchgestrichene erste Listenpunkt 'Keine volle Zulage mehr' steht in Bild 5/6 in Korallrot auf Dunkelblau mit einer Durchstreichlinie quer durch die Buchstaben und sitzt zudem direkt unter der Ueberschrift - Wort und Linie verschmelzen.",
+      "vorschlag": "Durchstreichung entfernen oder Zeile auf Weiss #FFFFFF mit 55 % Deckkraft setzen, Linienstaerke auf 4 px reduzieren und den Zeilenabstand zwischen Ueberschrift und erstem Punkt von ca. 40 px auf 90 px erhoehen.",
+      "bild": "Bild 5"
+    },
+    {
+      "bereich": "lesbarkeit",
+      "schwere": "mittel",
+      "befund": "In Bild 1 und 2 sitzt die Erklaerzeile 'Grundzulage weg, weil zu wenig eingezahlt' so dicht an der Zahl '175 €', dass die Unterlaengen der Zahl und die Textzeile fast beruehren; der Text ist hellgrau (ca. #C8D0DC) und deutlich schwaecher als in Bild 8.",
+      "vorschlag": "Abstand zwischen Zahlenblock und Erklaerzeile von ca. 20 px auf 70 px erhoehen und die Erklaerzeile auf #E8EEF6 bei 56 px Schriftgroesse setzen.",
+      "bild": "Bild 2"
     },
     {
       "bereich": "marke",
+      "schwere": "mittel",
+      "befund": "Der Pinguin ist in Bild 1-8 nur als 90 px hoher Kopf hinter der Karte oben rechts zu sehen und bleibt in jeder Szene identisch stehen - er wirkt wie ein angeklebtes Sticker-Detail statt wie eine Figur mit Rolle.",
+      "vorschlag": "Pinguin pro Szene um 2-3 Grad kippen oder 15 px auf- und abbewegen und ihn in mindestens einer Szene ganz zeigen (Hoehe 260 px, links neben der Karte bei x=120).",
+      "bild": "Bild 3"
+    },
+    {
+      "bereich": "information",
+      "schwere": "mittel",
+      "befund": "Bild 3 zeigt 3.1 Sekunden lang nur '4 % vom Vorjahresbrutto' ohne Bezugsgroesse; der erklaerende Satz 'Nur dann gibt es die Zulage in voller Hoehe' erscheint erst in Bild 4 kurz vor dem Schnitt.",
+      "vorschlag": "Erklaerzeile bereits 0.4 s nach dem Schnitt bei Sekunde 5.9 einblenden statt erst bei Sekunde 8, damit sie ueber 3 s lesbar bleibt.",
+      "bild": "Bild 3"
+    },
+    {
+      "bereich": "sicherheit",
       "schwere": "klein",
-      "befund": "Der Pinguin wird ab Szene 2 bis Szene 4 hinter der Karte halb verdeckt (nur Kopf ab y≈500 sichtbar) und bleibt in allen vier Karten-Szenen in identischer Position - das Markenelement wirkt wie ein festgeklebter Sticker.",
-      "bild": "Bild 3",
-      "vorschlag": "Pinguin je Szene an wechselnde Kartenecke setzen (z.B. Szene 2 rechts oben x=860, Szene 3 links oben x=220) und ihn beim Szeneneinstieg 0.3 s von y=560 auf y=500 hochfahren lassen."
+      "befund": "Die Untertitel-Box sitzt mit Oberkante bei y=1340 und Unterkante bei y=1440 (gemessen 670-720) knapp oberhalb der Caption-Zone, die Trennlinie darunter liegt bei y=1482 - also nur 18 px vor der Zone ab y=1500.",
+      "vorschlag": "Untertitelblock samt Trennlinie um 80 px nach oben verschieben, Boxoberkante auf y=1260, Linie auf y=1400.",
+      "bild": "Bild 7"
     }
   ],
-  "staerkste": "Die Szenenwechsel tragen klar: gelbe Hook-Flaeche, dunkelblaue Karten mit Kicker, Balkenvergleich und grosse Kennzahl liefern vier optisch unterschiedliche Bilder, und jede Kartenszene ist ohne Ton verstaendlich.",
-  "urteil": "Solide, aufgeraeumte Bildsprache mit erkennbarem Farbsystem und Szenen, die die Aussage auch stumm tragen. Gebremst wird das Reel vom Hook: blasse Zweitzeile, eine von der Untertitelbox angeschnittene dritte Zeile und ein nahezu unsichtbarer Handle - dazu eine Kennzahl-Szene, die sich zweieinhalb Sekunden nicht bewegt."
+  "staerkste": "Die Karten-Optik ist konsequent und sauber: dunkelblaue Karte auf gelbem Gradient, immer gleiche Position, klare Zahlentypografie - Szene 7 mit '1.600 €' in Hellblau hebt den Wechsel des Themas farblich gut ab.",
+  "urteil": "Handwerklich sauber gebaut, aber visuell zu ruhig: Jede Szene ist im Kern ein Standbild mit nachlaufender Textzeile, und der Einstieg verschenkt die Zuspitzung, weil das Wort 'gekuerzt' nur als 26-px-Kopfzeile existiert. Wer zuhoert, versteht alles; wer stumm wischt, sieht vier fast identische Karten und scrollt weiter."
 }
