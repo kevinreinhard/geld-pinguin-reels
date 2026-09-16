@@ -1,60 +1,60 @@
 {
-  "datum": "2026-09-16T18:48:34.143Z",
+  "datum": "2026-09-16T22:01:26.442Z",
   "datei": "build/reel.mp4",
-  "dauer": 19.9,
+  "dauer": 27.67,
   "noten": {
-    "hook": 52,
-    "lesbarkeit": 58,
-    "bildwechsel": 45,
-    "information": 50,
-    "marke": 62,
-    "sicherheit": 74
+    "hook": 62,
+    "lesbarkeit": 64,
+    "bildwechsel": 58,
+    "information": 66,
+    "marke": 70,
+    "sicherheit": 72
   },
-  "gesamt": 57,
+  "gesamt": 65,
   "maengel": [
     {
       "bereich": "information",
       "schwere": "schwer",
-      "befund": "Szene 2 zeigt als grosse Kennzahl '2.016 seit' - die Jahreszahl ist mit Tausenderpunkt als Zahl formatiert und die Beschriftung 'seit' steht hinter statt vor der Zahl, dadurch liest sich die Kachel wie ein sinnloser Wert (Bild 3 und 4).",
-      "bild": "Bild 3",
-      "vorschlag": "Jahreszahlen von der Tausender-Trennung ausnehmen (Format '2016' statt '2.016') und das Label links vor die Zahl setzen, z.B. Label 'seit' in 48 px ueber der Zahl auf y=760, Zahl darunter zentriert."
-    },
-    {
-      "bereich": "information",
-      "schwere": "schwer",
-      "befund": "Szene 3 bleibt ueber die gesamte Dauer bei dem angeschnittenen Satzfragment 'Sie liefert alle Dauerauftraege und' - der Satz wird nie zu Ende gefuehrt (Bild 5 und 6).",
-      "bild": "Bild 5",
-      "vorschlag": "Szenentext auf einen abgeschlossenen Kurzsatz kuerzen, z.B. 'Alle Dauerauftraege & Lastschriften werden uebertragen' mit max. 3 Zeilen a 48 px in der Kachel."
-    },
-    {
-      "bereich": "bildwechsel",
-      "schwere": "schwer",
-      "befund": "In den Szenen 3 und 4 ist zwischen Anfangs- und Endbild ausser der Untertitelzeile nichts veraendert - Kachelinhalt, Pinguin und Layout stehen ueber jeweils rund 3 Sekunden still (Bild 5/6 und 7/8).",
-      "bild": "Bild 6",
-      "vorschlag": "Listenpunkte in Szene 4 einzeln mit 0,4 s Versatz einfliegen lassen und in Szene 3 den Text zeilenweise aufbauen; zusaetzlich langsamer Kachel-Zoom von scale 1.00 auf 1.04 ueber die Szenendauer."
+      "befund": "In Bild 7 ist die Achsenbeschriftung der Verlaufsgrafik rechts abgeschnitten: 'ab 1. Januar: 3' endet mitten im Satz, das Wort 'Jahre' fehlt und die Kurve laeuft bis an den Kartenrand.",
+      "bild": "Bild 7",
+      "vorschlag": "Label-Text auf 'ab 1.1.: 3 Jahre' kuerzen und den rechten Innenabstand der Chart-Karte von derzeit ca. 40 px auf 90 px erhoehen (Karte endet bei x=988, Label soll bei x=900 enden)."
     },
     {
       "bereich": "hook",
-      "schwere": "mittel",
-      "befund": "Der Hook-Text 'DIE BANK MACHT DAS FUER DICH' baut sich bis Sekunde 3,8 zeilenweise auf; bei Sekunde 0,9 steht die zweite Zeile noch grau/unfertig da und die Aussage ist unvollstaendig (Bild 1).",
+      "schwere": "schwer",
+      "befund": "Die Hook-Karte in Bild 1 ist bei Sekunde 0.9 bereits vollstaendig aufgebaut und veraendert sich bis Sekunde 5.03 (Bild 2) ausser der Untertitelzeile nicht - vier Sekunden faktisches Standbild direkt am Anfang.",
       "bild": "Bild 1",
-      "vorschlag": "Hook-Zeilen innerhalb der ersten 0,5 s vollstaendig setzen (Zeilenversatz auf 0,15 s reduzieren) und die Platzhalter-Graufassung entfernen."
+      "vorschlag": "Die Zahl 4.000 als Count-up von 0 ueber 0.8 s animieren und die Kopfzeile 'VIER JAHRE NICHT ABGEGEBEN' mit 200 ms Versatz einfliegen lassen; zusaetzlich ab Sekunde 2.5 einen zweiten Textbaustein (z.B. 'Frist laeuft am 31.12. ab') in die Karte einblenden."
+    },
+    {
+      "bereich": "bildwechsel",
+      "schwere": "mittel",
+      "befund": "Szene 7 (Bild 9 zu Bild 10) verliert zwischen Sekunde 24.5 und 27.3 nur die Untertitelbox, sonst bewegt sich nichts - die letzten drei Sekunden wirken wie ein eingefrorenes Standbild.",
+      "bild": "Bild 10",
+      "vorschlag": "Pinguin-Figur ab Sekunde 25 mit leichtem Wippen (y +/- 12 px, 1.2 s Zyklus) animieren und den Handle-Button '@geld.pinguin' alle 1.5 s kurz auf 1.06 skalieren."
     },
     {
       "bereich": "lesbarkeit",
       "schwere": "mittel",
-      "befund": "Der Untertitel in Bild 1 ('Deine alte Bank') ist mit ca. 44 px Schrifthoehe deutlich kleiner als in spaeteren Szenen und der Kasten schneidet knapp am Text ab.",
+      "befund": "Die Kanalzeile '@geld.pinguin' unter der Kopfzeile ist ein hellgrauer Text von ca. 22 px Hoehe auf gelbem Verlauf und praktisch nicht lesbar.",
       "bild": "Bild 1",
-      "vorschlag": "Untertitelgroesse fix auf 56 px setzen und Innenabstand der Box auf 24 px horizontal / 14 px vertikal vereinheitlichen."
+      "vorschlag": "Schriftgroesse auf 34 px erhoehen und Farbe von Grau auf das dunkle Marineblau #16213E der Karten setzen."
     },
     {
       "bereich": "bildwechsel",
       "schwere": "mittel",
-      "befund": "Die Endkarte verliert in Bild 10 die Untertitelzeile komplett, es bleiben fast 2 Sekunden statisches Bild mit leerer Flaeche zwischen y=1300 und y=1500.",
-      "bild": "Bild 10",
-      "vorschlag": "CTA-Zeile bis zum Videoende stehen lassen oder an Position y=1380 einen pulsierenden 'Speichern'-Button (scale 1.0 bis 1.06, 0,8 s Loop) einsetzen."
+      "befund": "Die Untertitelbox springt in Breite und Position (Bild 1 x=370..710, Bild 4 x=266..814, Bild 8 x=294..786), dadurch zappelt die Zeile bei jedem Wortwechsel horizontal.",
+      "bild": "Bild 4",
+      "vorschlag": "Untertitelbox auf feste Breite 1100 px zentriert bei x=540 setzen, Text darin linksbuendig oder zentriert umbrechen statt die Box mitwachsen zu lassen."
+    },
+    {
+      "bereich": "marke",
+      "schwere": "klein",
+      "befund": "Der Pinguin lugt in den Szenen 1 bis 4 immer in identischer Groesse und Position hinter der rechten oberen Kartenecke hervor (x ca. 815..925, y ca. 540..640) - er wirkt wie ein statischer Aufkleber.",
+      "bild": "Bild 3",
+      "vorschlag": "Pinguin pro Szene um 6 bis 10 Grad kippen oder beim Szenenwechsel von y=700 auf y=560 hochfahren lassen (0.4 s Ease-out)."
     }
   ],
-  "staerkste": "Die Listenszene (Bild 7/8): dunkle Kachel, gruene Haken, klare Ueberschrift - hier traegt das Bild die Aussage ohne Ton, und die Farbwelt Nachtblau/Gelb/Gruen ist wiedererkennbar.",
-  "urteil": "Handwerklich sauberes, konsistentes Template mit guter Farbhandschrift, aber inhaltlich stolpert es: Die Kennzahl-Szene zeigt ein missformatiertes '2.016 seit', und Szene 3 haengt an einem abgebrochenen Satz. Dazu kommen zwei fast reine Standbildszenen in der Mitte - wer hier weiterwischt, tut es aus Langeweile, nicht wegen des Themas."
+  "staerkste": "Das Karten-Layout ist konsequent durchgehalten: dunkelblaue Karte auf warmem Gelbverlauf, grosse Zahlen in Rot bzw. Gruen - Kennzahlen wie 4.000 EUR und 1.063 EUR sind sofort und ohne Ton erfassbar.",
+  "urteil": "Solide gebaute Vorlage mit klarer Farbsprache und guter Zahlenhierarchie, die die Kernaussage auch stumm transportiert. Ausgebremst wird sie vom traegen Einstieg, dem abgeschnittenen Achsenlabel in der Verlaufsgrafik und einer Untertitelzeile, die bei jedem Wort die Breite wechselt."
 }
