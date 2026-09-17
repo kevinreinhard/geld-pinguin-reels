@@ -1,60 +1,67 @@
 {
-  "datum": "2026-09-16T22:01:26.442Z",
+  "datum": "2026-09-17T14:50:14.334Z",
   "datei": "build/reel.mp4",
-  "dauer": 27.67,
+  "dauer": 24.74,
   "noten": {
-    "hook": 62,
-    "lesbarkeit": 64,
-    "bildwechsel": 58,
-    "information": 66,
-    "marke": 70,
-    "sicherheit": 72
+    "hook": 54,
+    "lesbarkeit": 62,
+    "bildwechsel": 66,
+    "information": 61,
+    "marke": 64,
+    "sicherheit": 70
   },
-  "gesamt": 65,
+  "gesamt": 63,
   "maengel": [
-    {
-      "bereich": "information",
-      "schwere": "schwer",
-      "befund": "In Bild 7 ist die Achsenbeschriftung der Verlaufsgrafik rechts abgeschnitten: 'ab 1. Januar: 3' endet mitten im Satz, das Wort 'Jahre' fehlt und die Kurve laeuft bis an den Kartenrand.",
-      "bild": "Bild 7",
-      "vorschlag": "Label-Text auf 'ab 1.1.: 3 Jahre' kuerzen und den rechten Innenabstand der Chart-Karte von derzeit ca. 40 px auf 90 px erhoehen (Karte endet bei x=988, Label soll bei x=900 enden)."
-    },
     {
       "bereich": "hook",
       "schwere": "schwer",
-      "befund": "Die Hook-Karte in Bild 1 ist bei Sekunde 0.9 bereits vollstaendig aufgebaut und veraendert sich bis Sekunde 5.03 (Bild 2) ausser der Untertitelzeile nicht - vier Sekunden faktisches Standbild direkt am Anfang.",
+      "befund": "In Bild 1 (Sekunde 0.9) steht erst 'DER STREICHPREIS' - die eigentliche Aussage 'IST ERFUNDEN' erscheint erst spaeter, die ersten zwei Sekunden liefern also nur ein Substantiv ohne Behauptung.",
       "bild": "Bild 1",
-      "vorschlag": "Die Zahl 4.000 als Count-up von 0 ueber 0.8 s animieren und die Kopfzeile 'VIER JAHRE NICHT ABGEGEBEN' mit 200 ms Versatz einfliegen lassen; zusaetzlich ab Sekunde 2.5 einen zweiten Textbaustein (z.B. 'Frist laeuft am 31.12. ab') in die Karte einblenden."
+      "vorschlag": "Die Zeilen-Einblendung der Hook auf maximal 0.25 s pro Zeile verkuerzen, sodass 'IST ERFUNDEN' bis Sekunde 0.8 komplett steht; alternativ die gesamte dreizeilige Hook ohne Zeilen-Staffelung ab Frame 0 zeigen."
     },
     {
-      "bereich": "bildwechsel",
+      "bereich": "lesbarkeit",
+      "schwere": "schwer",
+      "befund": "In Bild 1 liegt die zweite Hook-Zeile 'STREICHPREIS' in dunkelbraunem Text auf halbtransparentem rot-orangem Balken vor orangem Hintergrund - der Kontrast bricht praktisch zusammen, waehrend Zeile 1 auf vollem Rot sitzt.",
+      "bild": "Bild 1",
+      "vorschlag": "Balken-Deckkraft der einblendenden Zeile von ca. 50% auf 100% (#FF5A5F) setzen und die Textfarbe auf #111827 fixieren, statt Text und Balken gemeinsam einzufaden."
+    },
+    {
+      "bereich": "sicherheit",
       "schwere": "mittel",
-      "befund": "Szene 7 (Bild 9 zu Bild 10) verliert zwischen Sekunde 24.5 und 27.3 nur die Untertitelbox, sonst bewegt sich nichts - die letzten drei Sekunden wirken wie ein eingefrorenes Standbild.",
-      "bild": "Bild 10",
-      "vorschlag": "Pinguin-Figur ab Sekunde 25 mit leichtem Wippen (y +/- 12 px, 1.2 s Zyklus) animieren und den Handle-Button '@geld.pinguin' alle 1.5 s kurz auf 1.06 skalieren."
+      "befund": "Die Untertitel-Box sitzt in allen Bildern bei y=1340-1450 (gemessen 670-725), die Unterstreichungslinie bei y=1482 (741) - damit liegt die Linie unmittelbar an der Caption-Zone ab y=1500, und die breite Box in Bild 6 reicht bis x=875.",
+      "bild": "Bild 6",
+      "vorschlag": "Untertitelblock samt Trennlinie um 90 px nach oben schieben (Box-Mitte von y=1396 auf y=1300, Linie von y=1482 auf y=1390) und die maximale Boxbreite auf 820 px begrenzen."
+    },
+    {
+      "bereich": "information",
+      "schwere": "mittel",
+      "befund": "In Bild 7/8 sind die Balken 'Herstellerempfehlung' und 'Echter Marktpreis' ohne jede Zahl - nur 'hoch' und 'niedriger' als Etikett; die Kernaussage (z.B. 40 Euro Differenz) bleibt rein akustisch.",
+      "bild": "Bild 8",
+      "vorschlag": "Rechts an die Balken konkrete Werte setzen, z.B. 'UVP 199 EUR' und 'Markt 159 EUR', Schriftgroesse 44 px, und die Differenz '-40 EUR' als Label in der Karte unten einfuegen."
     },
     {
       "bereich": "lesbarkeit",
       "schwere": "mittel",
-      "befund": "Die Kanalzeile '@geld.pinguin' unter der Kopfzeile ist ein hellgrauer Text von ca. 22 px Hoehe auf gelbem Verlauf und praktisch nicht lesbar.",
-      "bild": "Bild 1",
-      "vorschlag": "Schriftgroesse auf 34 px erhoehen und Farbe von Grau auf das dunkle Marineblau #16213E der Karten setzen."
-    },
-    {
-      "bereich": "bildwechsel",
-      "schwere": "mittel",
-      "befund": "Die Untertitelbox springt in Breite und Position (Bild 1 x=370..710, Bild 4 x=266..814, Bild 8 x=294..786), dadurch zappelt die Zeile bei jedem Wortwechsel horizontal.",
+      "befund": "Der Beschreibungstext in Bild 4 ('Rabatt zaehlt ab niedrigstem Preis der letzten 30 Tage') steht in hellgrauem Weiss bei ca. 46 px Hoehe und sitzt direkt unter dem grossen '30 Tage' - er ist die eigentliche Regel, wirkt aber wie eine Fussnote.",
       "bild": "Bild 4",
-      "vorschlag": "Untertitelbox auf feste Breite 1100 px zentriert bei x=540 setzen, Text darin linksbuendig oder zentriert umbrechen statt die Box mitwachsen zu lassen."
+      "vorschlag": "Fliesstext von ca. 46 px auf 56 px erhoehen, Farbe von #C7D2E0 auf #FFFFFF, und Abstand zur Kennzahl von ca. 20 px auf 48 px vergroessern."
     },
     {
       "bereich": "marke",
+      "schwere": "mittel",
+      "befund": "Alle Szenen nutzen dasselbe Layout: orangener Verlauf, eine dunkelblaue Karte mittig, Pinguin als kleiner Kopf hinter der Kartenkante oben rechts - ueber sieben Szenen entsteht kein visueller Bruch.",
+      "bild": "Bild 3, 5, 7",
+      "vorschlag": "Mindestens zwei Szenen ohne Karte gestalten (z.B. Vollflaeche dunkelblau #0F1B33 mit invertierter Typo) und den Pinguin in je einer Szene gross links unten statt klein oben rechts platzieren."
+    },
+    {
+      "bereich": "bildwechsel",
       "schwere": "klein",
-      "befund": "Der Pinguin lugt in den Szenen 1 bis 4 immer in identischer Groesse und Position hinter der rechten oberen Kartenecke hervor (x ca. 815..925, y ca. 540..640) - er wirkt wie ein statischer Aufkleber.",
-      "bild": "Bild 3",
-      "vorschlag": "Pinguin pro Szene um 6 bis 10 Grad kippen oder beim Szenenwechsel von y=700 auf y=560 hochfahren lassen (0.4 s Ease-out)."
+      "befund": "In der Endkarte bewegt sich zwischen Bild 9 und Bild 10 nur der Untertitel - der verschwindet sogar, danach steht die Karte 2 Sekunden voellig still.",
+      "bild": "Bild 10",
+      "vorschlag": "Ab Sekunde 23 einen sichtbaren Impuls hinzufuegen: Handle-Pill um 4% pulsieren lassen (Scale 1.0 -> 1.04, 0.8 s Loop) oder Pinguin-Schal leicht wehen animieren."
     }
   ],
-  "staerkste": "Das Karten-Layout ist konsequent durchgehalten: dunkelblaue Karte auf warmem Gelbverlauf, grosse Zahlen in Rot bzw. Gruen - Kennzahlen wie 4.000 EUR und 1.063 EUR sind sofort und ohne Ton erfassbar.",
-  "urteil": "Solide gebaute Vorlage mit klarer Farbsprache und guter Zahlenhierarchie, die die Kernaussage auch stumm transportiert. Ausgebremst wird sie vom traegen Einstieg, dem abgeschnittenen Achsenlabel in der Verlaufsgrafik und einer Untertitelzeile, die bei jedem Wort die Breite wechselt."
+  "staerkste": "Die Kennzahl-Szene: '30 Tage' in grossem Blau auf dunkler Karte ist auf einen Blick erfassbar und liefert in Bild 4 mit der Regel darunter tatsaechlich Substanz ohne Ton.",
+  "urteil": "Handwerklich saubere, konsistente Vorlage mit guter Farblogik, die aber in der entscheidenden ersten Sekunde zu wenig Aussage zeigt und ueber sieben Szenen dasselbe Karten-Layout wiederholt. Wer zuhoert, versteht alles - wer nur schaut, bekommt in der Vergleichsszene keine Zahlen."
 }
