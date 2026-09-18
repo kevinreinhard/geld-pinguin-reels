@@ -1,60 +1,67 @@
 {
-  "datum": "2026-09-17T22:01:43.263Z",
+  "datum": "2026-09-18T13:50:39.673Z",
   "datei": "build/reel.mp4",
-  "dauer": 24.83,
+  "dauer": 27.6,
   "noten": {
-    "hook": 52,
-    "lesbarkeit": 68,
-    "bildwechsel": 55,
-    "information": 62,
-    "marke": 61,
+    "hook": 58,
+    "lesbarkeit": 62,
+    "bildwechsel": 64,
+    "information": 66,
+    "marke": 70,
     "sicherheit": 74
   },
-  "gesamt": 62,
+  "gesamt": 66,
   "maengel": [
-    {
-      "bereich": "information",
-      "schwere": "schwer",
-      "befund": "Umlaute sind in mehreren Szenen als ae-Ersatz gesetzt: 'laeuft' (Bild 7/8), 'Die Bank fuehrt', 'faellt' (Bild 6/8) - das wirkt wie ein Encoding-Fehler und beschaedigt die Serioesitaet eines Finanzkanals.",
-      "bild": "Bild 6, 7, 8",
-      "vorschlag": "Texte auf echte Umlaute umstellen (UTF-8): 'laeuft'->'laeuft' als 'läuft', 'faellt'->'fällt', 'fuehrt'->'führt'. Schriftdatei mit vollem Latin-1-Zeichensatz einbinden."
-    },
     {
       "bereich": "hook",
       "schwere": "schwer",
-      "befund": "Die erste Szene startet mit der abstrakten Zeile 'ABZUG DURCH DIE BANK' und der Zahl 25 % - kein Konflikt, keine Frage, keine Betroffenheit in den ersten zwei Sekunden.",
-      "bild": "Bild 1",
-      "vorschlag": "Hook-Zeile in Szene 1 auf eine Du-Aussage aendern, z.B. 'Deine Bank nimmt dir 25 % - ohne Grund', Schriftgroesse der Headline von ca. 44 px auf 72 px hoch und ueber die Karte setzen (y ca. 560)."
+      "befund": "In Bild 1 ist die zweite Hookzeile 'STEUER SELBST' in grauem/abgedunkeltem Schriftzug auf lachsfarbenem Balken gesetzt - der Kontrast bricht mitten in der Kernaussage ein, und die Zeile wirkt wie ein Renderfehler.",
+      "vorschlag": "Schriftfarbe der Hook-Zeilen fest auf #111827 setzen (kein Alpha-Fade beim Einblenden, nur Balkenbreite animieren), Balken einheitlich #FF6B6B.",
+      "bild": "Bild 1"
+    },
+    {
+      "bereich": "lesbarkeit",
+      "schwere": "schwer",
+      "befund": "Die Untertitelzeile liegt bei y=1396 (gemessen 698) mit Unterstreichungslinie bei y=1480 - noch knapp ausserhalb, aber Bild 2 zeigt sie direkt an die Hook-Box angeschoben (Abstand ca. 20 px), so dass Hook 'EIN' und Untertitel als ein Textblock verschmelzen.",
+      "vorschlag": "Untertitel-Baseline auf y=1330 hochziehen und Mindestabstand von 90 px zur untersten Hook-Zeile erzwingen; Hook-Block bei drei Zeilen auf y=900-1180 begrenzen.",
+      "bild": "Bild 2"
+    },
+    {
+      "bereich": "sicherheit",
+      "schwere": "mittel",
+      "befund": "Die Untertitel-Trennlinie liegt bei y=1480 und die Untertitelbox reicht bis ca. y=1440 - das ist nur 20-60 px oberhalb der Caption-Zone ab y=1500; auf Geraeten mit hoeherer Caption-Zeile wird die Linie angeschnitten.",
+      "vorschlag": "Untertitelblock samt Linie um 120 px nach oben verschieben (Linie auf y=1360), unteren Rand aller Elemente bei y=1420 kappen.",
+      "bild": "Bild 7"
     },
     {
       "bereich": "bildwechsel",
       "schwere": "mittel",
-      "befund": "Szene 7 (Endkarte) steht von 21.4 bis 24.8 s praktisch still: zwischen Bild 9 und Bild 10 aendert sich nur, dass der Untertitel verschwindet - danach 3 Sekunden ohne jede Bewegung.",
-      "bild": "Bild 10",
-      "vorschlag": "Pinguin ab 22.5 s mit leichter Scale-Pulsation 1.0->1.04 alle 0.8 s animieren und den @geld.pinguin-Button bei 23.0 s um 8 px nach oben einschweben lassen; Endkarte auf max. 2.5 s kuerzen."
+      "befund": "Bild 9 und 10 sind bis auf den fehlenden Untertitel identisch - die Endkarte steht ueber rund 3,5 Sekunden als Standbild, der letzte Eindruck ist bewegungslos.",
+      "vorschlag": "Ab Sekunde 25 eine Pulsanimation auf dem Handle-Pill (Scale 1.0 -> 1.04, 0.8 s Loop) und ein einfliegendes Speichern-Icon bei x=540, y=1300 einbauen.",
+      "bild": "Bild 10"
     },
     {
       "bereich": "information",
       "schwere": "mittel",
-      "befund": "Bild 5 zeigt 3 Sekunden lang nur 'JAHRESEINKOMMEN 12.000 €' ohne Erklaerzeile - die Aussage erschliesst sich erst im Ton, die Beschriftung erscheint erst spaeter (Bild 6).",
-      "bild": "Bild 5",
-      "vorschlag": "Die Unterzeile 'Darunter faellt keine Einkommensteuer an' bereits ab Szenenbeginn einblenden (Delay von ca. 1.5 s auf 0.3 s reduzieren)."
-    },
-    {
-      "bereich": "lesbarkeit",
-      "schwere": "mittel",
-      "befund": "Die Handle-Zeile '@geld.pinguin' unter dem Kopftitel steht in ca. 20 px grauem Text auf gelbem Verlauf und ist praktisch unlesbar - zudem liegt sie bei y=326 (gemessen 163) knapp unter der Kopfzeile, aber nahe genug, um optisch zu verschwinden.",
-      "bild": "Bild 1",
-      "vorschlag": "Handle-Schrift auf 28 px erhoehen und Farbe von Grau auf das dunkle Navy #16213E setzen (Opazitaet 0.75 statt ca. 0.35)."
+      "befund": "Die Vergleichsszene in Bild 7 zeigt 2,5 Sekunden lang nur Balken ohne Zahlen; 'Konto leer' mit fast leerem Balken und 'Steuer faellig' mit fast vollem Balken ist ohne Ton nicht als Ursache-Folge lesbar.",
+      "vorschlag": "Zahlenlabels '0 €' und '30 €' bereits 0,3 s nach Szenenstart einblenden statt erst am Szenenende, und Kartenueberschrift um Zusatz 'Deckung fehlt' ergaenzen.",
+      "bild": "Bild 7"
     },
     {
       "bereich": "marke",
       "schwere": "klein",
-      "befund": "Der Untertitel-Balken ist in allen Szenen identisch positioniert und formatiert (schwarzer Kasten mit gelbem Keyword bei y ca. 1400), die Karten unterscheiden sich nur durch die Akzentfarbe - das Layout wirkt wie eine Standardvorlage.",
-      "bild": "Bild 3",
-      "vorschlag": "Pro Szenentyp eine eigene Karten-Signatur einfuehren: Liste mit nummerierten Badges statt Punkten, Kennzahl-Szene mit animiertem Count-up von 0 auf 25 bzw. 12.000 innerhalb 0.6 s."
+      "befund": "Der Kopfzeilen-Handle '@geld.pinguin' bei y=326 steht in ca. 22 px Hoehe in Grau auf gelbem Verlauf und ist damit praktisch unsichtbar; ausserdem liegt die Kopfzeile bei y=262/326 direkt unter der IG-Kopfzeile bis y=200.",
+      "vorschlag": "Handle auf 30 px erhoehen, Farbe auf #1F2937 mit 85 % Deckkraft, und den ganzen Kopfblock auf y=360/410 absenken.",
+      "bild": "Bild 5"
+    },
+    {
+      "bereich": "lesbarkeit",
+      "schwere": "klein",
+      "befund": "In Bild 4 und 6 ist der Kartenbeschreibungstext in hellgrau (#C7CDD8) auf dunkelblau bei ca. 34 px Hoehe gesetzt - deutlich schwaecher als die weisse Headline und auf dem Handy grenzwertig.",
+      "vorschlag": "Beschreibungstext auf 40 px und Farbe #E8ECF4 setzen, Zeilenabstand 1.25.",
+      "bild": "Bild 4"
     }
   ],
-  "staerkste": "Die Karten sind ruhig und konsistent gebaut, die grossen Kennzahlen (25 %, 12.000 €) sind kontrastreich, riesig und auch bei schnellem Scrollen sofort erfassbar; die Szenenwechsel tragen farblich (Rot -> Blau -> Gruen) klar erkennbar.",
-  "urteil": "Handwerklich sauberes, gut lesbares Karten-Reel mit klarer Farbdramaturgie, aber ohne Zugkraft in den ersten zwei Sekunden und mit einer statischen 3-Sekunden-Endkarte. Der schwerste Fehler sind die kaputten Umlaute ('laeuft', 'faellt', 'fuehrt') - die lassen das Video wie einen Rohexport aussehen und kosten auf einem Finanzkanal sofort Glaubwuerdigkeit."
+  "staerkste": "Die Kartenszenen (Bilder 3-8) haben eine klare, wiedererkennbare Bildsprache: dunkelblaue Karte mit gelbem Reiter, Kicker in Blau, grosse Kennzahl - das wirkt wie ein eigenes Layoutsystem und traegt die Aussage auch stumm.",
+  "urteil": "Handwerklich saubere, konsistente Serie mit erkennbarer Kartenlogik und guter Kennzahl-Dramaturgie, aber der Hook verschenkt die ersten Sekunden mit einer kontrastschwachen zweiten Zeile und einem Textblock, der mit dem Untertitel verklebt. Zum Ende faellt das Tempo ganz ab: Die Endkarte steht dreieinhalb Sekunden praktisch still."
 }
