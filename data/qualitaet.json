@@ -1,60 +1,60 @@
 {
-  "datum": "2026-09-19T16:45:27.141Z",
+  "datum": "2026-09-19T21:41:58.392Z",
   "datei": "build/reel.mp4",
-  "dauer": 24.93,
+  "dauer": 27.7,
   "noten": {
-    "hook": 54,
-    "lesbarkeit": 72,
-    "bildwechsel": 58,
-    "information": 66,
-    "marke": 64,
-    "sicherheit": 78
+    "hook": 52,
+    "lesbarkeit": 68,
+    "bildwechsel": 55,
+    "information": 70,
+    "marke": 62,
+    "sicherheit": 72
   },
-  "gesamt": 65,
+  "gesamt": 63,
   "maengel": [
     {
       "bereich": "hook",
       "schwere": "schwer",
-      "befund": "Szene 1 steht von Sekunde 0.9 bis 4.49 praktisch unveraendert: gleiche Karte, gleiche Zahl '2.000 EUR', nur die Untertitelzeile wechselt - fast vier Sekunden ohne visuelles Ereignis direkt am Anfang.",
-      "bild": "Bild 1 und Bild 2",
-      "vorschlag": "Szene 1 auf max. 2.5 s kuerzen (Schnitt von 4.8 s auf ca. 3.0 s vorziehen) und in Sekunde 1.2-2.0 einen Zaehl-Effekt der Zahl von 0 auf 2.000 plus ein kurzes Aufblitzen/Scale-Pop (1.0 -> 1.08 -> 1.0) der Karte einbauen."
+      "befund": "Bild 1 startet mit einer statischen Karte 'FREMDGEBUEHREN AM AUTOMAT / 120 EUR' - die Zahl steht mittig bei y~900 (1080er Massstab), der Bildschirm oberhalb bis y=640 ist leer, und es gibt keinen Reiz-Satz, der eine Frage aufwirft.",
+      "bild": "Bild 1",
+      "vorschlag": "Karte in Szene 1 von y=640 auf y=420 hochziehen, die 120 auf mindestens 340 px Schrifthoehe vergroessern und ueber der Karte eine zweite Zeile in 64 px Gelb (#F5C33B) setzen: 'Das zahlst du fuers eigene Geld'. Zahl in den ersten 0.4 s von 0 auf 120 hochzaehlen lassen."
     },
     {
-      "bereich": "hook",
-      "schwere": "mittel",
-      "befund": "Das erste Bild besteht nur aus einer nackten Zahl mit dem Wort 'AUTOKREDIT'; die eigentliche Provokation ('der Zins zeigt diese Kosten nicht') steht klein in 36 px hellgrau unter der Zahl und liest sich beim schnellen Wischen nicht.",
-      "bild": "Bild 1",
-      "vorschlag": "Die Unterzeile 'Mehrkosten, die der Zins nicht zeigt' auf mind. 52 px erhoehen, auf reines Weiss (#FFFFFF) setzen und das Schluesselwort 'nicht' in Gelb (#F5C518) auszeichnen."
+      "bereich": "bildwechsel",
+      "schwere": "schwer",
+      "befund": "Szene 1 (Bild 1 -> Bild 2, 3.2 Sekunden Abstand) veraendert ausser dem Untertitel nichts: Karte, Zahl, Fliesstext und Pinguin stehen pixelgleich - der Abschnitt wirkt wie ein Standbild.",
+      "bild": "Bild 1 und Bild 2",
+      "vorschlag": "In Szene 1 ab Sekunde 2 eine Animation ergaenzen: Zaehler 120 -> Aufschluesselung '2x im Monat x 5 EUR' einblenden oder die Karte um 40 px nach oben schieben und den Untertext 'Was dich Abheben pro Jahr kostet' erst ab Sekunde 1.5 per Fade einlaufen lassen."
     },
     {
       "bereich": "bildwechsel",
       "schwere": "mittel",
-      "befund": "Auch Szene 4 laeuft 11.86 bis 15.44 s nahezu statisch - die Balken sind schon in Bild 7 vollstaendig auf Endlaenge, nur die Zahlen rechts erscheinen spaeter.",
-      "bild": "Bild 7 und Bild 8",
-      "vorschlag": "Die Balken erst ab Szenenstart in 0.6 s von Breite 0 auf Endbreite animieren (Kreditsumme zuerst, 'Praemie extra' um 0.4 s versetzt) und die Zahlen 20.000 EUR / 2.000 EUR jeweils am Ende der zugehoerigen Balkenanimation einblenden."
-    },
-    {
-      "bereich": "information",
-      "schwere": "mittel",
-      "befund": "Der rote Balken 'Praemie extra' ist nur ca. 8 % so lang wie der blaue - der eigentliche Punkt '2.000 EUR sind 10 % Aufschlag' wird optisch verharmlost statt verstaerkt.",
-      "bild": "Bild 8",
-      "vorschlag": "Unter den roten Balken eine Zeile '+10 % auf den Kredit' in 48 px Rot (#FF6B6B) setzen oder den Vergleich auf zwei gleich lange Balken 'ohne RSV' / 'mit RSV' umstellen, damit der Aufschlag als sichtbares Stueck erscheint."
+      "befund": "Szene 7 verliert zwischen Bild 9 und Bild 10 Inhalt statt welchen zu gewinnen: die Untertitelbox 'Speichere das vor' verschwindet, uebrig bleiben Pinguin, Titel und Handle auf sonst leerer Flaeche - die letzten 3 Sekunden sind visuell tot.",
+      "bild": "Bild 10",
+      "vorschlag": "In der Endkarte ab Sekunde 25.5 ein pulsierendes Speichern-Icon oder die Zeile 'Teilen = 120 EUR fuer einen Freund' in 56 px unter dem Handle bei y=1300 einblenden, damit bis zum Ende Bewegung bleibt."
     },
     {
       "bereich": "lesbarkeit",
       "schwere": "mittel",
-      "befund": "Die durchgestrichene Zeile 'Keine Versicherungspraemie' ist in Bild 5 orange-grau auf Dunkelblau und wird in Bild 6 rot durchgestrichen - die Kombination aus Durchstreichung und Negation ('Keine') ist doppelt verneint und beim Lesen missverstaendlich.",
-      "bild": "Bild 5 und Bild 6",
-      "vorschlag": "Zeile in 'Versicherungspraemie' ohne 'Keine' umbenennen, Durchstreichung beibehalten, Textfarbe auf #FF6B6B bei voller Deckkraft setzen statt ausgegrautem Orange."
+      "befund": "Die Handle-Zeile '@geld.pinguin' in Bild 1-10 steht bei y~322 in etwa 28 px Hoehe in mattem Grau auf gelbem Verlauf und ist auf dem Handy praktisch unlesbar.",
+      "bild": "Bild 1",
+      "vorschlag": "Handle im Kopfbereich auf 40 px vergroessern und auf Dunkelblau #16213E setzen, damit derselbe Kontrast wie bei 'BARGELD KOSTET DICH' entsteht."
+    },
+    {
+      "bereich": "information",
+      "schwere": "mittel",
+      "befund": "In Bild 3 tragen die beiden Balken 'Pro Abhebung' und 'Pro Jahr' ueber 3 Sekunden keine Zahlen - die Werte 5 EUR und 120 EUR erscheinen erst in Bild 4, bis dahin ist der Vergleich ohne Ton nicht deutbar.",
+      "bild": "Bild 3",
+      "vorschlag": "Die Betraege rechts am Balkenende (x=900) bereits ab Szenenbeginn einblenden und stattdessen nur die Balkenbreite animieren."
     },
     {
       "bereich": "marke",
       "schwere": "klein",
-      "befund": "Der Pinguin schaut in allen Karten-Szenen als unveraenderte Sticker-Grafik hinter der rechten oberen Kartenecke hervor und reagiert nie auf den Inhalt.",
-      "bild": "Bild 1 bis Bild 8",
-      "vorschlag": "Pro Szene eine andere Pinguin-Pose oder mindestens einen kleinen Versatz (y +/- 12 px ueber 0.5 s, leichte Rotation 3 Grad) beim Szenenwechsel einbauen."
+      "befund": "Der Pinguin sitzt in Bild 1-8 immer identisch als halb verdeckter Kopf an derselben Stelle (x~866, y~600) hinter der Kartenecke und wirkt wie ein aufgeklebtes Logo statt wie eine Figur.",
+      "bild": "Bild 3",
+      "vorschlag": "Pinguin pro Szene Position und Pose wechseln lassen (z.B. Szene 2 links unten an der Karte, Szene 4 mit Einkaufskorb) oder ihn beim Schnitt um 20 px auf- und abwippen lassen."
     }
   ],
-  "staerkste": "Die durchgehende visuelle Klammer - dunkelblaue Karte auf warmem Gelbverlauf, gelb akzentuierte Untertitelbox mit Unterstrich, Pinguin oben rechts - ergibt ein sofort wiedererkennbares, sauber gesetztes Layout, und die Endkarte mit Handle in Pillenform schliesst es konsequent ab.\n\n",
-  "urteil": "Handwerklich sauber gebautes Karten-Reel mit klarer Typo-Hierarchie und konsistenter Farbwelt, das seine Kernzahl verstaendlich transportiert. Es verliert aber Punkte, weil die entscheidenden ersten vier Sekunden nahezu bewegungslos sind und die Vergleichsszene ihren Kernpunkt optisch kleiner macht, statt ihn zu zeigen."
+  "staerkste": "Die Farbdramaturgie trägt die Aussage: Rot für die 120 € Gebühr in Szene 1-2, Grün für die 0 € an der Kasse in Szene 3-4 - der Kontrast zwischen Problem und Lösung ist auch ohne Ton sofort verständlich.",
+  "urteil": "Sauber gebautes, konsistent gestaltetes Kartenlayout mit klarer Farblogik und funktionierender Endkarte, aber der Einstieg ist zu brav und die Szenen bewegen sich innerhalb ihrer vier Sekunden fast nicht. Wer schnell wischt, sieht in Sekunde 1 eine ruhige Infokarte ohne Spannung - genau dort geht die Reichweite verloren."
 }
