@@ -1,60 +1,60 @@
 {
-  "datum": "2026-09-18T17:39:31.020Z",
+  "datum": "2026-09-19T13:22:02.610Z",
   "datei": "build/reel.mp4",
-  "dauer": 27.57,
+  "dauer": 22.73,
   "noten": {
-    "hook": 58,
-    "lesbarkeit": 62,
-    "bildwechsel": 55,
-    "information": 66,
-    "marke": 64,
-    "sicherheit": 70
+    "hook": 52,
+    "lesbarkeit": 66,
+    "bildwechsel": 48,
+    "information": 58,
+    "marke": 62,
+    "sicherheit": 74
   },
-  "gesamt": 63,
+  "gesamt": 60,
   "maengel": [
     {
-      "bereich": "lesbarkeit",
+      "bereich": "information",
       "schwere": "schwer",
-      "befund": "Durchgehend fehlen Umlaute in den Grafiktexten: 'PRO SPARPLANAUSFUEHRUNG' (Bild 3/4), 'Start mit 3 % Rueckstand' (Bild 7/8), 'Gebuehr' (Bild 5/6), 'FOLGEN FUER KONKRETE ZAHLEN' (Bild 9/10) - waehrend die Untertitelzeile darunter korrekt 'Sparplanausführung', 'Rückstand', 'Gebühr' schreibt.",
-      "bild": "Bild 3, 5, 7, 9",
-      "vorschlag": "Schriftart mit vollem Latin-1-Zeichensatz laden (z.B. Montserrat/Anton mit Umlauten) und die Umlaut-Ersetzung im Text-Renderer entfernen: 'SPARPLANAUSFÜHRUNG', 'Rückstand', 'Gebühr', 'FOLGEN FÜR'."
+      "befund": "Die Kernaussage in Szene 3 bricht mitten im Satz ab: Die Karte zeigt 'Wer aus Angst verkauft, ist' - ohne Fortsetzung, der Satz wird nur in der Untertitelzeile ('dann nicht dabei.') aufgeloest, die bei stummem Abspielen leicht uebersehen wird.",
+      "bild": "Bild 5 und 6",
+      "vorschlag": "Kartentext auf einen abgeschlossenen Satz kuerzen, z.B. 'Wer aus Angst verkauft, verpasst die Erholung' - Schriftgroesse der Kartenzeile von ca. 104 px auf 88 px reduzieren, damit drei Zeilen vollstaendig passen."
+    },
+    {
+      "bereich": "bildwechsel",
+      "schwere": "schwer",
+      "befund": "Szene 3 (Bild 5 zu 6) und Szene 4 (Bild 7 zu 8) sind ueber rund 2 Sekunden bis auf die Untertitelzeile identisch - kein Zuwachs an Inhalt, keine Bewegung, wirkt wie ein Standbild.",
+      "bild": "Bild 5/6 und Bild 7/8",
+      "vorschlag": "Wie in Szene 2 eine Unterzeile zeitversetzt einblenden (ab ca. 1.0 s nach Szenenstart, Fade 0.3 s) und den farbigen Akzentstrich unter der Karte von 60 px auf 200 px Breite animieren."
     },
     {
       "bereich": "hook",
       "schwere": "schwer",
-      "befund": "In Bild 1 (Sekunde 0.9) ist die zweite Hook-Zeile 'ES LOSGEHT' noch halbtransparent - graubrauner Text auf blass-rosa Balken, waehrend die erste Zeile schon voll deckend ist. In den entscheidenden ersten zwei Sekunden ist die Kernaussage damit unleserlich.",
+      "befund": "Die erste Sekunde zeigt vier konkurrierende Textblöcke (Kopfzeile, '20 JAHRE ANLAGEDAUER', '10 Tage', Unterzeile, Untertitel) - es gibt keinen dominanten Blickfang, und '10 Tage' allein erzeugt keinen Konflikt.",
       "bild": "Bild 1",
-      "vorschlag": "Einblend-Dauer der Hook-Zeilen auf max. 0.25 s verkuerzen und den Versatz der zweiten Zeile auf 0.1 s setzen, sodass beide Balken ab Sekunde 0.4 voll deckend (#FF6B6B, Text #1A2238) stehen."
-    },
-    {
-      "bereich": "bildwechsel",
-      "schwere": "mittel",
-      "befund": "Szene 1 (Bild 1 zu Bild 2, 3.6 s Abstand) veraendert sich ausser dem eingeblendeten Text und der wechselnden Untertitelzeile nicht: Pinguin, Hintergrundgradient und Hookbalken stehen still - wirkt in den ersten 4.8 s wie ein Standbild.",
-      "bild": "Bild 1 und 2",
-      "vorschlag": "Pinguin mit leichter Float-Animation versehen (±12 px vertikal, 2 s Periode) und den Hookbalken pro Zeile um 1.5° wechselnd neigen oder ab Sekunde 2 eine Zahl ('3 %') pulsieren lassen (Scale 1.0 bis 1.06)."
-    },
-    {
-      "bereich": "information",
-      "schwere": "mittel",
-      "befund": "In Bild 5 (Sekunde 9.81, direkt nach dem Schnitt) sind die Balken 'Was investiert wird' und 'Gebuehr' ohne Zahlenwerte - die Aussage ist knapp 2 Sekunden lang nicht erfassbar, erst Bild 6 zeigt 48,50 € und 1,50 €.",
-      "bild": "Bild 5",
-      "vorschlag": "Zahlenlabels sofort mit dem Balkenwachstum einblenden (Verzoegerung von ca. 1.5 s auf 0.2 s reduzieren) oder als Count-up parallel zum Balken animieren."
+      "vorschlag": "Kicker '20 JAHRE ANLAGEDAUER' in Szene 1 weglassen oder auf 32 px verkleinern und die Zahl '10' auf mindestens 260 px Hoehe hochziehen; die Unterzeile erst ab Sekunde 1.2 einblenden."
     },
     {
       "bereich": "lesbarkeit",
       "schwere": "mittel",
-      "befund": "Der Gebuehr-Balken in Bild 5/6 ist nur ein kleiner Punkt am linken Rand (ca. 24 px Durchmesser im 1080er Massstab); der visuelle Vergleich 48,50 zu 1,50 ist korrekt, aber der rote Balken liest sich als Fehler/Artefakt statt als Datenbalken.",
-      "bild": "Bild 6",
-      "vorschlag": "Balkenhoehe auf 28 px erhoehen und Mindestbreite von 80 px setzen, damit der 3-%-Anteil als Balken und nicht als Punkt erkennbar ist; Wert '1,50 €' direkt rechts neben das Balkenende legen."
+      "befund": "Die Unterzeile in Bild 1/2 ('Zehn verpasste Tage halbieren die Rendite', ca. 46 px, helles Graublau auf Dunkelblau) sitzt direkt an der unteren Kartenkante und hat deutlich weniger Kontrast als die uebrige Typo.",
+      "bild": "Bild 1",
+      "vorschlag": "Farbe von #B8C4D8 auf #FFFFFF setzen, Schriftgroesse auf 52 px erhoehen und den Abstand zur unteren Kartenkante von ca. 40 px auf 70 px vergroessern."
+    },
+    {
+      "bereich": "lesbarkeit",
+      "schwere": "mittel",
+      "befund": "Die Untertitelzeile steht in Bild 1-8 bei y=1360-1440 hart am Beginn der Caption-Zone und ist mit ca. 40 px Versalhoehe die kleinste Textebene im Bild, obwohl sie die eigentliche Aussage traegt.",
+      "bild": "Bild 2",
+      "vorschlag": "Untertitelbalken von y=1400 auf y=1240 (Mitte) hochziehen und Schriftgroesse von ca. 40 px auf 52 px erhoehen."
     },
     {
       "bereich": "marke",
-      "schwere": "klein",
-      "befund": "Die Kopfzeile 'DREI PROZENT WEG' mit '@geld.pinguin' steht in dunklem Ton auf dem orangen Gradient bei y=262/324 (1080er Massstab) und ist damit in jedem Bild teilweise von der Instagram-Kopfzeile bedraengt bzw. kontrastschwach - das Handle ist im 1080er Massstab nur ca. 22 px hoch.",
-      "bild": "Bild 1 bis 10",
-      "vorschlag": "Handle-Zeile auf 32 px erhoehen, Farbe auf #1A2238 bei 100 % Deckkraft setzen und den Kopfblock von y=262 auf y=300 verschieben."
+      "schwere": "mittel",
+      "befund": "Der Pinguin lugt in Bild 1-8 immer identisch hinter der rechten oberen Kartenecke hervor und bewegt sich nie; auf der Endkarte ist er ebenfalls statisch.",
+      "bild": "Bild 3",
+      "vorschlag": "Pro Szenenwechsel eine kleine Pose- oder Positionsvariante (z.B. y-Offset -20 px mit 0.4 s Ease-Out beim Schnitt) einbauen; auf der Endkarte eine kurze Skalierung 1.0 auf 1.06 ueber 0.5 s."
     }
   ],
-  "staerkste": "Die Karten-Szenen 2 bis 4 sind visuell klar: dunkelblaue Karte auf warmem Gradient, eine grosse Zahl (1,50 €) in kraeftigem Korall, dazu ein Balkenvergleich - das ist ein erkennbares, konsistentes Layout-System mit gutem Kontrast.",
-  "urteil": "Ein solide gebautes Zahlen-Reel mit klarem Kartensystem, gutem Kontrast im Hauptbereich und einer Aussage, die man auch stumm versteht. Zwei Dinge ziehen es deutlich nach unten: die durchgehend fehlenden Umlaute in allen Grafiktexten (waehrend die Untertitelzeile sie korrekt zeigt) und ein Hook, der in Sekunde 0.9 noch halb transparent ist und sich danach 4 Sekunden lang kaum bewegt."
+  "staerkste": "Die visuelle Handschrift ist konsistent und sauber: warmer Gelbverlauf, dunkelblaue Karte mit weicher Schattenkante, klare Fett-Typo und der farbige Fortschrittsstrich, der pro Szene die Farbe wechselt - das liest sich auch bei kleiner Vorschau als eigener Kanal.",
+  "urteil": "Handwerklich sauberes, ruhig gestaltetes Reel mit erkennbarer Bildsprache, das aber zu wenig Bewegung und zu viel gleichzeitigen Text hat, um beim schnellen Wischen zu stoppen. Der schwerste Fehler ist der abgeschnittene Satz in Szene 3, der zweitschwerste der fehlende visuelle Zuwachs innerhalb der Szenen 3 und 4."
 }
