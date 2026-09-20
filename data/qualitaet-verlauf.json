@@ -349,5 +349,18 @@
       "sicherheit": 78
     },
     "schwere": 1
+  },
+  {
+    "datum": "2026-09-20T17:39:49.668Z",
+    "gesamt": 65,
+    "noten": {
+      "hook": 58,
+      "lesbarkeit": 62,
+      "bildwechsel": 64,
+      "information": 66,
+      "marke": 70,
+      "sicherheit": 72
+    },
+    "schwere": 2
   }
 ]

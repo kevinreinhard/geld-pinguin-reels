@@ -1,60 +1,60 @@
 {
-  "datum": "2026-09-20T14:04:59.341Z",
+  "datum": "2026-09-20T17:39:49.668Z",
   "datei": "build/reel.mp4",
-  "dauer": 21.8,
+  "dauer": 25.58,
   "noten": {
     "hook": 58,
-    "lesbarkeit": 72,
-    "bildwechsel": 62,
-    "information": 70,
-    "marke": 64,
-    "sicherheit": 78
+    "lesbarkeit": 62,
+    "bildwechsel": 64,
+    "information": 66,
+    "marke": 70,
+    "sicherheit": 72
   },
-  "gesamt": 67,
+  "gesamt": 65,
   "maengel": [
     {
       "bereich": "hook",
       "schwere": "schwer",
-      "befund": "Die ersten zwei Sekunden zeigen nur eine statische Karte mit '300 €' und der sachlichen Zeile 'SICHTZONE IM SUPERMARKT' - keine Frage, kein Widerspruch, keine Bewegung ausser dem Zahl-Zoom; als Scrollstopper zu brav.",
+      "befund": "Der Hook baut sich zeilenweise ueber 4,6 Sekunden auf - bei Sekunde 0,9 steht erst 'EIN KREUZ / KOSTET DEN' da, die entscheidende Zeile 'RENTENSCHUTZ' erscheint erst kurz vor dem Schnitt. In den ersten zwei Sekunden ist also keine vollstaendige Aussage sichtbar.",
       "bild": "Bild 1",
-      "vorschlag": "Kopfzeile der Karte in Szene 1 auf eine Konfliktzeile aendern, z.B. 'Augenhoehe = Abzocke' in 64 px Rot #FF6B6B, und die 300 € erst nach 0,4 s per Count-up von 0 hochzaehlen lassen; Karte in den ersten 6 Frames um 3 % einskalieren."
+      "vorschlag": "Alle drei Hook-Zeilen bereits bei t=0,0-0,3s vollstaendig einblenden (Zeilen-Stagger von ~1,2s auf max. 0,12s reduzieren), danach nur noch die Farbhervorhebung der Schluesselzeile animieren."
+    },
+    {
+      "bereich": "lesbarkeit",
+      "schwere": "schwer",
+      "befund": "Die zweite Hook-Zeile 'KOSTET DEN' steht in Bild 1 als grauer Text auf halbtransparentem Rot-Balken - Vordergrund und Balken liegen kontrastmaessig kaum auseinander und die Zeile ist schlechter lesbar als die erste.",
+      "bild": "Bild 1",
+      "vorschlag": "Einblend-Zwischenzustand entfernen: Textfarbe der Hook-Zeilen fest auf #12203C, Balken-Deckkraft fest auf 100% setzen, statt Opacity von 0 auf 1 zu faden."
     },
     {
       "bereich": "bildwechsel",
       "schwere": "mittel",
-      "befund": "Die Szenen 2, 4 und 7 bestehen aus Titel + spaeter eingeblendeter Unterzeile - zwischen Bild 3/4, 7/8 und 9/10 aendert sich sonst nichts, die Karte steht 2-3 s voellig still.",
-      "bild": "Bild 3, 4, 7, 8",
-      "vorschlag": "In den Stichwort-Szenen die Karte pro Sekunde um 8 px (1080er Massstab) langsam nach oben driften lassen (Ken-Burns) und das Stichwort wortweise mit 120 ms Versatz einblenden statt als Block."
+      "befund": "Szene 7 (Endkarte) laeuft von 21,7s bis 25,6s nahezu als Standbild - zwischen Bild 9 und Bild 10 aendert sich nur, dass die Untertitelzeile verschwindet; die letzten ~1,5 Sekunden sind vollstaendig statisch.",
+      "bild": "Bild 10",
+      "vorschlag": "Pinguin in der Endkarte mit leichter Loop-Bewegung versehen (z.B. y-Offset +/-12px, 1,2s Sinus) und den CTA-Chip '@geld.pinguin' bei 23,5s einmal um 4% pulsen lassen."
     },
     {
       "bereich": "information",
       "schwere": "mittel",
-      "befund": "Szene 3 zeigt in Bild 5 drei Balken ohne Beschriftung rechts - die Wertung 'guenstiger/teuer' erscheint erst spaeter; 1,3 s lang traegt die Grafik keine Aussage.",
-      "bild": "Bild 5",
-      "vorschlag": "Die Label 'guenstiger'/'teuer' gleichzeitig mit dem jeweiligen Balken einblenden (Balkenfuellung 0,25 s, Label direkt anschliessend), statt alle drei Label erst am Szenenende."
-    },
-    {
-      "bereich": "marke",
-      "schwere": "mittel",
-      "befund": "Der Pinguin lugt in Szene 1-4 immer identisch an derselben Stelle (x≈865, y≈545 im 1080er Massstab) hinter der Karte hervor und wirkt wie ein aufgeklebtes Sticker-Element ohne Funktion.",
-      "bild": "Bild 1-8",
-      "vorschlag": "Pinguin pro Szene die Seite wechseln lassen (links x=215 / rechts x=865) und ihn beim Szenenwechsel 30 px hoch-runter huepfen lassen; in der Vergleichsszene auf den roten Balken zeigen lassen."
+      "befund": "Der Balkenvergleich in Szene 4 zeigt zwei Balken ohne Zahlenwerte - 'volle Rente' vs. 'gekuerzt' bleibt abstrakt, der Zuschauer sieht keine Groesse, die den Verzicht greifbar macht.",
+      "bild": "Bild 8",
+      "vorschlag": "Rechts neben jedem Balken einen Euro-Wert setzen (z.B. 'ca. 4,50 EUR Rente/Monat je Jahr' vs. '0 EUR'), Schriftgroesse 44px, gleiche Baseline wie die Label-Zeile."
     },
     {
       "bereich": "lesbarkeit",
       "schwere": "mittel",
-      "befund": "Die Untertitelzeile ist auf ca. 30 Zeichen begrenzt und bricht mitten im Satz ab ('dich 300 Euro im Jahr.', 'Der Beweis steht'), das Karaoke-Highlight faerbt zudem nur Wortfragmente ein ('Rega|l', 'bri|ngt').",
-      "bild": "Bild 2, 3, 4, 7",
-      "vorschlag": "Untertitel auf max. 2 Zeilen à 22 Zeichen umbrechen statt abzuschneiden und das Highlight auf Wortgrenzen rasten (Timing pro Wort statt pro Zeichen)."
+      "befund": "Der Beschreibungstext in Bild 6 'Ersparnis rund 20 Euro im Monat' laeuft in die Ziffernflaeche der grossen 3,6% hinein - die Unterlaenge des Kommas beruehrt die Textzeile, der Block wirkt gedraengt.",
+      "bild": "Bild 6",
+      "vorschlag": "Abstand zwischen Kennzahl-Block und Beschreibungstext von aktuell ca. 10px auf 48px erhoehen bzw. Beschreibungstext um 40px nach unten versetzen (Karte hat unten ~110px freien Raum)."
     },
     {
       "bereich": "lesbarkeit",
       "schwere": "klein",
-      "befund": "Die Fussnote unter der Kennzahl ('Mehrkosten pro Jahr durch Griff in Augenhoehe') steht in ca. 40 px hellgrau-blau auf Dunkelblau und ist deutlich schwaecher als der Rest der Karte.",
-      "bild": "Bild 1",
-      "vorschlag": "Schriftgroesse auf 52 px erhoehen und Farbe von #B8C0D0 auf #FFFFFF bei 92 % Deckkraft setzen."
+      "befund": "Die Untertitelzeile in Bild 4 'von der Rentenversicherung befreien.' ist mit etwa 30px Schrifthoehe (gemessen 15px) deutlich kleiner gesetzt als alle anderen Untertitel des Reels und der Kasten reicht fast ueber die volle Breite.",
+      "bild": "Bild 4",
+      "vorschlag": "Untertitel-Autoshrink begrenzen: Mindestschriftgroesse 44px, bei Ueberlauf stattdessen auf zwei Zeilen umbrechen; max. Kastenbreite 820px."
     }
   ],
-  "staerkste": "Die Vergleichsszene mit den drei Regalhoehen-Balken: rot gegen gruen, klare Hierarchie, die Aussage ist ohne Ton verstanden - das ist der visuell staerkste und am besten gebaute Moment des Reels.",
-  "urteil": "Sauber gebautes, konsistentes Karten-Layout mit gutem Kontrast und einem echten Erkenntnismoment in der Vergleichsszene - alles sitzt ausserhalb der Instagram-Bedienzonen. Es fehlt aber der Zugriff in den ersten zwei Sekunden und die Bewegung innerhalb der Szenen; visuell ist es solide Vorlagenarbeit, keine eigene Handschrift."
+  "staerkste": "Die Kartenszenen (Stichwort, Kennzahl, Vergleich) sind visuell klar und gut aufgebaut: dunkelblaue Karte auf warmem Gelb, gelber Akzentstrich links oben, der Pinguin lugt oben rechts hervor - das ist eine erkennbare Handschrift, und die Kennzahl 3,6% traegt ihre Aussage ohne Ton.",
+  "urteil": "Solides, sauber gebautes Reel mit erkennbarem Eigenlook und einer starken Kennzahlszene, das aber ausgerechnet am Einstieg Reichweite verschenkt: Der Hook baut sich vier Sekunden lang zeilenweise auf, sodass bei Sekunde 0,9 nur ein Textfragment mit halbtransparenter zweiter Zeile zu sehen ist. Wer den Zeilenaufbau vorzieht, den Balkenvergleich mit Zahlen unterlegt und die statische Endkarte belebt, kommt hier schnell in den 75er-Bereich."
 }
