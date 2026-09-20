@@ -1,60 +1,60 @@
 {
-  "datum": "2026-09-19T21:41:58.392Z",
+  "datum": "2026-09-20T14:04:59.341Z",
   "datei": "build/reel.mp4",
-  "dauer": 27.7,
+  "dauer": 21.8,
   "noten": {
-    "hook": 52,
-    "lesbarkeit": 68,
-    "bildwechsel": 55,
+    "hook": 58,
+    "lesbarkeit": 72,
+    "bildwechsel": 62,
     "information": 70,
-    "marke": 62,
-    "sicherheit": 72
+    "marke": 64,
+    "sicherheit": 78
   },
-  "gesamt": 63,
+  "gesamt": 67,
   "maengel": [
     {
       "bereich": "hook",
       "schwere": "schwer",
-      "befund": "Bild 1 startet mit einer statischen Karte 'FREMDGEBUEHREN AM AUTOMAT / 120 EUR' - die Zahl steht mittig bei y~900 (1080er Massstab), der Bildschirm oberhalb bis y=640 ist leer, und es gibt keinen Reiz-Satz, der eine Frage aufwirft.",
+      "befund": "Die ersten zwei Sekunden zeigen nur eine statische Karte mit '300 €' und der sachlichen Zeile 'SICHTZONE IM SUPERMARKT' - keine Frage, kein Widerspruch, keine Bewegung ausser dem Zahl-Zoom; als Scrollstopper zu brav.",
       "bild": "Bild 1",
-      "vorschlag": "Karte in Szene 1 von y=640 auf y=420 hochziehen, die 120 auf mindestens 340 px Schrifthoehe vergroessern und ueber der Karte eine zweite Zeile in 64 px Gelb (#F5C33B) setzen: 'Das zahlst du fuers eigene Geld'. Zahl in den ersten 0.4 s von 0 auf 120 hochzaehlen lassen."
-    },
-    {
-      "bereich": "bildwechsel",
-      "schwere": "schwer",
-      "befund": "Szene 1 (Bild 1 -> Bild 2, 3.2 Sekunden Abstand) veraendert ausser dem Untertitel nichts: Karte, Zahl, Fliesstext und Pinguin stehen pixelgleich - der Abschnitt wirkt wie ein Standbild.",
-      "bild": "Bild 1 und Bild 2",
-      "vorschlag": "In Szene 1 ab Sekunde 2 eine Animation ergaenzen: Zaehler 120 -> Aufschluesselung '2x im Monat x 5 EUR' einblenden oder die Karte um 40 px nach oben schieben und den Untertext 'Was dich Abheben pro Jahr kostet' erst ab Sekunde 1.5 per Fade einlaufen lassen."
+      "vorschlag": "Kopfzeile der Karte in Szene 1 auf eine Konfliktzeile aendern, z.B. 'Augenhoehe = Abzocke' in 64 px Rot #FF6B6B, und die 300 € erst nach 0,4 s per Count-up von 0 hochzaehlen lassen; Karte in den ersten 6 Frames um 3 % einskalieren."
     },
     {
       "bereich": "bildwechsel",
       "schwere": "mittel",
-      "befund": "Szene 7 verliert zwischen Bild 9 und Bild 10 Inhalt statt welchen zu gewinnen: die Untertitelbox 'Speichere das vor' verschwindet, uebrig bleiben Pinguin, Titel und Handle auf sonst leerer Flaeche - die letzten 3 Sekunden sind visuell tot.",
-      "bild": "Bild 10",
-      "vorschlag": "In der Endkarte ab Sekunde 25.5 ein pulsierendes Speichern-Icon oder die Zeile 'Teilen = 120 EUR fuer einen Freund' in 56 px unter dem Handle bei y=1300 einblenden, damit bis zum Ende Bewegung bleibt."
-    },
-    {
-      "bereich": "lesbarkeit",
-      "schwere": "mittel",
-      "befund": "Die Handle-Zeile '@geld.pinguin' in Bild 1-10 steht bei y~322 in etwa 28 px Hoehe in mattem Grau auf gelbem Verlauf und ist auf dem Handy praktisch unlesbar.",
-      "bild": "Bild 1",
-      "vorschlag": "Handle im Kopfbereich auf 40 px vergroessern und auf Dunkelblau #16213E setzen, damit derselbe Kontrast wie bei 'BARGELD KOSTET DICH' entsteht."
+      "befund": "Die Szenen 2, 4 und 7 bestehen aus Titel + spaeter eingeblendeter Unterzeile - zwischen Bild 3/4, 7/8 und 9/10 aendert sich sonst nichts, die Karte steht 2-3 s voellig still.",
+      "bild": "Bild 3, 4, 7, 8",
+      "vorschlag": "In den Stichwort-Szenen die Karte pro Sekunde um 8 px (1080er Massstab) langsam nach oben driften lassen (Ken-Burns) und das Stichwort wortweise mit 120 ms Versatz einblenden statt als Block."
     },
     {
       "bereich": "information",
       "schwere": "mittel",
-      "befund": "In Bild 3 tragen die beiden Balken 'Pro Abhebung' und 'Pro Jahr' ueber 3 Sekunden keine Zahlen - die Werte 5 EUR und 120 EUR erscheinen erst in Bild 4, bis dahin ist der Vergleich ohne Ton nicht deutbar.",
-      "bild": "Bild 3",
-      "vorschlag": "Die Betraege rechts am Balkenende (x=900) bereits ab Szenenbeginn einblenden und stattdessen nur die Balkenbreite animieren."
+      "befund": "Szene 3 zeigt in Bild 5 drei Balken ohne Beschriftung rechts - die Wertung 'guenstiger/teuer' erscheint erst spaeter; 1,3 s lang traegt die Grafik keine Aussage.",
+      "bild": "Bild 5",
+      "vorschlag": "Die Label 'guenstiger'/'teuer' gleichzeitig mit dem jeweiligen Balken einblenden (Balkenfuellung 0,25 s, Label direkt anschliessend), statt alle drei Label erst am Szenenende."
     },
     {
       "bereich": "marke",
+      "schwere": "mittel",
+      "befund": "Der Pinguin lugt in Szene 1-4 immer identisch an derselben Stelle (x≈865, y≈545 im 1080er Massstab) hinter der Karte hervor und wirkt wie ein aufgeklebtes Sticker-Element ohne Funktion.",
+      "bild": "Bild 1-8",
+      "vorschlag": "Pinguin pro Szene die Seite wechseln lassen (links x=215 / rechts x=865) und ihn beim Szenenwechsel 30 px hoch-runter huepfen lassen; in der Vergleichsszene auf den roten Balken zeigen lassen."
+    },
+    {
+      "bereich": "lesbarkeit",
+      "schwere": "mittel",
+      "befund": "Die Untertitelzeile ist auf ca. 30 Zeichen begrenzt und bricht mitten im Satz ab ('dich 300 Euro im Jahr.', 'Der Beweis steht'), das Karaoke-Highlight faerbt zudem nur Wortfragmente ein ('Rega|l', 'bri|ngt').",
+      "bild": "Bild 2, 3, 4, 7",
+      "vorschlag": "Untertitel auf max. 2 Zeilen à 22 Zeichen umbrechen statt abzuschneiden und das Highlight auf Wortgrenzen rasten (Timing pro Wort statt pro Zeichen)."
+    },
+    {
+      "bereich": "lesbarkeit",
       "schwere": "klein",
-      "befund": "Der Pinguin sitzt in Bild 1-8 immer identisch als halb verdeckter Kopf an derselben Stelle (x~866, y~600) hinter der Kartenecke und wirkt wie ein aufgeklebtes Logo statt wie eine Figur.",
-      "bild": "Bild 3",
-      "vorschlag": "Pinguin pro Szene Position und Pose wechseln lassen (z.B. Szene 2 links unten an der Karte, Szene 4 mit Einkaufskorb) oder ihn beim Schnitt um 20 px auf- und abwippen lassen."
+      "befund": "Die Fussnote unter der Kennzahl ('Mehrkosten pro Jahr durch Griff in Augenhoehe') steht in ca. 40 px hellgrau-blau auf Dunkelblau und ist deutlich schwaecher als der Rest der Karte.",
+      "bild": "Bild 1",
+      "vorschlag": "Schriftgroesse auf 52 px erhoehen und Farbe von #B8C0D0 auf #FFFFFF bei 92 % Deckkraft setzen."
     }
   ],
-  "staerkste": "Die Farbdramaturgie trägt die Aussage: Rot für die 120 € Gebühr in Szene 1-2, Grün für die 0 € an der Kasse in Szene 3-4 - der Kontrast zwischen Problem und Lösung ist auch ohne Ton sofort verständlich.",
-  "urteil": "Sauber gebautes, konsistent gestaltetes Kartenlayout mit klarer Farblogik und funktionierender Endkarte, aber der Einstieg ist zu brav und die Szenen bewegen sich innerhalb ihrer vier Sekunden fast nicht. Wer schnell wischt, sieht in Sekunde 1 eine ruhige Infokarte ohne Spannung - genau dort geht die Reichweite verloren."
+  "staerkste": "Die Vergleichsszene mit den drei Regalhoehen-Balken: rot gegen gruen, klare Hierarchie, die Aussage ist ohne Ton verstanden - das ist der visuell staerkste und am besten gebaute Moment des Reels.",
+  "urteil": "Sauber gebautes, konsistentes Karten-Layout mit gutem Kontrast und einem echten Erkenntnismoment in der Vergleichsszene - alles sitzt ausserhalb der Instagram-Bedienzonen. Es fehlt aber der Zugriff in den ersten zwei Sekunden und die Bewegung innerhalb der Szenen; visuell ist es solide Vorlagenarbeit, keine eigene Handschrift."
 }
