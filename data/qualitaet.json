@@ -1,60 +1,67 @@
 {
-  "datum": "2026-09-20T17:39:49.668Z",
+  "datum": "2026-09-21T16:38:42.094Z",
   "datei": "build/reel.mp4",
-  "dauer": 25.58,
+  "dauer": 32.11,
   "noten": {
-    "hook": 58,
-    "lesbarkeit": 62,
-    "bildwechsel": 64,
-    "information": 66,
-    "marke": 70,
-    "sicherheit": 72
+    "hook": 52,
+    "lesbarkeit": 72,
+    "bildwechsel": 58,
+    "information": 65,
+    "marke": 62,
+    "sicherheit": 70
   },
-  "gesamt": 65,
+  "gesamt": 63,
   "maengel": [
+    {
+      "bereich": "information",
+      "schwere": "schwer",
+      "befund": "In Szene 4 (Bild 7 und 8) steht auf der Karte der abgeschnittene Satzanfang 'Der Abschlag bleibt bis zum' - das Objekt ('Rentenbescheid') fehlt auf der Karte voellig und steht nur im Untertitel. Der Satz bleibt vier Sekunden lang unvollstaendig stehen.",
+      "bild": "Bild 7",
+      "vorschlag": "Kartentext auf 'Der Abschlag bleibt - bis zum Rentenbescheid' setzen und Schriftgroesse der Headline von ca. 108 px auf ca. 88 px reduzieren, damit drei Zeilen in die Karte passen."
+    },
     {
       "bereich": "hook",
       "schwere": "schwer",
-      "befund": "Der Hook baut sich zeilenweise ueber 4,6 Sekunden auf - bei Sekunde 0,9 steht erst 'EIN KREUZ / KOSTET DEN' da, die entscheidende Zeile 'RENTENSCHUTZ' erscheint erst kurz vor dem Schnitt. In den ersten zwei Sekunden ist also keine vollstaendige Aussage sichtbar.",
+      "befund": "Die erste Sekunde zeigt dieselbe stille Karte wie Sekunde 5: dunkles Panel, Kopfzeile 'ABSCHLAG FUER IMMER', Zahl 14,4 % - kein Zoom, kein Zahlenaufbau, keine Reibung. Nur die Untertitelzeile unten wechselt.",
       "bild": "Bild 1",
-      "vorschlag": "Alle drei Hook-Zeilen bereits bei t=0,0-0,3s vollstaendig einblenden (Zeilen-Stagger von ~1,2s auf max. 0,12s reduzieren), danach nur noch die Farbhervorhebung der Schluesselzeile animieren."
-    },
-    {
-      "bereich": "lesbarkeit",
-      "schwere": "schwer",
-      "befund": "Die zweite Hook-Zeile 'KOSTET DEN' steht in Bild 1 als grauer Text auf halbtransparentem Rot-Balken - Vordergrund und Balken liegen kontrastmaessig kaum auseinander und die Zeile ist schlechter lesbar als die erste.",
-      "bild": "Bild 1",
-      "vorschlag": "Einblend-Zwischenzustand entfernen: Textfarbe der Hook-Zeilen fest auf #12203C, Balken-Deckkraft fest auf 100% setzen, statt Opacity von 0 auf 1 zu faden."
+      "vorschlag": "Die Zahl 14,4 % in den ersten 0,6 s von 0 hochzaehlen lassen (Count-up) und die Karte von scale 0.92 auf 1.0 einfahren; Kicker 'DREI JAHRE FRUEHER' 0,2 s spaeter einblenden."
     },
     {
       "bereich": "bildwechsel",
       "schwere": "mittel",
-      "befund": "Szene 7 (Endkarte) laeuft von 21,7s bis 25,6s nahezu als Standbild - zwischen Bild 9 und Bild 10 aendert sich nur, dass die Untertitelzeile verschwindet; die letzten ~1,5 Sekunden sind vollstaendig statisch.",
-      "bild": "Bild 10",
-      "vorschlag": "Pinguin in der Endkarte mit leichter Loop-Bewegung versehen (z.B. y-Offset +/-12px, 1,2s Sinus) und den CTA-Chip '@geld.pinguin' bei 23,5s einmal um 4% pulsen lassen."
+      "befund": "Szene 1 (Bild 1 zu Bild 2) veraendert sich ueber 4,2 Sekunden ausschliesslich in der Untertitelzeile; Karte, Zahl, Pinguin und Hintergrund sind pixelgleich - wirkt wie ein Standbild.",
+      "bild": "Bild 2",
+      "vorschlag": "In Szene 1 nach ca. 2,5 s eine zweite Informationsebene einblenden, z. B. Balken oder Zeile '36 Monate x 0,3 %' unter dem Subtext, plus langsamer Ken-Burns-Zoom von 1.00 auf 1.04 auf der Karte."
     },
     {
       "bereich": "information",
       "schwere": "mittel",
-      "befund": "Der Balkenvergleich in Szene 4 zeigt zwei Balken ohne Zahlenwerte - 'volle Rente' vs. 'gekuerzt' bleibt abstrakt, der Zuschauer sieht keine Groesse, die den Verzicht greifbar macht.",
-      "bild": "Bild 8",
-      "vorschlag": "Rechts neben jedem Balken einen Euro-Wert setzen (z.B. 'ca. 4,50 EUR Rente/Monat je Jahr' vs. '0 EUR'), Schriftgroesse 44px, gleiche Baseline wie die Label-Zeile."
+      "befund": "In Bild 5 stehen die beiden Vergleichsbalken ohne Zahlenwerte da; der Balken 'mit 14,4 % Abschlag' ist optisch nur etwa 15 % kuerzer als der gruene, was den Verlust deutlich untertreibt.",
+      "bild": "Bild 5",
+      "vorschlag": "Zahlen 1.500 EUR / 1.284 EUR sofort mit dem Balken einblenden (nicht erst nach 4 s) und die Balkenskala bei 0 EUR beginnen lassen bzw. Differenz-Label '-216 EUR / Monat' rechts unter dem roten Balken ergaenzen."
     },
     {
       "bereich": "lesbarkeit",
       "schwere": "mittel",
-      "befund": "Der Beschreibungstext in Bild 6 'Ersparnis rund 20 Euro im Monat' laeuft in die Ziffernflaeche der grossen 3,6% hinein - die Unterlaenge des Kommas beruehrt die Textzeile, der Block wirkt gedraengt.",
-      "bild": "Bild 6",
-      "vorschlag": "Abstand zwischen Kennzahl-Block und Beschreibungstext von aktuell ca. 10px auf 48px erhoehen bzw. Beschreibungstext um 40px nach unten versetzen (Karte hat unten ~110px freien Raum)."
+      "befund": "Der Handle '@geld.pinguin' unter der Kopfzeile ist in ca. 26 px dunkelgrau-transparent auf orangem Verlauf gesetzt und liegt bei y=326 (gemessen y=163) faktisch als Rauschen im Bild.",
+      "bild": "Bild 1",
+      "vorschlag": "Handle auf mindestens 34 px vergroessern, Deckkraft auf 100 % und Farbe auf das Panel-Dunkelblau #111a33 setzen - oder ganz entfernen, da der Handle auf der Endkarte erneut vorkommt."
     },
     {
-      "bereich": "lesbarkeit",
+      "bereich": "sicherheit",
+      "schwere": "mittel",
+      "befund": "Die Untertitel-Box (z. B. 'Rentenbescheid.' in Bild 8) liegt mit Oberkante bei y=1352 und Unterkante bei y=1418 (gemessen 676-709) sehr dicht an der Caption-Zone ab y=1500; die dekorative Linie darunter bei y=1482 beruehrt sie fast.",
+      "bild": "Bild 8",
+      "vorschlag": "Untertitelblock samt Linie um 120 px nach oben verschieben (Box-Mitte auf ca. y=1265), damit zwischen Linie und y=1500 mindestens 140 px Luft bleiben."
+    },
+    {
+      "bereich": "marke",
       "schwere": "klein",
-      "befund": "Die Untertitelzeile in Bild 4 'von der Rentenversicherung befreien.' ist mit etwa 30px Schrifthoehe (gemessen 15px) deutlich kleiner gesetzt als alle anderen Untertitel des Reels und der Kasten reicht fast ueber die volle Breite.",
-      "bild": "Bild 4",
-      "vorschlag": "Untertitel-Autoshrink begrenzen: Mindestschriftgroesse 44px, bei Ueberlauf stattdessen auf zwei Zeilen umbrechen; max. Kastenbreite 820px."
+      "befund": "Der Pinguin sitzt in allen Kartenszenen unbewegt an identischer Position hinter der rechten Kartenkante (Bild 1 bis 8) und hat keinerlei Reaktion auf den Inhalt.",
+      "bild": "Bild 3",
+      "vorschlag": "Pinguin-Position pro Szene variieren (links/rechts) und bei Szenenwechsel 0,3 s Hoch-Wipp-Animation (y -18 px) ausloesen; in Szene 3 zusaetzlich eine Schock-Pose beim Erscheinen der 1.284 EUR."
     }
   ],
-  "staerkste": "Die Kartenszenen (Stichwort, Kennzahl, Vergleich) sind visuell klar und gut aufgebaut: dunkelblaue Karte auf warmem Gelb, gelber Akzentstrich links oben, der Pinguin lugt oben rechts hervor - das ist eine erkennbare Handschrift, und die Kennzahl 3,6% traegt ihre Aussage ohne Ton.",
-  "urteil": "Solides, sauber gebautes Reel mit erkennbarem Eigenlook und einer starken Kennzahlszene, das aber ausgerechnet am Einstieg Reichweite verschenkt: Der Hook baut sich vier Sekunden lang zeilenweise auf, sodass bei Sekunde 0,9 nur ein Textfragment mit halbtransparenter zweiter Zeile zu sehen ist. Wer den Zeilenaufbau vorzieht, den Balkenvergleich mit Zahlen unterlegt und die statische Endkarte belebt, kommt hier schnell in den 75er-Bereich."
+  "staerkste": "Die Vergleichsszene mit gruenem und rotem Balken plus den Zahlen 1.500 EUR gegen 1.284 EUR (Bild 6) macht den Verlust in einer Sekunde ohne Ton verstaendlich - das ist der beste Moment des Reels.",
+  "urteil": "Saubere, konsistente Kartenoptik mit klarer Typohierarchie und gutem Kontrast, aber der Aufbau ist statisch: Jede Szene haelt vier bis fuenf Sekunden praktisch dasselbe Bild, und die Bewegung beschraenkt sich auf die wechselnde Untertitelzeile. Der Einstieg verschenkt die starke Zahl 14,4 % ohne Animation, und Szene 4 laesst einen abgebrochenen Satz auf der Karte stehen - beides kostet im Wischtempo von Instagram sofort Zuschauer."
 }
