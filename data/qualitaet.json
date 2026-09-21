@@ -1,67 +1,60 @@
 {
-  "datum": "2026-09-21T16:38:42.094Z",
+  "datum": "2026-09-21T20:56:11.362Z",
   "datei": "build/reel.mp4",
-  "dauer": 32.11,
+  "dauer": 26.07,
   "noten": {
-    "hook": 52,
-    "lesbarkeit": 72,
-    "bildwechsel": 58,
-    "information": 65,
-    "marke": 62,
+    "hook": 58,
+    "lesbarkeit": 62,
+    "bildwechsel": 64,
+    "information": 66,
+    "marke": 61,
     "sicherheit": 70
   },
-  "gesamt": 63,
+  "gesamt": 64,
   "maengel": [
     {
-      "bereich": "information",
+      "bereich": "lesbarkeit",
       "schwere": "schwer",
-      "befund": "In Szene 4 (Bild 7 und 8) steht auf der Karte der abgeschnittene Satzanfang 'Der Abschlag bleibt bis zum' - das Objekt ('Rentenbescheid') fehlt auf der Karte voellig und steht nur im Untertitel. Der Satz bleibt vier Sekunden lang unvollstaendig stehen.",
-      "bild": "Bild 7",
-      "vorschlag": "Kartentext auf 'Der Abschlag bleibt - bis zum Rentenbescheid' setzen und Schriftgroesse der Headline von ca. 108 px auf ca. 88 px reduzieren, damit drei Zeilen in die Karte passen."
+      "befund": "In Bild 1 steht 'WELTANLAGE' in graubraunem Text auf dem lachsfarbenen Balken - Vordergrund und Hintergrund liegen farblich fast aufeinander, die Zeile ist praktisch unlesbar, waehrend dieselbe Zeile in Bild 2 korrekt schwarz auf Lachs steht.",
+      "bild": "Bild 1",
+      "vorschlag": "Die Einblend-Animation der zweiten Hook-Zeile nicht ueber Farb-Interpolation (grau -> schwarz) loesen, sondern Textfarbe fix auf #101828 setzen und nur Deckkraft/Scale animieren."
+    },
+    {
+      "bereich": "sicherheit",
+      "schwere": "schwer",
+      "befund": "Die Untertitel-Box sitzt mittig bei y=1340-1460 (gemessen 670-730) und die Trennlinie darunter bei y=1482 (gemessen 741) - die Linie liegt damit direkt an der Kante der Caption-Zone ab y=1500, die Box selbst nur 40 px darueber.",
+      "bild": "Bild 3",
+      "vorschlag": "Untertitel-Block samt Linie um 120 px nach oben verschieben: Box-Mitte auf y=1280, Linie auf y=1360."
     },
     {
       "bereich": "hook",
-      "schwere": "schwer",
-      "befund": "Die erste Sekunde zeigt dieselbe stille Karte wie Sekunde 5: dunkles Panel, Kopfzeile 'ABSCHLAG FUER IMMER', Zahl 14,4 % - kein Zoom, kein Zahlenaufbau, keine Reibung. Nur die Untertitelzeile unten wechselt.",
-      "bild": "Bild 1",
-      "vorschlag": "Die Zahl 14,4 % in den ersten 0,6 s von 0 hochzaehlen lassen (Count-up) und die Karte von scale 0.92 auf 1.0 einfahren; Kicker 'DREI JAHRE FRUEHER' 0,2 s spaeter einblenden."
-    },
-    {
-      "bereich": "bildwechsel",
       "schwere": "mittel",
-      "befund": "Szene 1 (Bild 1 zu Bild 2) veraendert sich ueber 4,2 Sekunden ausschliesslich in der Untertitelzeile; Karte, Zahl, Pinguin und Hintergrund sind pixelgleich - wirkt wie ein Standbild.",
-      "bild": "Bild 2",
-      "vorschlag": "In Szene 1 nach ca. 2,5 s eine zweite Informationsebene einblenden, z. B. Balken oder Zeile '36 Monate x 0,3 %' unter dem Subtext, plus langsamer Ken-Burns-Zoom von 1.00 auf 1.04 auf der Karte."
-    },
-    {
-      "bereich": "information",
-      "schwere": "mittel",
-      "befund": "In Bild 5 stehen die beiden Vergleichsbalken ohne Zahlenwerte da; der Balken 'mit 14,4 % Abschlag' ist optisch nur etwa 15 % kuerzer als der gruene, was den Verlust deutlich untertreibt.",
-      "bild": "Bild 5",
-      "vorschlag": "Zahlen 1.500 EUR / 1.284 EUR sofort mit dem Balken einblenden (nicht erst nach 4 s) und die Balkenskala bei 0 EUR beginnen lassen bzw. Differenz-Label '-216 EUR / Monat' rechts unter dem roten Balken ergaenzen."
+      "befund": "Die Hook-Szene laeuft 4,6 Sekunden und zeigt in Bild 1 und Bild 2 dieselbe Komposition - Pinguin statisch, Balken identisch, nur die Textfarbe und der Untertitel wechseln; fuer die ersten zwei Sekunden passiert visuell zu wenig.",
+      "bild": "Bild 1 und 2",
+      "vorschlag": "Hook auf 3,0 s kuerzen und den Pinguin in Sekunde 0-0.6 mit Scale 0.6 -> 1.0 plus leichtem Bounce einfahren lassen; Balken zeilenweise von links aufziehen."
     },
     {
       "bereich": "lesbarkeit",
       "schwere": "mittel",
-      "befund": "Der Handle '@geld.pinguin' unter der Kopfzeile ist in ca. 26 px dunkelgrau-transparent auf orangem Verlauf gesetzt und liegt bei y=326 (gemessen y=163) faktisch als Rauschen im Bild.",
-      "bild": "Bild 1",
-      "vorschlag": "Handle auf mindestens 34 px vergroessern, Deckkraft auf 100 % und Farbe auf das Panel-Dunkelblau #111a33 setzen - oder ganz entfernen, da der Handle auf der Endkarte erneut vorkommt."
-    },
-    {
-      "bereich": "sicherheit",
-      "schwere": "mittel",
-      "befund": "Die Untertitel-Box (z. B. 'Rentenbescheid.' in Bild 8) liegt mit Oberkante bei y=1352 und Unterkante bei y=1418 (gemessen 676-709) sehr dicht an der Caption-Zone ab y=1500; die dekorative Linie darunter bei y=1482 beruehrt sie fast.",
-      "bild": "Bild 8",
-      "vorschlag": "Untertitelblock samt Linie um 120 px nach oben verschieben (Box-Mitte auf ca. y=1265), damit zwischen Linie und y=1500 mindestens 140 px Luft bleiben."
+      "befund": "Der erklaerende Zusatztext 'Anteil US-Aktien im MSCI World' in Bild 4 steht in hellgrauem, duennem Schriftschnitt bei rund 40 px Hoehe auf Dunkelblau - deutlich schwaecher als alle anderen Texte der Karte.",
+      "bild": "Bild 4",
+      "vorschlag": "Schriftgroesse auf 52 px, Farbe auf #FFFFFF bei 92 % Deckkraft, Schriftschnitt auf Semibold setzen; gleiches gilt fuer 'Gewichtet wird nach Marktkapitalisierung' in Bild 8."
     },
     {
       "bereich": "marke",
+      "schwere": "mittel",
+      "befund": "Der Pinguin schaut ab Szene 2 nur noch als angeschnittener Kopf hinter der oberen rechten Kartenkante hervor und ist in allen vier Kartenszenen in exakt gleicher Position und Groesse eingefroren.",
+      "bild": "Bild 3 bis 8",
+      "vorschlag": "Pinguin pro Szene um 6-10 px vertikal wippen lassen (Sinus, Periode 2 s) und die Kopfhoehe von aktuell 90 px auf 130 px vergroessern, damit die Schleife sichtbar bleibt."
+    },
+    {
+      "bereich": "bildwechsel",
       "schwere": "klein",
-      "befund": "Der Pinguin sitzt in allen Kartenszenen unbewegt an identischer Position hinter der rechten Kartenkante (Bild 1 bis 8) und hat keinerlei Reaktion auf den Inhalt.",
-      "bild": "Bild 3",
-      "vorschlag": "Pinguin-Position pro Szene variieren (links/rechts) und bei Szenenwechsel 0,3 s Hoch-Wipp-Animation (y -18 px) ausloesen; in Szene 3 zusaetzlich eine Schock-Pose beim Erscheinen der 1.284 EUR."
+      "befund": "Die Endkarte verliert zwischen Bild 9 und Bild 10 den Untertitel und laesst nur noch Pinguin, Headline und Handle stehen - die letzten Sekunden wirken wie ein Standbild mit leerer Flaeche zwischen y=1300 und y=1500.",
+      "bild": "Bild 10",
+      "vorschlag": "Den CTA-Balken 'Folge fuer Finanzwissen' bis zum Videoende stehen lassen und den Pinguin in der Endkarte zusaetzlich mit einer Winke-Schleife (Fluegelrotation +-12 Grad, 1,2 s) animieren."
     }
   ],
-  "staerkste": "Die Vergleichsszene mit gruenem und rotem Balken plus den Zahlen 1.500 EUR gegen 1.284 EUR (Bild 6) macht den Verlust in einer Sekunde ohne Ton verstaendlich - das ist der beste Moment des Reels.",
-  "urteil": "Saubere, konsistente Kartenoptik mit klarer Typohierarchie und gutem Kontrast, aber der Aufbau ist statisch: Jede Szene haelt vier bis fuenf Sekunden praktisch dasselbe Bild, und die Bewegung beschraenkt sich auf die wechselnde Untertitelzeile. Der Einstieg verschenkt die starke Zahl 14,4 % ohne Animation, und Szene 4 laesst einen abgebrochenen Satz auf der Karte stehen - beides kostet im Wischtempo von Instagram sofort Zuschauer."
+  "staerkste": "Die Kartenszenen tragen ihre Aussage ohne Ton: Die Balkengrafik USA 70 % gegen Japan 5 % in Bild 6 ist auf einen Blick verstanden und ist der stärkste visuelle Moment des Reels.",
+  "urteil": "Solides, handwerklich sauberes Karten-Layout mit klarer Farbfamilie und gut lesbaren Kennzahlen, das seine Kernaussage auch stumm transportiert. Gebremst wird es von einer trägen, farblich verunglückten Hook, zu schwachen Erklärtexten auf den Karten und einem Untertitel-Block, der zu dicht an der Instagram-Caption klebt."
 }
