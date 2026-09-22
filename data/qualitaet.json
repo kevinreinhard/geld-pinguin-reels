@@ -1,60 +1,60 @@
 {
-  "datum": "2026-09-22T14:32:49.548Z",
+  "datum": "2026-09-22T18:19:02.659Z",
   "datei": "build/reel.mp4",
-  "dauer": 26.27,
+  "dauer": 25.3,
   "noten": {
-    "hook": 58,
-    "lesbarkeit": 62,
-    "bildwechsel": 66,
-    "information": 70,
+    "hook": 55,
+    "lesbarkeit": 48,
+    "bildwechsel": 58,
+    "information": 62,
     "marke": 64,
-    "sicherheit": 55
+    "sicherheit": 72
   },
-  "gesamt": 63,
+  "gesamt": 60,
   "maengel": [
     {
-      "bereich": "sicherheit",
+      "bereich": "lesbarkeit",
       "schwere": "schwer",
-      "befund": "Die Untertitel-Box sitzt in allen Szenen mit Oberkante bei etwa y=1340 und die Trennlinie bei y=1482 - der Untertitel selbst liegt knapp ueber der Caption-Zone, aber in Bild 7 und 8 reicht die breitere Box bis y=1440 und kollidiert mit dem darunter liegenden Caption-Bereich, sobald Instagram zweizeilige Captions einblendet.",
+      "befund": "In Bild 7 und 8 ueberlappen die durchgestrichenen Listenzeilen: 'Keine Zustimmung durch Brief der Bank' bricht auf zwei Zeilen, deren Zeilenabstand kleiner ist als die Texthoehe, die Durchstreichlinie schneidet in die Folgezeile.",
       "bild": "Bild 7",
-      "vorschlag": "Untertitel-Block samt Trennlinie um 160 px nach oben schieben (Boxmitte von y=1398 auf y=1240), Trennlinie ganz entfernen oder auf y=1330 setzen."
+      "vorschlag": "Zeilenhoehe der Listeneintraege von ca. 1.0 auf 1.35 erhoehen (bei 52 px Schrift also 70 px Zeilenabstand) und Abstand zwischen den Listenpunkten auf mindestens 40 px setzen; Schriftgroesse der Listenzeilen auf 46 px reduzieren, damit jede Zeile einzeilig passt."
+    },
+    {
+      "bereich": "lesbarkeit",
+      "schwere": "schwer",
+      "befund": "In Bild 1 ist die zweite Hookzeile 'ERHOEHT? HOL' waehrend der Einblendung halbtransparent - dunkelgraue Schrift auf blassrotem, ebenfalls transparentem Balken, dadurch fast kontrastlos.",
+      "bild": "Bild 1",
+      "vorschlag": "Balken und Text der Hookzeilen mit voller Deckkraft einblenden (nur Position animieren, Opacity fix auf 1.0) oder die Einblendung auf <0.15 s verkuerzen; Textfarbe fest #101820 auf #FF5A5F."
+    },
+    {
+      "bereich": "lesbarkeit",
+      "schwere": "mittel",
+      "befund": "Die Untertitelbox liegt in allen Szenen bei y=1340-1440 (gemessen 670-720) sehr nah an der Instagram-Caption-Zone und die Wortbreite schwankt stark (Bild 6: Box reicht von x=142 bis x=938).",
+      "bild": "Bild 6",
+      "vorschlag": "Untertitelbox auf feste Breite von 820 px zentriert (x=130 bis x=950) setzen und Oberkante auf y=1300 fixieren, damit die Box nicht mehr springt und 200 px Abstand zur Caption-Zone bleibt."
     },
     {
       "bereich": "hook",
-      "schwere": "schwer",
-      "befund": "In Bild 1 (Sek 0.9) steht nur 'NACH 6 WOCHEN:' - die Pointe 'GEHALT WEG' erscheint erst kurz vor Sekunde 3.2; in den entscheidenden ersten zwei Sekunden gibt es also keine vollstaendige Aussage, nur einen halben Satz.",
+      "schwere": "mittel",
+      "befund": "Die Hookzeile baut sich ueber fast 4 Sekunden zeilenweise auf - in Bild 1 (Sek 0.9) steht erst 'GEBUEHR ERHOEHT? HOL', die Aussage ist nach zwei Sekunden noch nicht vollstaendig.",
       "bild": "Bild 1",
-      "vorschlag": "Die dritte Zeile 'GEHALT WEG' bereits bei 0.4 s einblenden statt erst nach 2 s; Zeilen-Stagger von aktuell ca. 1.2 s auf 0.15 s pro Zeile reduzieren."
+      "vorschlag": "Alle drei Hookzeilen bis Sekunde 1.0 vollstaendig einblenden (Zeilenversatz je 0.15 s statt ca. 1.2 s) und danach die Restzeit fuer eine Zahl/Betonung nutzen."
     },
     {
-      "bereich": "lesbarkeit",
+      "bereich": "hook",
       "schwere": "mittel",
-      "befund": "Im Hook liegen die roten Textbalken halbtransparent uebereinander gestaffelt (Bild 1: 'WOCHEN:' erscheint als braun-grauer Text auf lachsfarbenem Balken) - Kontrast dort deutlich unter Schwarz-auf-Rot der oberen Zeile.",
+      "befund": "Der Hook nennt keinen konkreten Nutzen oder Betrag; 'Gebuehr erhoeht? Hol sie zurueck' bleibt abstrakt, der Pinguin steht statisch darueber.",
       "bild": "Bild 1",
-      "vorschlag": "Balken-Deckkraft der einfliegenden Zeilen von ca. 0.55 auf 1.0 setzen und Textfarbe fest auf #111111, kein Alpha-Fade auf dem Text."
-    },
-    {
-      "bereich": "lesbarkeit",
-      "schwere": "mittel",
-      "befund": "Die Kopfzeile 'SECHS WOCHEN KRANK' (ca. y=264) und das Handle '@geld.pinguin' (ca. y=324) stehen in dunklem Braun auf gelbem Verlauf bei nur ca. 24 px Hoehe - das Handle ist auf dem Handy praktisch unleserlich.",
-      "bild": "Bild 3",
-      "vorschlag": "Handle auf 34 px vergroessern, Farbe auf #1B2440 mit 100 % Deckkraft; Kopfzeile auf y=230 ziehen, da y=264 ohnehin knapp unter der IG-Kopfzeile liegt."
+      "vorschlag": "Eine Zahl als drittes Element ergaenzen, z.B. '3 Jahre rueckwirkend' als gelber Balken bei y=1200, 64 px Schrift - und den Pinguin in den ersten 0.5 s um 8 Grad kippen/hopsen lassen."
     },
     {
       "bereich": "bildwechsel",
       "schwere": "mittel",
-      "befund": "Szene 4 (Bild 7 zu Bild 8) aendert visuell fast nichts: Liste ist bereits bei Sek 12.1 vollstaendig, danach bewegt sich nur noch der Untertitel - 2,6 Sekunden wirken wie ein Standbild.",
-      "bild": "Bild 8",
-      "vorschlag": "Listenpunkte einzeln mit je 0.5 s Versatz einblenden (Punkt 2 bei 12.8 s, Punkt 3 bei 13.4 s) oder aktive Zeile per Highlight-Balken durchwandern lassen."
-    },
-    {
-      "bereich": "marke",
-      "schwere": "klein",
-      "befund": "Der Pinguin schaut in den Szenen 2 bis 4 nur mit halbem Kopf hinter der Karte hervor und ist dabei rechts bei x=820-940 fast bis an die Buttonspalte geschoben; als Markenfigur bleibt er reine Dekoration ohne Funktion.",
-      "bild": "Bild 5",
-      "vorschlag": "Pinguin auf x=740 (Mitte) zuruecksetzen und bei jedem Schnitt 0.3 s Hop-Animation (translateY -20 px) geben, damit er als Erzaehler wirkt."
+      "befund": "Szene 3 (Bild 5 zu Bild 6) veraendert im Kartenbereich nur die vertikale Position um ca. 30 px, es kommt kein neuer Inhalt hinzu - die Karte wirkt ueber 2,7 s wie ein Standbild.",
+      "bild": "Bild 6",
+      "vorschlag": "In Szene 3 ab Sekunde 9.0 eine Zusatzzeile in die Karte einblenden (analog Bild 4, 40 px, Farbe #C9D2E0) oder ein BGH-Datum '27.04.2021' als gelbe Zeile unter dem Titel ergaenzen."
     }
   ],
-  "staerkste": "Die Balkengrafik in Szene 3 (Bild 5/6): sie baut sich sichtbar auf, die Prozentzahlen 100/70/90 kommen nach und machen den Gehaltsverlust ohne Ton verstaendlich - das ist der einzige Abschnitt, der visuell wirklich argumentiert.",
-  "urteil": "Saubere, konsistente Karten-Optik mit klarer Farblogik, die Kernaussage traegt in den Szenen 2 bis 4 auch ohne Ton. Es hakt am Anfang und am Rand: Der Hook liefert in den ersten zwei Sekunden nur einen halben Satz, und der Untertitelblock samt Trennlinie sitzt zu tief in Richtung Caption-Zone."
+  "staerkste": "Das dunkelblaue Kartenmodul auf dem warmen Gelbverlauf ist klar, konsistent und sehr gut lesbar - Titel in Weiss, Kicker in Gelb/Blau, das traegt die Kernaussagen ohne Ton.",
+  "urteil": "Solide gebaute Vorlage mit erkennbarer Farbhandschrift (Marineblau/Gelb, Pinguin als Wiedererkennung), aber der Hook baut sich zu langsam auf und die Listenszene hat einen echten Layoutfehler mit uebereinanderliegenden Zeilen. Mit sauberem Zeilenabstand, deckender Hook-Einblendung und mehr Bewegung in Szene 3 waere das ein deutlich staerkeres Reel."
 }
