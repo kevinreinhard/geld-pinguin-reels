@@ -1,60 +1,60 @@
 {
-  "datum": "2026-09-21T20:56:11.362Z",
+  "datum": "2026-09-22T14:32:49.548Z",
   "datei": "build/reel.mp4",
-  "dauer": 26.07,
+  "dauer": 26.27,
   "noten": {
     "hook": 58,
     "lesbarkeit": 62,
-    "bildwechsel": 64,
-    "information": 66,
-    "marke": 61,
-    "sicherheit": 70
+    "bildwechsel": 66,
+    "information": 70,
+    "marke": 64,
+    "sicherheit": 55
   },
-  "gesamt": 64,
+  "gesamt": 63,
   "maengel": [
-    {
-      "bereich": "lesbarkeit",
-      "schwere": "schwer",
-      "befund": "In Bild 1 steht 'WELTANLAGE' in graubraunem Text auf dem lachsfarbenen Balken - Vordergrund und Hintergrund liegen farblich fast aufeinander, die Zeile ist praktisch unlesbar, waehrend dieselbe Zeile in Bild 2 korrekt schwarz auf Lachs steht.",
-      "bild": "Bild 1",
-      "vorschlag": "Die Einblend-Animation der zweiten Hook-Zeile nicht ueber Farb-Interpolation (grau -> schwarz) loesen, sondern Textfarbe fix auf #101828 setzen und nur Deckkraft/Scale animieren."
-    },
     {
       "bereich": "sicherheit",
       "schwere": "schwer",
-      "befund": "Die Untertitel-Box sitzt mittig bei y=1340-1460 (gemessen 670-730) und die Trennlinie darunter bei y=1482 (gemessen 741) - die Linie liegt damit direkt an der Kante der Caption-Zone ab y=1500, die Box selbst nur 40 px darueber.",
-      "bild": "Bild 3",
-      "vorschlag": "Untertitel-Block samt Linie um 120 px nach oben verschieben: Box-Mitte auf y=1280, Linie auf y=1360."
+      "befund": "Die Untertitel-Box sitzt in allen Szenen mit Oberkante bei etwa y=1340 und die Trennlinie bei y=1482 - der Untertitel selbst liegt knapp ueber der Caption-Zone, aber in Bild 7 und 8 reicht die breitere Box bis y=1440 und kollidiert mit dem darunter liegenden Caption-Bereich, sobald Instagram zweizeilige Captions einblendet.",
+      "bild": "Bild 7",
+      "vorschlag": "Untertitel-Block samt Trennlinie um 160 px nach oben schieben (Boxmitte von y=1398 auf y=1240), Trennlinie ganz entfernen oder auf y=1330 setzen."
     },
     {
       "bereich": "hook",
-      "schwere": "mittel",
-      "befund": "Die Hook-Szene laeuft 4,6 Sekunden und zeigt in Bild 1 und Bild 2 dieselbe Komposition - Pinguin statisch, Balken identisch, nur die Textfarbe und der Untertitel wechseln; fuer die ersten zwei Sekunden passiert visuell zu wenig.",
-      "bild": "Bild 1 und 2",
-      "vorschlag": "Hook auf 3,0 s kuerzen und den Pinguin in Sekunde 0-0.6 mit Scale 0.6 -> 1.0 plus leichtem Bounce einfahren lassen; Balken zeilenweise von links aufziehen."
+      "schwere": "schwer",
+      "befund": "In Bild 1 (Sek 0.9) steht nur 'NACH 6 WOCHEN:' - die Pointe 'GEHALT WEG' erscheint erst kurz vor Sekunde 3.2; in den entscheidenden ersten zwei Sekunden gibt es also keine vollstaendige Aussage, nur einen halben Satz.",
+      "bild": "Bild 1",
+      "vorschlag": "Die dritte Zeile 'GEHALT WEG' bereits bei 0.4 s einblenden statt erst nach 2 s; Zeilen-Stagger von aktuell ca. 1.2 s auf 0.15 s pro Zeile reduzieren."
     },
     {
       "bereich": "lesbarkeit",
       "schwere": "mittel",
-      "befund": "Der erklaerende Zusatztext 'Anteil US-Aktien im MSCI World' in Bild 4 steht in hellgrauem, duennem Schriftschnitt bei rund 40 px Hoehe auf Dunkelblau - deutlich schwaecher als alle anderen Texte der Karte.",
-      "bild": "Bild 4",
-      "vorschlag": "Schriftgroesse auf 52 px, Farbe auf #FFFFFF bei 92 % Deckkraft, Schriftschnitt auf Semibold setzen; gleiches gilt fuer 'Gewichtet wird nach Marktkapitalisierung' in Bild 8."
+      "befund": "Im Hook liegen die roten Textbalken halbtransparent uebereinander gestaffelt (Bild 1: 'WOCHEN:' erscheint als braun-grauer Text auf lachsfarbenem Balken) - Kontrast dort deutlich unter Schwarz-auf-Rot der oberen Zeile.",
+      "bild": "Bild 1",
+      "vorschlag": "Balken-Deckkraft der einfliegenden Zeilen von ca. 0.55 auf 1.0 setzen und Textfarbe fest auf #111111, kein Alpha-Fade auf dem Text."
     },
     {
-      "bereich": "marke",
+      "bereich": "lesbarkeit",
       "schwere": "mittel",
-      "befund": "Der Pinguin schaut ab Szene 2 nur noch als angeschnittener Kopf hinter der oberen rechten Kartenkante hervor und ist in allen vier Kartenszenen in exakt gleicher Position und Groesse eingefroren.",
-      "bild": "Bild 3 bis 8",
-      "vorschlag": "Pinguin pro Szene um 6-10 px vertikal wippen lassen (Sinus, Periode 2 s) und die Kopfhoehe von aktuell 90 px auf 130 px vergroessern, damit die Schleife sichtbar bleibt."
+      "befund": "Die Kopfzeile 'SECHS WOCHEN KRANK' (ca. y=264) und das Handle '@geld.pinguin' (ca. y=324) stehen in dunklem Braun auf gelbem Verlauf bei nur ca. 24 px Hoehe - das Handle ist auf dem Handy praktisch unleserlich.",
+      "bild": "Bild 3",
+      "vorschlag": "Handle auf 34 px vergroessern, Farbe auf #1B2440 mit 100 % Deckkraft; Kopfzeile auf y=230 ziehen, da y=264 ohnehin knapp unter der IG-Kopfzeile liegt."
     },
     {
       "bereich": "bildwechsel",
+      "schwere": "mittel",
+      "befund": "Szene 4 (Bild 7 zu Bild 8) aendert visuell fast nichts: Liste ist bereits bei Sek 12.1 vollstaendig, danach bewegt sich nur noch der Untertitel - 2,6 Sekunden wirken wie ein Standbild.",
+      "bild": "Bild 8",
+      "vorschlag": "Listenpunkte einzeln mit je 0.5 s Versatz einblenden (Punkt 2 bei 12.8 s, Punkt 3 bei 13.4 s) oder aktive Zeile per Highlight-Balken durchwandern lassen."
+    },
+    {
+      "bereich": "marke",
       "schwere": "klein",
-      "befund": "Die Endkarte verliert zwischen Bild 9 und Bild 10 den Untertitel und laesst nur noch Pinguin, Headline und Handle stehen - die letzten Sekunden wirken wie ein Standbild mit leerer Flaeche zwischen y=1300 und y=1500.",
-      "bild": "Bild 10",
-      "vorschlag": "Den CTA-Balken 'Folge fuer Finanzwissen' bis zum Videoende stehen lassen und den Pinguin in der Endkarte zusaetzlich mit einer Winke-Schleife (Fluegelrotation +-12 Grad, 1,2 s) animieren."
+      "befund": "Der Pinguin schaut in den Szenen 2 bis 4 nur mit halbem Kopf hinter der Karte hervor und ist dabei rechts bei x=820-940 fast bis an die Buttonspalte geschoben; als Markenfigur bleibt er reine Dekoration ohne Funktion.",
+      "bild": "Bild 5",
+      "vorschlag": "Pinguin auf x=740 (Mitte) zuruecksetzen und bei jedem Schnitt 0.3 s Hop-Animation (translateY -20 px) geben, damit er als Erzaehler wirkt."
     }
   ],
-  "staerkste": "Die Kartenszenen tragen ihre Aussage ohne Ton: Die Balkengrafik USA 70 % gegen Japan 5 % in Bild 6 ist auf einen Blick verstanden und ist der stärkste visuelle Moment des Reels.",
-  "urteil": "Solides, handwerklich sauberes Karten-Layout mit klarer Farbfamilie und gut lesbaren Kennzahlen, das seine Kernaussage auch stumm transportiert. Gebremst wird es von einer trägen, farblich verunglückten Hook, zu schwachen Erklärtexten auf den Karten und einem Untertitel-Block, der zu dicht an der Instagram-Caption klebt."
+  "staerkste": "Die Balkengrafik in Szene 3 (Bild 5/6): sie baut sich sichtbar auf, die Prozentzahlen 100/70/90 kommen nach und machen den Gehaltsverlust ohne Ton verstaendlich - das ist der einzige Abschnitt, der visuell wirklich argumentiert.",
+  "urteil": "Saubere, konsistente Karten-Optik mit klarer Farblogik, die Kernaussage traegt in den Szenen 2 bis 4 auch ohne Ton. Es hakt am Anfang und am Rand: Der Hook liefert in den ersten zwei Sekunden nur einen halben Satz, und der Untertitelblock samt Trennlinie sitzt zu tief in Richtung Caption-Zone."
 }
