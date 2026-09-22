@@ -1,60 +1,67 @@
 {
-  "datum": "2026-09-22T18:19:02.659Z",
+  "datum": "2026-09-22T21:39:17.834Z",
   "datei": "build/reel.mp4",
-  "dauer": 25.3,
+  "dauer": 24.7,
   "noten": {
-    "hook": 55,
-    "lesbarkeit": 48,
-    "bildwechsel": 58,
-    "information": 62,
-    "marke": 64,
-    "sicherheit": 72
+    "hook": 52,
+    "lesbarkeit": 68,
+    "bildwechsel": 55,
+    "information": 64,
+    "marke": 62,
+    "sicherheit": 70
   },
-  "gesamt": 60,
+  "gesamt": 62,
   "maengel": [
     {
-      "bereich": "lesbarkeit",
-      "schwere": "schwer",
-      "befund": "In Bild 7 und 8 ueberlappen die durchgestrichenen Listenzeilen: 'Keine Zustimmung durch Brief der Bank' bricht auf zwei Zeilen, deren Zeilenabstand kleiner ist als die Texthoehe, die Durchstreichlinie schneidet in die Folgezeile.",
-      "bild": "Bild 7",
-      "vorschlag": "Zeilenhoehe der Listeneintraege von ca. 1.0 auf 1.35 erhoehen (bei 52 px Schrift also 70 px Zeilenabstand) und Abstand zwischen den Listenpunkten auf mindestens 40 px setzen; Schriftgroesse der Listenzeilen auf 46 px reduzieren, damit jede Zeile einzeilig passt."
-    },
-    {
-      "bereich": "lesbarkeit",
-      "schwere": "schwer",
-      "befund": "In Bild 1 ist die zweite Hookzeile 'ERHOEHT? HOL' waehrend der Einblendung halbtransparent - dunkelgraue Schrift auf blassrotem, ebenfalls transparentem Balken, dadurch fast kontrastlos.",
-      "bild": "Bild 1",
-      "vorschlag": "Balken und Text der Hookzeilen mit voller Deckkraft einblenden (nur Position animieren, Opacity fix auf 1.0) oder die Einblendung auf <0.15 s verkuerzen; Textfarbe fest #101820 auf #FF5A5F."
-    },
-    {
-      "bereich": "lesbarkeit",
-      "schwere": "mittel",
-      "befund": "Die Untertitelbox liegt in allen Szenen bei y=1340-1440 (gemessen 670-720) sehr nah an der Instagram-Caption-Zone und die Wortbreite schwankt stark (Bild 6: Box reicht von x=142 bis x=938).",
-      "bild": "Bild 6",
-      "vorschlag": "Untertitelbox auf feste Breite von 820 px zentriert (x=130 bis x=950) setzen und Oberkante auf y=1300 fixieren, damit die Box nicht mehr springt und 200 px Abstand zur Caption-Zone bleibt."
-    },
-    {
       "bereich": "hook",
-      "schwere": "mittel",
-      "befund": "Die Hookzeile baut sich ueber fast 4 Sekunden zeilenweise auf - in Bild 1 (Sek 0.9) steht erst 'GEBUEHR ERHOEHT? HOL', die Aussage ist nach zwei Sekunden noch nicht vollstaendig.",
+      "schwere": "schwer",
+      "befund": "Bild 1 zeigt als Einstieg nur die neutrale Kennzahl '1.200 €' mit der Zeile 'BU-RENTE MIT 35' - kein Konflikt, keine Frage, keine Drohung; der Blick findet in den ersten zwei Sekunden nichts, was zum Anhalten zwingt.",
       "bild": "Bild 1",
-      "vorschlag": "Alle drei Hookzeilen bis Sekunde 1.0 vollstaendig einblenden (Zeilenversatz je 0.15 s statt ca. 1.2 s) und danach die Restzeit fuer eine Zahl/Betonung nutzen."
+      "vorschlag": "Kartenueberschrift in Szene 1 von 'BU-RENTE MIT 35' auf eine Reizzeile wie 'DEINE BU REICHT NICHT' aendern und die Unterzeile 'Deckt oft kaum die Miete' als roten Warnbalken (#FF5A5A, Textfarbe #101828) direkt unter die Zahl setzen statt als graue Fliesszeile."
     },
     {
-      "bereich": "hook",
-      "schwere": "mittel",
-      "befund": "Der Hook nennt keinen konkreten Nutzen oder Betrag; 'Gebuehr erhoeht? Hol sie zurueck' bleibt abstrakt, der Pinguin steht statisch darueber.",
-      "bild": "Bild 1",
-      "vorschlag": "Eine Zahl als drittes Element ergaenzen, z.B. '3 Jahre rueckwirkend' als gelber Balken bei y=1200, 64 px Schrift - und den Pinguin in den ersten 0.5 s um 8 Grad kippen/hopsen lassen."
+      "bereich": "bildwechsel",
+      "schwere": "schwer",
+      "befund": "Szene 1 laeuft 5,4 Sekunden und zwischen Bild 1 (0,9 s) und Bild 2 (5,1 s) aendert sich ausser der Untertitelzeile praktisch nichts - Karte, Zahl und Unterzeile stehen unveraendert, der Abschnitt wirkt wie ein Standbild.",
+      "bild": "Bild 1 und Bild 2",
+      "vorschlag": "Die Zahl 1.200 in Szene 1 als Count-up von 0 auf 1200 ueber die ersten 0,8 s animieren und ab Sekunde 3 einen zweiten Kartenblock (z.B. 'Miete: 1.150 €') mit Slide-in von y=1300 einblenden; alternativ Szene 1 auf 3,5 s kuerzen."
     },
     {
       "bereich": "bildwechsel",
       "schwere": "mittel",
-      "befund": "Szene 3 (Bild 5 zu Bild 6) veraendert im Kartenbereich nur die vertikale Position um ca. 30 px, es kommt kein neuer Inhalt hinzu - die Karte wirkt ueber 2,7 s wie ein Standbild.",
-      "bild": "Bild 6",
-      "vorschlag": "In Szene 3 ab Sekunde 9.0 eine Zusatzzeile in die Karte einblenden (analog Bild 4, 40 px, Farbe #C9D2E0) oder ein BGH-Datum '27.04.2021' als gelbe Zeile unter dem Titel ergaenzen."
+      "befund": "Szene 4 haelt in Bild 7 (12,16 s) ueber eine Sekunde lang nur die Ueberschrift 'Nachversicherungsgarantie' in einer sonst leeren, halb hohen Karte - der untere Kartenbereich bleibt bis Bild 8 leere dunkle Flaeche.",
+      "bild": "Bild 7",
+      "vorschlag": "Die Unterzeile 'Rente erhöhen ohne neue Gesundheitsfragen' bereits 0,3 s nach Szenenstart einblenden statt erst nach ~2 s, und die Kartenhoehe an den tatsaechlichen Inhalt anpassen (Karte in Bild 7 ist ca. 480 px hoch bei nur ~90 px Text)."
+    },
+    {
+      "bereich": "lesbarkeit",
+      "schwere": "mittel",
+      "befund": "Die Handle-Zeile '@geld.pinguin' unter dem Kicker steht in ca. 22 px hohem, hellbraunem Text auf gelbem Verlauf (Bild 1-10, y≈325) und hat kaum Kontrast - auf dem Handy nicht entzifferbar.",
+      "bild": "Bild 3",
+      "vorschlag": "Handle-Zeile auf mindestens 34 px vergroessern und Farbe auf #1B2A4A (dunkelblau) mit 70 % Deckkraft setzen statt des aktuellen hellen Brauntons."
+    },
+    {
+      "bereich": "lesbarkeit",
+      "schwere": "mittel",
+      "befund": "In Bild 5 sind die Listenpunkte 'Zuschlag oder Ausschluss' und 'Keine Erhöhung möglich' waehrend der Einblendung halbtransparent (Durchstreich-Animation) und stehen in blassem Rot auf Dunkelblau - in diesem Zustand kaum lesbar.",
+      "bild": "Bild 5",
+      "vorschlag": "Zeilenfarbe der durchgestrichenen Punkte auf #FF8A8A bei voller Deckkraft setzen und die Strike-Through-Linie erst starten, wenn der Text 100 % Deckkraft erreicht hat."
+    },
+    {
+      "bereich": "marke",
+      "schwere": "mittel",
+      "befund": "Das Pinguin-Maskottchen lugt in Bild 1-8 nur als halber Kopf hinter der rechten oberen Kartenecke hervor und bleibt ueber acht Bilder in exakt gleicher Pose - die Figur wird als Markenzeichen nicht genutzt.",
+      "bild": "Bild 4",
+      "vorschlag": "Pinguin pro Szene minimal variieren (Kopfneigung +/-6°, Blick zur Kernzahl) und in der Kennzahlszene groesser bei x≈900, y≈560 mit sichtbaren Fluegeln platzieren statt nur 60 px Kopf."
+    },
+    {
+      "bereich": "information",
+      "schwere": "klein",
+      "befund": "Die Endkarte in Bild 10 zeigt 2,5 Sekunden lang nur 'SPEICHERN FÜR DEN GEHALTSSPRUNG' und das Handle; der Untertitel ist verschwunden und die Flaeche unterhalb y=1300 ist leer - kein Rueckbezug auf das Thema BU.",
+      "bild": "Bild 10",
+      "vorschlag": "In der Endkarte unter dem Handle eine Merkzeile ergaenzen, z.B. 'Nachversicherungsgarantie prüfen' in 44 px #1B2A4A bei y≈1340, und das Speichern-Icon animiert einblenden."
     }
   ],
-  "staerkste": "Das dunkelblaue Kartenmodul auf dem warmen Gelbverlauf ist klar, konsistent und sehr gut lesbar - Titel in Weiss, Kicker in Gelb/Blau, das traegt die Kernaussagen ohne Ton.",
-  "urteil": "Solide gebaute Vorlage mit erkennbarer Farbhandschrift (Marineblau/Gelb, Pinguin als Wiedererkennung), aber der Hook baut sich zu langsam auf und die Listenszene hat einen echten Layoutfehler mit uebereinanderliegenden Zeilen. Mit sauberem Zeilenabstand, deckender Hook-Einblendung und mehr Bewegung in Szene 3 waere das ein deutlich staerkeres Reel."
+  "staerkste": "Die durchgehend gleiche Kartenarchitektur mit farbigem Fortschrittsstrich, gelbem Eckakzent und dem Karaoke-Untertitel unten schafft eine ruhige, wiedererkennbare Bildsprache, und die Listenszene (Bild 5/6) transportiert ihre Aussage mit der Durchstreich-Animation komplett ohne Ton.",
+  "urteil": "Sauber gebautes, typografisch konsistentes Reel, das seine Kernaussage - BU-Rente laesst sich ohne Nachversicherungsgarantie kaum erhoehen - auch stumm verstaendlich macht. Es scheitert aber am Anfang: Die Hook ist eine neutrale Zahl in einer ueber fuenf Sekunden fast bewegungslosen Szene, und mehrere Abschnitte halten zu lange auf zu wenig Inhalt."
 }

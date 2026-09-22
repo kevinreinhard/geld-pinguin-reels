@@ -414,5 +414,18 @@
       "sicherheit": 72
     },
     "schwere": 2
+  },
+  {
+    "datum": "2026-09-22T21:39:17.834Z",
+    "gesamt": 62,
+    "noten": {
+      "hook": 52,
+      "lesbarkeit": 68,
+      "bildwechsel": 55,
+      "information": 64,
+      "marke": 62,
+      "sicherheit": 70
+    },
+    "schwere": 2
   }
 ]
