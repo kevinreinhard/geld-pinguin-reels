@@ -1,67 +1,67 @@
 {
-  "datum": "2026-09-22T21:39:17.834Z",
+  "datum": "2026-09-23T14:51:01.081Z",
   "datei": "build/reel.mp4",
-  "dauer": 24.7,
+  "dauer": 22.6,
   "noten": {
-    "hook": 52,
+    "hook": 62,
     "lesbarkeit": 68,
     "bildwechsel": 55,
-    "information": 64,
-    "marke": 62,
-    "sicherheit": 70
+    "information": 70,
+    "marke": 64,
+    "sicherheit": 72
   },
-  "gesamt": 62,
+  "gesamt": 65,
   "maengel": [
+    {
+      "bereich": "bildwechsel",
+      "schwere": "schwer",
+      "befund": "In Szene 3 (Bild 5 zu Bild 6) und Szene 4 (Bild 7 zu Bild 8) ist ausser einer minimalen Vertikalverschiebung der Karte um ca. 4 Pixel nichts anderes - Liste und Kurve sind schon im ersten Frame komplett aufgebaut, die Szene steht 1,6 bzw. 2,3 Sekunden praktisch still.",
+      "bild": "Bild 5 bis 8",
+      "vorschlag": "Listenzeilen in Szene 3 zeitlich staffeln (Zeile 1 bei 0.0s, Zeile 2 bei 0.5s einfliegen, Durchstreich-Linie der roten Zeile erst bei 0.9s animieren) und die Kurve in Szene 4 von x=84 nach x=440 (Massstab 1080: x=168 bis x=880) ueber 1.2s zeichnen lassen, Endpunkt-Kreis und '660 EUR' erst danach einblenden."
+    },
     {
       "bereich": "hook",
       "schwere": "schwer",
-      "befund": "Bild 1 zeigt als Einstieg nur die neutrale Kennzahl '1.200 €' mit der Zeile 'BU-RENTE MIT 35' - kein Konflikt, keine Frage, keine Drohung; der Blick findet in den ersten zwei Sekunden nichts, was zum Anhalten zwingt.",
+      "befund": "Bild 1 bei 0.9s zeigt bereits die volle Aufloesung '660 EUR' samt Erklaerzeile - die Spannung zwischen 1.200 EUR und Kaufkraft ist in der ersten Sekunde schon aufgeloest, es bleibt kein Grund weiterzuschauen.",
       "bild": "Bild 1",
-      "vorschlag": "Kartenueberschrift in Szene 1 von 'BU-RENTE MIT 35' auf eine Reizzeile wie 'DEINE BU REICHT NICHT' aendern und die Unterzeile 'Deckt oft kaum die Miete' als roten Warnbalken (#FF5A5A, Textfarbe #101828) direkt unter die Zahl setzen statt als graue Fliesszeile."
-    },
-    {
-      "bereich": "bildwechsel",
-      "schwere": "schwer",
-      "befund": "Szene 1 laeuft 5,4 Sekunden und zwischen Bild 1 (0,9 s) und Bild 2 (5,1 s) aendert sich ausser der Untertitelzeile praktisch nichts - Karte, Zahl und Unterzeile stehen unveraendert, der Abschnitt wirkt wie ein Standbild.",
-      "bild": "Bild 1 und Bild 2",
-      "vorschlag": "Die Zahl 1.200 in Szene 1 als Count-up von 0 auf 1200 ueber die ersten 0,8 s animieren und ab Sekunde 3 einen zweiten Kartenblock (z.B. 'Miete: 1.150 €') mit Slide-in von y=1300 einblenden; alternativ Szene 1 auf 3,5 s kuerzen."
-    },
-    {
-      "bereich": "bildwechsel",
-      "schwere": "mittel",
-      "befund": "Szene 4 haelt in Bild 7 (12,16 s) ueber eine Sekunde lang nur die Ueberschrift 'Nachversicherungsgarantie' in einer sonst leeren, halb hohen Karte - der untere Kartenbereich bleibt bis Bild 8 leere dunkle Flaeche.",
-      "bild": "Bild 7",
-      "vorschlag": "Die Unterzeile 'Rente erhöhen ohne neue Gesundheitsfragen' bereits 0,3 s nach Szenenstart einblenden statt erst nach ~2 s, und die Kartenhoehe an den tatsaechlichen Inhalt anpassen (Karte in Bild 7 ist ca. 480 px hoch bei nur ~90 px Text)."
+      "vorschlag": "Erste 1.2s nur die Kopfzeile '1.200 EUR RENTE IN 30 JAHREN' plus grosses '?' oder '1.200 EUR' zeigen, dann per Count-down-Animation auf 660 herunterzaehlen; Unterzeile 'Heutige Kaufkraft bei 2 % Inflation' erst bei 2.0s einblenden."
     },
     {
       "bereich": "lesbarkeit",
       "schwere": "mittel",
-      "befund": "Die Handle-Zeile '@geld.pinguin' unter dem Kicker steht in ca. 22 px hohem, hellbraunem Text auf gelbem Verlauf (Bild 1-10, y≈325) und hat kaum Kontrast - auf dem Handy nicht entzifferbar.",
-      "bild": "Bild 3",
-      "vorschlag": "Handle-Zeile auf mindestens 34 px vergroessern und Farbe auf #1B2A4A (dunkelblau) mit 70 % Deckkraft setzen statt des aktuellen hellen Brauntons."
+      "befund": "Das Euro-Zeichen neben der 660 steht in Bild 1/2 in gedecktem Rot (ca. #c0504f) auf dunkelblauem Grund und ist deutlich schwaecher als die Zahl - es liest sich fast wie ein Artefakt.",
+      "bild": "Bild 1",
+      "vorschlag": "Euro-Zeichen auf dieselbe Farbe wie die Zahl (#ff6b6b) setzen und Schriftgroesse von ca. 96 auf 120 Pixel (1080er Massstab) erhoehen, Baseline an die Zahl angleichen."
     },
     {
       "bereich": "lesbarkeit",
       "schwere": "mittel",
-      "befund": "In Bild 5 sind die Listenpunkte 'Zuschlag oder Ausschluss' und 'Keine Erhöhung möglich' waehrend der Einblendung halbtransparent (Durchstreich-Animation) und stehen in blassem Rot auf Dunkelblau - in diesem Zustand kaum lesbar.",
+      "befund": "Die durchgestrichene Zeile 'Keine Inflation eingerechnet' in Bild 5/6 ist rot auf dunkelblau mit Strich mitten durch die Buchstaben und damit die am schlechtesten lesbare Textzeile des Reels.",
       "bild": "Bild 5",
-      "vorschlag": "Zeilenfarbe der durchgestrichenen Punkte auf #FF8A8A bei voller Deckkraft setzen und die Strike-Through-Linie erst starten, wenn der Text 100 % Deckkraft erreicht hat."
-    },
-    {
-      "bereich": "marke",
-      "schwere": "mittel",
-      "befund": "Das Pinguin-Maskottchen lugt in Bild 1-8 nur als halber Kopf hinter der rechten oberen Kartenecke hervor und bleibt ueber acht Bilder in exakt gleicher Pose - die Figur wird als Markenzeichen nicht genutzt.",
-      "bild": "Bild 4",
-      "vorschlag": "Pinguin pro Szene minimal variieren (Kopfneigung +/-6°, Blick zur Kernzahl) und in der Kennzahlszene groesser bei x≈900, y≈560 mit sichtbaren Fluegeln platzieren statt nur 60 px Kopf."
+      "vorschlag": "Text auf Weiss mit 65 % Deckkraft setzen, Durchstreichlinie in Rot #ff6b6b und nur 4 Pixel Staerke (1080er Massstab) und um 6 Pixel nach oben versetzen, damit sie nicht die x-Hoehe der Buchstaben schneidet."
     },
     {
       "bereich": "information",
+      "schwere": "mittel",
+      "befund": "Szene 4 zeigt eine fallende Kurve, beschriftet aber nur den Endwert '660 EUR'; der Startwert 1.200 EUR fehlt am linken Kurvenanfang, dadurch traegt die Grafik die Aussage nur zur Haelfte.",
+      "bild": "Bild 7",
+      "vorschlag": "Label '1.200 EUR' in Weiss, ca. 44 Pixel, direkt ueber den Kurvenanfang bei x=168/y=830 (1080er Massstab) setzen, damit Start und Ende des Kaufkraftverlusts sichtbar sind."
+    },
+    {
+      "bereich": "marke",
       "schwere": "klein",
-      "befund": "Die Endkarte in Bild 10 zeigt 2,5 Sekunden lang nur 'SPEICHERN FÜR DEN GEHALTSSPRUNG' und das Handle; der Untertitel ist verschwunden und die Flaeche unterhalb y=1300 ist leer - kein Rueckbezug auf das Thema BU.",
+      "befund": "Der Pinguin ragt in Bild 1 bis 8 nur als halber Kopf hinter der Karte oben rechts hervor und bewegt sich nicht - das Markenzeichen wirkt wie ein angeschnittenes Sticker-Element statt wie eine Handschrift.",
+      "bild": "Bild 3",
+      "vorschlag": "Pinguin bei jedem Szenenwechsel um 8 bis 12 Pixel (1080er Massstab) nach oben huepfen lassen oder ihn bei y-Position der Karte ganz freistellen, statt ihn zu 50 % zu verdecken."
+    },
+    {
+      "bereich": "bildwechsel",
+      "schwere": "klein",
+      "befund": "In Bild 10 ist das untere Untertitel-Kaestchen leer, nur die Unterstreichungslinie bei y=740 (1080: y=1480) bleibt stehen - die Endkarte haelt ueber zwei Sekunden ein leeres Textfeld.",
       "bild": "Bild 10",
-      "vorschlag": "In der Endkarte unter dem Handle eine Merkzeile ergaenzen, z.B. 'Nachversicherungsgarantie prüfen' in 44 px #1B2A4A bei y≈1340, und das Speichern-Icon animiert einblenden."
+      "vorschlag": "Untertitelzeile in der Endkarte durch einen stehenden CTA-Text ('Folge fuer mehr Rentenwissen') ersetzen oder die Unterstreichungslinie mit ausblenden, wenn kein Text mehr vorhanden ist."
     }
   ],
-  "staerkste": "Die durchgehend gleiche Kartenarchitektur mit farbigem Fortschrittsstrich, gelbem Eckakzent und dem Karaoke-Untertitel unten schafft eine ruhige, wiedererkennbare Bildsprache, und die Listenszene (Bild 5/6) transportiert ihre Aussage mit der Durchstreich-Animation komplett ohne Ton.",
-  "urteil": "Sauber gebautes, typografisch konsistentes Reel, das seine Kernaussage - BU-Rente laesst sich ohne Nachversicherungsgarantie kaum erhoehen - auch stumm verstaendlich macht. Es scheitert aber am Anfang: Die Hook ist eine neutrale Zahl in einer ueber fuenf Sekunden fast bewegungslosen Szene, und mehrere Abschnitte halten zu lange auf zu wenig Inhalt."
+  "staerkste": "Die Kernaussage sitzt: 1.200 EUR Rente werden visuell zu 660 EUR Kaufkraft, und diese Zahl wird ueber Kennzahl, Liste und Verlaufskurve konsistent durchgezogen - man versteht das Reel auch stummgeschaltet.",
+  "urteil": "Saubere, konsistente Kartenoptik in Dunkelblau auf Gold mit klarer Zahlenfuehrung, aber die Szenen sind fast statisch: in Szene 3 und 4 aendert sich zwischen erstem und letztem Frame praktisch nichts, und die Pointe 660 EUR steht schon nach 0,9 Sekunden vollstaendig da. Fuer den Feed fehlt der Hook-Aufbau und Bewegung innerhalb der Szenen - die Lesbarkeit ist bis auf Euro-Zeichen und die durchgestrichene Listenzeile in Ordnung."
 }
