@@ -1,67 +1,60 @@
 {
-  "datum": "2026-09-23T14:51:01.081Z",
+  "datum": "2026-09-23T18:58:47.928Z",
   "datei": "build/reel.mp4",
-  "dauer": 22.6,
+  "dauer": 22.47,
   "noten": {
-    "hook": 62,
-    "lesbarkeit": 68,
-    "bildwechsel": 55,
+    "hook": 54,
+    "lesbarkeit": 72,
+    "bildwechsel": 58,
     "information": 70,
-    "marke": 64,
-    "sicherheit": 72
+    "marke": 66,
+    "sicherheit": 74
   },
-  "gesamt": 65,
+  "gesamt": 66,
   "maengel": [
-    {
-      "bereich": "bildwechsel",
-      "schwere": "schwer",
-      "befund": "In Szene 3 (Bild 5 zu Bild 6) und Szene 4 (Bild 7 zu Bild 8) ist ausser einer minimalen Vertikalverschiebung der Karte um ca. 4 Pixel nichts anderes - Liste und Kurve sind schon im ersten Frame komplett aufgebaut, die Szene steht 1,6 bzw. 2,3 Sekunden praktisch still.",
-      "bild": "Bild 5 bis 8",
-      "vorschlag": "Listenzeilen in Szene 3 zeitlich staffeln (Zeile 1 bei 0.0s, Zeile 2 bei 0.5s einfliegen, Durchstreich-Linie der roten Zeile erst bei 0.9s animieren) und die Kurve in Szene 4 von x=84 nach x=440 (Massstab 1080: x=168 bis x=880) ueber 1.2s zeichnen lassen, Endpunkt-Kreis und '660 EUR' erst danach einblenden."
-    },
     {
       "bereich": "hook",
       "schwere": "schwer",
-      "befund": "Bild 1 bei 0.9s zeigt bereits die volle Aufloesung '660 EUR' samt Erklaerzeile - die Spannung zwischen 1.200 EUR und Kaufkraft ist in der ersten Sekunde schon aufgeloest, es bleibt kein Grund weiterzuschauen.",
+      "befund": "Bild 1 zeigt als Einstieg nur die Kachel 'MONATLICHE ZAHLWEISE / 60 EUR' - die Kernbehauptung steht klein in 30-px-Grau ('Aufschlag pro Jahr - nur fuer die Ratenzahlung'), die grosse Zahl allein sagt nichts und der Titel oben ist nur eine neutrale Rubrikzeile.",
       "bild": "Bild 1",
-      "vorschlag": "Erste 1.2s nur die Kopfzeile '1.200 EUR RENTE IN 30 JAHREN' plus grosses '?' oder '1.200 EUR' zeigen, dann per Count-down-Animation auf 660 herunterzaehlen; Unterzeile 'Heutige Kaufkraft bei 2 % Inflation' erst bei 2.0s einblenden."
+      "vorschlag": "In Szene 1 eine echte Hook-Zeile ueber der Kachel setzen, z.B. bei y=520 in 76 px Bold Dunkelblau: 'Du zahlst 60 EUR extra - fuer nichts'. Zahl '60 EUR' auf ca. 300 px vergroessern und den Erklaersatz von aktuell ~34 px auf 44 px in #FFFFFF statt hellgrau."
+    },
+    {
+      "bereich": "bildwechsel",
+      "schwere": "schwer",
+      "befund": "Szene 7 verliert zwischen Bild 9 und Bild 10 das Untertitel-Band und den CTA-Chip 'Folge fuer Fixkosten' - die letzten rund 3 Sekunden stehen als reines Standbild mit leerem Raum bei y=1300-1500 da.",
+      "bild": "Bild 10",
+      "vorschlag": "CTA-Chip 'Folge fuer Fixkosten' auf der Endkarte bis zum Videoende einblenden (Sichtbarkeit bis t=22.5 s verlaengern) und den Pinguin in den letzten 2 s leicht animieren (z.B. Scale 1.0 -> 1.04 im Loop)."
+    },
+    {
+      "bereich": "bildwechsel",
+      "schwere": "mittel",
+      "befund": "Innerhalb der Szenen 1, 2 und 4 aendert sich ausser dem Untertitel und einer eingeblendeten Unterzeile nichts: Kachel, Pinguin und Hintergrund stehen in Bild 1/2, 3/4 und 7/8 exakt identisch.",
+      "bild": "Bild 2",
+      "vorschlag": "Pro Szene mindestens eine sichtbare Bewegung ergaenzen: z.B. Zaehler von 0 auf 60 in den ersten 0,8 s hochzaehlen, Kachel mit 4 px Y-Drift ueber die Szenendauer, Pinguin nickt beim Schnitt."
     },
     {
       "bereich": "lesbarkeit",
       "schwere": "mittel",
-      "befund": "Das Euro-Zeichen neben der 660 steht in Bild 1/2 in gedecktem Rot (ca. #c0504f) auf dunkelblauem Grund und ist deutlich schwaecher als die Zahl - es liest sich fast wie ein Artefakt.",
-      "bild": "Bild 1",
-      "vorschlag": "Euro-Zeichen auf dieselbe Farbe wie die Zahl (#ff6b6b) setzen und Schriftgroesse von ca. 96 auf 120 Pixel (1080er Massstab) erhoehen, Baseline an die Zahl angleichen."
-    },
-    {
-      "bereich": "lesbarkeit",
-      "schwere": "mittel",
-      "befund": "Die durchgestrichene Zeile 'Keine Inflation eingerechnet' in Bild 5/6 ist rot auf dunkelblau mit Strich mitten durch die Buchstaben und damit die am schlechtesten lesbare Textzeile des Reels.",
-      "bild": "Bild 5",
-      "vorschlag": "Text auf Weiss mit 65 % Deckkraft setzen, Durchstreichlinie in Rot #ff6b6b und nur 4 Pixel Staerke (1080er Massstab) und um 6 Pixel nach oben versetzen, damit sie nicht die x-Hoehe der Buchstaben schneidet."
+      "befund": "Die Erklaerzeilen in den Kacheln ('Aufschlag pro Jahr - nur fuer die Ratenzahlung', 'Aufschlag fuer monatliche statt jaehrliche Zahlung', 'Effektivzins zweistellig - nur nicht so genannt') stehen in hellgrauem Ton mit ca. 34-40 px Hoehe und fallen auf dem Handy gegenueber der weissen Headline stark ab.",
+      "bild": "Bild 4",
+      "vorschlag": "Subline-Farbe von Hellgrau (#C8CEDC) auf #F2F5FA setzen und Schriftgroesse von ca. 36 px auf 46 px erhoehen."
     },
     {
       "bereich": "information",
       "schwere": "mittel",
-      "befund": "Szene 4 zeigt eine fallende Kurve, beschriftet aber nur den Endwert '660 EUR'; der Startwert 1.200 EUR fehlt am linken Kurvenanfang, dadurch traegt die Grafik die Aussage nur zur Haelfte.",
-      "bild": "Bild 7",
-      "vorschlag": "Label '1.200 EUR' in Weiss, ca. 44 Pixel, direkt ueber den Kurvenanfang bei x=168/y=830 (1080er Massstab) setzen, damit Start und Ende des Kaufkraftverlusts sichtbar sind."
+      "befund": "Szene 3 zeigt in Bild 5 zwei Balken ohne jede Zahl; erst Bild 6 liefert '100 %' und 'bis 105 %'. Ausserdem sind die Balken fast gleich lang - der visuelle Unterschied zwischen 100 % und 105 % ist nicht wahrnehmbar und widerspricht der Aussage '60 EUR mehr'.",
+      "bild": "Bild 5",
+      "vorschlag": "Prozentwerte ab Szenenbeginn einblenden und die Balkenskala kappen (z.B. Achse 95-106 %), damit der rote Balken sichtbar deutlich laenger ist; zusaetzlich '+60 EUR' als rotes Label rechts ueber dem roten Balken bei y=1030."
     },
     {
       "bereich": "marke",
       "schwere": "klein",
-      "befund": "Der Pinguin ragt in Bild 1 bis 8 nur als halber Kopf hinter der Karte oben rechts hervor und bewegt sich nicht - das Markenzeichen wirkt wie ein angeschnittenes Sticker-Element statt wie eine Handschrift.",
-      "bild": "Bild 3",
-      "vorschlag": "Pinguin bei jedem Szenenwechsel um 8 bis 12 Pixel (1080er Massstab) nach oben huepfen lassen oder ihn bei y-Position der Karte ganz freistellen, statt ihn zu 50 % zu verdecken."
-    },
-    {
-      "bereich": "bildwechsel",
-      "schwere": "klein",
-      "befund": "In Bild 10 ist das untere Untertitel-Kaestchen leer, nur die Unterstreichungslinie bei y=740 (1080: y=1480) bleibt stehen - die Endkarte haelt ueber zwei Sekunden ein leeres Textfeld.",
-      "bild": "Bild 10",
-      "vorschlag": "Untertitelzeile in der Endkarte durch einen stehenden CTA-Text ('Folge fuer mehr Rentenwissen') ersetzen oder die Unterstreichungslinie mit ausblenden, wenn kein Text mehr vorhanden ist."
+      "befund": "Alle sieben Szenen nutzen dieselbe dunkelblaue Kachel in gleicher Groesse und Position auf gleichem Gelbverlauf; ausser dem Pinguin-Kopf am oberen Kachelrand gibt es kein wiedererkennbares Gestaltungsmerkmal.",
+      "bild": "Bild 7",
+      "vorschlag": "Kachelformat pro Szenentyp variieren (Kennzahl hochformatig zentriert, Vergleich breiter bis x=1020) und den Akzentstrich links oben in Szenen-Farbe (gelb/gruen/rot) als Fortschrittsanzeige ueber die Kachelbreite wachsen lassen."
     }
   ],
-  "staerkste": "Die Kernaussage sitzt: 1.200 EUR Rente werden visuell zu 660 EUR Kaufkraft, und diese Zahl wird ueber Kennzahl, Liste und Verlaufskurve konsistent durchgezogen - man versteht das Reel auch stummgeschaltet.",
-  "urteil": "Saubere, konsistente Kartenoptik in Dunkelblau auf Gold mit klarer Zahlenfuehrung, aber die Szenen sind fast statisch: in Szene 3 und 4 aendert sich zwischen erstem und letztem Frame praktisch nichts, und die Pointe 660 EUR steht schon nach 0,9 Sekunden vollstaendig da. Fuer den Feed fehlt der Hook-Aufbau und Bewegung innerhalb der Szenen - die Lesbarkeit ist bis auf Euro-Zeichen und die durchgestrichene Listenzeile in Ordnung."
+  "staerkste": "Die Untertitel-Baender unten sind durchgehend sehr gut gemacht: fett, weiss auf Dunkelblau mit gelber Schluesselwort-Hervorhebung, klar ueber der Caption-Zone bei y=1340-1460 platziert und in jedem Bild anders - sie tragen das Tempo des Reels.",
+  "urteil": "Handwerklich sauberes, konsistentes Template mit gut lesbaren Untertiteln und vernuenftigen Sicherheitsabstaenden, aber ohne Zugkraft: Der Einstieg ist eine nuechterne Kennzahl-Kachel statt einer Aussage, die jemanden stoppt. Innerhalb der Szenen bewegt sich fast nichts ausser dem Untertitel, und die Endkarte laeuft mit weggefallenem CTA als Standbild aus."
 }
