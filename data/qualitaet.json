@@ -1,60 +1,60 @@
 {
-  "datum": "2026-09-23T18:58:47.928Z",
+  "datum": "2026-09-24T14:46:48.922Z",
   "datei": "build/reel.mp4",
-  "dauer": 22.47,
+  "dauer": 22.77,
   "noten": {
     "hook": 54,
-    "lesbarkeit": 72,
-    "bildwechsel": 58,
-    "information": 70,
-    "marke": 66,
+    "lesbarkeit": 68,
+    "bildwechsel": 52,
+    "information": 66,
+    "marke": 61,
     "sicherheit": 74
   },
-  "gesamt": 66,
+  "gesamt": 63,
   "maengel": [
     {
       "bereich": "hook",
       "schwere": "schwer",
-      "befund": "Bild 1 zeigt als Einstieg nur die Kachel 'MONATLICHE ZAHLWEISE / 60 EUR' - die Kernbehauptung steht klein in 30-px-Grau ('Aufschlag pro Jahr - nur fuer die Ratenzahlung'), die grosse Zahl allein sagt nichts und der Titel oben ist nur eine neutrale Rubrikzeile.",
+      "befund": "Die Eroeffnung zeigt in Bild 1 eine Karte mit 'VON 100 € ERHOEHUNG / 45 € / bleiben nur rund 55 Euro netto uebrig' - Zahl und Text widersprechen sich, die 45 steht gross da, die Aussage nennt 55. In den entscheidenden ersten zwei Sekunden muss man rechnen statt zu stoppen.",
       "bild": "Bild 1",
-      "vorschlag": "In Szene 1 eine echte Hook-Zeile ueber der Kachel setzen, z.B. bei y=520 in 76 px Bold Dunkelblau: 'Du zahlst 60 EUR extra - fuer nichts'. Zahl '60 EUR' auf ca. 300 px vergroessern und den Erklaersatz von aktuell ~34 px auf 44 px in #FFFFFF statt hellgrau."
+      "vorschlag": "Grosse Zahl auf '55 €' aendern und Unterzeile auf 'von 100 € Erhoehung bleiben netto uebrig' - oder die 45 behalten und Unterzeile zu '45 € gehen an Staat und Sozialkassen' umschreiben. Eine Zahl pro Karte."
     },
     {
       "bereich": "bildwechsel",
       "schwere": "schwer",
-      "befund": "Szene 7 verliert zwischen Bild 9 und Bild 10 das Untertitel-Band und den CTA-Chip 'Folge fuer Fixkosten' - die letzten rund 3 Sekunden stehen als reines Standbild mit leerem Raum bei y=1300-1500 da.",
-      "bild": "Bild 10",
-      "vorschlag": "CTA-Chip 'Folge fuer Fixkosten' auf der Endkarte bis zum Videoende einblenden (Sichtbarkeit bis t=22.5 s verlaengern) und den Pinguin in den letzten 2 s leicht animieren (z.B. Scale 1.0 -> 1.04 im Loop)."
+      "befund": "Szene 1 laeuft 4,7 Sekunden und veraendert sich zwischen Bild 1 und Bild 2 fast nicht - identische Karte, identische Zahl, nur die Untertitelzeile wechselt. Das wirkt als Einstieg wie ein Standbild.",
+      "bild": "Bild 1 und Bild 2",
+      "vorschlag": "Szene 1 auf max. 3,0 s kuerzen und die grosse Zahl von 100 auf 55 hochzaehlen lassen (Count-Animation ueber 0,8 s), zusaetzlich die Unterzeile erst bei 1,2 s einblenden."
     },
     {
       "bereich": "bildwechsel",
       "schwere": "mittel",
-      "befund": "Innerhalb der Szenen 1, 2 und 4 aendert sich ausser dem Untertitel und einer eingeblendeten Unterzeile nichts: Kachel, Pinguin und Hintergrund stehen in Bild 1/2, 3/4 und 7/8 exakt identisch.",
-      "bild": "Bild 2",
-      "vorschlag": "Pro Szene mindestens eine sichtbare Bewegung ergaenzen: z.B. Zaehler von 0 auf 60 in den ersten 0,8 s hochzaehlen, Kachel mit 4 px Y-Drift ueber die Szenendauer, Pinguin nickt beim Schnitt."
-    },
-    {
-      "bereich": "lesbarkeit",
-      "schwere": "mittel",
-      "befund": "Die Erklaerzeilen in den Kacheln ('Aufschlag pro Jahr - nur fuer die Ratenzahlung', 'Aufschlag fuer monatliche statt jaehrliche Zahlung', 'Effektivzins zweistellig - nur nicht so genannt') stehen in hellgrauem Ton mit ca. 34-40 px Hoehe und fallen auf dem Handy gegenueber der weissen Headline stark ab.",
-      "bild": "Bild 4",
-      "vorschlag": "Subline-Farbe von Hellgrau (#C8CEDC) auf #F2F5FA setzen und Schriftgroesse von ca. 36 px auf 46 px erhoehen."
+      "befund": "Auch in Szene 4 (Bild 7 zu Bild 8) bleibt die Karte statisch, es kommt lediglich die Unterzeile 'steuer- und abgabenfrei vom Arbeitgeber' hinzu; die Karte selbst ist ueber 2,8 s unbewegt.",
+      "bild": "Bild 7 und Bild 8",
+      "vorschlag": "Die 50 € als Count-up von 0 auf 50 in 0,6 s animieren und die Karte in den letzten 0,5 s um 2 % skalieren, damit vor dem Schnitt Bewegung ist."
     },
     {
       "bereich": "information",
       "schwere": "mittel",
-      "befund": "Szene 3 zeigt in Bild 5 zwei Balken ohne jede Zahl; erst Bild 6 liefert '100 %' und 'bis 105 %'. Ausserdem sind die Balken fast gleich lang - der visuelle Unterschied zwischen 100 % und 105 % ist nicht wahrnehmbar und widerspricht der Aussage '60 EUR mehr'.",
-      "bild": "Bild 5",
-      "vorschlag": "Prozentwerte ab Szenenbeginn einblenden und die Balkenskala kappen (z.B. Achse 95-106 %), damit der rote Balken sichtbar deutlich laenger ist; zusaetzlich '+60 EUR' als rotes Label rechts ueber dem roten Balken bei y=1030."
+      "befund": "Die Balken in Bild 3 sind irrefuehrend: 'Steuern & Abgaben' ist der laengere, voll gefuellte Balken, 'Bei dir im Netto' der kuerzere - in Bild 4 steht dann aber 45 € Abgaben gegen 55 € Netto. Die Balkenlaengen bilden die Zahlen nicht ab.",
+      "bild": "Bild 3 und Bild 4",
+      "vorschlag": "Balkenbreiten proportional setzen: Abgaben-Balken auf 45 % der Trackbreite, Netto-Balken auf 55 %; beide Tracks gleich lang enden lassen (x von 150 bis 890 bei 1080 Breite)."
+    },
+    {
+      "bereich": "lesbarkeit",
+      "schwere": "mittel",
+      "befund": "Die Kopfzeile '@geld.pinguin' unter dem Titel ist in etwa 22 px (1080er Massstab) hellgrau auf dem gelben Verlauf gesetzt und geht in jedem Bild im Hintergrund unter.",
+      "bild": "Bild 1 bis Bild 10",
+      "vorschlag": "Handle auf mind. 32 px vergroessern und auf Dunkelblau #16213E setzen, damit der Kontrast zum gelben Verlauf traegt."
     },
     {
       "bereich": "marke",
       "schwere": "klein",
-      "befund": "Alle sieben Szenen nutzen dieselbe dunkelblaue Kachel in gleicher Groesse und Position auf gleichem Gelbverlauf; ausser dem Pinguin-Kopf am oberen Kachelrand gibt es kein wiedererkennbares Gestaltungsmerkmal.",
-      "bild": "Bild 7",
-      "vorschlag": "Kachelformat pro Szenentyp variieren (Kennzahl hochformatig zentriert, Vergleich breiter bis x=1020) und den Akzentstrich links oben in Szenen-Farbe (gelb/gruen/rot) als Fortschrittsanzeige ueber die Kachelbreite wachsen lassen."
+      "befund": "Der Pinguin schaut in Bild 1 bis Bild 8 in jeder Szene unveraendert an derselben Stelle hinter der Kartenkante hervor (rechts oben, ca. x=865, y=555 im 1080er Massstab) und wirkt wie ein aufgeklebtes Sticker-Element ohne Funktion.",
+      "bild": "Bild 1 bis Bild 8",
+      "vorschlag": "Pinguin pro Szene um 0,3 s versetzt von hinter der Karte hochfahren lassen (y von 640 auf 555 in 0,4 s) und die Position je Szene wechseln - z.B. Szene 2 links bei x=215."
     }
   ],
-  "staerkste": "Die Untertitel-Baender unten sind durchgehend sehr gut gemacht: fett, weiss auf Dunkelblau mit gelber Schluesselwort-Hervorhebung, klar ueber der Caption-Zone bei y=1340-1460 platziert und in jedem Bild anders - sie tragen das Tempo des Reels.",
-  "urteil": "Handwerklich sauberes, konsistentes Template mit gut lesbaren Untertiteln und vernuenftigen Sicherheitsabstaenden, aber ohne Zugkraft: Der Einstieg ist eine nuechterne Kennzahl-Kachel statt einer Aussage, die jemanden stoppt. Innerhalb der Szenen bewegt sich fast nichts ausser dem Untertitel, und die Endkarte laeuft mit weggefallenem CTA als Standbild aus."
+  "staerkste": "Das Kartensystem ist konsequent durchgehalten: dunkelblaue Karte auf warmem Gelbverlauf, gleiche Typo-Hierarchie in allen Szenen, und der Farbwechsel von Rot (Problem, Bild 1-4) zu Gruen (Loesung, Bild 7-8) erzaehlt die Wendung allein ueber Farbe.",
+  "urteil": "Handwerklich sauberes, ruhiges Layout mit klarer Farbdramaturgie - aber der Einstieg verschenkt die ersten Sekunden mit einer Karte, deren grosse Zahl (45) der eigenen Unterzeile (55) widerspricht und die sich fast fuenf Sekunden lang kaum bewegt. Wer schnell wischt, bleibt hier nicht haengen; mit korrigierter Hook-Zahl, Count-Animation und proportionalen Balken waere das ein solides Reel."
 }
