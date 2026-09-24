@@ -1,60 +1,67 @@
 {
-  "datum": "2026-09-24T14:46:48.922Z",
+  "datum": "2026-09-24T18:56:21.464Z",
   "datei": "build/reel.mp4",
-  "dauer": 22.77,
+  "dauer": 23.68,
   "noten": {
-    "hook": 54,
+    "hook": 58,
     "lesbarkeit": 68,
-    "bildwechsel": 52,
-    "information": 66,
-    "marke": 61,
+    "bildwechsel": 62,
+    "information": 72,
+    "marke": 65,
     "sicherheit": 74
   },
-  "gesamt": 63,
+  "gesamt": 67,
   "maengel": [
     {
       "bereich": "hook",
       "schwere": "schwer",
-      "befund": "Die Eroeffnung zeigt in Bild 1 eine Karte mit 'VON 100 € ERHOEHUNG / 45 € / bleiben nur rund 55 Euro netto uebrig' - Zahl und Text widersprechen sich, die 45 steht gross da, die Aussage nennt 55. In den entscheidenden ersten zwei Sekunden muss man rechnen statt zu stoppen.",
+      "befund": "Bild 1 oeffnet mit der Zahl '1.200 EUR' und der Zeile 'BAR BEZAHLT' - die Zahl allein erklaert keinen Konflikt, der Schmerzsatz 'Steuerbonus komplett verloren' steht nur in 34 px Grau-Blau unter der Zahl und ist beim schnellen Wischen unsichtbar.",
       "bild": "Bild 1",
-      "vorschlag": "Grosse Zahl auf '55 €' aendern und Unterzeile auf 'von 100 € Erhoehung bleiben netto uebrig' - oder die 45 behalten und Unterzeile zu '45 € gehen an Staat und Sozialkassen' umschreiben. Eine Zahl pro Karte."
+      "vorschlag": "Untertitel der Kennzahl auf mindestens 60 px setzen, Farbe auf #FFFFFF, und ueber der Zahl statt 'BAR BEZAHLT' eine Reizzeile wie '1.200 EUR VERSCHENKT' in Rot 56 px einsetzen."
     },
     {
       "bereich": "bildwechsel",
       "schwere": "schwer",
-      "befund": "Szene 1 laeuft 4,7 Sekunden und veraendert sich zwischen Bild 1 und Bild 2 fast nicht - identische Karte, identische Zahl, nur die Untertitelzeile wechselt. Das wirkt als Einstieg wie ein Standbild.",
+      "befund": "Szene 1 laeuft 4,9 s und veraendert sich zwischen Bild 1 (0,9 s) und Bild 2 (4,58 s) nur durch den Untertitelwechsel - die Karte, die Zahl und der Pinguin stehen voellig still, das wirkt wie ein Standbild.",
       "bild": "Bild 1 und Bild 2",
-      "vorschlag": "Szene 1 auf max. 3,0 s kuerzen und die grosse Zahl von 100 auf 55 hochzaehlen lassen (Count-Animation ueber 0,8 s), zusaetzlich die Unterzeile erst bei 1,2 s einblenden."
-    },
-    {
-      "bereich": "bildwechsel",
-      "schwere": "mittel",
-      "befund": "Auch in Szene 4 (Bild 7 zu Bild 8) bleibt die Karte statisch, es kommt lediglich die Unterzeile 'steuer- und abgabenfrei vom Arbeitgeber' hinzu; die Karte selbst ist ueber 2,8 s unbewegt.",
-      "bild": "Bild 7 und Bild 8",
-      "vorschlag": "Die 50 € als Count-up von 0 auf 50 in 0,6 s animieren und die Karte in den letzten 0,5 s um 2 % skalieren, damit vor dem Schnitt Bewegung ist."
-    },
-    {
-      "bereich": "information",
-      "schwere": "mittel",
-      "befund": "Die Balken in Bild 3 sind irrefuehrend: 'Steuern & Abgaben' ist der laengere, voll gefuellte Balken, 'Bei dir im Netto' der kuerzere - in Bild 4 steht dann aber 45 € Abgaben gegen 55 € Netto. Die Balkenlaengen bilden die Zahlen nicht ab.",
-      "bild": "Bild 3 und Bild 4",
-      "vorschlag": "Balkenbreiten proportional setzen: Abgaben-Balken auf 45 % der Trackbreite, Netto-Balken auf 55 %; beide Tracks gleich lang enden lassen (x von 150 bis 890 bei 1080 Breite)."
+      "vorschlag": "Zahl von 0 auf 1.200 hochzaehlen lassen (Count-up ueber 1,2 s) und ab Sekunde 2,5 eine zweite Zeile oder ein rotes Strike-Element einblenden; alternativ Szene 1 auf 3,5 s kuerzen."
     },
     {
       "bereich": "lesbarkeit",
       "schwere": "mittel",
-      "befund": "Die Kopfzeile '@geld.pinguin' unter dem Titel ist in etwa 22 px (1080er Massstab) hellgrau auf dem gelben Verlauf gesetzt und geht in jedem Bild im Hintergrund unter.",
-      "bild": "Bild 1 bis Bild 10",
-      "vorschlag": "Handle auf mind. 32 px vergroessern und auf Dunkelblau #16213E setzen, damit der Kontrast zum gelben Verlauf traegt."
+      "befund": "Der Untertitelbalken in Bild 8 zeigt nur das Fragment 'an.' in einem 60 px breiten Kasten - ein sinnloser Restschnipsel am Szenenende.",
+      "bild": "Bild 8",
+      "vorschlag": "Untertitel-Chunking so aendern, dass Segmente mindestens drei Woerter enthalten; Ein-Wort-Reste an das vorige Segment anhaengen."
+    },
+    {
+      "bereich": "bildwechsel",
+      "schwere": "mittel",
+      "befund": "In Bild 10 ist der Untertitelbalken komplett verschwunden, nur die Unterstreichungslinie bleibt stehen - die letzten Sekunden der Endkarte sind ein statisches Standbild ohne Text.",
+      "bild": "Bild 10",
+      "vorschlag": "Untertitelzeile bis Videoende durchlaufen lassen oder an dieser Stelle eine CTA-Zeile ('Folgen fuer mehr Steuertipps', 44 px) einblenden; leere Unterstreichungslinie ausblenden, wenn kein Text da ist."
+    },
+    {
+      "bereich": "lesbarkeit",
+      "schwere": "mittel",
+      "befund": "Die Kopfzeile '@geld.pinguin' in Bild 1-8 steht in etwa 24 px dunklem Grau auf dem orangen Verlauf - der Kontrast reicht auf dem Handy nicht, die Zeile verschwimmt.",
+      "bild": "Bild 1",
+      "vorschlag": "Handle auf 30 px und Farbe #1B2440 mit 100 % Deckkraft setzen; zudem liegt sie bei y=322 (1080er Massstab) nah an der IG-Kopfzone - auf y=420 verschieben."
+    },
+    {
+      "bereich": "information",
+      "schwere": "klein",
+      "befund": "In Bild 5 zeigt die Vergleichsszene zwei Balken ohne Beschriftung der Balkenwerte - erst in Bild 6 erscheinen 'voll' und 'nur anteilig', 2 Sekunden lang bleibt der Unterschied unerklaert.",
+      "bild": "Bild 5",
+      "vorschlag": "Labels 'voll' (gruen) und 'nur anteilig' (gelb) bereits ab 0,3 s nach Szenenstart einblenden, synchron mit dem Balkenwachstum."
     },
     {
       "bereich": "marke",
       "schwere": "klein",
-      "befund": "Der Pinguin schaut in Bild 1 bis Bild 8 in jeder Szene unveraendert an derselben Stelle hinter der Kartenkante hervor (rechts oben, ca. x=865, y=555 im 1080er Massstab) und wirkt wie ein aufgeklebtes Sticker-Element ohne Funktion.",
-      "bild": "Bild 1 bis Bild 8",
-      "vorschlag": "Pinguin pro Szene um 0,3 s versetzt von hinter der Karte hochfahren lassen (y von 640 auf 555 in 0,4 s) und die Position je Szene wechseln - z.B. Szene 2 links bei x=215."
+      "befund": "Der Pinguin lugt in Bild 1-8 immer identisch und regungslos hinter der rechten oberen Kartenecke hervor und wird nie zum Traeger der Aussage.",
+      "bild": "Bild 3",
+      "vorschlag": "Pinguin pro Szene um 10-15 px vertikal versetzen oder kippen (z.B. Rotation 4 Grad bei Szenenwechsel), damit er als Figur statt als Sticker wirkt."
     }
   ],
-  "staerkste": "Das Kartensystem ist konsequent durchgehalten: dunkelblaue Karte auf warmem Gelbverlauf, gleiche Typo-Hierarchie in allen Szenen, und der Farbwechsel von Rot (Problem, Bild 1-4) zu Gruen (Loesung, Bild 7-8) erzaehlt die Wendung allein ueber Farbe.",
-  "urteil": "Handwerklich sauberes, ruhiges Layout mit klarer Farbdramaturgie - aber der Einstieg verschenkt die ersten Sekunden mit einer Karte, deren grosse Zahl (45) der eigenen Unterzeile (55) widerspricht und die sich fast fuenf Sekunden lang kaum bewegt. Wer schnell wischt, bleibt hier nicht haengen; mit korrigierter Hook-Zahl, Count-Animation und proportionalen Balken waere das ein solides Reel."
+  "staerkste": "Die Szenenlogik ist sauber: Kennzahl, Regel, Vergleichsbalken, Checkliste, Endkarte - jede Szene hat ein eigenes visuelles Format, und die Karten-Layouts sind mit klarem Dunkelblau auf Gold gut kontrastiert und in sich stimmig gesetzt.",
+  "urteil": "Handwerklich sauberes, konsistentes Template mit guter Farblogik und klarem Aufbau, das inhaltlich trotz Ton verstaendlich bleibt. Es verliert aber am Anfang: Die Hook ist eine stille Zahl ohne Bewegung ueber fast fuenf Sekunden, und am Ende bricht die Untertitelspur weg - beides kostet genau dort, wo Instagram entscheidet."
 }
