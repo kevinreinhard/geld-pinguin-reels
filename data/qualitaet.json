@@ -1,67 +1,60 @@
 {
-  "datum": "2026-09-25T15:31:10.921Z",
+  "datum": "2026-09-25T19:31:52.100Z",
   "datei": "build/reel.mp4",
-  "dauer": 23.93,
+  "dauer": 22.51,
   "noten": {
     "hook": 62,
-    "lesbarkeit": 70,
+    "lesbarkeit": 64,
     "bildwechsel": 58,
-    "information": 72,
-    "marke": 64,
-    "sicherheit": 78
+    "information": 66,
+    "marke": 72,
+    "sicherheit": 74
   },
-  "gesamt": 67,
+  "gesamt": 66,
   "maengel": [
     {
-      "bereich": "bildwechsel",
+      "bereich": "lesbarkeit",
       "schwere": "schwer",
-      "befund": "Szene 1 laeuft 5,4 Sekunden und zeigt zwischen Bild 1 (0,9 s) und Bild 2 (5,03 s) keinerlei Veraenderung ausser der wechselnden Untertitelzeile - die 60.000 stehen von der ersten Sekunde an fertig da, es passiert vier Sekunden lang nichts.",
-      "bild": "Bild 1 und 2",
-      "vorschlag": "Zahl als Count-up von 0 auf 60.000 ueber die ersten 1,2 s animieren und die Unterzeile 'Die gesetzliche Kasse zahlt davon nichts' erst bei t=2,0 s einblenden (Fade 0,3 s, y-Offset von +30 px auf 0)."
-    },
-    {
-      "bereich": "hook",
-      "schwere": "schwer",
-      "befund": "Die ersten zwei Sekunden bestehen aus einer dunkelblauen Karte auf gelbem Verlauf mit statischer Zahl - kein Bewegungsreiz, kein Gesicht, kein Konflikt im Bild; die Karte ist zudem nur 1080x560 gross und laesst oben 620 px leeren Verlauf.",
+      "befund": "In Bild 1 steht die zweite Hook-Zeile 'EURO WEG' in mattem Grau auf blassrotem Balken - waehrend der Einblendanimation ist der Kontrast so niedrig, dass die Zeile in den ersten Sekunden nahezu verschwindet.",
       "bild": "Bild 1",
-      "vorschlag": "Karte auf y=480 hochziehen und Headline 'RUECKTRANSPORT THAILAND' auf mindestens 68 px setzen; zusaetzlich in den ersten 0,5 s einen Scale-In der Karte von 0,92 auf 1,0 plus Shake auf der Zahl beim Erreichen von 60.000."
+      "vorschlag": "Die Zeilen-Einblendung nicht ueber Deckkraft/Farbe der Schrift fahren, sondern Schrift sofort auf #14203C (bzw. Weiss) mit voller Deckkraft setzen und nur den Balken von links nach rechts aufziehen; Balkenfarbe konstant #FF6B6B."
+    },
+    {
+      "bereich": "sicherheit",
+      "schwere": "schwer",
+      "befund": "Die Untertitelbox sitzt in allen Szenen mit Oberkante bei y=1340 und Unterkante bei y=1450 (gemessen 670-725), direkt oberhalb der Caption-Zone - der Trennstrich darunter bei y=1482 liegt schon an der Kante und wird von der Caption-Zeile beruehrt.",
+      "bild": "Bild 3",
+      "vorschlag": "Untertitelblock samt Trennstrich um 120 px nach oben schieben: Boxmitte von y=1398 auf y=1278, Strich von y=1482 auf y=1362."
     },
     {
       "bereich": "bildwechsel",
       "schwere": "mittel",
-      "befund": "Szene 6 (Endkarte) verliert zwischen Bild 9 und Bild 10 den Untertitel und zeigt danach 3 Sekunden lang ein reines Standbild aus Pinguin, Zeile und Handle.",
-      "bild": "Bild 10",
-      "vorschlag": "Ab t=22,0 s einen dauerhaften CTA-Badge 'SPEICHERN' bei y=1360 einblenden und den Pinguin mit einer leichten Auf-Ab-Bewegung (±12 px, 1,2 s Zyklus) versehen, damit das letzte Drittel nicht steht."
+      "befund": "Szene 1 bewegt sich zwischen Sekunde 0.9 und 3.7 praktisch nur im Untertitel - Pinguin, Hook-Balken und Hintergrund stehen still, dadurch wirken die letzten zwei Sekunden der Hook wie ein Standbild.",
+      "bild": "Bild 2",
+      "vorschlag": "Pinguin ab Sekunde 1.5 mit leichter Loop-Bewegung versehen (Y-Versatz +/-12 px, Periode 1.2 s) und die Zahl '80' bei Sekunde 2.0 einmal auf 112 % skalieren und zurueck."
+    },
+    {
+      "bereich": "information",
+      "schwere": "mittel",
+      "befund": "Die Kennzahl-Szene zeigt '2 Minuten' ohne Bezug - erst der Nachsatz 'Daten jedes Mal neu eintippen' in Bild 4 erklaert sie, und der steht 2 Sekunden lang nicht da.",
+      "bild": "Bild 3",
+      "vorschlag": "Die Unterzeile bereits 0.3 s nach Szenenstart einblenden statt nach ~2 s, und sie auf 'Kartendaten jedes Mal neu eintippen = 2 Minuten' aendern."
     },
     {
       "bereich": "lesbarkeit",
       "schwere": "mittel",
-      "befund": "Die durchgestrichenen Listenpunkte in Szene 2 stehen in lachsrot auf dunkelblau mit einer Streichlinie quer durch die Buchstaben - 'Keine Leistung in den USA' ist dadurch deutlich schlechter lesbar als die weisse dritte Zeile.",
-      "bild": "Bild 3 und 4",
-      "vorschlag": "Durchgestrichene Zeilen auf #FFFFFF mit 55 % Deckkraft setzen, Streichlinie auf 3 px und Farbe #FF6B6B, und Zeilenhoehe von aktuell ~56 px auf 64 px erhoehen."
+      "befund": "In Bild 3 und 4 steht das Karten-Label 'KAUF OHNE KARTENDATEN' in ca. 30 px Versalhoehe hellblau auf dunkelblau - das ist die kleinste Schrift im Video und auf dem Handy grenzwertig.",
+      "bild": "Bild 3",
+      "vorschlag": "Schriftgroesse des Kicker-Labels von ca. 30 px auf 42 px anheben und Farbe von #5B9BE8 auf #8FC2FF aufhellen."
     },
     {
-      "bereich": "lesbarkeit",
-      "schwere": "mittel",
-      "befund": "Die Untertitelzeile in Bild 5 ('Eine Auslandsreisekrankenversicherung') laeuft mit Kasten von x=100 bis x=980 fast ueber die volle Breite und die Schrift schrumpft dadurch sichtbar gegenueber allen anderen Untertiteln.",
-      "bild": "Bild 5",
-      "vorschlag": "Untertitel auf maximal 2 Zeilen umbrechen bei fester Schriftgroesse 52 px statt Auto-Shrink, Kastenbreite auf hoechstens 860 px begrenzen (x=110 bis x=970)."
-    },
-    {
-      "bereich": "marke",
-      "schwere": "mittel",
-      "befund": "Der Pinguin sitzt in allen Kartenszenen unveraendert als kleiner Kopf hinter der rechten oberen Kartenecke und reagiert nie auf den Inhalt - er wirkt wie ein aufgeklebtes Logo statt wie eine Figur.",
-      "bild": "Bild 1 bis 8",
-      "vorschlag": "Pinguin pro Szene mimisch oder in der Pose variieren (z. B. Schockblick in Szene 1, Zeigegeste zur Liste in Szene 2) und beim Schnitt um 40 px nach oben huepfen lassen (0,25 s Ease-Out)."
-    },
-    {
-      "bereich": "lesbarkeit",
+      "bereich": "bildwechsel",
       "schwere": "klein",
-      "befund": "Das Handle '@geld.pinguin' unter der Kopfzeile steht in ca. 26 px grauem Text auf gelbem Verlauf bei y=324 und ist praktisch unsichtbar.",
-      "bild": "Bild 1",
-      "vorschlag": "Handle auf 34 px und Farbe #1A2238 mit 70 % Deckkraft setzen oder ganz entfernen, da die Endkarte das Handle ohnehin traegt."
+      "befund": "In der Endkarte (Bild 10) verschwindet der Untertitel und es bleibt ab Sekunde 22 ein reines Standbild mit leerem Streifen zwischen Handle-Pille und Trennstrich.",
+      "bild": "Bild 10",
+      "vorschlag": "Letzte 2 s mit einer kurzen Aktion fuellen: Handle-Pille bei Sekunde 21 einmal auf 106 % pulsen und darunter bei y=1360 die Zeile 'Teil das mit jemandem, der ein Konto hat' in 44 px #14203C einblenden."
     }
   ],
-  "staerkste": "Die Preis-Gegenueberstellung in Szene 3 mit den beiden Balken: die rote Vollbreite gegen den winzigen gruenen Stummel erklaert das Argument 60.000 gegen 10 Euro in einer halben Sekunde ohne Ton.",
-  "urteil": "Sauber gebautes, konsistentes Kartenlayout mit klarer Farblogik und einer richtig starken Vergleichsszene - inhaltlich versteht man das Reel komplett ohne Ton. Es scheitert an der Bewegung: die Kennzahl steht von Sekunde null fertig da, die Endkarte friert ein, und der Pinguin ist Dekoration statt Figur, wodurch das Ganze gegen die Instagram-Konkurrenz wie eine gut gemachte Vorlage wirkt."
+  "staerkste": "Die visuelle Handschrift sitzt: warmer Gelb-Verlauf, dunkelblaue Karten, der wiederkehrende Pinguin, der hinter der Karte hervorlugt, und der gelb hervorgehobene Karaoke-Untertitel ergeben ein sofort wiedererkennbares Kanalbild.",
+  "urteil": "Handwerklich sauberes, markentreues Reel mit klarer Szenendramaturgie vom Aufhaenger ueber Kennzahl und Balkenvergleich bis zur Endkarte. Es verliert aber Punkte, weil die Hook-Zweitzeile beim Einblenden im Kontrast absaeuft, die Untertitelzeile zu tief an der Caption-Zone klebt und mehrere Szenen ihre zweite Haelfte als Standbild verbringen."
 }
