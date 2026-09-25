@@ -1,67 +1,67 @@
 {
-  "datum": "2026-09-24T18:56:21.464Z",
+  "datum": "2026-09-25T15:31:10.921Z",
   "datei": "build/reel.mp4",
-  "dauer": 23.68,
+  "dauer": 23.93,
   "noten": {
-    "hook": 58,
-    "lesbarkeit": 68,
-    "bildwechsel": 62,
+    "hook": 62,
+    "lesbarkeit": 70,
+    "bildwechsel": 58,
     "information": 72,
-    "marke": 65,
-    "sicherheit": 74
+    "marke": 64,
+    "sicherheit": 78
   },
   "gesamt": 67,
   "maengel": [
     {
+      "bereich": "bildwechsel",
+      "schwere": "schwer",
+      "befund": "Szene 1 laeuft 5,4 Sekunden und zeigt zwischen Bild 1 (0,9 s) und Bild 2 (5,03 s) keinerlei Veraenderung ausser der wechselnden Untertitelzeile - die 60.000 stehen von der ersten Sekunde an fertig da, es passiert vier Sekunden lang nichts.",
+      "bild": "Bild 1 und 2",
+      "vorschlag": "Zahl als Count-up von 0 auf 60.000 ueber die ersten 1,2 s animieren und die Unterzeile 'Die gesetzliche Kasse zahlt davon nichts' erst bei t=2,0 s einblenden (Fade 0,3 s, y-Offset von +30 px auf 0)."
+    },
+    {
       "bereich": "hook",
       "schwere": "schwer",
-      "befund": "Bild 1 oeffnet mit der Zahl '1.200 EUR' und der Zeile 'BAR BEZAHLT' - die Zahl allein erklaert keinen Konflikt, der Schmerzsatz 'Steuerbonus komplett verloren' steht nur in 34 px Grau-Blau unter der Zahl und ist beim schnellen Wischen unsichtbar.",
+      "befund": "Die ersten zwei Sekunden bestehen aus einer dunkelblauen Karte auf gelbem Verlauf mit statischer Zahl - kein Bewegungsreiz, kein Gesicht, kein Konflikt im Bild; die Karte ist zudem nur 1080x560 gross und laesst oben 620 px leeren Verlauf.",
       "bild": "Bild 1",
-      "vorschlag": "Untertitel der Kennzahl auf mindestens 60 px setzen, Farbe auf #FFFFFF, und ueber der Zahl statt 'BAR BEZAHLT' eine Reizzeile wie '1.200 EUR VERSCHENKT' in Rot 56 px einsetzen."
-    },
-    {
-      "bereich": "bildwechsel",
-      "schwere": "schwer",
-      "befund": "Szene 1 laeuft 4,9 s und veraendert sich zwischen Bild 1 (0,9 s) und Bild 2 (4,58 s) nur durch den Untertitelwechsel - die Karte, die Zahl und der Pinguin stehen voellig still, das wirkt wie ein Standbild.",
-      "bild": "Bild 1 und Bild 2",
-      "vorschlag": "Zahl von 0 auf 1.200 hochzaehlen lassen (Count-up ueber 1,2 s) und ab Sekunde 2,5 eine zweite Zeile oder ein rotes Strike-Element einblenden; alternativ Szene 1 auf 3,5 s kuerzen."
-    },
-    {
-      "bereich": "lesbarkeit",
-      "schwere": "mittel",
-      "befund": "Der Untertitelbalken in Bild 8 zeigt nur das Fragment 'an.' in einem 60 px breiten Kasten - ein sinnloser Restschnipsel am Szenenende.",
-      "bild": "Bild 8",
-      "vorschlag": "Untertitel-Chunking so aendern, dass Segmente mindestens drei Woerter enthalten; Ein-Wort-Reste an das vorige Segment anhaengen."
+      "vorschlag": "Karte auf y=480 hochziehen und Headline 'RUECKTRANSPORT THAILAND' auf mindestens 68 px setzen; zusaetzlich in den ersten 0,5 s einen Scale-In der Karte von 0,92 auf 1,0 plus Shake auf der Zahl beim Erreichen von 60.000."
     },
     {
       "bereich": "bildwechsel",
       "schwere": "mittel",
-      "befund": "In Bild 10 ist der Untertitelbalken komplett verschwunden, nur die Unterstreichungslinie bleibt stehen - die letzten Sekunden der Endkarte sind ein statisches Standbild ohne Text.",
+      "befund": "Szene 6 (Endkarte) verliert zwischen Bild 9 und Bild 10 den Untertitel und zeigt danach 3 Sekunden lang ein reines Standbild aus Pinguin, Zeile und Handle.",
       "bild": "Bild 10",
-      "vorschlag": "Untertitelzeile bis Videoende durchlaufen lassen oder an dieser Stelle eine CTA-Zeile ('Folgen fuer mehr Steuertipps', 44 px) einblenden; leere Unterstreichungslinie ausblenden, wenn kein Text da ist."
+      "vorschlag": "Ab t=22,0 s einen dauerhaften CTA-Badge 'SPEICHERN' bei y=1360 einblenden und den Pinguin mit einer leichten Auf-Ab-Bewegung (±12 px, 1,2 s Zyklus) versehen, damit das letzte Drittel nicht steht."
     },
     {
       "bereich": "lesbarkeit",
       "schwere": "mittel",
-      "befund": "Die Kopfzeile '@geld.pinguin' in Bild 1-8 steht in etwa 24 px dunklem Grau auf dem orangen Verlauf - der Kontrast reicht auf dem Handy nicht, die Zeile verschwimmt.",
-      "bild": "Bild 1",
-      "vorschlag": "Handle auf 30 px und Farbe #1B2440 mit 100 % Deckkraft setzen; zudem liegt sie bei y=322 (1080er Massstab) nah an der IG-Kopfzone - auf y=420 verschieben."
+      "befund": "Die durchgestrichenen Listenpunkte in Szene 2 stehen in lachsrot auf dunkelblau mit einer Streichlinie quer durch die Buchstaben - 'Keine Leistung in den USA' ist dadurch deutlich schlechter lesbar als die weisse dritte Zeile.",
+      "bild": "Bild 3 und 4",
+      "vorschlag": "Durchgestrichene Zeilen auf #FFFFFF mit 55 % Deckkraft setzen, Streichlinie auf 3 px und Farbe #FF6B6B, und Zeilenhoehe von aktuell ~56 px auf 64 px erhoehen."
     },
     {
-      "bereich": "information",
-      "schwere": "klein",
-      "befund": "In Bild 5 zeigt die Vergleichsszene zwei Balken ohne Beschriftung der Balkenwerte - erst in Bild 6 erscheinen 'voll' und 'nur anteilig', 2 Sekunden lang bleibt der Unterschied unerklaert.",
+      "bereich": "lesbarkeit",
+      "schwere": "mittel",
+      "befund": "Die Untertitelzeile in Bild 5 ('Eine Auslandsreisekrankenversicherung') laeuft mit Kasten von x=100 bis x=980 fast ueber die volle Breite und die Schrift schrumpft dadurch sichtbar gegenueber allen anderen Untertiteln.",
       "bild": "Bild 5",
-      "vorschlag": "Labels 'voll' (gruen) und 'nur anteilig' (gelb) bereits ab 0,3 s nach Szenenstart einblenden, synchron mit dem Balkenwachstum."
+      "vorschlag": "Untertitel auf maximal 2 Zeilen umbrechen bei fester Schriftgroesse 52 px statt Auto-Shrink, Kastenbreite auf hoechstens 860 px begrenzen (x=110 bis x=970)."
     },
     {
       "bereich": "marke",
+      "schwere": "mittel",
+      "befund": "Der Pinguin sitzt in allen Kartenszenen unveraendert als kleiner Kopf hinter der rechten oberen Kartenecke und reagiert nie auf den Inhalt - er wirkt wie ein aufgeklebtes Logo statt wie eine Figur.",
+      "bild": "Bild 1 bis 8",
+      "vorschlag": "Pinguin pro Szene mimisch oder in der Pose variieren (z. B. Schockblick in Szene 1, Zeigegeste zur Liste in Szene 2) und beim Schnitt um 40 px nach oben huepfen lassen (0,25 s Ease-Out)."
+    },
+    {
+      "bereich": "lesbarkeit",
       "schwere": "klein",
-      "befund": "Der Pinguin lugt in Bild 1-8 immer identisch und regungslos hinter der rechten oberen Kartenecke hervor und wird nie zum Traeger der Aussage.",
-      "bild": "Bild 3",
-      "vorschlag": "Pinguin pro Szene um 10-15 px vertikal versetzen oder kippen (z.B. Rotation 4 Grad bei Szenenwechsel), damit er als Figur statt als Sticker wirkt."
+      "befund": "Das Handle '@geld.pinguin' unter der Kopfzeile steht in ca. 26 px grauem Text auf gelbem Verlauf bei y=324 und ist praktisch unsichtbar.",
+      "bild": "Bild 1",
+      "vorschlag": "Handle auf 34 px und Farbe #1A2238 mit 70 % Deckkraft setzen oder ganz entfernen, da die Endkarte das Handle ohnehin traegt."
     }
   ],
-  "staerkste": "Die Szenenlogik ist sauber: Kennzahl, Regel, Vergleichsbalken, Checkliste, Endkarte - jede Szene hat ein eigenes visuelles Format, und die Karten-Layouts sind mit klarem Dunkelblau auf Gold gut kontrastiert und in sich stimmig gesetzt.",
-  "urteil": "Handwerklich sauberes, konsistentes Template mit guter Farblogik und klarem Aufbau, das inhaltlich trotz Ton verstaendlich bleibt. Es verliert aber am Anfang: Die Hook ist eine stille Zahl ohne Bewegung ueber fast fuenf Sekunden, und am Ende bricht die Untertitelspur weg - beides kostet genau dort, wo Instagram entscheidet."
+  "staerkste": "Die Preis-Gegenueberstellung in Szene 3 mit den beiden Balken: die rote Vollbreite gegen den winzigen gruenen Stummel erklaert das Argument 60.000 gegen 10 Euro in einer halben Sekunde ohne Ton.",
+  "urteil": "Sauber gebautes, konsistentes Kartenlayout mit klarer Farblogik und einer richtig starken Vergleichsszene - inhaltlich versteht man das Reel komplett ohne Ton. Es scheitert an der Bewegung: die Kennzahl steht von Sekunde null fertig da, die Endkarte friert ein, und der Pinguin ist Dekoration statt Figur, wodurch das Ganze gegen die Instagram-Konkurrenz wie eine gut gemachte Vorlage wirkt."
 }
