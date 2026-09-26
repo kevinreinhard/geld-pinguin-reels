@@ -1,60 +1,67 @@
 {
-  "datum": "2026-09-25T19:31:52.100Z",
+  "datum": "2026-09-26T14:17:07.001Z",
   "datei": "build/reel.mp4",
-  "dauer": 22.51,
+  "dauer": 23.51,
   "noten": {
-    "hook": 62,
-    "lesbarkeit": 64,
+    "hook": 55,
+    "lesbarkeit": 62,
     "bildwechsel": 58,
-    "information": 66,
-    "marke": 72,
-    "sicherheit": 74
+    "information": 64,
+    "marke": 66,
+    "sicherheit": 70
   },
-  "gesamt": 66,
+  "gesamt": 63,
   "maengel": [
+    {
+      "bereich": "hook",
+      "schwere": "schwer",
+      "befund": "Die Hook-Szene laeuft 4,7 Sekunden und zeigt in Bild 1 und Bild 2 praktisch dasselbe: Pinguin mittig, Titel 'RENTE IST BRUTTO' zweizeilig, nur die Untertitelzeile wechselt. Die Aussage 'Von 1.500 Euro kommen keine 1.500 Euro an' steht nie vollstaendig im Bild, sondern nur haeppchenweise im Untertitel.",
+      "bild": "Bild 1 und Bild 2",
+      "vorschlag": "Hook auf 2,5 s kuerzen und den Konflikt ins Bild holen: statt reinem Titel eine Gegenueberstellung '1.500 EUR' durchgestrichen gegen '1.335 EUR' ab Sekunde 0,5 einblenden, Schriftgroesse der Zahlen mindestens 140 px."
+    },
     {
       "bereich": "lesbarkeit",
       "schwere": "schwer",
-      "befund": "In Bild 1 steht die zweite Hook-Zeile 'EURO WEG' in mattem Grau auf blassrotem Balken - waehrend der Einblendanimation ist der Kontrast so niedrig, dass die Zeile in den ersten Sekunden nahezu verschwindet.",
+      "befund": "In Bild 1 ist die zweite Titelzeile 'BRUTTO' in dunklem Braungrau auf laachsfarbenem Balken gesetzt, waehrend Zeile 1 'RENTE IST' schwarz auf kraeftigem Rot steht - der Kontrast der zweiten Zeile ist deutlich schwaecher und wirkt wie ein Renderfehler waehrend der Einblendung.",
       "bild": "Bild 1",
-      "vorschlag": "Die Zeilen-Einblendung nicht ueber Deckkraft/Farbe der Schrift fahren, sondern Schrift sofort auf #14203C (bzw. Weiss) mit voller Deckkraft setzen und nur den Balken von links nach rechts aufziehen; Balkenfarbe konstant #FF6B6B."
-    },
-    {
-      "bereich": "sicherheit",
-      "schwere": "schwer",
-      "befund": "Die Untertitelbox sitzt in allen Szenen mit Oberkante bei y=1340 und Unterkante bei y=1450 (gemessen 670-725), direkt oberhalb der Caption-Zone - der Trennstrich darunter bei y=1482 liegt schon an der Kante und wird von der Caption-Zeile beruehrt.",
-      "bild": "Bild 3",
-      "vorschlag": "Untertitelblock samt Trennstrich um 120 px nach oben schieben: Boxmitte von y=1398 auf y=1278, Strich von y=1482 auf y=1362."
+      "vorschlag": "Die Einblend-Animation der zweiten Titelzeile mit voller Deckkraft der Textfarbe #101B33 auf #FF6B6B fahren, Opacity nur auf dem Balken animieren, nicht auf der Schrift."
     },
     {
       "bereich": "bildwechsel",
       "schwere": "mittel",
-      "befund": "Szene 1 bewegt sich zwischen Sekunde 0.9 und 3.7 praktisch nur im Untertitel - Pinguin, Hook-Balken und Hintergrund stehen still, dadurch wirken die letzten zwei Sekunden der Hook wie ein Standbild.",
-      "bild": "Bild 2",
-      "vorschlag": "Pinguin ab Sekunde 1.5 mit leichter Loop-Bewegung versehen (Y-Versatz +/-12 px, Periode 1.2 s) und die Zahl '80' bei Sekunde 2.0 einmal auf 112 % skalieren und zurueck."
+      "befund": "Die Endkarte steht 3,5 Sekunden fast still - zwischen Bild 9 und Bild 10 verschwindet lediglich der Untertitelbalken, Pinguin, Headline und Handle bleiben unbewegt.",
+      "bild": "Bild 9 und Bild 10",
+      "vorschlag": "Auf der Endkarte den Pinguin ab Sekunde 21 mit einer leichten Wippbewegung (rotate +/-3 Grad, 1,2 s Zyklus) versehen und den @geld.pinguin-Chip einmal von 100 auf 106 Prozent skalieren lassen."
     },
     {
       "bereich": "information",
       "schwere": "mittel",
-      "befund": "Die Kennzahl-Szene zeigt '2 Minuten' ohne Bezug - erst der Nachsatz 'Daten jedes Mal neu eintippen' in Bild 4 erklaert sie, und der steht 2 Sekunden lang nicht da.",
+      "befund": "In Bild 3 steht die Karte 2,7 Sekunden lang mit '11 %' und der Ueberschrift 'ABZUG VON DER RENTE', aber ohne jede Bezugsgroesse - worauf sich die 11 Prozent beziehen, erfaehrt man erst in Bild 4 durch die Unterzeile.",
       "bild": "Bild 3",
-      "vorschlag": "Die Unterzeile bereits 0.3 s nach Szenenstart einblenden statt nach ~2 s, und sie auf 'Kartendaten jedes Mal neu eintippen = 2 Minuten' aendern."
+      "vorschlag": "Die Erlaeuterungszeile 'Kranken- und Pflegeversicherung der Rentner' bereits mit dem Szenenstart einblenden statt erst nach rund 2 Sekunden; alternativ '= 165 EUR von 1.500 EUR' direkt unter die 11 % setzen."
     },
     {
       "bereich": "lesbarkeit",
       "schwere": "mittel",
-      "befund": "In Bild 3 und 4 steht das Karten-Label 'KAUF OHNE KARTENDATEN' in ca. 30 px Versalhoehe hellblau auf dunkelblau - das ist die kleinste Schrift im Video und auf dem Handy grenzwertig.",
-      "bild": "Bild 3",
-      "vorschlag": "Schriftgroesse des Kicker-Labels von ca. 30 px auf 42 px anheben und Farbe von #5B9BE8 auf #8FC2FF aufhellen."
+      "befund": "Die Balkengrafik in Bild 5 zeigt die Werte erst spaet: Beim Schnitt sind die Zeilen 'Brutto-Rente', 'Abzug KV/PV' und 'Auf dem Konto' zwar da, die Eurobetraege rechts fehlen aber komplett, sodass die Balken 2,4 Sekunden lang unbeschriftet bleiben.",
+      "bild": "Bild 5",
+      "vorschlag": "Die Zahlenlabels (1.500 EUR / 165 EUR / 1.335 EUR) zeitgleich mit dem jeweiligen Balkenwachstum einblenden, Verzoegerung pro Zeile maximal 0,2 s."
     },
     {
-      "bereich": "bildwechsel",
+      "bereich": "marke",
       "schwere": "klein",
-      "befund": "In der Endkarte (Bild 10) verschwindet der Untertitel und es bleibt ab Sekunde 22 ein reines Standbild mit leerem Streifen zwischen Handle-Pille und Trennstrich.",
-      "bild": "Bild 10",
-      "vorschlag": "Letzte 2 s mit einer kurzen Aktion fuellen: Handle-Pille bei Sekunde 21 einmal auf 106 % pulsen und darunter bei y=1360 die Zeile 'Teil das mit jemandem, der ein Konto hat' in 44 px #14203C einblenden."
+      "befund": "Der Pinguin schaut ab Bild 3 nur noch als halb verdeckter Kopf hinter der oberen rechten Kartenecke hervor und aendert seine Pose und Position ueber vier Szenen hinweg kein einziges Mal.",
+      "bild": "Bild 3 bis Bild 8",
+      "vorschlag": "Pro Szene eine andere Pinguin-Haltung verwenden (z.B. zeigend bei der Kennzahl, Fluegel am Kopf beim Steuer-Stichwort) und die Position zwischen x=860 und x=180 (1080er Massstab) wechseln lassen."
+    },
+    {
+      "bereich": "lesbarkeit",
+      "schwere": "klein",
+      "befund": "Der Kopfzeilen-Block 'RENTE IST BRUTTO' mit '@geld.pinguin' liegt bei y=264 bzw. y=324 (1080er Massstab) und damit zwar unterhalb der Instagram-Kopfzeile, das Handle ist aber in hellgrauem Braunton auf gelbem Verlauf gesetzt und kaum lesbar.",
+      "bild": "Bild 1 bis Bild 10",
+      "vorschlag": "Handle-Farbe auf #101B33 mit 70 Prozent Deckkraft setzen und Schriftgroesse von rund 24 auf 30 px (1080er Massstab) erhoehen."
     }
   ],
-  "staerkste": "Die visuelle Handschrift sitzt: warmer Gelb-Verlauf, dunkelblaue Karten, der wiederkehrende Pinguin, der hinter der Karte hervorlugt, und der gelb hervorgehobene Karaoke-Untertitel ergeben ein sofort wiedererkennbares Kanalbild.",
-  "urteil": "Handwerklich sauberes, markentreues Reel mit klarer Szenendramaturgie vom Aufhaenger ueber Kennzahl und Balkenvergleich bis zur Endkarte. Es verliert aber Punkte, weil die Hook-Zweitzeile beim Einblenden im Kontrast absaeuft, die Untertitelzeile zu tief an der Caption-Zone klebt und mehrere Szenen ihre zweite Haelfte als Standbild verbringen."
+  "staerkste": "Die Balkengrafik in Szene 3: Brutto, Abzug und Auszahlung untereinander mit gleicher Skala und Farbcodierung - das ist in einer Sekunde erfasst und traegt die Aussage ohne Ton.",
+  "urteil": "Handwerklich sauberes, konsistentes Kartenlayout mit klarer Farblogik, das die Kernzahl 1.500/165/1.335 verstaendlich transportiert. Es scheitert aber am Anfang und am Ende: Die Hook verbrennt 4,7 Sekunden mit einem statischen Titelbild ohne Konflikt, und die Endkarte steht 3,5 Sekunden nahezu bewegungslos."
 }
