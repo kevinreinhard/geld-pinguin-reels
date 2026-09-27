@@ -1,60 +1,60 @@
 {
-  "datum": "2026-09-26T17:58:02.452Z",
+  "datum": "2026-09-27T15:17:30.128Z",
   "datei": "build/reel.mp4",
-  "dauer": 22.13,
+  "dauer": 20.57,
   "noten": {
-    "hook": 54,
+    "hook": 58,
     "lesbarkeit": 66,
-    "bildwechsel": 52,
+    "bildwechsel": 48,
     "information": 70,
     "marke": 62,
-    "sicherheit": 58
+    "sicherheit": 72
   },
-  "gesamt": 60,
+  "gesamt": 63,
   "maengel": [
-    {
-      "bereich": "hook",
-      "schwere": "schwer",
-      "befund": "Bild 1 (Sek. 0.9) zeigt bereits die fertige Balkengrafik mit Ueberschrift 'ZINSSATZ AUFS MINUS' und beiden Werten 11 %/18 % - es gibt keine Zuspitzung, keine Frage, keinen Zahlensprung, der in den ersten zwei Sekunden stoppt. Bild 2 (Sek. 4.34) ist bis auf die Untertitelzeile identisch, d.h. die Hook-Szene steht 4,7 Sekunden praktisch still.",
-      "bild": "Bild 1",
-      "vorschlag": "Szene 1 in zwei Beats aufteilen: 0.0-1.2 s nur die Textzeile '18 % statt 11 %' in 140 px Bold zentriert auf y=760, ab 1.2 s Karte einfliegen und die Balken von 0 auf Endbreite animieren (Dauer 0.6 s). Zusaetzlich den roten 18-%-Wert ab 1.8 s von 110 auf 130 px hochzaehlen."
-    },
     {
       "bereich": "bildwechsel",
       "schwere": "schwer",
-      "befund": "Szene 3 (Bild 5 vs. Bild 6, 7.39 s und 8.87 s) ist bis auf die Untertitelzeile vollstaendig identisch - die drei Listenpunkte stehen von Anfang an komplett da, nichts baut sich auf.",
-      "bild": "Bild 5",
-      "vorschlag": "Listenpunkte gestaffelt einblenden: Punkt 1 bei t=0.0 s, Punkt 2 bei t=0.5 s, Punkt 3 bei t=1.0 s nach Szenenstart, je 0.25 s Fade + 30 px Aufwaertsbewegung. Die Durchstreich-Linie bei Punkt 2 erst 0.3 s nach dessen Einblendung von links nach rechts zeichnen."
+      "befund": "Innerhalb der Szenen bewegt sich fast nichts: Bild 1 zu 2, Bild 5 zu 6 und Bild 7 zu 8 unterscheiden sich nur um wenige Pixel Karten-Offset und den Untertitel - ueber 2,5 Sekunden wirkt das wie ein Standbild mit laufender Caption.",
+      "bild": "Bild 1/2, 5/6, 7/8",
+      "vorschlag": "Pro Szene eine sichtbare Eigenbewegung ergaenzen: in Szene 1 die Zahl 300 von 0 hochzaehlen (0->300 ueber 0.8s) und die rote Unterzeile zeitversetzt einblenden; in Szene 3 die drei Listenpunkte nacheinander mit 0.35s Versatz von x=-40px einfliegen lassen; in Szene 4 den Graphenpfad ueber 1.2s zeichnen (stroke-dashoffset) statt ihn fertig zu zeigen."
     },
     {
-      "bereich": "sicherheit",
+      "bereich": "hook",
       "schwere": "schwer",
-      "befund": "Die Untertitel-Box sitzt in allen Bildern mittig auf y=1340-1460 (gemessen 670-730) und die Trennlinie darunter auf y=1482 (gemessen 741) - das liegt zwar knapp ueber der Caption-Zone, in Bild 3 und 4 reicht die breite Untertitelbox aber bis y=1436 und damit auf wenige Pixel an die ab y=1500 verdeckte Zone heran; bei zweizeiligem Untertitel bricht sie hinein.",
-      "bild": "Bild 4",
-      "vorschlag": "Untertitel-Baseline von y=1400 auf y=1240 anheben und die maximale Boxhoehe auf zwei Zeilen a 60 px begrenzen, Deckel bei y=1420. Die dekorative Trennlinie von y=1482 auf y=1330 verschieben."
+      "befund": "Bild 1 zeigt bei Sekunde 0.9 nur die neutrale Kennzahlkarte '300 EUR - mehr Netto im Monat'; die eigentliche Spannung ('nach sechs Monaten nichts mehr uebrig') steht klein in 40 px hellgrau unter der Zahl und wird beim schnellen Wischen nicht gelesen.",
+      "bild": "Bild 1",
+      "vorschlag": "Die Konfliktzeile auf mindestens 64 px Schriftgroesse und Weiss (#FFFFFF) setzen, ueber die Zahl direkt darunter mit rotem Balken hinterlegen - oder die Karte mit 'Nach 6 Monaten: 0 EUR uebrig' als zweite grosse Zahl in Kontrast zur 300 aufbauen."
     },
     {
       "bereich": "lesbarkeit",
       "schwere": "mittel",
-      "befund": "Der durchgestrichene Listenpunkt in Bild 5/6 ('Keine Nachfrage, keine Zustimmung') steht in gedaempftem Rot auf Dunkelblau mit Durchstreichlinie und ist deutlich schwaecher als die beiden weissen Punkte daneben - auf dem Handy verschwindet er fast.",
-      "bild": "Bild 5",
-      "vorschlag": "Textfarbe des gestrichenen Punkts von Rot #F2606A-gedimmt auf #FFFFFF bei 70 % Deckkraft setzen und nur die Durchstreichlinie in Rot #FF5A5F, 4 px, belassen."
+      "befund": "Der Handle '@geld.pinguin' im Kopfbereich steht bei y=320 (1080er Massstab) in ca. 24 px hellem Braun-Grau auf gelbem Verlauf und ist praktisch unlesbar.",
+      "bild": "Bild 1-10",
+      "vorschlag": "Handle auf 32 px vergroessern und Farbe auf das dunkle Navy #101a33 mit 85% Deckkraft setzen, Laufweite von aktuell ~4 px auf 2 px reduzieren."
     },
     {
-      "bereich": "information",
+      "bereich": "lesbarkeit",
       "schwere": "mittel",
-      "befund": "In Bild 1 und 2 fehlt jede Erklaerung, worauf sich die 11 % und 18 % beziehen - 'Im Dispolimit' und 'Ein Euro darueber' setzt voraus, dass man den Ton hoert; ohne Ton bleibt unklar, dass es um einen einzigen Euro Ueberschreitung geht.",
-      "bild": "Bild 2",
-      "vorschlag": "Unter der Karte bei y=1180 eine Zeile in 46 px Weiss ergaenzen: '1 Euro ueber dem Limit = 7 Prozentpunkte mehr'."
+      "befund": "Die Achsenbeschriftung im Graphen ('vor der Erhoehung  sechs Monate spaeter') steht in ca. 30 px blaugrau auf dunkelblau, die beiden Labels stossen mit nur ~10 px Abstand aneinander und lesen sich als ein Wortbrei.",
+      "bild": "Bild 7 und 8",
+      "vorschlag": "Schriftgroesse auf 36 px, Farbe auf #c8d2e8 anheben und die beiden Labels linksbuendig bei x=180 bzw. rechtsbuendig bei x=900 verankern, damit mindestens 80 px Luft dazwischen bleiben."
     },
     {
       "bereich": "bildwechsel",
       "schwere": "mittel",
-      "befund": "Die Endkarte (Bild 9 und 10, 18.89 s bis 21.77 s) verliert zwischen den beiden Bildern nur den Untertitel-Balken; der Pinguin, der Titel und der Handle stehen 3,8 Sekunden unbewegt - das Reel endet auf einem Standbild.",
-      "bild": "Bild 10",
-      "vorschlag": "Pinguin ab Szenenstart mit leichter Wipp-Animation versehen (+/- 12 px vertikal, 1.2 s Periode) und den Handle-Pill bei t=0.4 s mit Scale 0.9 -> 1.0 einblenden; ab t=2.0 s einen Pfeil nach unten rechts auf x=880/y=1240 pulsieren lassen."
+      "befund": "Die Endkarte steht von 17.2 bis 20.6 Sekunden fast unveraendert; zwischen Bild 9 und 10 verschwindet lediglich der Untertitel, der Pinguin bleibt statisch.",
+      "bild": "Bild 9 und 10",
+      "vorschlag": "Pinguin mit einer leichten Wippbewegung animieren (translateY +/-12 px, 1.6s Schleife) und den Handle-Pill bei Sekunde 18.5 einmal auf 1.06 skalieren und zurueck, damit die letzten drei Sekunden leben."
+    },
+    {
+      "bereich": "marke",
+      "schwere": "klein",
+      "befund": "Der Pinguin lugt in den Szenen 1-4 immer exakt gleich hinter der rechten oberen Kartenecke hervor und ist ausser dem gelben Akzentstrich das einzige Markenelement - die Karten selbst sind generisches Navy-Rechteck auf Gelbverlauf.",
+      "bild": "Bild 1-8",
+      "vorschlag": "Pinguin-Position pro Szene variieren (z.B. Szene 3 links unten bei x=120/y=1180, Szene 4 auf die Kurvenspitze zeigend) und den gelben Akzentbalken oben links von 120 px auf die volle Kartenbreite als 6 px Linie fuehren."
     }
   ],
-  "staerkste": "Die Kennzahl-Szene (Bild 7/8): '180 €' in sehr grossem Rot auf Dunkelblau, oben die Bedingung '1.000 € MINUS, EIN JAHR', unten nachgeschobene Einordnung 'Zinskosten bei 18 Prozent' - das ist ohne Ton sofort verstaendlich und die einzige Stelle mit echter visueller Wucht.",
-  "urteil": "Sauber gebautes, konsistentes Karten-Layout mit klarer Farblogik (Rot = teuer, Blau = Limit) und einem wiedererkennbaren Pinguin-Motiv, aber die Bewegung beschraenkt sich fast ueberall auf den wandernden Karaoke-Untertitel - Szene 1 und Szene 3 sind praktisch Standbilder. Der Einstieg zeigt in Sekunde 0.9 schon das Ergebnis statt einer Zuspitzung und gibt dem schnellen Daumen keinen Grund zu bleiben."
+  "staerkste": "Die durchgaengige Karten-Bildsprache in Navy auf warmem Gelbverlauf ist sauber gesetzt, und die Untertitelzeile mit gelber Wort-Hervorhebung ist gross, kontrastreich und liegt bei y=1400 knapp oberhalb der Caption-Zone.",
+  "urteil": "Handwerklich sauberes, konsistentes Reel mit klarer Dramaturgie von der Kennzahl ueber die Liste bis zum Graphen, aber es bewegt sich innerhalb der Szenen zu wenig - drei von vier gezeigten Szenenpaaren sind praktisch identisch. Der groesste Hebel liegt in den ersten zwei Sekunden: Die 300 EUR allein sind keine Spannung, der Widerspruch muss gross und sofort sichtbar sein."
 }
