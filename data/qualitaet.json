@@ -1,60 +1,60 @@
 {
-  "datum": "2026-09-27T19:15:00.130Z",
+  "datum": "2026-09-28T11:35:21.619Z",
   "datei": "build/reel.mp4",
-  "dauer": 22.07,
+  "dauer": 25.77,
   "noten": {
-    "hook": 52,
+    "hook": 58,
     "lesbarkeit": 72,
     "bildwechsel": 55,
-    "information": 64,
-    "marke": 62,
+    "information": 68,
+    "marke": 64,
     "sicherheit": 70
   },
-  "gesamt": 63,
+  "gesamt": 65,
   "maengel": [
     {
       "bereich": "hook",
       "schwere": "schwer",
-      "befund": "Bild 1 startet mit der Kennzahl '180 €' und der Zeile 'Handyvertrag pro Jahr' mittig in einer Karte - eine Aussage, die man erst nach Lesen von drei Zeilen versteht; nichts reizt in den ersten zwei Sekunden zum Stoppen.",
+      "befund": "Die ersten zwei Sekunden zeigen eine Karte mit Ueberschrift 'ETF-KAUF UM 9 UHR' und der Zahl 30 EUR, aber die Zahl steht statisch mittig auf 40 Prozent Bildhoehe - es gibt keinen visuellen Reiz, der einen schnell wischenden Nutzer stoppt; der gesamte obere Bildbereich bis y=620 ist leere Verlaufsflaeche.",
       "bild": "Bild 1",
-      "vorschlag": "Szene 1 mit einer Reizfrage als Grossschrift oeffnen, z.B. '180 € zu viel?' in 130 px Weiss ueber der Karte bei y=560, und die Zahl erst ab Sekunde 0.6 einblenden; Kicker 'HANDYVERTRAG PRO JAHR' von 44 auf 56 px hochziehen."
+      "vorschlag": "Kennzahl-Karte in Szene 1 von y=640 auf y=420 (1080x1920) hochziehen und die Zahl '30' von ca. 200 px auf 300 px Schrifthoehe vergroessern; zusaetzlich in den ersten 0.5 s einen Zaehl-Effekt von 0 auf 30 animieren statt statischer Zahl."
     },
     {
       "bereich": "bildwechsel",
       "schwere": "schwer",
-      "befund": "Szene 6 (Bild 9 zu Bild 10) veraendert sich nur dadurch, dass die Untertitelzeile verschwindet - ueber 3 Sekunden Endkarte stehen Pinguin, Headline und Handle voellig unbewegt.",
-      "bild": "Bild 10",
-      "vorschlag": "Endkarte animieren: Pinguin ab 19.5 s mit +/-8 px Vertikal-Loop, @geld.pinguin-Pille ab 20.5 s von scale 1.0 auf 1.06 pulsen, zusaetzlich ein Speichern-Icon bei x=540,y=1290 einblenden."
+      "befund": "Szene 1 veraendert sich zwischen Sekunde 0.9 und 4.35 ausser dem Untertitel praktisch nicht - Karte, Ueberschrift, Zahl und Unterzeile sind pixelgleich, die Szene wirkt 4.7 Sekunden lang wie ein Standbild.",
+      "bild": "Bild 1 und Bild 2",
+      "vorschlag": "In Szene 1 die Unterzeile 'Zusatzkosten allein durch den Spread' erst ab Sekunde 1.6 einblenden und die Zahl '30' ueber 0.6 s von 0 hochzaehlen lassen; danach ab Sekunde 3 einen leichten Scale-Push der Karte von 1.0 auf 1.03 fahren."
     },
     {
-      "bereich": "bildwechsel",
+      "bereich": "sicherheit",
       "schwere": "mittel",
-      "befund": "In Szene 1 (Bild 1 zu Bild 2) aendert sich ausser der Untertitelzeile praktisch nichts; die Karte mit '180 €' steht ueber vier Sekunden bewegungslos.",
-      "bild": "Bild 2",
-      "vorschlag": "Zahl 180 als Count-up von 0 auf 180 ueber die ersten 0.8 s laufen lassen und die Unterzeile 'So viel zahlen Bestandskunden zu viel' erst bei 1.5 s per Fade+8px-Slide nachziehen."
+      "befund": "Die Untertitel-Box liegt mit Oberkante bei y=1340 und Unterkante bei y=1450 (gemessen 670-725), die Trennlinie darunter bei y=1482 - alles knapp oberhalb der Caption-Zone ab y=1500, aber ohne jede Reserve; bei eingeblendeter Caption mit zwei Zeilen wird die Linie faktisch beruehrt.",
+      "bild": "Bild 4",
+      "vorschlag": "Untertitel-Box und Trennlinie um 90 px nach oben schieben: Box-Mitte von y=1396 auf y=1306, Linie von y=1482 auf y=1392."
     },
     {
       "bereich": "lesbarkeit",
       "schwere": "mittel",
-      "befund": "Der Kanalname '@geld.pinguin' unter dem Kicker oben steht in ca. 24 px (12 px gemessen) dunkelgrau auf Gelb und ist auf dem Handy nicht zu entziffern; zudem liegt er bei y=324 dicht unter der Instagram-Kopfzeile.",
+      "befund": "Der Handle '@geld.pinguin' in der Kopfzeile steht bei y=324 in ca. 24 px Schriftgroesse in hellem Grau auf dem gelben Verlauf und ist auf dem Handy kaum zu entziffern.",
       "bild": "Bild 1",
-      "vorschlag": "Handle auf 34 px vergroessern, Farbe auf #1B2338 mit 80% Deckkraft setzen und den Block insgesamt auf y=300 belassen, Kicker auf 40 px."
+      "vorschlag": "Handle-Schrift von 24 px auf 34 px erhoehen und Farbe von Grau auf das Dunkelblau #14203C der Kachel wechseln, damit der Kontrast zum gelben Grund traegt."
     },
     {
       "bereich": "information",
       "schwere": "mittel",
-      "befund": "In Bild 3 stehen die Balken 'Du als Bestandskunde' und 'Neukunde' ohne Zahlenwerte - der Vergleich ist die ersten Sekunden nur ueber den Ton verstaendlich, die Werte 25 €/10 € erscheinen erst in Bild 4.",
-      "bild": "Bild 3",
-      "vorschlag": "Die Betraege 25 € und 10 € bereits ab 4.3 s rechtsbuendig auf Balkenhoehe einblenden (statt erst kurz vor dem Schnitt) und die Balken in 0.5 s von links einfahren lassen."
+      "befund": "Szene 3 zeigt zwei Balken mit den Labels '9 Uhr' und 'Nachmittags' sowie 'weit' und 'eng', aber keinerlei Zahlenwert - der Zuschauer sieht, dass etwas unterschiedlich ist, erfaehrt aber ohne Ton nicht, um wie viel.",
+      "bild": "Bild 6",
+      "vorschlag": "Rechts neben den Balken konkrete Spread-Werte setzen, z.B. '0,38 %' bei y=810 und '0,09 %' bei y=965 in 40 px, statt nur 'weit' und 'eng'."
     },
     {
       "bereich": "marke",
       "schwere": "klein",
-      "befund": "Alle sechs Szenen nutzen dieselbe dunkelblaue Karte auf identischem Gelbverlauf mit gleichem gelben Ecktab - die Bildsprache wirkt wie eine Standardvorlage, nur die Akzentfarbe wechselt (Rot, Gruen, Blau).",
-      "bild": "Bild 5",
-      "vorschlag": "Pro Szenentyp ein eigenes Layout: Kennzahl-Szenen randlos ohne Karte mit 320-px-Zahl, Vergleich-Szene mit geteiltem Hintergrund, Stichwort-Szene mit linksbuendigem Text am Rand x=100."
+      "befund": "Der Pinguin lugt in den Szenen 1 bis 4 immer an derselben Stelle (x=866, y=580) hinter der Kartenkante hervor und bewegt sich nicht - die Figur bleibt Dekoration statt Handschrift.",
+      "bild": "Bild 3",
+      "vorschlag": "Pinguin pro Szene um 40-60 px vertikal versetzen oder bei jedem Schnitt 0.3 s hochhuepfen lassen (y=580 auf y=520 und zurueck)."
     }
   ],
-  "staerkste": "Die Vergleichsszene (Bild 4): zwei beschriftete Balken mit 25 € in Rot und 10 € in Gruen transportieren die Kernaussage sofort und ohne Ton.",
-  "urteil": "Handwerklich sauberes, konsistentes Kartendesign mit guter Typo-Hierarchie und klaren Untertiteln, das aber wie eine austauschbare Vorlage aussieht und mit einer nackten Zahl statt eines Reizes startet. Die Szenen bewegen sich zu wenig - vor allem Endkarte und Szene 1 stehen fast still, und die Vergleichszahlen kommen zu spaet."
+  "staerkste": "Die durchgehende Bildsprache - dunkelblaue Karte auf warmem Gelbverlauf, immer gleich positionierte Untertitel-Box mit gelber Wort-Hervorhebung - ist konsequent und sofort als ein Kanal erkennbar; besonders die Vergleichsszene mit rotem und gruenem Balken transportiert die Aussage in einer Sekunde.",
+  "urteil": "Sauber gebautes, konsistentes Reel mit klarer Farblogik und gut lesbaren Kernaussagen, das aber am entscheidenden Punkt schwaechelt: Die ersten zwei Sekunden bieten nur eine statische Zahl in der Bildmitte und das obere Drittel bleibt leer. Innerhalb der Szenen passiert ausser dem Einblenden der Unterzeile zu wenig, sodass jede Szene wie ein Standbild mit wechselndem Untertitel wirkt."
 }
