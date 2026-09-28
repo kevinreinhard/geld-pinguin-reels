@@ -1,60 +1,60 @@
 {
-  "datum": "2026-09-28T11:35:21.619Z",
+  "datum": "2026-09-28T19:29:03.943Z",
   "datei": "build/reel.mp4",
-  "dauer": 25.77,
+  "dauer": 26.01,
   "noten": {
-    "hook": 58,
-    "lesbarkeit": 72,
+    "hook": 52,
+    "lesbarkeit": 64,
     "bildwechsel": 55,
-    "information": 68,
-    "marke": 64,
+    "information": 58,
+    "marke": 62,
     "sicherheit": 70
   },
-  "gesamt": 65,
+  "gesamt": 60,
   "maengel": [
     {
       "bereich": "hook",
       "schwere": "schwer",
-      "befund": "Die ersten zwei Sekunden zeigen eine Karte mit Ueberschrift 'ETF-KAUF UM 9 UHR' und der Zahl 30 EUR, aber die Zahl steht statisch mittig auf 40 Prozent Bildhoehe - es gibt keinen visuellen Reiz, der einen schnell wischenden Nutzer stoppt; der gesamte obere Bildbereich bis y=620 ist leere Verlaufsflaeche.",
+      "befund": "Die Hook-Szene laeuft 5,4 Sekunden und zeigt in Bild 1 und Bild 2 fast dasselbe Standbild: gleicher Pinguin, gleiche zwei Textzeilen, nur die zweite Zeile wechselt von blassem Orange auf Rot. Bei 5,4 Sekunden ohne echten Bildwechsel wischen die meisten weg.",
+      "bild": "Bild 1 und 2",
+      "vorschlag": "Hook-Szene auf maximal 2,5 s kuerzen (Schnitt von 5,4 s auf ca. 2,6 s vorziehen) und in Sekunde 1 ein zweites visuelles Element einblenden, z.B. zwei gegenueberliegende Balken 'Depot A -3.000' / 'Depot B +3.000' unter dem Pinguin bei y=1300-1450."
+    },
+    {
+      "bereich": "lesbarkeit",
+      "schwere": "schwer",
+      "befund": "In Bild 1 steht die zweite Hookzeile 'GEWINNE DORT' als graubrauner Text auf blass-orangem Balken - Kontrast deutlich unter 2:1, die Zeile ist auf dem Handy kaum lesbar.",
       "bild": "Bild 1",
-      "vorschlag": "Kennzahl-Karte in Szene 1 von y=640 auf y=420 (1080x1920) hochziehen und die Zahl '30' von ca. 200 px auf 300 px Schrifthoehe vergroessern; zusaetzlich in den ersten 0.5 s einen Zaehl-Effekt von 0 auf 30 animieren statt statischer Zahl."
+      "vorschlag": "Die Einblend-Animation der zweiten Zeile nicht ueber Deckkraft/Farbmischung fahren, sondern Balken sofort in #FF5C5C (wie Bild 2) und Text in #10203F setzen; Einblenddauer auf 0,2 s verkuerzen."
+    },
+    {
+      "bereich": "information",
+      "schwere": "schwer",
+      "befund": "Die Kernaussage der Szene 2 bleibt ein Satzfragment: 'Jede Bank verrechnet nur ihre' - das Objekt fehlt in Bild 3 und auch noch in Bild 4, der Satz wird nur per Untertitel und Ton vervollstaendigt.",
+      "bild": "Bild 3 und 4",
+      "vorschlag": "Karten-Headline auf einen vollstaendigen kurzen Satz kuerzen: 'Jede Bank verrechnet nur ihre eigenen Verluste' - Schriftgroesse von ca. 96 px auf 72 px reduzieren, damit drei Zeilen in die Karte passen."
     },
     {
       "bereich": "bildwechsel",
-      "schwere": "schwer",
-      "befund": "Szene 1 veraendert sich zwischen Sekunde 0.9 und 4.35 ausser dem Untertitel praktisch nicht - Karte, Ueberschrift, Zahl und Unterzeile sind pixelgleich, die Szene wirkt 4.7 Sekunden lang wie ein Standbild.",
-      "bild": "Bild 1 und Bild 2",
-      "vorschlag": "In Szene 1 die Unterzeile 'Zusatzkosten allein durch den Spread' erst ab Sekunde 1.6 einblenden und die Zahl '30' ueber 0.6 s von 0 hochzaehlen lassen; danach ab Sekunde 3 einen leichten Scale-Push der Karte von 1.0 auf 1.03 fahren."
+      "schwere": "mittel",
+      "befund": "Szene 4 zeigt in Bild 7 eine fast leere Karte (nur Headline 'Verlustbescheinigung', darunter 400 px Leerflaeche) - erst in Bild 8 erscheint der Fliesstext; die Karte wirkt dazwischen unfertig.",
+      "bild": "Bild 7",
+      "vorschlag": "Kartenhoehe an den tatsaechlichen Inhalt binden (auto-height) und den Fliesstext bereits 0,3 s nach dem Schnitt einblenden statt nach ueber 2 s."
     },
     {
-      "bereich": "sicherheit",
+      "bereich": "marke",
       "schwere": "mittel",
-      "befund": "Die Untertitel-Box liegt mit Oberkante bei y=1340 und Unterkante bei y=1450 (gemessen 670-725), die Trennlinie darunter bei y=1482 - alles knapp oberhalb der Caption-Zone ab y=1500, aber ohne jede Reserve; bei eingeblendeter Caption mit zwei Zeilen wird die Linie faktisch beruehrt.",
-      "bild": "Bild 4",
-      "vorschlag": "Untertitel-Box und Trennlinie um 90 px nach oben schieben: Box-Mitte von y=1396 auf y=1306, Linie von y=1482 auf y=1392."
+      "befund": "Der Pinguin ist ab Bild 3 nur noch als halb verdeckter Kopf hinter der oberen rechten Kartenecke zu sehen und wirkt wie ein Rendering-Unfall statt wie ein Markenzeichen; in Bild 5-8 veraendert er ausserdem nie Pose oder Position.",
+      "bild": "Bild 3 bis 8",
+      "vorschlag": "Pinguin ganz aus der Ueberlappung loesen: entweder vollstaendig ueber der Karte platzieren (Mittelpunkt x=870, y=560, Skalierung 0,6) oder pro Szene die Pose wechseln (zeigend, Zettel haltend)."
     },
     {
       "bereich": "lesbarkeit",
       "schwere": "mittel",
-      "befund": "Der Handle '@geld.pinguin' in der Kopfzeile steht bei y=324 in ca. 24 px Schriftgroesse in hellem Grau auf dem gelben Verlauf und ist auf dem Handy kaum zu entziffern.",
-      "bild": "Bild 1",
-      "vorschlag": "Handle-Schrift von 24 px auf 34 px erhoehen und Farbe von Grau auf das Dunkelblau #14203C der Kachel wechseln, damit der Kontrast zum gelben Grund traegt."
-    },
-    {
-      "bereich": "information",
-      "schwere": "mittel",
-      "befund": "Szene 3 zeigt zwei Balken mit den Labels '9 Uhr' und 'Nachmittags' sowie 'weit' und 'eng', aber keinerlei Zahlenwert - der Zuschauer sieht, dass etwas unterschiedlich ist, erfaehrt aber ohne Ton nicht, um wie viel.",
+      "befund": "Der Untertitelbalken sitzt konstant bei y≈1340-1460 (gemessen 670-730) und ist damit knapp ueber der Caption-Zone, aber die Untertitel sind mit ca. 40 px Versalhoehe die kleinste Schrift im Bild - in Bild 6 laeuft 'Kapitalertragsteuer weg.' fast randvoll ueber die Balkenbreite.",
       "bild": "Bild 6",
-      "vorschlag": "Rechts neben den Balken konkrete Spread-Werte setzen, z.B. '0,38 %' bei y=810 und '0,09 %' bei y=965 in 40 px, statt nur 'weit' und 'eng'."
-    },
-    {
-      "bereich": "marke",
-      "schwere": "klein",
-      "befund": "Der Pinguin lugt in den Szenen 1 bis 4 immer an derselben Stelle (x=866, y=580) hinter der Kartenkante hervor und bewegt sich nicht - die Figur bleibt Dekoration statt Handschrift.",
-      "bild": "Bild 3",
-      "vorschlag": "Pinguin pro Szene um 40-60 px vertikal versetzen oder bei jedem Schnitt 0.3 s hochhuepfen lassen (y=580 auf y=520 und zurueck)."
+      "vorschlag": "Untertitelgroesse von ca. 40 px auf 52 px anheben, maximale Balkenbreite auf 860 px begrenzen und bei Ueberlauf auf zwei Zeilen umbrechen."
     }
   ],
-  "staerkste": "Die durchgehende Bildsprache - dunkelblaue Karte auf warmem Gelbverlauf, immer gleich positionierte Untertitel-Box mit gelber Wort-Hervorhebung - ist konsequent und sofort als ein Kanal erkennbar; besonders die Vergleichsszene mit rotem und gruenem Balken transportiert die Aussage in einer Sekunde.",
-  "urteil": "Sauber gebautes, konsistentes Reel mit klarer Farblogik und gut lesbaren Kernaussagen, das aber am entscheidenden Punkt schwaechelt: Die ersten zwei Sekunden bieten nur eine statische Zahl in der Bildmitte und das obere Drittel bleibt leer. Innerhalb der Szenen passiert ausser dem Einblenden der Unterzeile zu wenig, sodass jede Szene wie ein Standbild mit wechselndem Untertitel wirkt."
+  "staerkste": "Die Kennzahl-Szene: '25 %' in Korallrot auf dunkler Karte mit der Zeile 'AUF DEN GEWINN' darueber ist sofort erfassbar, gut kontrastiert und traegt die Aussage ohne Ton.",
+  "urteil": "Ein sauber gebautes, konsistentes Template mit guter Farbdisziplin - dunkle Karten auf Goldverlauf, klare Hierarchie, Endkarte mit Handle sitzt. Es scheitert aber am Anfang: fuenf Sekunden Quasi-Standbild mit einer im ersten Bild praktisch unlesbaren zweiten Zeile, dazu Kartentexte, die als Satzfragmente stehenbleiben und den Ton brauchen."
 }
