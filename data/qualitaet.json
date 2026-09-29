@@ -1,60 +1,60 @@
 {
-  "datum": "2026-09-29T11:15:43.248Z",
+  "datum": "2026-09-29T17:02:02.522Z",
   "datei": "build/reel.mp4",
-  "dauer": 21.38,
+  "dauer": 23.37,
   "noten": {
-    "hook": 62,
-    "lesbarkeit": 66,
-    "bildwechsel": 58,
-    "information": 70,
+    "hook": 52,
+    "lesbarkeit": 58,
+    "bildwechsel": 55,
+    "information": 62,
     "marke": 64,
-    "sicherheit": 55
+    "sicherheit": 70
   },
-  "gesamt": 63,
+  "gesamt": 60,
   "maengel": [
     {
-      "bereich": "sicherheit",
+      "bereich": "hook",
       "schwere": "schwer",
-      "befund": "Die Untertitel-Box steht in allen Szenen mittig bei etwa y=1330-1450 (gemessen 665-725) und die Trennlinie bei y=1482 - damit liegt sie direkt an der Kante der Caption-Zone ab y=1500; in Bild 7 reicht die Box bis y=1460 und die Linie bis y=1486, also praktisch schon unter der Instagram-Leiste.",
-      "bild": "Bild 7",
-      "vorschlag": "Untertitelblock samt Trennlinie um 180 px nach oben versetzen: Boxmitte von y=1396 auf y=1210, Trennlinie von y=1482 auf y=1300."
+      "befund": "Die zweite Titelzeile 'TEILZAHLUNG' steht in Bild 1 in braunem Text auf halbtransparent-orangem Balken vor orangem Hintergrund - der Kontrast ist so niedrig, dass die Zeile in der ersten Sekunde fast verschwindet, waehrend Zeile 1 schwarz auf Lachsrot steht.",
+      "bild": "Bild 1",
+      "vorschlag": "Einblend-Animation der zweiten Zeile so bauen, dass Balkenfarbe (#FF6F61, volle Deckkraft) und Textfarbe (#101828) von Frame 1 an gesetzt sind; nur Position/Skalierung animieren, nicht Deckkraft von Text und Balken."
     },
     {
       "bereich": "hook",
       "schwere": "schwer",
-      "befund": "Die Hook-Zeile 'OFT NIE' in Bild 1 steht in grauer Schrift auf lachsfarbenem Balken (etwa #8a8078 auf #F4736A) und ist praktisch kontrastlos - die zweite Haelfte der Kernaussage verschwindet in genau den zwei Sekunden, die entscheiden.",
-      "bild": "Bild 1",
-      "vorschlag": "Textfarbe der noch nicht 'aktiven' Hook-Zeilen auf #10203A setzen statt auf grau, oder den Einblende-Übergang auf Opacity des gesamten Balkens legen statt auf die Schriftfarbe."
-    },
-    {
-      "bereich": "bildwechsel",
-      "schwere": "mittel",
-      "befund": "Szene 2 ist zwischen Sekunde 4.7 und 7.2 nahezu ein Standbild - zwischen Bild 3 und Bild 4 aendert sich nur die Grauabstufung der zweiten Listenzeile um wenige Prozent, Karte, Pinguin und Ueberschrift stehen unveraendert.",
-      "bild": "Bild 4",
-      "vorschlag": "Dritten Listenpunkt ergaenzen oder die Listenpunkte gestaffelt mit 12 px Slide-in bei 0.3 s Abstand einfliegen lassen; Pinguin am Kartenrand um 8 px auf und ab bewegen."
-    },
-    {
-      "bereich": "lesbarkeit",
-      "schwere": "mittel",
-      "befund": "Der Balken 'Zuschuss vom Chef' ist in Bild 7 nur etwa 60 px breit (gemessen 30 px) und in Bild 8 etwa 130 px - die Zahl 360 EUR steht daneben, aber der Balken selbst ist zu kurz, um als Groessenvergleich gelesen zu werden.",
-      "bild": "Bild 8",
-      "vorschlag": "Balkenhoehe von 20 auf 32 px erhoehen und Mindestbreite 160 px setzen, damit das Verhaeltnis 360:2400 sichtbar bleibt statt zum Stummel zu schrumpfen."
+      "befund": "Die Hookszene laeuft 4,5 Sekunden und zeigt in Bild 1 und Bild 2 dasselbe Layout - Pinguin, Titel und Position identisch, nur die Untertitelzeile wechselt; das ist fuer die ersten Sekunden zu wenig Bewegung.",
+      "bild": "Bild 1 und Bild 2",
+      "vorschlag": "Hookszene auf 3,0 s kuerzen und ab Sekunde 1,5 ein visuelles Element einblenden, z.B. eine Kreditkarten-Grafik mit Betrag '300 EUR' die von y=1250 nach y=1150 faehrt, oder Pinguin um +-3 Grad wippen lassen."
     },
     {
       "bereich": "information",
       "schwere": "mittel",
-      "befund": "In Bild 5 steht die Karte 2 Sekunden lang nur mit '15 %' und 'PFLICHT SEIT 2022' da - ohne Ton ist nicht klar, worauf sich die 15 Prozent beziehen, die Erlaeuterungszeile kommt erst in Bild 6.",
-      "bild": "Bild 5",
-      "vorschlag": "Zeile 'Zuschuss auf deine Entgeltumwandlung' bereits bei Szenenstart einblenden (Delay von ca. 1.5 s auf 0.2 s reduzieren)."
+      "befund": "In Bild 7 sind beide Balken bereits fast vollstaendig bzw. leer gefuellt, aber ohne Zahlenwerte - 'Teilzahlung' und 'Voll abgebucht' haben keinen Wert, der rote Balken wirkt wie 100 Prozent statt wie 20 Prozent Zinsen.",
+      "bild": "Bild 7",
+      "vorschlag": "Zahlenlabels 'bis 20 %' und '0 %' rechtsbuendig bei x=890 zusammen mit dem Balkenwachstum ab Szenenbeginn einblenden, nicht erst gegen Szenenende; Balkenfuellung des roten Balken auf maximal 70 Prozent Breite begrenzen, damit 20 vs. 0 Prozent nicht wie 100 vs. 0 aussieht."
+    },
+    {
+      "bereich": "lesbarkeit",
+      "schwere": "mittel",
+      "befund": "Die Kanalzeile '@geld.pinguin' unter der Kopfzeile steht in etwa 24 px hoher, halbtransparenter dunkler Schrift auf orangem Verlauf bei y=324 und ist auf dem Handy kaum zu entziffern.",
+      "bild": "Bild 1 bis Bild 10",
+      "vorschlag": "Schriftgroesse auf 34 px erhoehen, Deckkraft auf 100 Prozent und Farbe auf #101828 setzen - oder die Zeile ganz weglassen, da der Handle in der Endkarte ohnehin gross erscheint."
+    },
+    {
+      "bereich": "bildwechsel",
+      "schwere": "mittel",
+      "befund": "Die Endkarte verliert in Bild 10 den Untertitelbalken und laesst unter dem Handle eine leere Flaeche von y=1280 bis y=1420 zurueck; die letzten zwei Sekunden sind faktisch ein Standbild ohne Handlungsaufforderung im Bild.",
+      "bild": "Bild 10",
+      "vorschlag": "Statischen CTA-Chip 'Jetzt in der Banking-App pruefen' in Weiss auf #101828 bei y=1330 dauerhaft stehen lassen und ein Speichern-Icon mit kurzer Puls-Animation (Skalierung 1,0 auf 1,08, 0,8 s Schleife) daneben setzen."
     },
     {
       "bereich": "marke",
       "schwere": "klein",
-      "befund": "Der Hintergrund ist in allen sechs Szenen derselbe gelb-orange Verlauf, die Karten immer dasselbe dunkelblaue Rechteck an gleicher Position - visuell unterscheiden sich die Szenen 2 bis 4 fast nur durch den Karteninhalt.",
-      "bild": "Bild 3",
-      "vorschlag": "Akzentfarbe pro Szene wechseln (Liste blau, Kennzahl gruen, Vergleich orange) und die Karte pro Szene um 20 px versetzt einfliegen lassen statt immer exakt mittig bei y=890."
+      "befund": "Der Pinguin ist ab Szene 2 nur noch als halber Kopf hinter der Karte bei x=810 bis x=920, y=500 bis y=620 zu sehen und bewegt sich zwischen Bild 3 und Bild 4 nicht - er wirkt wie ein angeklebtes Sticker-Element statt wie eine Figur.",
+      "bild": "Bild 3 bis Bild 8",
+      "vorschlag": "Pinguinkopf pro Szene einmal um 60 px nach oben schieben und wieder absenken (0,6 s, ease-out) oder ihn abwechselnd links (x=160) und rechts (x=810) hinter der Karte hervorschauen lassen."
     }
   ],
-  "staerkste": "Die Vergleichsszene mit den zwei Balken und den Zahlen 2.400 EUR gegen 360 EUR macht die Aussage ohne Ton sofort begreifbar - das ist der staerkste Moment des Reels.",
-  "urteil": "Sauber gebautes, konsistentes Template mit klarer Farbwelt und einer richtig guten Vergleichsszene, aber der Hook verschenkt seine zweite Zeile an eine graue Schriftfarbe und der Untertitelblock sitzt zu tief an der Caption-Kante. Inhaltlich traegt das Bild die Aussage weitgehend allein, visuell fehlt es an Abwechslung zwischen den Szenen."
+  "staerkste": "Das Karten-Layout mit farbigem Kicker, grosser Kennzahl und nachgeschobener Erklaerzeile ist sauber gesetzt, hoch kontrastreich (Weiss auf #101828) und liegt mit y=640 bis y=1210 vollstaendig ausserhalb aller Instagram-Bedienzonen.",
+  "urteil": "Handwerklich sauberes, konsistentes Template mit guter Typo-Hierarchie in den Kartenszenen, aber der Einstieg traegt nicht: vier Sekunden nahezu Standbild und eine Titelzeile, die im ersten Frame farblich absaeuft. Inhaltlich funktionieren die Kennzahl- und Vergleichsszenen, der Vergleichsbalken ist jedoch ohne Zahlen missverstaendlich und die Endkarte verliert am Schluss ihren Handlungsimpuls."
 }
