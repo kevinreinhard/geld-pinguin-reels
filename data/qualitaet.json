@@ -1,60 +1,67 @@
 {
-  "datum": "2026-09-29T17:02:02.522Z",
+  "datum": "2026-09-30T21:22:05.152Z",
   "datei": "build/reel.mp4",
-  "dauer": 23.37,
+  "dauer": 19.9,
   "noten": {
-    "hook": 52,
-    "lesbarkeit": 58,
+    "hook": 62,
+    "lesbarkeit": 70,
     "bildwechsel": 55,
-    "information": 62,
+    "information": 68,
     "marke": 64,
-    "sicherheit": 70
+    "sicherheit": 58
   },
-  "gesamt": 60,
+  "gesamt": 63,
   "maengel": [
     {
-      "bereich": "hook",
+      "bereich": "sicherheit",
       "schwere": "schwer",
-      "befund": "Die zweite Titelzeile 'TEILZAHLUNG' steht in Bild 1 in braunem Text auf halbtransparent-orangem Balken vor orangem Hintergrund - der Kontrast ist so niedrig, dass die Zeile in der ersten Sekunde fast verschwindet, waehrend Zeile 1 schwarz auf Lachsrot steht.",
+      "befund": "Die Untertitel-Box sitzt mit Mitte bei ca. y=1400 und Unterkante der Trennlinie bei ca. y=1482 (gemessen y=700 bzw. y=741) - damit liegt die gesamte Untertitelzeile direkt an der Caption-Zone, die Linie schon fast darunter, und wird bei laengeren Captions ueberdeckt.",
       "bild": "Bild 1",
-      "vorschlag": "Einblend-Animation der zweiten Zeile so bauen, dass Balkenfarbe (#FF6F61, volle Deckkraft) und Textfarbe (#101828) von Frame 1 an gesetzt sind; nur Position/Skalierung animieren, nicht Deckkraft von Text und Balken."
-    },
-    {
-      "bereich": "hook",
-      "schwere": "schwer",
-      "befund": "Die Hookszene laeuft 4,5 Sekunden und zeigt in Bild 1 und Bild 2 dasselbe Layout - Pinguin, Titel und Position identisch, nur die Untertitelzeile wechselt; das ist fuer die ersten Sekunden zu wenig Bewegung.",
-      "bild": "Bild 1 und Bild 2",
-      "vorschlag": "Hookszene auf 3,0 s kuerzen und ab Sekunde 1,5 ein visuelles Element einblenden, z.B. eine Kreditkarten-Grafik mit Betrag '300 EUR' die von y=1250 nach y=1150 faehrt, oder Pinguin um +-3 Grad wippen lassen."
+      "vorschlag": "Untertitel-Box samt Trennlinie um 180 px nach oben schieben: Textmitte auf y=1220, Linie auf max. y=1300. Der Bereich unter der Karte (y=1230-1480) ist ohnehin leer."
     },
     {
       "bereich": "information",
-      "schwere": "mittel",
-      "befund": "In Bild 7 sind beide Balken bereits fast vollstaendig bzw. leer gefuellt, aber ohne Zahlenwerte - 'Teilzahlung' und 'Voll abgebucht' haben keinen Wert, der rote Balken wirkt wie 100 Prozent statt wie 20 Prozent Zinsen.",
-      "bild": "Bild 7",
-      "vorschlag": "Zahlenlabels 'bis 20 %' und '0 %' rechtsbuendig bei x=890 zusammen mit dem Balkenwachstum ab Szenenbeginn einblenden, nicht erst gegen Szenenende; Balkenfuellung des roten Balken auf maximal 70 Prozent Breite begrenzen, damit 20 vs. 0 Prozent nicht wie 100 vs. 0 aussieht."
-    },
-    {
-      "bereich": "lesbarkeit",
-      "schwere": "mittel",
-      "befund": "Die Kanalzeile '@geld.pinguin' unter der Kopfzeile steht in etwa 24 px hoher, halbtransparenter dunkler Schrift auf orangem Verlauf bei y=324 und ist auf dem Handy kaum zu entziffern.",
-      "bild": "Bild 1 bis Bild 10",
-      "vorschlag": "Schriftgroesse auf 34 px erhoehen, Deckkraft auf 100 Prozent und Farbe auf #101828 setzen - oder die Zeile ganz weglassen, da der Handle in der Endkarte ohnehin gross erscheint."
+      "schwere": "schwer",
+      "befund": "Ab Sekunde 12 bis 17 liegen zwei ganze Szenen (5 und 6), von denen kein Bild gezeigt wird; im gezeigten Material fehlt jede konkrete Handlungsanweisung - wie und bis wann man wechselt (Frist vor Geburt) steht nirgends auf dem Bild.",
+      "bild": "Bild 7-8",
+      "vorschlag": "In Szene 4 unter 'Wechsel in Klasse III' eine zweite Zeile mit der harten Zahl ergaenzen, z. B. 'Spaetestens 7 Monate vor dem Mutterschutz' in 52 px weiss."
     },
     {
       "bereich": "bildwechsel",
       "schwere": "mittel",
-      "befund": "Die Endkarte verliert in Bild 10 den Untertitelbalken und laesst unter dem Handle eine leere Flaeche von y=1280 bis y=1420 zurueck; die letzten zwei Sekunden sind faktisch ein Standbild ohne Handlungsaufforderung im Bild.",
+      "befund": "Szene 1 ist von Sekunde 0.9 bis 3.93 praktisch ein Standbild - nur der Untertitel wechselt, die 2.000-EUR-Karte bleibt unveraendert; der Hook steht 4,3 Sekunden still.",
+      "bild": "Bild 1 und 2",
+      "vorschlag": "Zahl von 0 auf 2000 in 0,8 s hochzaehlen lassen und die Karte in den ersten 6 Frames von scale 0.92 auf 1.0 skalieren; Szene 1 auf 3,2 s kuerzen."
+    },
+    {
+      "bereich": "lesbarkeit",
+      "schwere": "mittel",
+      "befund": "Der Kopfzeilen-Handle '@geld.pinguin' steht in ca. 26 px dunkelgrau-transparent auf dem orangen Gradienten (gemessen 13 px Hoehe) und ist auf dem Handy nicht mehr entzifferbar.",
+      "bild": "Bild 3",
+      "vorschlag": "Handle auf 36 px vergroessern und auf volles Marine #16203C ohne Transparenz setzen."
+    },
+    {
+      "bereich": "sicherheit",
+      "schwere": "mittel",
+      "befund": "Die Kopfzeile 'STEUERKLASSE UND ELTERNGELD' liegt bei ca. y=262 und der Handle bei ca. y=324 - das ist knapp unter der IG-Kopfzeile, aber die Karte beginnt erst bei y=620, sodass oben 300 px leerer Gradient verschenkt sind, waehrend unten der Untertitel in die Caption-Zone rutscht.",
+      "bild": "Bild 5",
+      "vorschlag": "Gesamten Inhaltsblock (Karte + Untertitel) um 140 px nach oben verschieben, Kartenoberkante auf y=480."
+    },
+    {
+      "bereich": "bildwechsel",
+      "schwere": "klein",
+      "befund": "In Bild 10 ist die Untertitelzeile verschwunden, die Trennlinie bleibt aber allein stehen - ein Strich ohne Bezug in den letzten Sekunden.",
       "bild": "Bild 10",
-      "vorschlag": "Statischen CTA-Chip 'Jetzt in der Banking-App pruefen' in Weiss auf #101828 bei y=1330 dauerhaft stehen lassen und ein Speichern-Icon mit kurzer Puls-Animation (Skalierung 1,0 auf 1,08, 0,8 s Schleife) daneben setzen."
+      "vorschlag": "Trennlinie mit dem letzten Untertitel gemeinsam ausblenden oder durch eine feste CTA-Zeile 'Speichern nicht vergessen' in 48 px ersetzen."
     },
     {
       "bereich": "marke",
       "schwere": "klein",
-      "befund": "Der Pinguin ist ab Szene 2 nur noch als halber Kopf hinter der Karte bei x=810 bis x=920, y=500 bis y=620 zu sehen und bewegt sich zwischen Bild 3 und Bild 4 nicht - er wirkt wie ein angeklebtes Sticker-Element statt wie eine Figur.",
-      "bild": "Bild 3 bis Bild 8",
-      "vorschlag": "Pinguinkopf pro Szene einmal um 60 px nach oben schieben und wieder absenken (0,6 s, ease-out) oder ihn abwechselnd links (x=160) und rechts (x=810) hinter der Karte hervorschauen lassen."
+      "befund": "Der Pinguin schaut in Szene 1-4 immer identisch und regungslos hinter der oberen rechten Kartenecke hervor; er kommentiert nichts und wirkt wie ein Sticker.",
+      "bild": "Bild 4",
+      "vorschlag": "Pinguin pro Szene um 10 px vertikal wippen lassen und in der Vergleichsszene auf die rote Leiste zeigen lassen (Position x=880, y=880)."
     }
   ],
-  "staerkste": "Das Karten-Layout mit farbigem Kicker, grosser Kennzahl und nachgeschobener Erklaerzeile ist sauber gesetzt, hoch kontrastreich (Weiss auf #101828) und liegt mit y=640 bis y=1210 vollstaendig ausserhalb aller Instagram-Bedienzonen.",
-  "urteil": "Handwerklich sauberes, konsistentes Template mit guter Typo-Hierarchie in den Kartenszenen, aber der Einstieg traegt nicht: vier Sekunden nahezu Standbild und eine Titelzeile, die im ersten Frame farblich absaeuft. Inhaltlich funktionieren die Kennzahl- und Vergleichsszenen, der Vergleichsbalken ist jedoch ohne Zahlen missverstaendlich und die Endkarte verliert am Schluss ihren Handlungsimpuls."
+  "staerkste": "Die Vergleichsszene mit den zwei Balken (rot/gruen) plus den Labels 'niedrig' und 'hoch' erklaert den Kern in einer Sekunde ohne Ton - das ist der beste Moment des Reels.",
+  "urteil": "Saubere, konsistente Bildsprache mit klarer Farblogik und einer echt guten Vergleichsgrafik, aber der Hook steht 4 Sekunden still und liefert nur eine Zahl ohne Spannung. Das grosse Problem ist die Platzierung: oben 300 px leerer Gradient, unten rutschen Untertitel und Trennlinie in die Caption-Zone von Instagram."
 }
