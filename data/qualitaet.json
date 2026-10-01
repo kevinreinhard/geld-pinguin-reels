@@ -1,67 +1,67 @@
 {
-  "datum": "2026-10-01T11:30:28.589Z",
+  "datum": "2026-10-01T17:34:07.206Z",
   "datei": "build/reel.mp4",
-  "dauer": 20.33,
+  "dauer": 24.98,
   "noten": {
-    "hook": 58,
+    "hook": 52,
     "lesbarkeit": 72,
-    "bildwechsel": 62,
+    "bildwechsel": 58,
     "information": 70,
-    "marke": 66,
-    "sicherheit": 74
+    "marke": 64,
+    "sicherheit": 80
   },
-  "gesamt": 67,
+  "gesamt": 66,
   "maengel": [
     {
       "bereich": "hook",
       "schwere": "schwer",
-      "befund": "Der Einstieg zeigt nur das Wort 'STEUERERSTATTUNG' und '1.100 EUR' auf einer dunklen Karte - es gibt keine Spannung, keine Frage, keinen Konflikt in den ersten zwei Sekunden; die Zahl allein stoppt niemanden, der schnell wischt.",
+      "befund": "Bild 1 oeffnet mit einem ruhigen Balkenvergleich und der neutralen Headline 'TAGESGELD, DEIN ZINS' - in den ersten zwei Sekunden gibt es keine grosse Zahl, keinen Schockwert und keinen Konflikt, der das Wischen stoppt.",
       "bild": "Bild 1",
-      "vorschlag": "Szene 1 ueber der Zahl eine reizende Hook-Zeile setzen: Label-Text von 'STEUERERSTATTUNG' auf 'WARUM 1.100 EUR IMMER VERSCHWINDEN' aendern, Schriftgroesse 64 px, Farbe #FFC83D, und die Fussnote 'Nach vier Wochen oft komplett ausgegeben' als Zaehler von 1.100 auf 0 animieren statt statisch zu lassen."
+      "vorschlag": "Szene 1 durch die 460-EUR-Kennzahl als Opener ersetzen oder in Szene 1 ab Frame 0 die Differenz '-2,3 %' bzw. '460 EUR weg' in >=140 px roter Schrift mittig ueber der Karte (y ca. 560) einblenden."
     },
     {
       "bereich": "bildwechsel",
       "schwere": "schwer",
-      "befund": "Zwischen Bild 1 (0,9 s) und Bild 2 (3,8 s) aendert sich in der Karte praktisch nichts - gleiche Zahl, gleiche Fussnote, gleiche Position; nur die Untertitelzeile wechselt. Die 4 Sekunden lange Eroeffnungsszene wirkt wie ein Standbild.",
+      "befund": "Szene 1 steht zwischen Sekunde 0.9 und 4.86 praktisch still: Balkenlaengen, Zahlen und Kartenposition sind in Bild 1 und Bild 2 identisch, nur die Untertitelzeile wechselt.",
       "bild": "Bild 1 und Bild 2",
-      "vorschlag": "In Szene 1 die Zahl 1.100 als Count-up von 0 ueber die ersten 0,8 s laufen lassen und danach ab Sekunde 2 einen Balken oder Muenzstapel einblenden, der sichtbar auf 0 schrumpft."
+      "vorschlag": "Balken animieren: gruenen Balken von Breite 0 auf volle Breite in 0.6 s, roten Balken erst ab Sekunde 2.0 auf 34 % wachsen lassen; Prozentzahlen als Count-up von 0,0 auf 3,5 bzw. 1,2."
+    },
+    {
+      "bereich": "hook",
+      "schwere": "mittel",
+      "befund": "Die obere Titelzeile 'LOCKZINS LAEUFT AUS' steht in nur ca. 28 px Versalhoehe (14 px gemessen) dunkel auf Orange und ist der einzige inhaltliche Aufhaenger oben - sie liest sich wie ein Wasserzeichen, nicht wie ein Hook.",
+      "bild": "Bild 1",
+      "vorschlag": "Titelzeile auf mindestens 56 px Schriftgroesse setzen, Zeichenabstand von ca. 6 px auf 2 px reduzieren und in Dunkelblau #141E36 auf hellem Band statt freistehend auf dem Verlauf."
     },
     {
       "bereich": "lesbarkeit",
       "schwere": "mittel",
-      "befund": "Die Untertitelzeile liegt mit Oberkante bei y=1340 (gemessen 670) und Unterkante bei y=1450 (725); die Instagram-Caption beginnt bei y=1500 - der Abstand von nur 50 px ist knapp, und der dekorative Trennstrich bei y=1482 (741) steht praktisch auf der Kante.",
-      "bild": "Bild 4",
-      "vorschlag": "Untertitelblock und Trennstrich um 120 px nach oben schieben: Untertitel-Mitte von y=1396 auf y=1276, Trennstrich von y=1482 auf y=1362."
-    },
-    {
-      "bereich": "lesbarkeit",
-      "schwere": "mittel",
-      "befund": "Die Fussnoten in den Karten ('Nach vier Wochen oft komplett ausgegeben', 'Unerwartetes Geld geben wir leichter aus', 'Wir fuehren im Kopf getrennte Konten je Herkunft') stehen in hellgrauem Blau (ca. #B8C2D8) auf Dunkelblau und sind mit rund 40 px Zeichenhoehe deutlich schwaecher als der Rest.",
-      "bild": "Bild 2, Bild 4, Bild 8",
-      "vorschlag": "Fussnotenfarbe auf #FFFFFF bei 90 Prozent Deckkraft setzen und Schriftgroesse von ca. 40 px auf 48 px erhoehen."
+      "befund": "Der Handle '@geld.pinguin' unter dem Titel (y ca. 326 in 1080er Massstab) ist hellgrau auf orangem Verlauf und hat kaum Kontrast; er verschwindet bei Bild 9/10 fast vollstaendig.",
+      "bild": "Bild 1",
+      "vorschlag": "Handle-Farbe von Hellgrau auf #1B2742 mit 70 % Deckkraft aendern und Schriftgroesse von ca. 24 auf 32 px erhoehen."
     },
     {
       "bereich": "information",
       "schwere": "mittel",
-      "befund": "In Bild 5 zeigt die Vergleichsgrafik zwei Balken ohne Werte - der rote Balken ist nur ein Punkt, der gruene voll; ohne Zahlen bleibt unklar, was verglichen wird. Erst in Bild 6 erscheinen '0 EUR' und '1.100 EUR'.",
-      "bild": "Bild 5",
-      "vorschlag": "Die Wertlabels '0 EUR' und '1.100 EUR' bereits ab Szenenstart einblenden (Verzoegerung von ca. 1,2 s auf 0,2 s) und den roten Balken statt als 2-Prozent-Punkt mit mindestens 8 Prozent Breite zeichnen, damit er als Balken lesbar ist."
+      "befund": "Die Kennzahlkarte in Bild 7 zeigt 3 Sekunden lang nur '460 EUR' ohne Bezugszeile - der Zusatz 'Weniger Zinsen pro Jahr' erscheint erst in Bild 8, so dass die Zahl die Aussage allein nicht traegt.",
+      "bild": "Bild 7",
+      "vorschlag": "Untertitel 'Weniger Zinsen pro Jahr' bereits ab Szenenstart (Sekunde 11.1) einblenden, statt erst nach ca. 3 s; Einblendverzoegerung auf 0.3 s setzen."
     },
     {
       "bereich": "marke",
       "schwere": "mittel",
-      "befund": "Das Pinguin-Maskottchen lugt in den Bildern 1 bis 8 immer in identischer Haltung oben rechts hinter der Karte hervor und bewegt sich nicht; der Rest ist eine gewoehnliche dunkle Karte auf Gelbverlauf - die Handschrift bleibt blass.",
+      "befund": "Der Pinguin lugt in allen Kartenszenen regungslos an derselben Stelle (x ca. 866, y ca. 600) hinter der Karte hervor und bleibt reine Deko ohne Bezug zum Inhalt.",
       "bild": "Bild 3",
-      "vorschlag": "Pinguin pro Szene variieren: Position zwischen x=866 (oben rechts) und x=214 (oben links) wechseln, bei der Vergleichsszene eine zeigende Pose verwenden und bei jedem Schnitt 200 ms Hoch-Runter-Bewegung von 20 px animieren."
+      "vorschlag": "Pinguin pro Szene reagieren lassen: bei der roten 460-EUR-Karte nach unten rutschen lassen (y +40 px) oder Augen/Schal animieren, Position zwischen Szenen um 100-150 px variieren."
     },
     {
-      "bereich": "lesbarkeit",
+      "bereich": "bildwechsel",
       "schwere": "klein",
-      "befund": "Die Kopfzeile 'DAS GESCHENK-KONTO' sitzt bei y=264 (132) und der Handle '@geld.pinguin' bei y=324 (162) - beide liegen zwar unter der Instagram-Kopfzeile, der Handle ist aber in blassem Braun auf Gelb und mit ca. 20 px Zeichenhoehe praktisch unlesbar.",
-      "bild": "Bild 1",
-      "vorschlag": "Handle-Farbe auf #1B2A4A bei 70 Prozent Deckkraft und Schriftgroesse von ca. 20 px auf 30 px setzen."
+      "befund": "Auf der Endkarte verschwindet zwischen Bild 9 und Bild 10 die Untertitelzeile 'Folge fuer Finanzwissen' ersatzlos, die letzten rund 2 Sekunden zeigen ein statisches Logo mit leerer Flaeche unter dem Handle.",
+      "bild": "Bild 10",
+      "vorschlag": "CTA-Badge bis zum Videoende stehen lassen oder nach dem letzten Untertitel eine statische Zeile 'Folge fuer Finanzwissen' bei y=1396 dauerhaft einblenden."
     }
   ],
-  "staerkste": "Die visuelle Sprache ist konsequent durchgehalten: dunkelblaue Karte, gelber Verlauf, gelbe Akzentkante oben links und das wiederkehrende Untertitel-Band mit gelber Wort-Hervorhebung ergeben ein ruhiges, wiedererkennbares Layout, und die Endkarte mit Pinguin, Call-to-Action und Handle ist sauber zentriert und klar lesbar.",
-  "urteil": "Handwerklich sauberes, gut lesbares Reel mit klarer Dramaturgie von der Zahl ueber den psychologischen Begriff bis zur Speichern-Aufforderung - aber der Einstieg verschenkt die ersten vier Sekunden mit einem fast bewegungslosen Zahlenbild ohne Spannungsbogen. Innerhalb der Szenen passiert zu wenig: Meist aendert sich nur die eingeblendete Fussnote und der Untertitel, waehrend Karte, Zahl und Pinguin unveraendert stehen bleiben."
+  "staerkste": "Die Untertitelbadges: schwarzes Band, weisse Versalien mit gelber Keyword-Hervorhebung, konstant auf Hoehe y≈1396 - gross, kontraststark, ausserhalb aller Instagram-Zonen und ueber alle Szenen hinweg gleich platziert.",
+  "urteil": "Sauber gebautes, konsistentes Karten-Layout mit guter Typohierarchie und vorbildlich platzierten Untertiteln - technisch gibt es wenig zu meckern. Es fehlt aber der Zug: Der Einstieg ist zu brav, die erste Szene steht fast vier Sekunden still, und die staerkste Zahl des Videos (460 EUR) kommt erst in Sekunde 11."
 }
