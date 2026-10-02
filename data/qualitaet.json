@@ -1,67 +1,60 @@
 {
-  "datum": "2026-10-01T22:02:23.628Z",
+  "datum": "2026-10-02T16:39:01.312Z",
   "datei": "build/reel.mp4",
-  "dauer": 19.17,
+  "dauer": 23.57,
   "noten": {
     "hook": 62,
-    "lesbarkeit": 68,
-    "bildwechsel": 58,
-    "information": 60,
-    "marke": 66,
-    "sicherheit": 72
+    "lesbarkeit": 58,
+    "bildwechsel": 55,
+    "information": 66,
+    "marke": 64,
+    "sicherheit": 70
   },
-  "gesamt": 64,
+  "gesamt": 63,
   "maengel": [
     {
-      "bereich": "information",
-      "schwere": "schwer",
-      "befund": "Bild 4: Der Untertitel liest 'und sparst 5. Zehn' - die Zahl wird mitten im Satz abgebrochen und als Satzende plus neuem Wort gesetzt, ebenso Bild 5 'solcher Bestellungen sind' ohne Bezug. Die Karte zeigt gleichzeitig '23 EUR Fuellprodukt' gegen '5 EUR gesparter Versand', ohne dass die Rechnung im Bild benannt wird.",
-      "bild": "Bild 4",
-      "vorschlag": "Zahlen-/Satzzeichen-Segmentierung im Untertitel-Splitter korrigieren: Token mit nachfolgender Ziffer oder Dezimalpunkt nicht trennen ('sparst 5 Euro'). Zusaetzlich in der Vergleichskarte eine Ergebniszeile einziehen, z.B. 'Minus 18 EUR' in Rot, 44 px, rechtsbuendig unter den Balken bei y=1120."
-    },
-    {
-      "bereich": "bildwechsel",
-      "schwere": "schwer",
-      "befund": "Szene 1 bewegt sich zwischen Bild 1 (0.9 s) und Bild 2 (3.19 s) fast nicht: identischer Pinguin, identische Position, nur die Hintergrundfarbe der zweiten Textzeile wechselt von halbtransparent zu voll und die Untertitelzeile tauscht. Ueber 3.5 Sekunden Hook wirkt das wie ein Standbild.",
-      "bild": "Bild 1 und 2",
-      "vorschlag": "Pinguin in Szene 1 mit einer Bewegung versehen (z.B. y 760 -> 700 ueber 0.6 s mit Ease-out plus leichter Rotation 3 Grad) und die zweite Textzeile 'HUNDERTE EURO' erst bei ca. 1.0 s von links einfliegen lassen statt sie von Anfang an zu zeigen."
-    },
-    {
-      "bereich": "bildwechsel",
-      "schwere": "mittel",
-      "befund": "Die Endkarte steht von 15.9 bis 19.2 s praktisch unbewegt; in Bild 10 ist der Untertitel bereits weg und es bleibt ein leerer schwarzer Strich bei y=1480 ueber drei Sekunden.",
-      "bild": "Bild 10",
-      "vorschlag": "Untertitel-Rahmen ausblenden, sobald kein Text mehr kommt (Opacity 0 ab letztem Wort), und den @geld.pinguin-Button pulsieren lassen (Scale 1.0 -> 1.04, 0.8 s Loop) oder ein Speichern-Icon einblenden."
-    },
-    {
       "bereich": "lesbarkeit",
-      "schwere": "mittel",
-      "befund": "Bild 1: Die zweite Hook-Zeile 'HUNDERTE EURO' steht in dunkelgrauer Schrift auf halbtransparentem Lachs-Balken auf gelbem Hintergrund - der Kontrast ist deutlich schwaecher als bei Zeile 1 und die Zeile wirkt verwaschen.",
+      "schwere": "schwer",
+      "befund": "In Bild 1 steht die zweite Hook-Zeile 'AUTO - KEINER' in olivgruen-grauer Schrift auf blassrotem Balken - waehrend der Einblend-Animation faellt der Kontrast unter das Lesbare, waehrend Zeile 1 schon voll schwarz ist.",
       "bild": "Bild 1",
-      "vorschlag": "Balken-Deckkraft der zweiten Zeile sofort auf 100 Prozent setzen (wie in Bild 2) und die Schriftfarbe fest auf #121A2E statt auf die halbtransparente Grauvariante."
+      "vorschlag": "Textfarbe der Hook-Zeilen fix auf #11203A setzen und nur die Balken-Deckkraft animieren (0 -> 1), nicht die Schriftfarbe; Balkenfarbe #FF6B6B erst ab Deckkraft 0.9 einblenden."
+    },
+    {
+      "bereich": "sicherheit",
+      "schwere": "schwer",
+      "befund": "Die Untertitel-Box liegt in allen Szenen mit Oberkante bei ca. y=1340 und Unterkante inkl. Fortschrittslinie bei ca. y=1490 (gemessen 670-745) - sie stoesst direkt an die Caption-Zone ab y=1500 und wird auf Geraeten mit laengerer Caption angeschnitten.",
+      "bild": "Bild 3, Bild 8",
+      "vorschlag": "Untertitel-Block samt Fortschrittslinie um 120 px nach oben schieben: Mittelachse der Box von y=1400 auf y=1280, Fortschrittslinie auf y=1360."
+    },
+    {
+      "bereich": "bildwechsel",
+      "schwere": "mittel",
+      "befund": "Szene 7 (Bild 9 zu Bild 10) veraendert sich nur dadurch, dass die Untertitelzeile verschwindet - ueber rund 3.9 Sekunden steht ein praktisch unbewegtes Standbild am Ende des Reels.",
+      "bild": "Bild 10",
+      "vorschlag": "Pinguin in der Endkarte mit leichter Idle-Bewegung versehen (y-Offset +/-12 px, 1.6 s Sinus) und den @geld.pinguin-Pill-Button alle 1.2 s auf 1.06 skalieren; Endkarte auf max. 2.5 s kuerzen."
     },
     {
       "bereich": "lesbarkeit",
       "schwere": "mittel",
-      "befund": "Bild 3 und 5: Die Untertitelbox sitzt mit Oberkante bei y=1310 (gemessen 655) und reicht bis y=1450; sie liegt damit knapp ueber der Caption-Zone, aber die Dekolinie darunter bei y=1484 beruehrt bereits den Rand der Instagram-Unterzone.",
+      "befund": "Der Kanalname '@geld.pinguin' unter dem Kicker steht in dunkelgrauer 22-px-Schrift auf dem orangen Verlauf und ist bei y=324 zudem ausserhalb der IG-Kopfzeile kaum wahrnehmbar.",
+      "bild": "Bild 1",
+      "vorschlag": "Handle auf Schriftgroesse 30 px und Farbe #1B2A4A mit Deckkraft 0.85 setzen, Letter-Spacing von 4 px auf 2 px reduzieren."
+    },
+    {
+      "bereich": "information",
+      "schwere": "mittel",
+      "befund": "In Bild 3 und 7 zeigt die Kennzahlkarte erst nur die Zahl; der erklaerende Satz erscheint spaet (Bild 4, Bild 8), sodass rund 2 Sekunden lang '7 Jahre' bzw. '800 EUR' ohne Bezug stehen.",
       "bild": "Bild 3",
-      "vorschlag": "Gesamte Untertitel-Gruppe inklusive Trennlinie um 80 px nach oben schieben (Linie von y=1484 auf y=1404), damit zwischen Linie und y=1500 Luft bleibt."
+      "vorschlag": "Erklaerzeile bereits 0.4 s nach Kartenstart einblenden statt nach ca. 2 s; Fade-Delay in Szene kennzahl von 1.8 s auf 0.4 s senken."
     },
     {
       "bereich": "marke",
-      "schwere": "mittel",
-      "befund": "Der Pinguin steckt in Szene 2 bis 4 immer in exakt derselben Haltung hinter der rechten oberen Kartenecke bei x=865/y=600 und ist dort zur Haelfte abgeschnitten - das wirkt wie ein festgeklebtes Sticker-Element statt wie ein Maskottchen.",
-      "bild": "Bild 3, 5, 7",
-      "vorschlag": "Pro Szene eine andere Pinguin-Pose oder -Position verwenden (z.B. links unten bei x=160/y=1180 in Szene 3) und eine kleine Einfahrbewegung von 40 px beim Szenenstart ergaenzen."
-    },
-    {
-      "bereich": "information",
       "schwere": "klein",
-      "befund": "Bild 7: Die Karte zeigt 2.2 Sekunden lang nur die Ueberschrift 'Schwelle ueber dem Warenkorb', der erklaerende Satz erscheint erst in Bild 8 - die Flaeche zwischen y=960 und y=1200 bleibt bis dahin leer.",
-      "bild": "Bild 7",
-      "vorschlag": "Erklaersatz frueher einblenden (spaetestens 0.5 s nach Szenenstart) oder die Headline in Szene 4 vertikal zentrieren, bis der Zusatztext kommt."
+      "befund": "Der Pinguin wird ab Szene 2 nur noch als halb hinter der Karte hervorlugender Kopf rechts oben bei x=860 gezeigt und wirkt wie ein angeklebtes Sticker-Element statt wie eine Figur.",
+      "bild": "Bild 5",
+      "vorschlag": "Pinguinkopf auf 1.3-fache Groesse skalieren, auf x=820 ruecken und pro Szene einmal um 4 Grad kippen lassen, damit er als Moderator und nicht als Dekoration liest."
     }
   ],
-  "staerkste": "Die durchgehende Bildsprache: dunkelblaue Karte auf warmem Gelbverlauf, klare Typo-Hierarchie und eine Kennzahlenkarte in Bild 5/6, die mit '230 EUR' die Aussage sofort und ohne Ton transportiert.",
-  "urteil": "Visuell sauber und markentreu gebaut, mit einer starken Zahlenkarte in der Mitte - aber Hook und Endkarte stehen je rund drei Sekunden nahezu still, und die automatisch segmentierten Untertitel produzieren mit 'und sparst 5. Zehn' sichtbaren Unsinn. Gegen den Feed reicht das fuer Durchschnitt; mit Bewegung in Szene 1 und korrekter Zahlensegmentierung waere es deutlich mehr."
+  "staerkste": "Die Kennzahl-Karten (7 Jahre, 800 EUR) sind grafisch klar, hoch kontrastreich und tragen ihre Aussage auch stumm - dunkelblaue Karte auf warmem Verlauf ist ein wiedererkennbarer, sauberer Look.",
+  "urteil": "Handwerklich solides, konsistent gestaltetes Reel mit starkem Hook-Thema und gut lesbaren Kennzahlkarten, das aber an zwei Stellen Punkte liegen laesst: der kontrastschwachen Hook-Zeile in Bild 1 und der dicht an die Caption-Zone geschobenen Untertitelbox. Die Endkarte steht fast vier Sekunden still - das ist genau der Moment, in dem gewischt wird."
 }
