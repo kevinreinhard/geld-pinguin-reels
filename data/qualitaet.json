@@ -1,67 +1,67 @@
 {
-  "datum": "2026-10-02T21:17:45.959Z",
+  "datum": "2026-10-03T14:53:12.238Z",
   "datei": "build/reel.mp4",
-  "dauer": 30.4,
+  "dauer": 24.11,
   "noten": {
     "hook": 52,
-    "lesbarkeit": 70,
+    "lesbarkeit": 66,
     "bildwechsel": 58,
-    "information": 72,
-    "marke": 62,
-    "sicherheit": 80
+    "information": 64,
+    "marke": 61,
+    "sicherheit": 72
   },
-  "gesamt": 66,
+  "gesamt": 62,
   "maengel": [
     {
       "bereich": "hook",
       "schwere": "schwer",
-      "befund": "Bild 1 zeigt in den ersten Sekunden eine ruhige Karte mit '1.000 EUR ETF-GEWINN / 300 EUR / bleiben steuerfrei' - sachlich, aber ohne Spannung, Widerspruch oder Zahl, die zum Anhalten zwingt; die Untertitelzeile sagt nur 'Von 1.000 Euro'.",
-      "bild": "Bild 1",
-      "vorschlag": "Hook-Zeile der Szene 1 auf eine Reizaussage umschreiben, z.B. Kopfzeile der Karte in Gelb (#F5C044) 'DIESE 300 EUR SIEHT DAS FINANZAMT NIE' bei 64 px, und die 300 in den ersten 0.3 s von 0 auf 300 hochzaehlen lassen statt statisch zu setzen."
-    },
-    {
-      "bereich": "bildwechsel",
-      "schwere": "schwer",
-      "befund": "Innerhalb der Szenen bewegt sich fast nur die Untertitelzeile und eine nachgeladene Textzeile; Karte, Hintergrund und Pinguin stehen in allen 10 Bildern exakt gleich - Szene 7 (Bild 9 zu 10) veraendert sich ausser dem verschwindenden Untertitel gar nicht.",
-      "bild": "Bild 9 und Bild 10",
-      "vorschlag": "Pro Szene mindestens eine sichtbare Bewegung einbauen: Karte beim Eintritt von y=640 auf y=600 (1080er Massstab) einschweben, Balken in Szene 3 ueber 0.8 s auf Endbreite animieren, Pinguin auf der Endkarte mit +/-12 px Floating-Loop; Untertitel in Bild 10 nicht leer laufen lassen, sondern CTA-Text stehen lassen."
+      "befund": "Die Hookszene zeigt 3,4 Sekunden lang nur den statischen Pinguin plus den Titel 'KOSTEN OHNE RECHNUNG' - zwischen Bild 1 und Bild 2 aendert sich ausser dem Untertitel praktisch nichts, die zweite Titelzeile rutscht nur minimal nach oben.",
+      "bild": "Bild 1 und 2",
+      "vorschlag": "In Szene 1 ab Sekunde 1,2 ein visuelles Ereignis setzen: z.B. eine rote Zahl '0,50 % = 500 EUR/Jahr' als Badge bei y=1300 (1080-Massstab) einblenden oder den Pinguin mit Scale 1.0 -> 1.06 und leichtem Wippen animieren."
     },
     {
       "bereich": "information",
-      "schwere": "mittel",
-      "befund": "Die Balken in Bild 5 tragen 3,5 Sekunden lang keine Werte - erst in Bild 6 erscheinen '26 %' und 'rund 18 %'; bis dahin ist der rote Balken fast randvoll und der gruene kurz, ohne dass man die Groesse einordnen kann.",
-      "bild": "Bild 5",
-      "vorschlag": "Prozentlabels sofort mit dem Balken einblenden (Delay von ca. 3 s auf 0.3 s senken) und die Balkenlaenge proportional animieren, damit 26 zu 18 visuell stimmt - aktuell ist der gruene Balken nur knapp halb so lang wie der rote, obwohl 18/26 = 69 %."
+      "schwere": "schwer",
+      "befund": "Der Hooktext 'KOSTEN OHNE RECHNUNG' ist identisch mit der Kopfzeile und nennt weder Zahl noch Schmerzpunkt - ohne Ton versteht man in den ersten 3 Sekunden nicht, worum es geht.",
+      "bild": "Bild 1",
+      "vorschlag": "Hooktitel auf eine konkrete Aussage aendern, z.B. 'DIESE 500 EUR SIEHST DU NIE' in derselben Box bei y=1000-1240; Kopfzeile dann auf einen anderen Wortlaut setzen, damit sich Titel und Kopfzeile nicht doppeln."
     },
     {
       "bereich": "lesbarkeit",
       "schwere": "mittel",
-      "befund": "Die Beschreibungszeile in Bild 4 'Deine Bank zieht sie automatisch ab.' und in Bild 8 'Nur dann gibt es die vollen 30 Prozent' steht in hellgrauem Blau (ca. 44 px im 1080er Massstab) und bricht unschoen um - in Bild 4 steht nur 'ab.' allein in der zweiten Zeile.",
-      "bild": "Bild 4",
-      "vorschlag": "Fliesstext auf reines Weiss (#FFFFFF) setzen, Groesse auf 52 px erhoehen und die Textbox-Breite von ca. 740 px auf 820 px aufziehen, damit 'automatisch ab.' auf einer Zeile bleibt."
+      "befund": "Die zweite Hookzeile 'RECHNUNG' steht in dunkelgrauer Schrift auf dem lachsroten Balken (Bild 1) statt in Schwarz wie die erste Zeile - der Kontrast bricht mitten im Titel ein.",
+      "bild": "Bild 1",
+      "vorschlag": "Textfarbe der zweiten Zeile auf dasselbe #10172A wie Zeile 1 setzen; falls das der Einblendeffekt ist, Opacity-Fade auf maximal 0,25 s begrenzen."
+    },
+    {
+      "bereich": "bildwechsel",
+      "schwere": "mittel",
+      "befund": "Szene 4 steht 3,2 Sekunden fast still: zwischen Bild 7 und Bild 8 kommen nur die Prozentwerte dazu, die Balkenlaengen sind bereits in Bild 7 voll ausgefahren.",
+      "bild": "Bild 7 und 8",
+      "vorschlag": "Balken erst nach dem Schnitt von Breite 0 auf Endbreite animieren (0,6 s, ease-out) und die Prozentzahlen gleichzeitig mit dem jeweiligen Balken zaehlen lassen statt beide Balken sofort voll zu zeigen."
     },
     {
       "bereich": "marke",
       "schwere": "mittel",
-      "befund": "Layout ist in allen Szenen identisch: dunkelblaue Karte mittig, gelber Strich oben links, Pinguin-Kopf hinter der oberen rechten Ecke, Untertitel-Kasten darunter - das wirkt wie ein Template mit ausgetauschtem Text, nicht wie Handschrift.",
-      "bild": "Bild 1 bis Bild 8",
-      "vorschlag": "Pro Szenentyp ein eigenes Layout definieren: Kennzahl-Szene vollflaechig ohne Karte mit Zahl bei 420 px Hoehe, Vergleichs-Szene als zweispaltige Gegenueberstellung, Stichwort-Szene mit Wort am linken Rand bei x=80; Pinguin in Position und Pose variieren statt immer gleich hinter der Kartenecke."
+      "befund": "Der Pinguin ist in Szene 2 bis 4 nur als abgeschnittener Kopf hinter der Karten-Oberkante zu sehen (Bild 3 bis 8), in Szene 1 und 7 ganz - die Figur wirkt dadurch wie ein zufaellig platzierter Sticker, nicht wie eine gefuehrte Moderationsfigur.",
+      "bild": "Bild 3",
+      "vorschlag": "Pinguin-Peek pro Szene variieren: Position zwischen linker (x=180) und rechter (x=870) Kartenoberkante wechseln und Flossen/Oberkoerper mit einblenden statt nur den Kopf ab y=560 anzuschneiden."
     },
     {
       "bereich": "lesbarkeit",
       "schwere": "klein",
-      "befund": "Der Handle '@geld.pinguin' unter der Kopfzeile steht in dunklem Grau auf gelbem Verlauf bei ca. 24 px (1080er Massstab) und ist kaum zu entziffern.",
-      "bild": "Bild 1",
-      "vorschlag": "Handle auf 34 px vergroessern und auf Markenblau #16213E setzen; alternativ ganz weglassen, da der Handle in der Endkarte ohnehin gross erscheint."
+      "befund": "Das Handle '@geld.pinguin' in der Kopfzeile steht als dunkles Braun-Grau auf dem gelben Verlauf und verschwindet bei kleiner Darstellung nahezu (alle Bilder, y=324 im 1080-Massstab).",
+      "bild": "Bild 5",
+      "vorschlag": "Handle auf #10172A setzen und Schriftgroesse von ca. 22 auf 30 Pixel (1080-Massstab) erhoehen, oder es ganz weglassen, da es auf der Endkarte ohnehin prominent erscheint."
     },
     {
-      "bereich": "sicherheit",
+      "bereich": "bildwechsel",
       "schwere": "klein",
-      "befund": "Die Untertitel-Box sitzt mit Unterkante bei ca. y=1444 (gemessen 722) und die Trennlinie bei ca. y=1482 (gemessen 741) - das liegt knapp oberhalb der Caption-Zone ab y=1500, aber ohne Reserve.",
-      "bild": "Bild 5",
-      "vorschlag": "Untertitelblock samt Linie um 60 px nach oben schieben, Unterkante der Linie auf maximal y=1420 setzen."
+      "befund": "Die Endkarte verliert in Bild 10 den Untertitelbalken ersatzlos; es bleiben rund zwei Sekunden mit reinem Standbild und leerer Flaeche zwischen y=1300 und y=1480.",
+      "bild": "Bild 10",
+      "vorschlag": "Untertitel bis Videoende stehen lassen oder an derselben Stelle (y=1380) einen statischen CTA-Balken 'Speichern fuer dein naechstes Depot' einblenden."
     }
   ],
-  "staerkste": "Die dunkelblaue Karte auf dem warmen Gelbverlauf ist kontrastreich und ruhig, die Leitzahlen (300 EUR, 51 %) sind sehr gross und auf dem Handy sofort lesbar - der visuelle Grundaufbau traegt die Aussage auch ohne Ton.",
-  "urteil": "Sauber gebaut, klar lesbar und inhaltlich korrekt aufgebaut - aber visuell zu brav: der Einstieg liefert keinen Grund stehenzubleiben, und in allen sieben Szenen wiederholt sich dasselbe Kartenlayout. Mit einem zugespitzten Hook, echter Bewegung pro Szene und sofort beschrifteten Balken waere das ein deutlich staerkeres Reel."
+  "staerkste": "Die Kennzahl-Szene: '500 €' in Rot auf der dunklen Karte, darueber die Rechengrundlage '100.000 €, 0,5 % TER' und darunter die Einordnung - das ist auch ohne Ton in einer Sekunde verstanden und visuell das staerkste Bild des Reels.",
+  "urteil": "Handwerklich sauber gebautes Reel mit konsistenter Farbwelt, gut lesbaren Karten und einer wirklich starken Kennzahl-Szene in der Mitte. Es verliert aber vorne: Der Hook wiederholt nur die Kopfzeile, steht 3,4 Sekunden nahezu still und liefert keinen Grund zum Bleiben - genau dort, wo das Reel gewonnen oder verloren wird."
 }
