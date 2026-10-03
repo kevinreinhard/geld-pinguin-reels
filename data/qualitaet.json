@@ -1,67 +1,60 @@
 {
-  "datum": "2026-10-03T14:53:12.238Z",
+  "datum": "2026-10-03T18:38:55.491Z",
   "datei": "build/reel.mp4",
-  "dauer": 24.11,
+  "dauer": 27.38,
   "noten": {
     "hook": 52,
-    "lesbarkeit": 66,
+    "lesbarkeit": 68,
     "bildwechsel": 58,
-    "information": 64,
-    "marke": 61,
-    "sicherheit": 72
+    "information": 70,
+    "marke": 62,
+    "sicherheit": 55
   },
-  "gesamt": 62,
+  "gesamt": 61,
   "maengel": [
     {
       "bereich": "hook",
       "schwere": "schwer",
-      "befund": "Die Hookszene zeigt 3,4 Sekunden lang nur den statischen Pinguin plus den Titel 'KOSTEN OHNE RECHNUNG' - zwischen Bild 1 und Bild 2 aendert sich ausser dem Untertitel praktisch nichts, die zweite Titelzeile rutscht nur minimal nach oben.",
-      "bild": "Bild 1 und 2",
-      "vorschlag": "In Szene 1 ab Sekunde 1,2 ein visuelles Ereignis setzen: z.B. eine rote Zahl '0,50 % = 500 EUR/Jahr' als Badge bei y=1300 (1080-Massstab) einblenden oder den Pinguin mit Scale 1.0 -> 1.06 und leichtem Wippen animieren."
+      "befund": "In Bild 1 (Sek 0,9) steht als groesste Aussage nur '400 €' mit der neutralen Zeile 'AUSSCHÜTTUNG PRO JAHR' - weder Problem noch Spannung, die Kopfzeile 'AUSSCHÜTTUNG VERGESSEN' steht winzig bei y=260 in dunklem Braun auf Gelb.",
+      "bild": "Bild 1",
+      "vorschlag": "Erste Szene mit einer Reizaussage ueberschreiben: 'Deine 400 € liegen tot herum' als zweizeilige Headline in 90 px Bold ueber der Karte (y=560-700), und die Karten-Kopfzeile von 'AUSSCHÜTTUNG PRO JAHR' auf '400 € JEDES JAHR - UNGENUTZT' aendern."
     },
     {
-      "bereich": "information",
+      "bereich": "sicherheit",
       "schwere": "schwer",
-      "befund": "Der Hooktext 'KOSTEN OHNE RECHNUNG' ist identisch mit der Kopfzeile und nennt weder Zahl noch Schmerzpunkt - ohne Ton versteht man in den ersten 3 Sekunden nicht, worum es geht.",
-      "bild": "Bild 1",
-      "vorschlag": "Hooktitel auf eine konkrete Aussage aendern, z.B. 'DIESE 500 EUR SIEHST DU NIE' in derselben Box bei y=1000-1240; Kopfzeile dann auf einen anderen Wortlaut setzen, damit sich Titel und Kopfzeile nicht doppeln."
+      "befund": "Die Untertitel-Box sitzt in allen Bildern mittig um y=1396 (gemessen 698) und reicht bis y=1450; sie steht damit direkt an der Caption-Zone, die Unterstreichungslinie bei y=1482 (741) liegt praktisch auf der Kante.",
+      "bild": "Bild 2",
+      "vorschlag": "Untertitel-Block samt Trennlinie um 180 px nach oben schieben: Box-Mitte auf y=1210, Linie entfaellt oder wandert auf y=1290."
     },
     {
-      "bereich": "lesbarkeit",
+      "bereich": "sicherheit",
       "schwere": "mittel",
-      "befund": "Die zweite Hookzeile 'RECHNUNG' steht in dunkelgrauer Schrift auf dem lachsroten Balken (Bild 1) statt in Schwarz wie die erste Zeile - der Kontrast bricht mitten im Titel ein.",
-      "bild": "Bild 1",
-      "vorschlag": "Textfarbe der zweiten Zeile auf dasselbe #10172A wie Zeile 1 setzen; falls das der Einblendeffekt ist, Opacity-Fade auf maximal 0,25 s begrenzen."
+      "befund": "In Bild 4 steht der Wert '20.000 €' rechtsbuendig bis x=892 und in Bild 3/4 enden die Balken bei x=892 - das liegt noch links von x=940, aber die Karte selbst reicht bis x=988 und damit in die Buttonspalte hinein (Karte zwischen y=660 und y=1170, also obere Bildhaelfte - knapp, aber bei langer Caption kritisch).",
+      "bild": "Bild 4",
+      "vorschlag": "Kartenbreite von 888 px auf 840 px reduzieren, rechte Kante auf x=940 begrenzen."
     },
     {
       "bereich": "bildwechsel",
       "schwere": "mittel",
-      "befund": "Szene 4 steht 3,2 Sekunden fast still: zwischen Bild 7 und Bild 8 kommen nur die Prozentwerte dazu, die Balkenlaengen sind bereits in Bild 7 voll ausgefahren.",
-      "bild": "Bild 7 und 8",
-      "vorschlag": "Balken erst nach dem Schnitt von Breite 0 auf Endbreite animieren (0,6 s, ease-out) und die Prozentzahlen gleichzeitig mit dem jeweiligen Balken zaehlen lassen statt beide Balken sofort voll zu zeigen."
+      "befund": "Szene 1 bewegt sich zwischen Sek 0,9 und Sek 4,63 praktisch nicht - Karte, Zahl und Unterzeile sind identisch, nur der Untertitel wechselt; vier Sekunden wirken wie ein Standbild.",
+      "bild": "Bild 1 und Bild 2",
+      "vorschlag": "Die 400 in Szene 1 als Count-up von 0 auf 400 ueber 0,8 s animieren und die Unterzeile 'liegt unverzinst...' erst bei Sek 2,0 einfliegen lassen."
     },
     {
-      "bereich": "marke",
+      "bereich": "bildwechsel",
       "schwere": "mittel",
-      "befund": "Der Pinguin ist in Szene 2 bis 4 nur als abgeschnittener Kopf hinter der Karten-Oberkante zu sehen (Bild 3 bis 8), in Szene 1 und 7 ganz - die Figur wirkt dadurch wie ein zufaellig platzierter Sticker, nicht wie eine gefuehrte Moderationsfigur.",
-      "bild": "Bild 3",
-      "vorschlag": "Pinguin-Peek pro Szene variieren: Position zwischen linker (x=180) und rechter (x=870) Kartenoberkante wechseln und Flossen/Oberkoerper mit einblenden statt nur den Kopf ab y=560 anzuschneiden."
+      "befund": "In Szene 4 (Bild 7 zu Bild 8) aendert sich nur, dass die Unterzeile 'Broker legen Ausschüttungen nicht automatisch an' erscheint; die drei Zeilen 'Niemand macht es für dich' stehen 3 Sekunden unveraendert.",
+      "bild": "Bild 7",
+      "vorschlag": "Die Headline wortweise einblenden (je 120 ms Versatz) und den roten Strich bei y=1232 als wachsenden Balken von 0 auf 120 px animieren."
     },
     {
       "bereich": "lesbarkeit",
-      "schwere": "klein",
-      "befund": "Das Handle '@geld.pinguin' in der Kopfzeile steht als dunkles Braun-Grau auf dem gelben Verlauf und verschwindet bei kleiner Darstellung nahezu (alle Bilder, y=324 im 1080-Massstab).",
+      "schwere": "mittel",
+      "befund": "Die Kanalzeile '@geld.pinguin' unter der Kopfzeile steht in ca. 22 px dunklem Grau-Braun auf gelbem Verlauf (y=324) und ist auf dem Handy nicht zu entziffern; zugleich liegt die Kopfzeile bei y=260 noch in der Instagram-Kopfzone bis y=200? - nein, sie liegt knapp darunter, aber zu nah.",
       "bild": "Bild 5",
-      "vorschlag": "Handle auf #10172A setzen und Schriftgroesse von ca. 22 auf 30 Pixel (1080-Massstab) erhoehen, oder es ganz weglassen, da es auf der Endkarte ohnehin prominent erscheint."
-    },
-    {
-      "bereich": "bildwechsel",
-      "schwere": "klein",
-      "befund": "Die Endkarte verliert in Bild 10 den Untertitelbalken ersatzlos; es bleiben rund zwei Sekunden mit reinem Standbild und leerer Flaeche zwischen y=1300 und y=1480.",
-      "bild": "Bild 10",
-      "vorschlag": "Untertitel bis Videoende stehen lassen oder an derselben Stelle (y=1380) einen statischen CTA-Balken 'Speichern fuer dein naechstes Depot' einblenden."
+      "vorschlag": "Kanalzeile auf 34 px vergroessern und Farbe auf #1B2237 mit 85 % Deckkraft setzen; Kopfzeilenblock insgesamt auf y=300/y=360 schieben."
     }
   ],
-  "staerkste": "Die Kennzahl-Szene: '500 €' in Rot auf der dunklen Karte, darueber die Rechengrundlage '100.000 €, 0,5 % TER' und darunter die Einordnung - das ist auch ohne Ton in einer Sekunde verstanden und visuell das staerkste Bild des Reels.",
-  "urteil": "Handwerklich sauber gebautes Reel mit konsistenter Farbwelt, gut lesbaren Karten und einer wirklich starken Kennzahl-Szene in der Mitte. Es verliert aber vorne: Der Hook wiederholt nur die Kopfzeile, steht 3,4 Sekunden nahezu still und liefert keinen Grund zum Bleiben - genau dort, wo das Reel gewonnen oder verloren wird."
+  "staerkste": "Die Vergleichsszene (Bild 3/4) funktioniert visuell am besten: Die beiden Balken machen das Verhaeltnis 20.000 € zu 400 € ohne Ton sofort begreifbar, und der Aufbau von leeren Balken zu beschrifteten Werten gibt der Szene echte Bewegung.",
+  "urteil": "Sauber gebautes, konsistentes Kartenlayout mit erkennbarer Farbwelt (Navy/Koralle/Gelb) und einem Maskottchen, das Wiedererkennung schafft - inhaltlich traegt das Bild die Aussage weitgehend ohne Ton. Es scheitert aber am Einstieg: Die erste Szene zeigt nur eine Zahl ohne Reibung und steht vier Sekunden fast still, und der Untertitelblock sitzt mit y=1396 bis y=1482 zu tief an der Caption-Zone."
 }
