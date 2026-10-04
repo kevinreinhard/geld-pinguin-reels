@@ -1,60 +1,67 @@
 {
-  "datum": "2026-10-03T18:38:55.491Z",
+  "datum": "2026-10-04T11:04:21.867Z",
   "datei": "build/reel.mp4",
-  "dauer": 27.38,
+  "dauer": 26.08,
   "noten": {
     "hook": 52,
     "lesbarkeit": 68,
     "bildwechsel": 58,
-    "information": 70,
+    "information": 66,
     "marke": 62,
-    "sicherheit": 55
+    "sicherheit": 74
   },
-  "gesamt": 61,
+  "gesamt": 63,
   "maengel": [
     {
       "bereich": "hook",
       "schwere": "schwer",
-      "befund": "In Bild 1 (Sek 0,9) steht als groesste Aussage nur '400 €' mit der neutralen Zeile 'AUSSCHÜTTUNG PRO JAHR' - weder Problem noch Spannung, die Kopfzeile 'AUSSCHÜTTUNG VERGESSEN' steht winzig bei y=260 in dunklem Braun auf Gelb.",
+      "befund": "Bild 1 zeigt die Kennzahlkarte bereits vollstaendig ausgebaut (Titel, 10 %, Erklaerzeile) - es gibt keinen Reizpunkt, der den Blick haelt, und die Kernaussage '10 % Aufschlag' steht in der Mitte statt oben im Blickfeld.",
       "bild": "Bild 1",
-      "vorschlag": "Erste Szene mit einer Reizaussage ueberschreiben: 'Deine 400 € liegen tot herum' als zweizeilige Headline in 90 px Bold ueber der Karte (y=560-700), und die Karten-Kopfzeile von 'AUSSCHÜTTUNG PRO JAHR' auf '400 € JEDES JAHR - UNGENUTZT' aendern."
+      "vorschlag": "Karte in Szene 1 nach oben ziehen (Kartenoberkante von y=640 auf y=440 in 1080x1920) und die Zahl '10 %' in den ersten 0.5 s von 0 auf 10 hochzaehlen lassen; Titelzeile 'EIN JA AM AUTOMATEN' erst ab 0.4 s einblenden, damit in Sekunde 0 nur die grosse Zahl steht."
     },
     {
-      "bereich": "sicherheit",
+      "bereich": "bildwechsel",
       "schwere": "schwer",
-      "befund": "Die Untertitel-Box sitzt in allen Bildern mittig um y=1396 (gemessen 698) und reicht bis y=1450; sie steht damit direkt an der Caption-Zone, die Unterstreichungslinie bei y=1482 (741) liegt praktisch auf der Kante.",
-      "bild": "Bild 2",
-      "vorschlag": "Untertitel-Block samt Trennlinie um 180 px nach oben schieben: Box-Mitte auf y=1210, Linie entfaellt oder wandert auf y=1290."
-    },
-    {
-      "bereich": "sicherheit",
-      "schwere": "mittel",
-      "befund": "In Bild 4 steht der Wert '20.000 €' rechtsbuendig bis x=892 und in Bild 3/4 enden die Balken bei x=892 - das liegt noch links von x=940, aber die Karte selbst reicht bis x=988 und damit in die Buttonspalte hinein (Karte zwischen y=660 und y=1170, also obere Bildhaelfte - knapp, aber bei langer Caption kritisch).",
-      "bild": "Bild 4",
-      "vorschlag": "Kartenbreite von 888 px auf 840 px reduzieren, rechte Kante auf x=940 begrenzen."
-    },
-    {
-      "bereich": "bildwechsel",
-      "schwere": "mittel",
-      "befund": "Szene 1 bewegt sich zwischen Sek 0,9 und Sek 4,63 praktisch nicht - Karte, Zahl und Unterzeile sind identisch, nur der Untertitel wechselt; vier Sekunden wirken wie ein Standbild.",
+      "befund": "In Szene 1 (Bild 1 zu Bild 2) und Szene 4 vorne aendert sich ausser dem Untertitel nichts; ueber 3 Sekunden steht die Karte voellig unbewegt, das wirkt wie ein Standbild mit Textspur.",
       "bild": "Bild 1 und Bild 2",
-      "vorschlag": "Die 400 in Szene 1 als Count-up von 0 auf 400 ueber 0,8 s animieren und die Unterzeile 'liegt unverzinst...' erst bei Sek 2,0 einfliegen lassen."
-    },
-    {
-      "bereich": "bildwechsel",
-      "schwere": "mittel",
-      "befund": "In Szene 4 (Bild 7 zu Bild 8) aendert sich nur, dass die Unterzeile 'Broker legen Ausschüttungen nicht automatisch an' erscheint; die drei Zeilen 'Niemand macht es für dich' stehen 3 Sekunden unveraendert.",
-      "bild": "Bild 7",
-      "vorschlag": "Die Headline wortweise einblenden (je 120 ms Versatz) und den roten Strich bei y=1232 als wachsenden Balken von 0 auf 120 px animieren."
+      "vorschlag": "Pro Szene mindestens eine Eigenbewegung ergaenzen: Karte um 2 % skalieren (scale 1.00 -> 1.02 ueber die Szenendauer) oder in Szene 1 einen Zaehler, in Szene 3 die Listenpunkte gestaffelt alle 0.6 s einfliegen lassen (in Bild 5/6 sind bereits alle drei Punkte sichtbar)."
     },
     {
       "bereich": "lesbarkeit",
       "schwere": "mittel",
-      "befund": "Die Kanalzeile '@geld.pinguin' unter der Kopfzeile steht in ca. 22 px dunklem Grau-Braun auf gelbem Verlauf (y=324) und ist auf dem Handy nicht zu entziffern; zugleich liegt die Kopfzeile bei y=260 noch in der Instagram-Kopfzone bis y=200? - nein, sie liegt knapp darunter, aber zu nah.",
-      "bild": "Bild 5",
-      "vorschlag": "Kanalzeile auf 34 px vergroessern und Farbe auf #1B2237 mit 85 % Deckkraft setzen; Kopfzeilenblock insgesamt auf y=300/y=360 schieben."
+      "befund": "Der durchgestrichene Listeneintrag 'Nicht der echte Devisenkurs' steht in Rot (#F2645A) auf dunkelblau und wird zusaetzlich von der Streichlinie zerschnitten - er ist deutlich schlechter lesbar als die beiden weissen Zeilen darueber und darunter.",
+      "bild": "Bild 5 und Bild 6",
+      "vorschlag": "Strike-Through-Zeile auf helles Grau (#C9CEDA) umstellen, Streichlinie auf 2 px Staerke und 60 % Deckkraft reduzieren; Rot nur fuer das x-Icon behalten."
+    },
+    {
+      "bereich": "lesbarkeit",
+      "schwere": "mittel",
+      "befund": "Der Untertitel wechselt die Kastenbreite von Szene zu Szene (Bild 4 nur 256 px breit, Bild 8 ueber 500 px), die Box springt dadurch in Position und Groesse statt ruhig zu stehen.",
+      "bild": "Bild 4 gegen Bild 8",
+      "vorschlag": "Untertitelbox auf feste Breite von 760 px (1080er Massstab) und feste Hoehe setzen, Text zentriert darin; nur der Inhalt wechselt, der Kasten bleibt stehen."
+    },
+    {
+      "bereich": "information",
+      "schwere": "mittel",
+      "befund": "In Bild 7 stehen die beiden Balken ohne Zahlenwerte - 'Landeswaehrung' und 'Abrechnung in Euro' sind drei Sekunden lang fast gleich lang, der Unterschied ist erst in Bild 8 mit 300 EUR / 330 EUR erkennbar.",
+      "bild": "Bild 7",
+      "vorschlag": "Werte '300 EUR' und '330 EUR' bereits ab Szenenbeginn einblenden und den roten Balken deutlicher ueberziehen (gruen auf 70 % Breite begrenzen, rot auf 100 % laufen lassen), damit die Differenz optisch sofort sichtbar ist."
+    },
+    {
+      "bereich": "marke",
+      "schwere": "mittel",
+      "befund": "Der Pinguin lugt in Szene 1 bis 4 immer in identischer Pose und Position (x ca. 866, y ca. 560 in 1080x1920) hinter der Karte hervor und wird nie Teil der Aussage - ausser auf der Endkarte hat er keine Funktion.",
+      "bild": "Bild 1 bis Bild 8",
+      "vorschlag": "Pinguin pro Szene die Seite oder Haltung wechseln lassen (z. B. Szene 2 links bei x=160, Szene 4 mit Zeigegeste auf den roten Balken) und bei jedem Schnitt 0.3 s Einhuepfen animieren."
+    },
+    {
+      "bereich": "lesbarkeit",
+      "schwere": "klein",
+      "befund": "Der Handle '@geld.pinguin' im Kopfbereich steht in sehr kleinem, grau-auf-gelb gesetztem Sperrsatz (Hoehe ca. 20 px in 1080x1920) und verschwindet auf dem Handy komplett.",
+      "bild": "Bild 1 bis Bild 10",
+      "vorschlag": "Handle-Zeile auf 30 px Schriftgroesse vergroessern und Farbe auf #1B2440 mit 80 % Deckkraft setzen oder ersatzlos streichen, da die Kopfzone bis y=200 ohnehin teilverdeckt ist."
     }
   ],
-  "staerkste": "Die Vergleichsszene (Bild 3/4) funktioniert visuell am besten: Die beiden Balken machen das Verhaeltnis 20.000 € zu 400 € ohne Ton sofort begreifbar, und der Aufbau von leeren Balken zu beschrifteten Werten gibt der Szene echte Bewegung.",
-  "urteil": "Sauber gebautes, konsistentes Kartenlayout mit erkennbarer Farbwelt (Navy/Koralle/Gelb) und einem Maskottchen, das Wiedererkennung schafft - inhaltlich traegt das Bild die Aussage weitgehend ohne Ton. Es scheitert aber am Einstieg: Die erste Szene zeigt nur eine Zahl ohne Reibung und steht vier Sekunden fast still, und der Untertitelblock sitzt mit y=1396 bis y=1482 zu tief an der Caption-Zone."
+  "staerkste": "Die Vergleichsszene mit den zwei Balken und 300 EUR gegen 330 EUR uebersetzt die abstrakten 10 Prozent in eine konkrete, auf einen Blick erfassbare Zahl - das ist der inhaltlich und gestalterisch staerkste Moment des Reels.",
+  "urteil": "Sauber gebautes, farblich konsistentes Kartenlayout mit klarer Dramaturgie von Kennzahl ueber Erklaerung zum Euro-Vergleich und sinnvoller Endkarte mit Speichern-Aufforderung. Gebremst wird es durch einen Hook, der in Sekunde 0 schon alles verraten hat, und durch Szenen, die innerhalb ihrer drei Sekunden praktisch stillstehen - im Feed ist das zu wenig Bewegung, um gegen die Konkurrenz zu bestehen."
 }
