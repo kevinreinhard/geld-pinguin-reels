@@ -1,67 +1,67 @@
 {
-  "datum": "2026-10-04T11:04:21.867Z",
+  "datum": "2026-10-04T15:50:39.579Z",
   "datei": "build/reel.mp4",
-  "dauer": 26.08,
+  "dauer": 27.27,
   "noten": {
     "hook": 52,
-    "lesbarkeit": 68,
+    "lesbarkeit": 74,
     "bildwechsel": 58,
-    "information": 66,
+    "information": 68,
     "marke": 62,
-    "sicherheit": 74
+    "sicherheit": 70
   },
-  "gesamt": 63,
+  "gesamt": 64,
   "maengel": [
     {
       "bereich": "hook",
       "schwere": "schwer",
-      "befund": "Bild 1 zeigt die Kennzahlkarte bereits vollstaendig ausgebaut (Titel, 10 %, Erklaerzeile) - es gibt keinen Reizpunkt, der den Blick haelt, und die Kernaussage '10 % Aufschlag' steht in der Mitte statt oben im Blickfeld.",
+      "befund": "Bild 1 oeffnet mit der nackten Zahl '263 €' und der Zeile 'Ohne Freistellungsauftrag' - weder Schmerz noch Frage, die Zahl ist ohne Kontext belanglos und die erste Sekunde besteht aus einer dunklen Karte auf gelbem Verlauf wie bei hunderten Templates.",
       "bild": "Bild 1",
-      "vorschlag": "Karte in Szene 1 nach oben ziehen (Kartenoberkante von y=640 auf y=440 in 1080x1920) und die Zahl '10 %' in den ersten 0.5 s von 0 auf 10 hochzaehlen lassen; Titelzeile 'EIN JA AM AUTOMATEN' erst ab 0.4 s einblenden, damit in Sekunde 0 nur die grosse Zahl steht."
+      "vorschlag": "Szene 1 in den ersten 1,5 s mit einer Reizzeile ueber der Karte starten, z.B. '263 € zu viel Steuer - jedes Jahr' in 86 px Extrabold Dunkelblau, zentriert bei y=560 (1080x1920), und die Kennzahl erst ab Sekunde 1,2 einblenden."
     },
     {
       "bereich": "bildwechsel",
       "schwere": "schwer",
-      "befund": "In Szene 1 (Bild 1 zu Bild 2) und Szene 4 vorne aendert sich ausser dem Untertitel nichts; ueber 3 Sekunden steht die Karte voellig unbewegt, das wirkt wie ein Standbild mit Textspur.",
+      "befund": "Szene 1 steht zwischen Sekunde 0,9 und 5,44 praktisch still: Bild 1 und Bild 2 unterscheiden sich nur um wenige Pixel Kartenposition und die wechselnde Untertitelzeile - 4,5 Sekunden ohne sichtbare Bewegung.",
       "bild": "Bild 1 und Bild 2",
-      "vorschlag": "Pro Szene mindestens eine Eigenbewegung ergaenzen: Karte um 2 % skalieren (scale 1.00 -> 1.02 ueber die Szenendauer) oder in Szene 1 einen Zaehler, in Szene 3 die Listenpunkte gestaffelt alle 0.6 s einfliegen lassen (in Bild 5/6 sind bereits alle drei Punkte sichtbar)."
+      "vorschlag": "In Szene 1 eine Zahlanimation (Count-up 0 -> 263 ueber 0,8 s) plus einen langsamen Scale der Karte von 1.00 auf 1.04 ueber die Szenendauer einbauen; Szenenlaenge von 5,8 s auf max. 4,0 s kuerzen."
     },
     {
-      "bereich": "lesbarkeit",
+      "bereich": "sicherheit",
       "schwere": "mittel",
-      "befund": "Der durchgestrichene Listeneintrag 'Nicht der echte Devisenkurs' steht in Rot (#F2645A) auf dunkelblau und wird zusaetzlich von der Streichlinie zerschnitten - er ist deutlich schlechter lesbar als die beiden weissen Zeilen darueber und darunter.",
-      "bild": "Bild 5 und Bild 6",
-      "vorschlag": "Strike-Through-Zeile auf helles Grau (#C9CEDA) umstellen, Streichlinie auf 2 px Staerke und 60 % Deckkraft reduzieren; Rot nur fuer das x-Icon behalten."
-    },
-    {
-      "bereich": "lesbarkeit",
-      "schwere": "mittel",
-      "befund": "Der Untertitel wechselt die Kastenbreite von Szene zu Szene (Bild 4 nur 256 px breit, Bild 8 ueber 500 px), die Box springt dadurch in Position und Groesse statt ruhig zu stehen.",
-      "bild": "Bild 4 gegen Bild 8",
-      "vorschlag": "Untertitelbox auf feste Breite von 760 px (1080er Massstab) und feste Hoehe setzen, Text zentriert darin; nur der Inhalt wechselt, der Kasten bleibt stehen."
+      "befund": "Die Untertitelbox liegt bei y=1340-1460 (gemessen 670-730) und die Trennlinie bei y=1482 (gemessen 741) - damit sitzt der Untertitel direkt an der Kante der Caption-Zone ab y=1500 und die Linie faellt bei groesseren Captions darunter.",
+      "bild": "Bild 1 bis Bild 9",
+      "vorschlag": "Untertitelblock und Trennlinie um 140 px nach oben schieben: Box-Mitte auf y=1260, Trennlinie auf y=1340 (1080x1920)."
     },
     {
       "bereich": "information",
       "schwere": "mittel",
-      "befund": "In Bild 7 stehen die beiden Balken ohne Zahlenwerte - 'Landeswaehrung' und 'Abrechnung in Euro' sind drei Sekunden lang fast gleich lang, der Unterschied ist erst in Bild 8 mit 300 EUR / 330 EUR erkennbar.",
-      "bild": "Bild 7",
-      "vorschlag": "Werte '300 EUR' und '330 EUR' bereits ab Szenenbeginn einblenden und den roten Balken deutlicher ueberziehen (gruen auf 70 % Breite begrenzen, rot auf 100 % laufen lassen), damit die Differenz optisch sofort sichtbar ist."
+      "befund": "In Bild 3 stehen die Balken 'Bleibt dir' und 'Steuer 26,4 %' ohne Zahlenwerte da; erst in Bild 4 erscheinen 737 € und 263 €, zudem ist der gruene Balken fast voll und der rote kurz - die Proportion ist zwar richtig, die Aussage 'was dir bleibt' aber nur mit Ton verstaendlich.",
+      "bild": "Bild 3",
+      "vorschlag": "Die Betraege 737 € und 263 € schon ab Szenenbeginn rechtsbuendig am Balkenende einblenden (Fade in 0,3 s) und die Balken von 0 auf Zielbreite animieren statt sie fertig zu zeigen."
     },
     {
       "bereich": "marke",
       "schwere": "mittel",
-      "befund": "Der Pinguin lugt in Szene 1 bis 4 immer in identischer Pose und Position (x ca. 866, y ca. 560 in 1080x1920) hinter der Karte hervor und wird nie Teil der Aussage - ausser auf der Endkarte hat er keine Funktion.",
+      "befund": "Der Pinguin lugt in Bild 1-8 immer in exakt derselben Haltung am rechten oberen Kartenrand hervor (x=820-920, y=560-640) und ist das einzige Markenelement; ansonsten Standard-Karte, Standard-Kopfzeile, Standard-Karaoke-Untertitel.",
       "bild": "Bild 1 bis Bild 8",
-      "vorschlag": "Pinguin pro Szene die Seite oder Haltung wechseln lassen (z. B. Szene 2 links bei x=160, Szene 4 mit Zeigegeste auf den roten Balken) und bei jedem Schnitt 0.3 s Einhuepfen animieren."
+      "vorschlag": "Pinguin pro Szene variieren (Position links/rechts wechseln, kleine Kipp-Animation +/-6 Grad) und eine wiedererkennbare Farb-Codierung festlegen: rote Karte fuer Kosten, gruene fuer Vorteil - derzeit nur ueber Textfarbe angedeutet."
     },
     {
       "bereich": "lesbarkeit",
       "schwere": "klein",
-      "befund": "Der Handle '@geld.pinguin' im Kopfbereich steht in sehr kleinem, grau-auf-gelb gesetztem Sperrsatz (Hoehe ca. 20 px in 1080x1920) und verschwindet auf dem Handy komplett.",
-      "bild": "Bild 1 bis Bild 10",
-      "vorschlag": "Handle-Zeile auf 30 px Schriftgroesse vergroessern und Farbe auf #1B2440 mit 80 % Deckkraft setzen oder ersatzlos streichen, da die Kopfzone bis y=200 ohnehin teilverdeckt ist."
+      "befund": "Der Handle '@geld.pinguin' unter der Kopfzeile steht in ca. 24 px (gemessen 12 px) hellbraun auf gelb und ist auf dem Handy nicht zu entziffern; zusaetzlich liegt er mit y=326 zwar unter der IG-Kopfzeile, aber die Kopfzeile 'FREISTELLUNGSAUFTRAG VERGESSEN' bei y=264 ist nah an der Zone bis y=200.",
+      "bild": "Bild 1",
+      "vorschlag": "Handle auf 32 px vergroessern und auf Dunkelblau #1B2440 setzen; Kopfzeilenblock insgesamt auf y=300 (Titel) / y=360 (Handle) absenken."
+    },
+    {
+      "bereich": "bildwechsel",
+      "schwere": "klein",
+      "befund": "Die Endkarte verliert zwischen Bild 9 und Bild 10 den Untertitel und zeigt in den letzten rund 3 Sekunden nur noch Pinguin, 'HEUTE DEPOT PRUEFEN' und den Handle - darunter viel leere gelbe Flaeche von y=1300 bis y=1920.",
+      "bild": "Bild 10",
+      "vorschlag": "Auf der Endkarte eine dauerhafte CTA-Zeile 'Speichern + Freistellungsauftrag heute erteilen' in 44 px Dunkelblau bei y=1320 stehen lassen und den Pinguin leicht wippen lassen (y +/- 12 px, 1,2 s Loop)."
     }
   ],
-  "staerkste": "Die Vergleichsszene mit den zwei Balken und 300 EUR gegen 330 EUR uebersetzt die abstrakten 10 Prozent in eine konkrete, auf einen Blick erfassbare Zahl - das ist der inhaltlich und gestalterisch staerkste Moment des Reels.",
-  "urteil": "Sauber gebautes, farblich konsistentes Kartenlayout mit klarer Dramaturgie von Kennzahl ueber Erklaerung zum Euro-Vergleich und sinnvoller Endkarte mit Speichern-Aufforderung. Gebremst wird es durch einen Hook, der in Sekunde 0 schon alles verraten hat, und durch Szenen, die innerhalb ihrer drei Sekunden praktisch stillstehen - im Feed ist das zu wenig Bewegung, um gegen die Konkurrenz zu bestehen."
+  "staerkste": "Die Farbdramaturgie trägt: Szene 1/2 rot für die Steuerlast, Szene 3 grün für den Pauschbetrag - dieser Wechsel ist ohne Ton verständlich und macht die Kernaussage in einer Sekunde klar.",
+  "urteil": "Sauber gebautes, gut lesbares Karten-Reel mit klarer Dramaturgie von Problem (263 €) über Lösung (1.000 € Pauschbetrag) zur Handlung (Depot prüfen). Es scheitert aber am Anfang: Der Hook ist eine kontextlose Zahl in einer über vier Sekunden fast stillstehenden Szene - genau die zwei Sekunden, in denen auf Instagram entschieden wird."
 }
