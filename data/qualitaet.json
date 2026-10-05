@@ -1,68 +1,60 @@
 {
-  "datum": "2026-10-04T19:22:23.761Z",
+  "datum": "2026-10-05T12:11:07.586Z",
   "datei": "build/reel.mp4",
-  "dauer": 27.63,
+  "dauer": 21.8,
   "noten": {
-    "hook": 62,
-    "lesbarkeit": 58,
-    "bildwechsel": 55,
-    "information": 66,
+    "hook": 58,
+    "lesbarkeit": 66,
+    "bildwechsel": 52,
+    "information": 70,
     "marke": 64,
-    "sicherheit": 70
+    "sicherheit": 72
   },
-  "gesamt": 63,
+  "gesamt": 64,
   "maengel": [
     {
-      "bereich": "lesbarkeit",
+      "bereich": "bildwechsel",
       "schwere": "schwer",
-      "befund": "In Bild 1 steht 'VERBOTEN.' als graubrauner Text auf dem halbtransparent eingeblendeten Korallenbalken - Schrift und Balken haben fast denselben Helligkeitswert, die Zeile verschwindet waehrend der Einblendung.",
+      "befund": "Szene 1 laeuft von 0,0 bis 4,9 Sekunden, aber zwischen Bild 1 (0,9 s) und Bild 2 (4,53 s) aendert sich ausser dem Untertitel nichts: gleiche Karte, gleiche Zahl 175 EUR, keine Bewegung - fast vier Sekunden Standbild gleich zu Beginn.",
+      "bild": "Bild 1 und 2",
+      "vorschlag": "Zahl 175 als Count-up von 0 auf 175 ueber die ersten 0,8 s animieren und ab Sekunde 2,5 ein zweites Element einblenden (z.B. durchgestrichenes '0 EUR ohne Antrag' unter der Unterzeile), oder Szene 1 auf 3,0 s kuerzen und den Schnitt vorziehen."
+    },
+    {
+      "bereich": "bildwechsel",
+      "schwere": "mittel",
+      "befund": "Szene 4 (Bild 7 zu Bild 8) zeigt zwar wachsende Balken, aber der obere Balken 'Ohne Dauerantrag' bleibt ueber 2,9 s ein nahezu unsichtbarer roter Punkt bei x=168 - optisch passiert in der oberen Haelfte der Karte nichts.",
+      "bild": "Bild 7 und 8",
+      "vorschlag": "Roten Balken auf mindestens 8 % Breite (ca. 60 px bei 740 px Balkenlaenge) setzen und das Label '0 EUR' schon beim Szenenstart mit einblenden statt erst spaeter."
+    },
+    {
+      "bereich": "lesbarkeit",
+      "schwere": "mittel",
+      "befund": "In Szene 3 sind die Listenpunkte 2 und 3 ('Danach nie wieder erneuert', 'Zulage bleibt jahrelang aus') rot auf dunkelblau mit Durchstreichung - der Kontrast der roten Schrift (#F26-aehnlich) auf #16203A ist niedrig und die Linie frisst zusaetzlich Buchstabenhoehe.",
+      "bild": "Bild 5 und 6",
+      "vorschlag": "Listentext in Weiss mit 60 % Deckkraft setzen und nur die Durchstreichlinie rot lassen; Schriftgroesse von ca. 44 px auf 52 px erhoehen."
+    },
+    {
+      "bereich": "hook",
+      "schwere": "mittel",
+      "befund": "Die ersten zwei Sekunden bieten nur die Kennzahl '175 EUR' plus Label 'FEHLENDER HAKEN' - keine Frage, keine Reizaussage, keine Bewegung; der Verlust wird nicht benannt, sondern nur beziffert.",
       "bild": "Bild 1",
-      "vorschlag": "Die Einblend-Animation der zweiten Hook-Zeile nicht ueber die Textfarbe, sondern nur ueber die Deckkraft des gesamten Elements (Balken + Text zusammen) fahren; Textfarbe fest auf #10162B lassen, Balkenfarbe fest #FF6B6B."
-    },
-    {
-      "bereich": "sicherheit",
-      "schwere": "schwer",
-      "befund": "Das Untertitel-Band mit der Wortmarkierung liegt in allen Szenen bei y=1340-1440 (gemessen 670-720) und die Trennlinie bei y=1482 (gemessen 741) - das Band selbst ist knapp frei, liegt aber direkt an der Caption-Kante und wird auf Geraeten mit hoeherer Caption-Zeile ueberdeckt.",
-      "bild": "Bild 4",
-      "vorschlag": "Untertitel-Band und Trennlinie um 120 px nach oben schieben: Bandmitte von y=1396 auf y=1276, Linie von y=1482 auf y=1362."
-    },
-    {
-      "bereich": "bildwechsel",
-      "schwere": "mittel",
-      "befund": "Szene 4 (Bild 7 zu Bild 8) zeigt ueber 2,9 Sekunden exakt dieselbe Karte - nur der Untertitel darunter wechselt, Headline, Kicker, Pinguin und Akzentstrich stehen still.",
-      "bild": "Bild 8",
-      "vorschlag": "In Szene 4 wie in Szene 3 eine dritte Textzeile (Fliesstext unter der Headline) zeitversetzt ab Sekunde 13,5 einblenden oder die Karte mit 1,02-facher Skalierung langsam zoomen."
-    },
-    {
-      "bereich": "bildwechsel",
-      "schwere": "mittel",
-      "befund": "Die Endkarte verliert zum Schluss Inhalt: in Bild 10 ist der CTA-Balken 'Folge fuer Bankgebuehren' verschwunden, die letzten Sekunden zeigen nur noch Pinguin, Headline und Handle ueber leerer Flaeche.",
-      "bild": "Bild 10",
-      "vorschlag": "Den CTA-Balken bis zum Videoende stehen lassen (Ausblendzeitpunkt auf 27,6 s setzen) statt ihn mit der letzten Untertitelzeile zu entfernen.",
-      "bildwechsel": null
-    },
-    {
-      "bereich": "lesbarkeit",
-      "schwere": "mittel",
-      "befund": "In Bild 4 steht der weisse Fliesstext 'So viel kostete der Euro pro Echtzeit im Jahr' mit nur rund 44 px Hoehe direkt unter der 220 px hohen Zahl '120' und wirkt daneben wie eine Fussnote; zudem ueberlappt die Zeile optisch mit der Unterkante der Zahl.",
-      "bild": "Bild 4",
-      "vorschlag": "Fliesstext auf 56 px vergroessern und den Block um 40 px nach unten setzen (Oberkante von y=1020 auf y=1060), Zeilenabstand 1,35."
-    },
-    {
-      "bereich": "information",
-      "schwere": "mittel",
-      "befund": "Bild 4 behauptet '120 EUR - So viel kostete der Euro pro Echtzeit im Jahr', der Kicker darueber sagt '10 Ueberweisungen/Monat' - der Rechenweg (10 x 1 EUR x 12) bleibt unsichtbar und der Satz ist grammatisch schief.",
-      "bild": "Bild 4",
-      "vorschlag": "Fliesstext ersetzen durch '10 x 1 EUR x 12 Monate = 120 EUR pro Jahr' und die Formel in einer Zeile unter die Zahl setzen."
+      "vorschlag": "Ueber der Zahl eine knallige Zeile in 64 px Gelb setzen, z.B. '175 EUR pro Jahr verschenkt?' und den Kopfzeilentitel 'RIESER ZULAGE WEG' bei y=264 durch diese Hook-Zeile ersetzen."
     },
     {
       "bereich": "marke",
+      "schwere": "mittel",
+      "befund": "Der Pinguin lugt in Szene 1 bis 4 immer in identischer Pose und Position (oben rechts, Kopf bei ca. x=866, y=580) hinter der Karte hervor und bewegt sich nie - er wirkt wie ein aufgeklebtes Sticker-Asset statt wie ein Markenelement.",
+      "bild": "Bild 1 bis 8",
+      "vorschlag": "Pinguin pro Szene um 10-20 px vertikal auf-/abtauchen lassen (Keyframe y=580 -> 560 -> 580 ueber 1,2 s) oder in mindestens zwei Szenen auf die linke Kartenseite spiegeln."
+    },
+    {
+      "bereich": "information",
       "schwere": "klein",
-      "befund": "Der Pinguin schaut ab Szene 2 nur noch als halber Kopf hinter der rechten oberen Kartenecke hervor (Bilder 3-8) und wird dort zum zufaelligen Detail statt zum Markenzeichen.",
-      "bild": "Bild 5",
-      "vorschlag": "Pinguin in den Kartenszenen ganz zeigen: Figur auf 160 px Breite verkleinern und freistehend ueber der Kartenoberkante bei x=860, y=520 platzieren."
+      "befund": "In Szene 4 steht ueber dem Balkenpaar nur 'GRUNDZULAGE PRO JAHR'; dass der Unterschied allein am Dauerzulagenantrag haengt, erschliesst sich erst aus dem Untertitel - ohne Ton fehlt die Kausalaussage im Bild.",
+      "bild": "Bild 8",
+      "vorschlag": "Unter die Balken eine Ergebniszeile in 40 px Weiss setzen: 'Ein Haken = 175 EUR jedes Jahr' bei ca. y=1080."
     }
   ],
-  "staerkste": "Die Hook in Bild 2 ist visuell klar: zwei kurze Zeilen auf Korallenbalken, Kernaussage ohne Ton verstaendlich - und die Farbwechsel der Karten (Koralle, Blau, Gruen) geben den Szenen jeweils eine eigene Temperatur.",
-  "urteil": "Ein sauber gebautes, konsistentes Reel mit erkennbarem Farbsystem, das die Kernaussage auch stumm transportiert. Es verliert aber Punkte durch die unlesbare zweite Hook-Zeile waehrend der Einblendung, durch Szene 4, die 2,9 Sekunden als Standbild steht, und durch eine Endkarte, die zum Schluss ihren Call-to-Action wegblendet."
+  "staerkste": "Der Vergleichsbalken in Szene 4 mit 0 EUR gegen 175 EUR ist die klarste Bildaussage des Reels - rot gegen gruen, Zahl rechts, sofort ohne Ton verstaendlich.",
+  "urteil": "Sauber gebautes, konsistentes Karten-Layout mit stabiler Farbwelt und gut gesetzten Untertiteln, das aber in jeder Szene zu lange auf demselben Bild steht - besonders die ersten vier Sekunden sind praktisch ein Standbild. Inhaltlich traegt die Bildspur die Aussage weitgehend; um gegen scrollende Daumen zu bestehen, fehlen Bewegung in der Kennzahl, ein zugespitzter Texthook und mehr Leben beim Markenpinguin."
 }
