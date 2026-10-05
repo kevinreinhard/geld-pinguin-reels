@@ -1,60 +1,60 @@
 {
-  "datum": "2026-10-05T12:11:07.586Z",
+  "datum": "2026-10-05T20:55:40.324Z",
   "datei": "build/reel.mp4",
-  "dauer": 21.8,
+  "dauer": 21.88,
   "noten": {
-    "hook": 58,
-    "lesbarkeit": 66,
-    "bildwechsel": 52,
-    "information": 70,
-    "marke": 64,
-    "sicherheit": 72
+    "hook": 52,
+    "lesbarkeit": 68,
+    "bildwechsel": 55,
+    "information": 62,
+    "marke": 58,
+    "sicherheit": 70
   },
-  "gesamt": 64,
+  "gesamt": 61,
   "maengel": [
     {
-      "bereich": "bildwechsel",
+      "bereich": "hook",
       "schwere": "schwer",
-      "befund": "Szene 1 laeuft von 0,0 bis 4,9 Sekunden, aber zwischen Bild 1 (0,9 s) und Bild 2 (4,53 s) aendert sich ausser dem Untertitel nichts: gleiche Karte, gleiche Zahl 175 EUR, keine Bewegung - fast vier Sekunden Standbild gleich zu Beginn.",
-      "bild": "Bild 1 und 2",
-      "vorschlag": "Zahl 175 als Count-up von 0 auf 175 ueber die ersten 0,8 s animieren und ab Sekunde 2,5 ein zweites Element einblenden (z.B. durchgestrichenes '0 EUR ohne Antrag' unter der Unterzeile), oder Szene 1 auf 3,0 s kuerzen und den Schnitt vorziehen."
+      "befund": "Bild 1 zeigt in Sekunde 0.9 bereits die fertige Karte mit '8.000 EUR' und Unterzeile - es gibt keine Frage, keine Zuspitzung, nur eine Zahl in einer Standard-Karte; der Blick startet ausserdem bei y=265 (Kicker) statt bei der Zahl.",
+      "bild": "Bild 1",
+      "vorschlag": "Die erste Sekunde mit einer Spannungszeile ueber der Zahl belegen, z.B. 'Nach 3 Jahren: 8.000 EUR auf einen Schlag' als eigene Textzeile bei y=560, Schriftgrad 88, Farbe #FF5F5F, und die Zahl erst ab Frame 15 mit Scale-In von 0.8 auf 1.0 einfahren lassen."
     },
     {
       "bereich": "bildwechsel",
+      "schwere": "schwer",
+      "befund": "Szene 1 (Bild 1 zu Bild 2) veraendert sich in 2,5 Sekunden ausser der Untertitelzeile praktisch nicht - die Karte verschiebt sich nur um ca. 6 px nach unten; dasselbe gilt fuer die Endkarte (Bild 9 zu Bild 10), bei der nur der Untertitel verschwindet.",
+      "bild": "Bild 1 und Bild 2",
+      "vorschlag": "In jede Szene eine zweite Bewegungsstufe legen: in Szene 1 die Zahl 8.000 als Count-Up von 0 ueber 1,2 s, in Szene 7 den Pinguin leicht wippen (translateY +-12 px, 1,6 s Loop) und den @geld.pinguin-Button ab Sekunde 20 pulsieren lassen (Scale 1.0 auf 1.04)."
+    },
+    {
+      "bereich": "information",
       "schwere": "mittel",
-      "befund": "Szene 4 (Bild 7 zu Bild 8) zeigt zwar wachsende Balken, aber der obere Balken 'Ohne Dauerantrag' bleibt ueber 2,9 s ein nahezu unsichtbarer roter Punkt bei x=168 - optisch passiert in der oberen Haelfte der Karte nichts.",
-      "bild": "Bild 7 und 8",
-      "vorschlag": "Roten Balken auf mindestens 8 % Breite (ca. 60 px bei 740 px Balkenlaenge) setzen und das Label '0 EUR' schon beim Szenenstart mit einblenden statt erst spaeter."
+      "befund": "Die Endkarte traegt die Headline 'ZEILE SCHLUSSRATE PRUEFEN' (Bild 9/10) - eine sinnlose Platzhalterformulierung, die als Handlungsaufforderung nichts bedeutet.",
+      "bild": "Bild 9",
+      "vorschlag": "Headline-Text der Endkarte auf 'SCHAU IN DEINEN VERTRAG' aendern, zweizeilig, gleiche Groesse (ca. 76 px), und darunter in 44 px 'Wie hoch ist deine Schlussrate?'"
     },
     {
       "bereich": "lesbarkeit",
       "schwere": "mittel",
-      "befund": "In Szene 3 sind die Listenpunkte 2 und 3 ('Danach nie wieder erneuert', 'Zulage bleibt jahrelang aus') rot auf dunkelblau mit Durchstreichung - der Kontrast der roten Schrift (#F26-aehnlich) auf #16203A ist niedrig und die Linie frisst zusaetzlich Buchstabenhoehe.",
-      "bild": "Bild 5 und 6",
-      "vorschlag": "Listentext in Weiss mit 60 % Deckkraft setzen und nur die Durchstreichlinie rot lassen; Schriftgroesse von ca. 44 px auf 52 px erhoehen."
+      "befund": "Die Erklaerzeile in der Karte ('Auf einen Schlag faellig - sonst ist das Auto weg', Bild 1/2; 'Kleine Raten, eine grosse Rate ganz am Ende', Bild 4) steht in hellgrauem Blau (ca. #B9C2D6) auf #141E33 und ist mit ca. 44 px Hoehe im Vergleich zur Zahl deutlich zu schwach.",
+      "bild": "Bild 2",
+      "vorschlag": "Farbe der Erklaerzeile auf #FFFFFF setzen und Schriftgrad von 44 auf 52 px erhoehen."
     },
     {
-      "bereich": "hook",
+      "bereich": "lesbarkeit",
       "schwere": "mittel",
-      "befund": "Die ersten zwei Sekunden bieten nur die Kennzahl '175 EUR' plus Label 'FEHLENDER HAKEN' - keine Frage, keine Reizaussage, keine Bewegung; der Verlust wird nicht benannt, sondern nur beziffert.",
+      "befund": "In Bild 1 und 2 beruehrt die Erklaerzeile mit nur ca. 16 px Abstand die Unterkante der Riesenzahl und wirkt angeklebt; der Textblock reicht bis x=930 und damit fast an den Kartenrand bei x=985.",
       "bild": "Bild 1",
-      "vorschlag": "Ueber der Zahl eine knallige Zeile in 64 px Gelb setzen, z.B. '175 EUR pro Jahr verschenkt?' und den Kopfzeilentitel 'RIESER ZULAGE WEG' bei y=264 durch diese Hook-Zeile ersetzen."
+      "vorschlag": "Abstand zwischen Zahl und Erklaerzeile auf 48 px erhoehen und die maximale Textbreite der Erklaerzeile auf 760 px begrenzen."
     },
     {
       "bereich": "marke",
-      "schwere": "mittel",
-      "befund": "Der Pinguin lugt in Szene 1 bis 4 immer in identischer Pose und Position (oben rechts, Kopf bei ca. x=866, y=580) hinter der Karte hervor und bewegt sich nie - er wirkt wie ein aufgeklebtes Sticker-Asset statt wie ein Markenelement.",
-      "bild": "Bild 1 bis 8",
-      "vorschlag": "Pinguin pro Szene um 10-20 px vertikal auf-/abtauchen lassen (Keyframe y=580 -> 560 -> 580 ueber 1,2 s) oder in mindestens zwei Szenen auf die linke Kartenseite spiegeln."
-    },
-    {
-      "bereich": "information",
       "schwere": "klein",
-      "befund": "In Szene 4 steht ueber dem Balkenpaar nur 'GRUNDZULAGE PRO JAHR'; dass der Unterschied allein am Dauerzulagenantrag haengt, erschliesst sich erst aus dem Untertitel - ohne Ton fehlt die Kausalaussage im Bild.",
-      "bild": "Bild 8",
-      "vorschlag": "Unter die Balken eine Ergebniszeile in 40 px Weiss setzen: 'Ein Haken = 175 EUR jedes Jahr' bei ca. y=1080."
+      "befund": "Der Pinguin schaut in Bild 1 bis 8 immer in identischer Pose und Groesse hinter der rechten oberen Kartenecke hervor und ist damit reines Dekor ohne Funktion.",
+      "bild": "Bild 5",
+      "vorschlag": "Pro Szene eine andere Pinguin-Variante einsetzen (z.B. erschrocken bei der Kennzahl, zeigend beim Vergleich) oder ihn bei Szenenwechsel um 24 px nach oben hopsen lassen."
     }
   ],
-  "staerkste": "Der Vergleichsbalken in Szene 4 mit 0 EUR gegen 175 EUR ist die klarste Bildaussage des Reels - rot gegen gruen, Zahl rechts, sofort ohne Ton verstaendlich.",
-  "urteil": "Sauber gebautes, konsistentes Karten-Layout mit stabiler Farbwelt und gut gesetzten Untertiteln, das aber in jeder Szene zu lange auf demselben Bild steht - besonders die ersten vier Sekunden sind praktisch ein Standbild. Inhaltlich traegt die Bildspur die Aussage weitgehend; um gegen scrollende Daumen zu bestehen, fehlen Bewegung in der Kennzahl, ein zugespitzter Texthook und mehr Leben beim Markenpinguin."
+  "staerkste": "Die Vergleichsszene (Bild 5 zu 6) ist der beste Teil: Die Balken fuellen sich, die Werte 'niedrig' und '8.000 EUR' erscheinen nach und nach, und der Gegensatz zwischen kleiner Monatsrate und riesiger Schlussrate ist ohne Ton sofort verstaendlich.",
+  "urteil": "Sauber gebautes, konsistentes Kartendesign mit gutem Kontrast und ordentlichen Sicherheitsabstaenden - aber es sieht aus wie eine Vorlage, die mit anderen Zahlen auch fuer jedes andere Thema laufen wuerde. Der groesste Schaden entsteht vorn: Sekunde 0 bis 3 zeigt eine statische Karte ohne Zuspitzung, und hinten kippt die Endkarte mit dem Platzhaltertext 'ZEILE SCHLUSSRATE PRUEFEN' den Call-to-Action komplett."
 }
