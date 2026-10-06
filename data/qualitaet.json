@@ -1,60 +1,67 @@
 {
-  "datum": "2026-10-06T11:55:37.956Z",
+  "datum": "2026-10-06T18:10:04.447Z",
   "datei": "build/reel.mp4",
-  "dauer": 20.51,
+  "dauer": 24.1,
   "noten": {
-    "hook": 52,
-    "lesbarkeit": 63,
-    "bildwechsel": 58,
-    "information": 66,
-    "marke": 64,
+    "hook": 58,
+    "lesbarkeit": 72,
+    "bildwechsel": 55,
+    "information": 70,
+    "marke": 66,
     "sicherheit": 74
   },
-  "gesamt": 63,
+  "gesamt": 66,
   "maengel": [
     {
       "bereich": "hook",
       "schwere": "schwer",
-      "befund": "Bild 1 oeffnet mit dem Fachwort 'ERWERBSMINDERUNGSRENTE' und der neutralen Zahl '1.000 €' plus Erklaerzeile 'Durchschnittliche Zahlung, brutto' - keine Spannung, keine Frage, kein Konflikt in den ersten zwei Sekunden.",
+      "befund": "Bild 1 oeffnet mit der Zwischenueberschrift 'ZWEI FEHLENDE JAHRE' und erst darunter der Zahl 80 € - die Karte sitzt mittig ab y=640 (1080er Massstab), die oberen 600 Pixel sind leerer Farbverlauf, es gibt keine provozierende Frage und keine Bewegung im ersten Bild.",
       "bild": "Bild 1",
-      "vorschlag": "Erste Szene mit einer Reizzeile ueberschreiben, z.B. Kicker 'WENN DU NICHT MEHR KANNST' und darunter '1.000 € - und dann?' in der Pink-Variante (#FF5F6D), Schriftgrad des Kickers von ca. 36 px auf 56 px anheben."
+      "vorschlag": "Szene 1 um eine Hook-Zeile ergaenzen, die ab Frame 0 ueber der Karte steht, z.B. '2 Jahre vergessen?' in 96 px Weiss fett bei y=430, und die Zahl 80 € von 170 px auf ca. 220 px vergroessern; Karte dafuer von y=640 auf y=560 hochziehen."
     },
     {
-      "bereich": "lesbarkeit",
+      "bereich": "bildwechsel",
       "schwere": "schwer",
-      "befund": "In Bild 5 und 6 ist die erste Listenzeile 'Kein Schutz fuer deinen erlernten Beruf' in Rot (#FF5F6D) auf dunkelblau gesetzt und zusaetzlich durchgestrichen - der Kontrast liegt deutlich unter dem der beiden weissen Zeilen und die Durchstreichung zerschneidet die Buchstaben.",
-      "bild": "Bild 5",
-      "vorschlag": "Durchgestrichene Zeile in Weiss mit 60% Deckkraft setzen statt in Rot, Strichstaerke der Durchstreichung von ca. 4 px auf 3 px reduzieren und auf halbe Textmitte legen."
+      "befund": "Szene 4 ist zwischen Bild 7 (11.3 s) und Bild 8 (13.5 s) bis auf die eingeblendete zweizeilige Unterzeile identisch - gleiche Karte, gleiche Headline, keine Skalierung, kein Positionswechsel; ueber zwei Sekunden wirkt der Abschnitt wie ein Standbild.",
+      "bild": "Bild 7 / Bild 8",
+      "vorschlag": "In Szene 4 die Unterzeile wortweise einblenden (0,12 s Versatz pro Wort) und die Headline-Zeilen bei Szenenstart mit 0,25 s Slide-in von y+40 px staffeln; zusaetzlich den roten Trennstrich bei y=1232 von 120 auf 300 px Breite animieren."
     },
     {
       "bereich": "bildwechsel",
       "schwere": "mittel",
-      "befund": "Szene 1 (Bild 1 zu Bild 2) veraendert sich ueber 2,9 Sekunden nur durch die untenliegende Untertitelzeile - Karte, Zahl, Pinguin stehen praktisch still.",
-      "bild": "Bild 2",
-      "vorschlag": "In Szene 1 die Zahl von 0 auf 1.000 hochzaehlen lassen (Dauer 0,8 s nach Szenenstart) und den gelben Fortschrittsbalken links oben (x 130-250, y 640) ueber die Szenendauer auf volle Kartenbreite wachsen lassen."
-    },
-    {
-      "bereich": "bildwechsel",
-      "schwere": "mittel",
-      "befund": "Bild 10 zeigt die Endkarte ab Sekunde 20,16 ohne Untertitelzeile - unten entsteht eine leere Flaeche zwischen Handle-Pille (y ca. 1230) und Trennlinie (y ca. 1480), das Bild wirkt eingefroren.",
+      "befund": "Die Endkarte verliert zwischen Bild 9 und Bild 10 den Untertitel und zeigt dann 2 Sekunden lang nur Pinguin, Headline und Handle ohne jede Veraenderung; im Untertitelbereich bleibt nur die nackte schwarze Linie bei y=1480 stehen.",
       "bild": "Bild 10",
-      "vorschlag": "Letzte Sekunde mit einem statischen CTA-Balken fuellen, z.B. 'Link in Bio' in Dunkelblau auf Gelb an derselben Stelle wie die Untertitelbox (y 1340-1440), oder die Pinguin-Figur leicht pulsieren lassen (Scale 1.0 -> 1.04)."
+      "vorschlag": "Auf der Endkarte den Untertitel-Container ausblenden, sobald kein Text mehr kommt, und stattdessen einen pulsierenden Speichern-Hinweis (Icon + 'Speichern' 56 px) bei y=1360 animieren oder den Pinguin um +/-8 px vertikal wippen lassen."
     },
     {
       "bereich": "information",
       "schwere": "mittel",
-      "befund": "Die Balken in Bild 7 und 8 sind unbeschriftet: 'Dein alter Beruf' hat einen vollen roten Balken, 'Rente vom Staat' nur einen Punkt - ohne Ton bleibt unklar, welche Groesse hier abgetragen wird; die Werte 'weg' und '0 €' erscheinen erst in Bild 8.",
-      "bild": "Bild 7",
-      "vorschlag": "Werte 'weg' und '0 €' bereits 0,3 s nach Szenenstart einblenden statt erst spaet, und Balkenbeschriftung um eine Bezugsgroesse ergaenzen, z.B. 'Einkommen vorher' / 'Einkommen danach'."
+      "befund": "In Bild 3 stehen die beiden Balken 2,0 Sekunden lang ohne Zahlenwerte da - erst in Bild 4 erscheinen '40 €' und '80 €'. Wer nur das Bild sieht, kann in der ersten Haelfte der Szene nicht erkennen, worum es geht; zudem fehlt die Einheit, worauf sich die Balken beziehen.",
+      "bild": "Bild 3",
+      "vorschlag": "Werte '40 €' und '80 €' sofort mit dem Balkenwachstum einblenden (Count-up ueber 0,6 s) und ueber der Kartenueberschrift eine Zeile 'Rentenplus pro Monat' in 40 px Hellgrau ergaenzen."
     },
     {
-      "bereich": "marke",
+      "bereich": "lesbarkeit",
+      "schwere": "mittel",
+      "befund": "Die Handle-Zeile '@geld.pinguin' im Kopf (Bild 1-10, y=324) ist in ca. 26 px dunklem Graubraun auf dem orangen Verlauf gesetzt und verschwimmt mit dem Hintergrund; zugleich liegt sie unterhalb y=200 noch knapp sichtbar, aber praktisch unleserlich.",
+      "bild": "Bild 2",
+      "vorschlag": "Handle auf 34 px vergroessern und Farbe auf #1B2338 mit 85 % Deckkraft setzen oder in Weiss mit 70 % Deckkraft; Zeilenabstand zur Kicker-Zeile von aktuell ca. 40 px auf 56 px erhoehen."
+    },
+    {
+      "bereich": "lesbarkeit",
       "schwere": "klein",
-      "befund": "Der Kopfbereich zeigt den Titel 'TAUSEND EURO BRUTTO' bei y ca. 264 und '@geld.pinguin' bei y ca. 324 in Grau auf Gelb mit sehr geringem Kontrast - das Handle ist auf dem Handy kaum zu erkennen.",
+      "befund": "In Bild 5 sind die Listenpunkte waehrend des Einblendens unterschiedlich hell und unterschiedlich weit eingerueckt ('Zeiten im Ausland' startet bei x=274 statt x=238 und erscheint in Gelbbraun statt Weiss), das wirkt wie ein Renderfehler.",
+      "bild": "Bild 5",
+      "vorschlag": "Listen-Einblendung rein ueber Deckkraft (0 -> 1) animieren, X-Offset auf konstant 238 px fixieren und die Textfarbe waehrend der Animation nicht von Gelb nach Weiss faden."
+    },
+    {
+      "bereich": "sicherheit",
+      "schwere": "klein",
+      "befund": "Die Untertitel-Box steht in allen Szenen mit Unterkante bei ca. y=1444 und die Fortschrittslinie bei y=1480 - das liegt dicht an der Caption-Zone ab y=1500; bei laengeren Untertiteln (Bild 3: Box reicht bis x=868) wird es zusaetzlich eng zur Buttonspalte ab x=940.",
       "bild": "Bild 3",
-      "vorschlag": "Handle-Zeile von Grau (#8a8a8a) auf Dunkelblau (#1B2340) mit 70% Deckkraft umstellen und Schriftgrad von ca. 22 px auf 28 px anheben."
+      "vorschlag": "Untertitel-Block samt Fortschrittslinie um 80 px nach oben schieben (Box-Unterkante auf y=1364, Linie auf y=1400) und die maximale Boxbreite auf 820 px begrenzen."
     }
   ],
-  "staerkste": "Das Kartenlayout ist konsequent durchgehalten: dunkelblaue Karte auf warmem Gelbverlauf, gelber Akzentstrich links oben, Pinguin als wiederkehrendes Markenzeichen am Kartenrand - das wirkt ueber alle sechs Szenen wie ein Kanal mit eigener Handschrift und nicht wie eine zusammengeklickte Vorlage.",
-  "urteil": "Handwerklich sauberes, markentreues Reel mit klarer Typohierarchie, gut platzierten Untertiteln (y 1340-1440, deutlich ausserhalb der Caption-Zone ab y 1500) und einer verstaendlichen Dramaturgie von Kennzahl ueber Pruefkriterien bis zur Endkarte. Es scheitert aber am Anfang und am Ende: Der Hook ist eine neutrale Statistik statt eines Konflikts, Szene 1 steht fast still, und die letzte Sekunde laeuft ohne Bewegung und ohne Handlungsaufforderung aus."
+  "staerkste": "Die durchgehende Kartenoptik mit dem hervorlugenden Pinguin ist konsistent und sofort wiedererkennbar, und der Vergleichsbalken in Szene 2 uebersetzt den Zahlenunterschied 40 € / 80 € sauber ins Bild.",
+  "urteil": "Solides, sauber gesetztes Karten-Reel mit klarer Farbwelt und einem Maskottchen, das dem Kanal Handschrift gibt - inhaltlich verstaendlich, handwerklich ordentlich. Es verliert aber im Wettbewerb, weil der Einstieg ohne Hook-Zeile und ohne Bewegung startet und mehrere Szenen (besonders Szene 4 und die Endkarte) ueber Sekunden wie Standbilder stehen."
 }
