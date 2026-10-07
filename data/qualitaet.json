@@ -1,60 +1,67 @@
 {
-  "datum": "2026-10-07T11:41:09.583Z",
+  "datum": "2026-10-07T18:42:52.502Z",
   "datei": "build/reel.mp4",
-  "dauer": 28.23,
+  "dauer": 25.97,
   "noten": {
-    "hook": 58,
+    "hook": 42,
     "lesbarkeit": 66,
-    "bildwechsel": 52,
-    "information": 64,
+    "bildwechsel": 48,
+    "information": 58,
     "marke": 62,
-    "sicherheit": 71
+    "sicherheit": 70
   },
-  "gesamt": 62,
+  "gesamt": 58,
   "maengel": [
     {
-      "bereich": "lesbarkeit",
-      "schwere": "schwer",
-      "befund": "Durchgehend fehlen Umlaute in den Kartentexten: 'Erstattung verfaellt' (Bild 1/2), 'Vier Jahre rueckwirkend' (Bild 3/4), '3 Jahre uebrig' (Bild 8) - waehrend die Kopfzeile und die Untertitel korrekt 'RÜCKWIRKEND', 'rückwirkend', 'älteste' schreiben.",
-      "bild": "Bild 1, 2, 3, 4, 8",
-      "vorschlag": "Szenentexte auf UTF-8-Umlaute umstellen: 'verfällt', 'Vier Jahre rückwirkend', '3 Jahre übrig'. Die ae/oe/ue-Ersetzung im Text-Pipeline-Schritt entfernen, Schrift laedt die Glyphen offensichtlich (Untertitel zeigen ä/ü)."
-    },
-    {
-      "bereich": "bildwechsel",
-      "schwere": "schwer",
-      "befund": "Szene 7 (Bild 9 zu 10) steht ueber rund 3,6 Sekunden praktisch still: Pinguin, Headline und Handle sind pixelgleich positioniert, nur der Untertitel verschwindet - die letzten 1,5 Sekunden sind ein Standbild mit leerer Flaeche zwischen y=1280 und y=1460.",
-      "bild": "Bild 10",
-      "vorschlag": "Endkarte animieren: Pinguin ab Szenenstart mit 2 s Loop +/- 12 px vertikal bewegen, Handle-Pill ab 25.5 s von scale 0.9 auf 1.0 pulsieren, und den Untertitel bis Videoende stehen lassen statt bei ~27 s auszublenden."
-    },
-    {
-      "bereich": "bildwechsel",
-      "schwere": "mittel",
-      "befund": "In Szene 1 (Bild 1 zu 2) aendert sich in 3,9 Sekunden ausser dem Untertitel nichts - die Zahl '4.000 €' steht von Anfang an fertig da, kein Count-up, keine Kartenbewegung.",
-      "bild": "Bild 1",
-      "vorschlag": "Zahl in Szene 1 als Count-up von 0 auf 4000 ueber 0.8 s animieren (ease-out) und die Karte von y+24 px einfahren lassen; gleiches Muster fuer Szene 3 (1.000 €)."
-    },
-    {
       "bereich": "hook",
-      "schwere": "mittel",
-      "befund": "Die ersten zwei Sekunden zeigen nur eine statische Karte mit '4.000 €' und dem erklaerenden Satz 'Erstattung verfaellt, wenn du nichts einreichst' - kein Konflikt, keine Frage, keine Bewegung, der Blickfang ist eine Zahl ohne Dringlichkeit.",
+      "schwere": "schwer",
+      "befund": "Die erste Sekunde zeigt nur eine dunkle Karte mit 'ZU VIEL EINBEHALTEN 11 %' und einer kleinteiligen Erklaerzeile - die Zahl ist zwar gross, aber ohne Konflikt, Gesicht oder Bewegung; die Headline oben ('11 PROZENT ZU VIEL') steht in ca. 28 px Sperrschrift und ist auf dem Handy kaum zu erfassen.",
       "bild": "Bild 1",
-      "vorschlag": "Kaesten-Label in Bild 1 von 'VIER JAHRE NICHTS ABGEGEBEN' auf eine Deadline-Aussage wie 'NUR NOCH BIS 31.12.' aendern und die Zahl in den ersten 0.5 s mit Scale 1.15 -> 1.0 einschlagen lassen."
+      "vorschlag": "Hook-Zeile aus der Kopfzone nach unten holen: Text 'Deine Bank behaelt 11 % zu viel' bei y=460..620 in 110 px Bold, Dunkelblau auf Gelb, und die 11 % in Szene 1 mit einem Count-Up von 0 auf 11 in den ersten 0.6 s animieren."
+    },
+    {
+      "bereich": "bildwechsel",
+      "schwere": "schwer",
+      "befund": "Szene 1 (Bild 1 vs. Bild 2) und Szene 4 (Bild 7 vs. 8) aendern ueber mehrere Sekunden nur die Untertitelzeile bzw. die Prozentwerte - der gesamte Kartenbereich steht still, Szene 2 (Bild 3 vs. 4) ist ueber 4 Sekunden ein echtes Standbild.",
+      "bild": "Bild 3 und Bild 4",
+      "vorschlag": "Pro Szene mindestens ein Bildereignis: in Szene 2 die drei Textzeilen zeitversetzt je 0.4 s einblenden und ab Sekunde 6 einen zweiten Baustein (z.B. '2.000 EUR -> 500 EUR Steuer') unter der Karte bei y=1180 einfahren; Szenen auf max. 3 s kuerzen."
+    },
+    {
+      "bereich": "lesbarkeit",
+      "schwere": "mittel",
+      "befund": "Die Erklaerzeile 'Differenz Abgeltungsteuer zu 14 % Steuersatz' in Bild 1/2 steht in ca. 46 px hellgrau-blau auf dunkelblau und laeuft zweizeilig bis an den Kartenrand - deutlich kleinster lesbarer Text im ganzen Reel.",
+      "bild": "Bild 2",
+      "vorschlag": "Auf 56 px erhoehen, Farbe auf #FFFFFF bei 90 % Deckkraft, Zeilenumbruch nach 'Abgeltungsteuer' erzwingen und Kartenbreite-Innenabstand auf 60 px setzen."
     },
     {
       "bereich": "information",
       "schwere": "mittel",
-      "befund": "Szene 2 (Bild 3) traegt 2,5 Sekunden lang nur die Ueberschrift 'Vier Jahre rueckwirkend' in einer sonst leeren Karte; die erklaerende Zeile 'Freiwillige Abgabe: 2021 bis 2024 gehen noch' erscheint erst spaet (Bild 4), darunter bleiben rund 200 px Karte leer.",
-      "bild": "Bild 3",
-      "vorschlag": "Die Unterzeile bereits 0.4 s nach Szenenstart einblenden und die Jahreszahlen 2021-2024 als vier kleine Chips (je ca. 150x80 px, Reihe bei y=1000) zeigen, damit die Karte nicht leer bleibt."
+      "befund": "Szene 2 nennt '2.000 EUR ERTRAEGE' und der Untertitel sagt 'das 220 Euro' - die Zahl 220 erscheint nirgends im Bild, die Aussage ist nur per Ton verstaendlich.",
+      "bild": "Bild 4",
+      "vorschlag": "In der Karte unter dem Flaechentext eine zweite Zeile '= 220 EUR zu viel Steuer' in 90 px Bold Koralle bei y=1060 einblenden."
     },
     {
       "bereich": "information",
+      "schwere": "mittel",
+      "befund": "In Bild 6 steht der unvollstaendige Satz 'Die Abgeltungsteuer ist pauschal .' mit Leerzeichen vor dem Punkt - wirkt wie ein abgeschnittener Platzhalter.",
+      "bild": "Bild 6",
+      "vorschlag": "Satz im Textfeld vervollstaendigen ('Die Abgeltungsteuer ist pauschal - egal wie viel du verdienst.') und das Leerzeichen vor dem Satzpunkt im String entfernen."
+    },
+    {
+      "bereich": "marke",
       "schwere": "klein",
-      "befund": "Das Verlaufsdiagramm in Bild 7/8 hat keine Werteachse - die rote Flaeche faellt von einem unbeschrifteten Niveau auf fast null, erst in Bild 8 erklaert '3 Jahre uebrig' den Sinn, der Startwert '4 Jahre' fehlt ganz.",
-      "bild": "Bild 7",
-      "vorschlag": "Links am Kurvenanfang (ca. x=170, y=770) ein Label '4 Jahre' in Weiss 38 px setzen und das Label '3 Jahre uebrig' schon beim Fallen der Kurve mitlaufen lassen."
+      "befund": "Der Pinguin schaut in Szenen 1 bis 4 immer identisch in derselben Position hinter der rechten oberen Kartenecke hervor und hat keine Funktion; nur die Endkarte nutzt ihn richtig.",
+      "bild": "Bild 5",
+      "vorschlag": "Pinguin pro Szene variieren: Position wechseln (z.B. Szene 3 links bei x=120, y=640) oder 0.3 s Hoppel-Animation beim Szenenstart, sonst in den Zwischenszenen weglassen."
+    },
+    {
+      "bereich": "sicherheit",
+      "schwere": "klein",
+      "befund": "Die Untertitelbox sitzt in Bild 9 mit Oberkante bei etwa y=1330 und Unterkante y=1440 noch knapp ueber der Caption-Zone, der dekorative Unterstrich bei y=1480 liegt direkt an deren Kante.",
+      "bild": "Bild 9",
+      "vorschlag": "Untertitelblock samt Unterstrich um 80 px nach oben schieben (Boxmitte auf y=1300) und den Strich bei y=1400 enden lassen."
     }
   ],
-  "staerkste": "Die Szenenwechsel tragen klar: dunkle Karte, Farbwechsel von Rot (Verlust) zu Gruen (Erstattung) zu Diagramm und Endkarte geben dem Reel eine erkennbare Dramaturgie, und der Pinguin oben rechts an der Karte ist ein eigenstaendiges, wiedererkennbares Markenzeichen.",
-  "urteil": "Solide gebautes Template mit konsistenter Farbwelt, lesbaren Karten und sauber gesetzten Untertiteln, das aber an zwei Stellen echten Schaden nimmt: die fehlenden Umlaute in allen Kartentexten wirken wie ein Encoding-Bug und kosten sofort Glaubwuerdigkeit bei einem Finanzthema. Dazu kommt zu wenig Bewegung - Zahlen stehen fertig da statt hochzuzaehlen, und die Endkarte friert ein, wo der Call-to-Action am meisten Energie braeuchte."
+  "staerkste": "Die Vergleichsszene mit den zwei Balken (Bild 7/8): klare Farblogik rot/gruen, die Werte 25 % und 14 % erscheinen zeitversetzt, und die Aussage ist ohne Ton verstaendlich - das ist der einzige Abschnitt, der wirklich visuell argumentiert.",
+  "urteil": "Saubere, konsistente Vorlage mit ordentlichem Kontrast und einem klaren Markenzeichen, aber dramaturgisch zu brav: Der Einstieg setzt auf eine kleine Sperrschrift-Headline statt auf einen Konflikt, und drei von vier Inhaltsszenen stehen mehrere Sekunden praktisch still, waehrend nur der Untertitel weiterlaeuft. Inhaltlich fehlen genau die Zahlen, die der Ton nennt (220 Euro), und ein halbfertiger Satz in Bild 6 verraet den Generator."
 }
