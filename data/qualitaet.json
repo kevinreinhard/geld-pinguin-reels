@@ -1,67 +1,60 @@
 {
-  "datum": "2026-10-06T18:10:04.447Z",
+  "datum": "2026-10-07T11:41:09.583Z",
   "datei": "build/reel.mp4",
-  "dauer": 24.1,
+  "dauer": 28.23,
   "noten": {
     "hook": 58,
-    "lesbarkeit": 72,
-    "bildwechsel": 55,
-    "information": 70,
-    "marke": 66,
-    "sicherheit": 74
+    "lesbarkeit": 66,
+    "bildwechsel": 52,
+    "information": 64,
+    "marke": 62,
+    "sicherheit": 71
   },
-  "gesamt": 66,
+  "gesamt": 62,
   "maengel": [
     {
-      "bereich": "hook",
+      "bereich": "lesbarkeit",
       "schwere": "schwer",
-      "befund": "Bild 1 oeffnet mit der Zwischenueberschrift 'ZWEI FEHLENDE JAHRE' und erst darunter der Zahl 80 € - die Karte sitzt mittig ab y=640 (1080er Massstab), die oberen 600 Pixel sind leerer Farbverlauf, es gibt keine provozierende Frage und keine Bewegung im ersten Bild.",
-      "bild": "Bild 1",
-      "vorschlag": "Szene 1 um eine Hook-Zeile ergaenzen, die ab Frame 0 ueber der Karte steht, z.B. '2 Jahre vergessen?' in 96 px Weiss fett bei y=430, und die Zahl 80 € von 170 px auf ca. 220 px vergroessern; Karte dafuer von y=640 auf y=560 hochziehen."
+      "befund": "Durchgehend fehlen Umlaute in den Kartentexten: 'Erstattung verfaellt' (Bild 1/2), 'Vier Jahre rueckwirkend' (Bild 3/4), '3 Jahre uebrig' (Bild 8) - waehrend die Kopfzeile und die Untertitel korrekt 'RÜCKWIRKEND', 'rückwirkend', 'älteste' schreiben.",
+      "bild": "Bild 1, 2, 3, 4, 8",
+      "vorschlag": "Szenentexte auf UTF-8-Umlaute umstellen: 'verfällt', 'Vier Jahre rückwirkend', '3 Jahre übrig'. Die ae/oe/ue-Ersetzung im Text-Pipeline-Schritt entfernen, Schrift laedt die Glyphen offensichtlich (Untertitel zeigen ä/ü)."
     },
     {
       "bereich": "bildwechsel",
       "schwere": "schwer",
-      "befund": "Szene 4 ist zwischen Bild 7 (11.3 s) und Bild 8 (13.5 s) bis auf die eingeblendete zweizeilige Unterzeile identisch - gleiche Karte, gleiche Headline, keine Skalierung, kein Positionswechsel; ueber zwei Sekunden wirkt der Abschnitt wie ein Standbild.",
-      "bild": "Bild 7 / Bild 8",
-      "vorschlag": "In Szene 4 die Unterzeile wortweise einblenden (0,12 s Versatz pro Wort) und die Headline-Zeilen bei Szenenstart mit 0,25 s Slide-in von y+40 px staffeln; zusaetzlich den roten Trennstrich bei y=1232 von 120 auf 300 px Breite animieren."
+      "befund": "Szene 7 (Bild 9 zu 10) steht ueber rund 3,6 Sekunden praktisch still: Pinguin, Headline und Handle sind pixelgleich positioniert, nur der Untertitel verschwindet - die letzten 1,5 Sekunden sind ein Standbild mit leerer Flaeche zwischen y=1280 und y=1460.",
+      "bild": "Bild 10",
+      "vorschlag": "Endkarte animieren: Pinguin ab Szenenstart mit 2 s Loop +/- 12 px vertikal bewegen, Handle-Pill ab 25.5 s von scale 0.9 auf 1.0 pulsieren, und den Untertitel bis Videoende stehen lassen statt bei ~27 s auszublenden."
     },
     {
       "bereich": "bildwechsel",
       "schwere": "mittel",
-      "befund": "Die Endkarte verliert zwischen Bild 9 und Bild 10 den Untertitel und zeigt dann 2 Sekunden lang nur Pinguin, Headline und Handle ohne jede Veraenderung; im Untertitelbereich bleibt nur die nackte schwarze Linie bei y=1480 stehen.",
-      "bild": "Bild 10",
-      "vorschlag": "Auf der Endkarte den Untertitel-Container ausblenden, sobald kein Text mehr kommt, und stattdessen einen pulsierenden Speichern-Hinweis (Icon + 'Speichern' 56 px) bei y=1360 animieren oder den Pinguin um +/-8 px vertikal wippen lassen."
+      "befund": "In Szene 1 (Bild 1 zu 2) aendert sich in 3,9 Sekunden ausser dem Untertitel nichts - die Zahl '4.000 €' steht von Anfang an fertig da, kein Count-up, keine Kartenbewegung.",
+      "bild": "Bild 1",
+      "vorschlag": "Zahl in Szene 1 als Count-up von 0 auf 4000 ueber 0.8 s animieren (ease-out) und die Karte von y+24 px einfahren lassen; gleiches Muster fuer Szene 3 (1.000 €)."
+    },
+    {
+      "bereich": "hook",
+      "schwere": "mittel",
+      "befund": "Die ersten zwei Sekunden zeigen nur eine statische Karte mit '4.000 €' und dem erklaerenden Satz 'Erstattung verfaellt, wenn du nichts einreichst' - kein Konflikt, keine Frage, keine Bewegung, der Blickfang ist eine Zahl ohne Dringlichkeit.",
+      "bild": "Bild 1",
+      "vorschlag": "Kaesten-Label in Bild 1 von 'VIER JAHRE NICHTS ABGEGEBEN' auf eine Deadline-Aussage wie 'NUR NOCH BIS 31.12.' aendern und die Zahl in den ersten 0.5 s mit Scale 1.15 -> 1.0 einschlagen lassen."
     },
     {
       "bereich": "information",
       "schwere": "mittel",
-      "befund": "In Bild 3 stehen die beiden Balken 2,0 Sekunden lang ohne Zahlenwerte da - erst in Bild 4 erscheinen '40 €' und '80 €'. Wer nur das Bild sieht, kann in der ersten Haelfte der Szene nicht erkennen, worum es geht; zudem fehlt die Einheit, worauf sich die Balken beziehen.",
+      "befund": "Szene 2 (Bild 3) traegt 2,5 Sekunden lang nur die Ueberschrift 'Vier Jahre rueckwirkend' in einer sonst leeren Karte; die erklaerende Zeile 'Freiwillige Abgabe: 2021 bis 2024 gehen noch' erscheint erst spaet (Bild 4), darunter bleiben rund 200 px Karte leer.",
       "bild": "Bild 3",
-      "vorschlag": "Werte '40 €' und '80 €' sofort mit dem Balkenwachstum einblenden (Count-up ueber 0,6 s) und ueber der Kartenueberschrift eine Zeile 'Rentenplus pro Monat' in 40 px Hellgrau ergaenzen."
+      "vorschlag": "Die Unterzeile bereits 0.4 s nach Szenenstart einblenden und die Jahreszahlen 2021-2024 als vier kleine Chips (je ca. 150x80 px, Reihe bei y=1000) zeigen, damit die Karte nicht leer bleibt."
     },
     {
-      "bereich": "lesbarkeit",
-      "schwere": "mittel",
-      "befund": "Die Handle-Zeile '@geld.pinguin' im Kopf (Bild 1-10, y=324) ist in ca. 26 px dunklem Graubraun auf dem orangen Verlauf gesetzt und verschwimmt mit dem Hintergrund; zugleich liegt sie unterhalb y=200 noch knapp sichtbar, aber praktisch unleserlich.",
-      "bild": "Bild 2",
-      "vorschlag": "Handle auf 34 px vergroessern und Farbe auf #1B2338 mit 85 % Deckkraft setzen oder in Weiss mit 70 % Deckkraft; Zeilenabstand zur Kicker-Zeile von aktuell ca. 40 px auf 56 px erhoehen."
-    },
-    {
-      "bereich": "lesbarkeit",
+      "bereich": "information",
       "schwere": "klein",
-      "befund": "In Bild 5 sind die Listenpunkte waehrend des Einblendens unterschiedlich hell und unterschiedlich weit eingerueckt ('Zeiten im Ausland' startet bei x=274 statt x=238 und erscheint in Gelbbraun statt Weiss), das wirkt wie ein Renderfehler.",
-      "bild": "Bild 5",
-      "vorschlag": "Listen-Einblendung rein ueber Deckkraft (0 -> 1) animieren, X-Offset auf konstant 238 px fixieren und die Textfarbe waehrend der Animation nicht von Gelb nach Weiss faden."
-    },
-    {
-      "bereich": "sicherheit",
-      "schwere": "klein",
-      "befund": "Die Untertitel-Box steht in allen Szenen mit Unterkante bei ca. y=1444 und die Fortschrittslinie bei y=1480 - das liegt dicht an der Caption-Zone ab y=1500; bei laengeren Untertiteln (Bild 3: Box reicht bis x=868) wird es zusaetzlich eng zur Buttonspalte ab x=940.",
-      "bild": "Bild 3",
-      "vorschlag": "Untertitel-Block samt Fortschrittslinie um 80 px nach oben schieben (Box-Unterkante auf y=1364, Linie auf y=1400) und die maximale Boxbreite auf 820 px begrenzen."
+      "befund": "Das Verlaufsdiagramm in Bild 7/8 hat keine Werteachse - die rote Flaeche faellt von einem unbeschrifteten Niveau auf fast null, erst in Bild 8 erklaert '3 Jahre uebrig' den Sinn, der Startwert '4 Jahre' fehlt ganz.",
+      "bild": "Bild 7",
+      "vorschlag": "Links am Kurvenanfang (ca. x=170, y=770) ein Label '4 Jahre' in Weiss 38 px setzen und das Label '3 Jahre uebrig' schon beim Fallen der Kurve mitlaufen lassen."
     }
   ],
-  "staerkste": "Die durchgehende Kartenoptik mit dem hervorlugenden Pinguin ist konsistent und sofort wiedererkennbar, und der Vergleichsbalken in Szene 2 uebersetzt den Zahlenunterschied 40 € / 80 € sauber ins Bild.",
-  "urteil": "Solides, sauber gesetztes Karten-Reel mit klarer Farbwelt und einem Maskottchen, das dem Kanal Handschrift gibt - inhaltlich verstaendlich, handwerklich ordentlich. Es verliert aber im Wettbewerb, weil der Einstieg ohne Hook-Zeile und ohne Bewegung startet und mehrere Szenen (besonders Szene 4 und die Endkarte) ueber Sekunden wie Standbilder stehen."
+  "staerkste": "Die Szenenwechsel tragen klar: dunkle Karte, Farbwechsel von Rot (Verlust) zu Gruen (Erstattung) zu Diagramm und Endkarte geben dem Reel eine erkennbare Dramaturgie, und der Pinguin oben rechts an der Karte ist ein eigenstaendiges, wiedererkennbares Markenzeichen.",
+  "urteil": "Solide gebautes Template mit konsistenter Farbwelt, lesbaren Karten und sauber gesetzten Untertiteln, das aber an zwei Stellen echten Schaden nimmt: die fehlenden Umlaute in allen Kartentexten wirken wie ein Encoding-Bug und kosten sofort Glaubwuerdigkeit bei einem Finanzthema. Dazu kommt zu wenig Bewegung - Zahlen stehen fertig da statt hochzuzaehlen, und die Endkarte friert ein, wo der Call-to-Action am meisten Energie braeuchte."
 }
