@@ -1,67 +1,67 @@
 {
-  "datum": "2026-10-07T18:42:52.502Z",
+  "datum": "2026-10-08T11:54:51.688Z",
   "datei": "build/reel.mp4",
-  "dauer": 25.97,
+  "dauer": 20.63,
   "noten": {
-    "hook": 42,
-    "lesbarkeit": 66,
-    "bildwechsel": 48,
-    "information": 58,
-    "marke": 62,
-    "sicherheit": 70
+    "hook": 62,
+    "lesbarkeit": 71,
+    "bildwechsel": 58,
+    "information": 70,
+    "marke": 66,
+    "sicherheit": 80
   },
-  "gesamt": 58,
+  "gesamt": 68,
   "maengel": [
-    {
-      "bereich": "hook",
-      "schwere": "schwer",
-      "befund": "Die erste Sekunde zeigt nur eine dunkle Karte mit 'ZU VIEL EINBEHALTEN 11 %' und einer kleinteiligen Erklaerzeile - die Zahl ist zwar gross, aber ohne Konflikt, Gesicht oder Bewegung; die Headline oben ('11 PROZENT ZU VIEL') steht in ca. 28 px Sperrschrift und ist auf dem Handy kaum zu erfassen.",
-      "bild": "Bild 1",
-      "vorschlag": "Hook-Zeile aus der Kopfzone nach unten holen: Text 'Deine Bank behaelt 11 % zu viel' bei y=460..620 in 110 px Bold, Dunkelblau auf Gelb, und die 11 % in Szene 1 mit einem Count-Up von 0 auf 11 in den ersten 0.6 s animieren."
-    },
     {
       "bereich": "bildwechsel",
       "schwere": "schwer",
-      "befund": "Szene 1 (Bild 1 vs. Bild 2) und Szene 4 (Bild 7 vs. 8) aendern ueber mehrere Sekunden nur die Untertitelzeile bzw. die Prozentwerte - der gesamte Kartenbereich steht still, Szene 2 (Bild 3 vs. 4) ist ueber 4 Sekunden ein echtes Standbild.",
-      "bild": "Bild 3 und Bild 4",
-      "vorschlag": "Pro Szene mindestens ein Bildereignis: in Szene 2 die drei Textzeilen zeitversetzt je 0.4 s einblenden und ab Sekunde 6 einen zweiten Baustein (z.B. '2.000 EUR -> 500 EUR Steuer') unter der Karte bei y=1180 einfahren; Szenen auf max. 3 s kuerzen."
+      "befund": "Szene 1 steht von 0,9 s bis 3,1 s praktisch still: Karte, Zahl '300 €' und Unterzeile sind in Bild 1 und Bild 2 identisch, nur der Untertitel wechselt - 3,4 Sekunden ohne sichtbaren Fortschritt gleich am Anfang.",
+      "vorschlag": "In Szene 1 die Zahl als Count-Up von 0 auf 300 ueber die ersten 0,8 s animieren und die Unterzeile 'Mehrkosten pro Jahr in der Grundversorgung' erst bei ca. 1,2 s einfliegen lassen (Fade+12 px von unten), statt beides statisch ab Frame 1 zu zeigen.",
+      "bild": "Bild 1 und Bild 2"
+    },
+    {
+      "bereich": "hook",
+      "schwere": "mittel",
+      "befund": "Die Hookzeile 'STROM, NIE BESTELLT' steht in rot (#F2605E) auf dunkelblau und ist bei ca. 34 px Versalhoehe (1080-Massstab) die schwaechste Zeile der Karte; die eigentliche Reibung ('du zahlst 300 € fuer etwas, das du nie bestellt hast') muss man sich zusammenreimen.",
+      "vorschlag": "Hookzeile auf 48 px vergroessern, Farbe auf Weiss #FFFFFF setzen und Text zu 'NIE BESTELLT - TROTZDEM BEZAHLT' aendern; das rote Akzentrot nur fuer die Zahl reservieren.",
+      "bild": "Bild 1"
     },
     {
       "bereich": "lesbarkeit",
       "schwere": "mittel",
-      "befund": "Die Erklaerzeile 'Differenz Abgeltungsteuer zu 14 % Steuersatz' in Bild 1/2 steht in ca. 46 px hellgrau-blau auf dunkelblau und laeuft zweizeilig bis an den Kartenrand - deutlich kleinster lesbarer Text im ganzen Reel.",
-      "bild": "Bild 2",
-      "vorschlag": "Auf 56 px erhoehen, Farbe auf #FFFFFF bei 90 % Deckkraft, Zeilenumbruch nach 'Abgeltungsteuer' erzwingen und Kartenbreite-Innenabstand auf 60 px setzen."
+      "befund": "Die Untertitelbox schneidet Woerter mitten im Wort ab bzw. zeigt unvollstaendige Satzfragmente ('bestellt hast Beim Einzug', 'in die Grundversorgung.', 'Speichere das fuer'); in Bild 2 steht das 'b' von 'bestellt' halb auf der Boxkante.",
+      "vorschlag": "Untertitel in sinnvolle Phrasen von max. 32 Zeichen umbrechen und die Box mit 24 px horizontalem Innenabstand automatisch auf die Textbreite skalieren statt feste Breite mit Ueberlauf.",
+      "bild": "Bild 2"
     },
     {
-      "bereich": "information",
+      "bereich": "lesbarkeit",
       "schwere": "mittel",
-      "befund": "Szene 2 nennt '2.000 EUR ERTRAEGE' und der Untertitel sagt 'das 220 Euro' - die Zahl 220 erscheint nirgends im Bild, die Aussage ist nur per Ton verstaendlich.",
-      "bild": "Bild 4",
-      "vorschlag": "In der Karte unter dem Flaechentext eine zweite Zeile '= 220 EUR zu viel Steuer' in 90 px Bold Koralle bei y=1060 einblenden."
-    },
-    {
-      "bereich": "information",
-      "schwere": "mittel",
-      "befund": "In Bild 6 steht der unvollstaendige Satz 'Die Abgeltungsteuer ist pauschal .' mit Leerzeichen vor dem Punkt - wirkt wie ein abgeschnittener Platzhalter.",
-      "bild": "Bild 6",
-      "vorschlag": "Satz im Textfeld vervollstaendigen ('Die Abgeltungsteuer ist pauschal - egal wie viel du verdienst.') und das Leerzeichen vor dem Satzpunkt im String entfernen."
+      "befund": "Der Fliesstext 'Ohne Vertrag landest du automatisch beim Ortsversorger.' bzw. 'Keine Frist, kein Ende - niemand kuendigt fuer dich.' steht in hellgrauem Blau (ca. #C9D2E4) bei rund 36 px Hoehe und faellt gegen die weisse Headline stark ab.",
+      "vorschlag": "Fliesstext auf 42 px vergroessern und Farbe auf #E8EEF8 anheben, Zeilenabstand 1.3.",
+      "bild": "Bild 4 und Bild 8"
     },
     {
       "bereich": "marke",
-      "schwere": "klein",
-      "befund": "Der Pinguin schaut in Szenen 1 bis 4 immer identisch in derselben Position hinter der rechten oberen Kartenecke hervor und hat keine Funktion; nur die Endkarte nutzt ihn richtig.",
-      "bild": "Bild 5",
-      "vorschlag": "Pinguin pro Szene variieren: Position wechseln (z.B. Szene 3 links bei x=120, y=640) oder 0.3 s Hoppel-Animation beim Szenenstart, sonst in den Zwischenszenen weglassen."
+      "schwere": "mittel",
+      "befund": "Der Pinguin lugt in Szene 1-4 immer exakt gleich hinter der oberen rechten Kartenecke hervor (Kopf bei ca. x=866, y=570 im 1080-Massstab) und bewegt sich nie - er wirkt wie ein aufgeklebtes Sticker-Asset statt wie eine Figur.",
+      "vorschlag": "Pinguin pro Szene um 6-10 px wippen lassen (Sinus, 1,2 s Periode) oder ihn je Szene die Seite wechseln lassen (links x=170 bei Vergleichsszene), und in der Vergleichsszene 5/6 auf den roten Balken zeigen lassen.",
+      "bild": "Bild 1, 3, 5, 7"
     },
     {
-      "bereich": "sicherheit",
+      "bereich": "information",
       "schwere": "klein",
-      "befund": "Die Untertitelbox sitzt in Bild 9 mit Oberkante bei etwa y=1330 und Unterkante y=1440 noch knapp ueber der Caption-Zone, der dekorative Unterstrich bei y=1480 liegt direkt an deren Kante.",
-      "bild": "Bild 9",
-      "vorschlag": "Untertitelblock samt Unterstrich um 80 px nach oben schieben (Boxmitte auf y=1300) und den Strich bei y=1400 enden lassen."
+      "befund": "Der Vergleichsbalken in Szene 3 zeigt 'Grundversorgung' voll rot und 'Andere Tarife' zu rund 55 % gruen, ohne jede Zahl - der Groessenunterschied bleibt eine Behauptung ohne Euro- oder Cent-Angabe.",
+      "vorschlag": "Rechts neben die Balken Zahlen setzen (z. B. '42 ct/kWh' und '28 ct/kWh', 38 px, rechtsbuendig bei x=880) statt nur 'teuerster'/'guenstiger'.",
+      "bild": "Bild 5 und Bild 6"
+    },
+    {
+      "bereich": "bildwechsel",
+      "schwere": "klein",
+      "befund": "Auf der Endkarte verschwindet zwischen Bild 9 und Bild 10 der Untertitel ersatzlos, es bleiben rund 2 Sekunden mit reiner Standbild-Endkarte und einem leeren Streifen bei y=1340-1400.",
+      "vorschlag": "In den frei werdenden Bereich bei y=1340 einen kleinen pulsierenden Save-Hinweis setzen (Lesezeichen-Icon + 'Speichern', 36 px, Skalierung 1.0-1.06 im 0,8-s-Takt), damit die letzten 2 s nicht stehen.",
+      "bild": "Bild 10"
     }
   ],
-  "staerkste": "Die Vergleichsszene mit den zwei Balken (Bild 7/8): klare Farblogik rot/gruen, die Werte 25 % und 14 % erscheinen zeitversetzt, und die Aussage ist ohne Ton verstaendlich - das ist der einzige Abschnitt, der wirklich visuell argumentiert.",
-  "urteil": "Saubere, konsistente Vorlage mit ordentlichem Kontrast und einem klaren Markenzeichen, aber dramaturgisch zu brav: Der Einstieg setzt auf eine kleine Sperrschrift-Headline statt auf einen Konflikt, und drei von vier Inhaltsszenen stehen mehrere Sekunden praktisch still, waehrend nur der Untertitel weiterlaeuft. Inhaltlich fehlen genau die Zahlen, die der Ton nennt (220 Euro), und ein halbfertiger Satz in Bild 6 verraet den Generator."
+  "staerkste": "Die visuelle Sprache ist konsequent: dunkelblaue Karte auf warmem Gelbverlauf, gleiche Ecke, gleiche Typo, gleicher Untertitelbalken - das Reel sieht ueber alle sieben Szenen hinweg wie aus einem Guss aus, und die Kennzahl 300 € in Bild 1 ist sofort erfassbar.",
+  "urteil": "Sauber gebautes, ruhiges Erklaer-Reel mit klarer Kartenlogik und gut gesetzten Sicherheitsabstaenden - alles Wichtige liegt zwischen y=240 und y=1480, die Buttonspalte rechts bleibt frei. Es verliert gegen die Konkurrenz aber dort, wo es zaehlt: Die ersten 3,4 Sekunden sind ein Standbild mit fertig dastehender Zahl, und der Pinguin als einziges Markenelement bewegt sich kein einziges Mal."
 }
