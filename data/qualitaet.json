@@ -1,67 +1,60 @@
 {
-  "datum": "2026-10-08T11:54:51.688Z",
+  "datum": "2026-10-08T18:41:36.416Z",
   "datei": "build/reel.mp4",
-  "dauer": 20.63,
+  "dauer": 28.77,
   "noten": {
-    "hook": 62,
+    "hook": 52,
     "lesbarkeit": 71,
     "bildwechsel": 58,
-    "information": 70,
+    "information": 64,
     "marke": 66,
-    "sicherheit": 80
+    "sicherheit": 74
   },
-  "gesamt": 68,
+  "gesamt": 64,
   "maengel": [
     {
-      "bereich": "bildwechsel",
+      "bereich": "hook",
       "schwere": "schwer",
-      "befund": "Szene 1 steht von 0,9 s bis 3,1 s praktisch still: Karte, Zahl '300 €' und Unterzeile sind in Bild 1 und Bild 2 identisch, nur der Untertitel wechselt - 3,4 Sekunden ohne sichtbaren Fortschritt gleich am Anfang.",
-      "vorschlag": "In Szene 1 die Zahl als Count-Up von 0 auf 300 ueber die ersten 0,8 s animieren und die Unterzeile 'Mehrkosten pro Jahr in der Grundversorgung' erst bei ca. 1,2 s einfliegen lassen (Fade+12 px von unten), statt beides statisch ab Frame 1 zu zeigen.",
-      "bild": "Bild 1 und Bild 2"
+      "befund": "Die ersten zwei Sekunden zeigen nur die Karte 'ANGEBLICH KOSTENLOS / 83 €' mittig in der unteren Bildhaelfte; der obere Drittel des Bildes (y=200 bis y=620) ist komplett leer, die Zahl 83 steht erst bei y≈900 und ist damit nicht das Erste, was das Auge trifft.",
+      "bild": "Bild 1",
+      "vorschlag": "Karten-Block in Szene 1 von y≈640 auf y≈380 hochziehen (Kartenoberkante 1080x1920) und die Zahl '83' von ca. 150 px auf 260 px Schrifthoehe vergroessern, damit sie innerhalb der ersten Sekunde den Blick traegt."
     },
     {
       "bereich": "hook",
       "schwere": "mittel",
-      "befund": "Die Hookzeile 'STROM, NIE BESTELLT' steht in rot (#F2605E) auf dunkelblau und ist bei ca. 34 px Versalhoehe (1080-Massstab) die schwaechste Zeile der Karte; die eigentliche Reibung ('du zahlst 300 € fuer etwas, das du nie bestellt hast') muss man sich zusammenreimen.",
-      "vorschlag": "Hookzeile auf 48 px vergroessern, Farbe auf Weiss #FFFFFF setzen und Text zu 'NIE BESTELLT - TROTZDEM BEZAHLT' aendern; das rote Akzentrot nur fuer die Zahl reservieren.",
-      "bild": "Bild 1"
-    },
-    {
-      "bereich": "lesbarkeit",
-      "schwere": "mittel",
-      "befund": "Die Untertitelbox schneidet Woerter mitten im Wort ab bzw. zeigt unvollstaendige Satzfragmente ('bestellt hast Beim Einzug', 'in die Grundversorgung.', 'Speichere das fuer'); in Bild 2 steht das 'b' von 'bestellt' halb auf der Boxkante.",
-      "vorschlag": "Untertitel in sinnvolle Phrasen von max. 32 Zeichen umbrechen und die Box mit 24 px horizontalem Innenabstand automatisch auf die Textbreite skalieren statt feste Breite mit Ueberlauf.",
-      "bild": "Bild 2"
-    },
-    {
-      "bereich": "lesbarkeit",
-      "schwere": "mittel",
-      "befund": "Der Fliesstext 'Ohne Vertrag landest du automatisch beim Ortsversorger.' bzw. 'Keine Frist, kein Ende - niemand kuendigt fuer dich.' steht in hellgrauem Blau (ca. #C9D2E4) bei rund 36 px Hoehe und faellt gegen die weisse Headline stark ab.",
-      "vorschlag": "Fliesstext auf 42 px vergroessern und Farbe auf #E8EEF8 anheben, Zeilenabstand 1.3.",
-      "bild": "Bild 4 und Bild 8"
-    },
-    {
-      "bereich": "marke",
-      "schwere": "mittel",
-      "befund": "Der Pinguin lugt in Szene 1-4 immer exakt gleich hinter der oberen rechten Kartenecke hervor (Kopf bei ca. x=866, y=570 im 1080-Massstab) und bewegt sich nie - er wirkt wie ein aufgeklebtes Sticker-Asset statt wie eine Figur.",
-      "vorschlag": "Pinguin pro Szene um 6-10 px wippen lassen (Sinus, 1,2 s Periode) oder ihn je Szene die Seite wechseln lassen (links x=170 bei Vergleichsszene), und in der Vergleichsszene 5/6 auf den roten Balken zeigen lassen.",
-      "bild": "Bild 1, 3, 5, 7"
-    },
-    {
-      "bereich": "information",
-      "schwere": "klein",
-      "befund": "Der Vergleichsbalken in Szene 3 zeigt 'Grundversorgung' voll rot und 'Andere Tarife' zu rund 55 % gruen, ohne jede Zahl - der Groessenunterschied bleibt eine Behauptung ohne Euro- oder Cent-Angabe.",
-      "vorschlag": "Rechts neben die Balken Zahlen setzen (z. B. '42 ct/kWh' und '28 ct/kWh', 38 px, rechtsbuendig bei x=880) statt nur 'teuerster'/'guenstiger'.",
-      "bild": "Bild 5 und Bild 6"
+      "befund": "Die Hook-Aussage steht nur in der Karte; der Untertitel zeigt zu Sekunde 0.9 das angeschnittene Wortfragment 'Dein kostenloses' ohne Satzende - in den ersten zwei Sekunden ist keine fertige Behauptung lesbar.",
+      "bild": "Bild 1",
+      "vorschlag": "Untertitelsegmente auf vollstaendige Sinneinheiten von mind. 3 Woertern schneiden, z.B. 'Dein kostenloses Konto kostet' als ein Block ab Sekunde 0.3."
     },
     {
       "bereich": "bildwechsel",
-      "schwere": "klein",
-      "befund": "Auf der Endkarte verschwindet zwischen Bild 9 und Bild 10 der Untertitel ersatzlos, es bleiben rund 2 Sekunden mit reiner Standbild-Endkarte und einem leeren Streifen bei y=1340-1400.",
-      "vorschlag": "In den frei werdenden Bereich bei y=1340 einen kleinen pulsierenden Save-Hinweis setzen (Lesezeichen-Icon + 'Speichern', 36 px, Skalierung 1.0-1.06 im 0,8-s-Takt), damit die letzten 2 s nicht stehen.",
-      "bild": "Bild 10"
+      "schwere": "schwer",
+      "befund": "Zwischen Bild 1 (0.9 s) und Bild 2 (4.6 s) aendert sich ausser dem Untertitel und dem Hintergrund-Lichtfleck nichts - Zahl, Karte und Text stehen 4 Sekunden absolut still.",
+      "bild": "Bild 1 und 2",
+      "vorschlag": "In Szene 1 die Zahl '83' ab Sekunde 1.5 von 0 auf 83 hochzaehlen lassen (Count-up ueber 0.8 s) und das €-Zeichen mit 150 ms Versatz einblenden."
+    },
+    {
+      "bereich": "bildwechsel",
+      "schwere": "mittel",
+      "befund": "Szene 4 ist zwischen Bild 7 (14.08 s) und Bild 8 (16.33 s) praktisch identisch: alle drei Listenpunkte sind schon beim Schnitt sichtbar, es bleibt nur ein minimaler Zeilenversatz.",
+      "bild": "Bild 7 und 8",
+      "vorschlag": "Listenpunkte gestaffelt einblenden: 'Elternzeit' bei +0.2 s, 'Teilzeit' bei +0.8 s, 'Jobwechsel' bei +1.4 s, jeweils 20 px Einflug von links."
+    },
+    {
+      "bereich": "lesbarkeit",
+      "schwere": "mittel",
+      "befund": "Der Kanalname '@geld.pinguin' unter der Kopfzeile steht in ca. 26 px grauem Text auf gelbem Verlauf (y≈324) und verschwindet faktisch im Hintergrund.",
+      "bild": "Bild 1",
+      "vorschlag": "Handle auf 34 px vergroessern und auf Dunkelblau #1B2238 mit 85 % Deckkraft setzen statt Grau."
+    },
+    {
+      "bereich": "sicherheit",
+      "schwere": "mittel",
+      "befund": "Der Untertitelkasten reicht in Bild 6 und 8 bis x≈860 (gemessen 430) und seine Unterkante liegt bei y≈1450, der Trennstrich bei y≈1490 - damit liegt der laengste Untertitel direkt an der Kante der Caption-Zone ab y=1500.",
+      "bild": "Bild 8",
+      "vorschlag": "Untertitelblock samt Trennstrich um 120 px nach oben schieben (Mitte von y≈1400 auf y≈1280) und die maximale Zeilenbreite von 600 px auf 760 px erhoehen, damit lange Zeilen nicht nach unten wachsen."
     }
   ],
-  "staerkste": "Die visuelle Sprache ist konsequent: dunkelblaue Karte auf warmem Gelbverlauf, gleiche Ecke, gleiche Typo, gleicher Untertitelbalken - das Reel sieht ueber alle sieben Szenen hinweg wie aus einem Guss aus, und die Kennzahl 300 € in Bild 1 ist sofort erfassbar.",
-  "urteil": "Sauber gebautes, ruhiges Erklaer-Reel mit klarer Kartenlogik und gut gesetzten Sicherheitsabstaenden - alles Wichtige liegt zwischen y=240 und y=1480, die Buttonspalte rechts bleibt frei. Es verliert gegen die Konkurrenz aber dort, wo es zaehlt: Die ersten 3,4 Sekunden sind ein Standbild mit fertig dastehender Zahl, und der Pinguin als einziges Markenelement bewegt sich kein einziges Mal."
+  "staerkste": "Die durchgehende Bildsprache - dunkelblaue Karte auf warmem Gelbverlauf, gelber Akzentbalken, immer gleich positionierter Pinguin und karaoke-eingefaerbte Untertitel - wirkt ueber alle sieben Szenen hinweg wie ein Kanal mit eigener Handschrift, und Szene 3 traegt ihre Aussage mit den zwei Balken plus Zahlen auch ohne Ton.",
+  "urteil": "Handwerklich sauberes, konsistentes Template mit guter Typo-Hierarchie und einer wirklich gelungenen Vergleichsszene, aber der Einstieg ist zu brav: eine ruhige Karte in der Bildmitte, leerer oberer Bildbereich und vier Sekunden ohne jede Bewegung halten niemanden auf, der schnell wischt. Wer Hook-Groesse, Count-up und gestaffelte Listeneinblendung nachruestet, hebt das Reel von brauchbar auf konkurrenzfaehig."
 }
