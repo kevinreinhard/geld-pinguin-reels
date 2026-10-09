@@ -1,60 +1,60 @@
 {
-  "datum": "2026-10-09T11:46:33.431Z",
+  "datum": "2026-10-09T18:11:23.123Z",
   "datei": "build/reel.mp4",
-  "dauer": 20.37,
+  "dauer": 23.6,
   "noten": {
-    "hook": 52,
-    "lesbarkeit": 72,
+    "hook": 58,
+    "lesbarkeit": 62,
     "bildwechsel": 55,
-    "information": 66,
+    "information": 60,
     "marke": 64,
-    "sicherheit": 70
+    "sicherheit": 72
   },
-  "gesamt": 63,
+  "gesamt": 62,
   "maengel": [
+    {
+      "bereich": "information",
+      "schwere": "schwer",
+      "befund": "Die Kennzahl in Bild 3 und 4 liest sich als '2.016 Jahre' - durch den Tausenderpunkt und das Wort 'Jahre' wird aus der Jahreszahl 2016 eine Dauer von zweitausend Jahren.",
+      "bild": "Bild 3",
+      "vorschlag": "Tausendertrennung fuer diese Kennzahl abschalten und Einheit aendern: Zahl 'seit 2016' ohne Punkt rendern, Suffix 'Jahre' loeschen, Label oben auf 'GESETZLICH GEREGELT' setzen."
+    },
     {
       "bereich": "hook",
       "schwere": "schwer",
-      "befund": "Bild 1 startet mit der Karte '1.000 EUR WEIHNACHTSGELD / 550 EUR' - die Zahl ist zwar gross, aber die eigentliche Reizaussage ('Wo sind die anderen 450 EUR?') steht nur klein als Grauzeile darunter; in den ersten zwei Sekunden gibt es keine Frage, kein Gegensatzpaar, nichts Bewegtes ausser dem Untertitelwort.",
+      "befund": "Der Hook baut sich bis Sekunde 2.87 zeilenweise auf - erst in Bild 2 steht 'KONTOWECHSEL KOSTET DICH NICHTS'; in Bild 1 steht die irrefuehrende Halbaussage 'KONTOWECHSEL KOSTET DICH'.",
       "bild": "Bild 1",
-      "vorschlag": "In Szene 1 ueber der Zahl eine Konfliktzeile in Rot (#FF5A5F) mit ca. 56 px setzen, z.B. 'Wo sind die 450 EUR hin?' bei y=620, und die 550 EUR von 0 auf 550 hochzaehlen lassen (Count-up 0.6 s ab t=0.2 s)."
-    },
-    {
-      "bereich": "bildwechsel",
-      "schwere": "schwer",
-      "befund": "Zwischen Bild 1 und Bild 2 (3,25 Sekunden Abstand in derselben Szene) aendert sich ausser dem Untertitelwort und dem Hintergrundverlauf nichts - die Karte steht voellig still, der Abschnitt wirkt wie ein Standbild. Dasselbe gilt fuer Szene 6 (Bild 9 zu Bild 10).",
-      "bild": "Bild 1 / Bild 2",
-      "vorschlag": "In jede Szene eine Mikro-Animation legen: Karte 0.4 s Slide-in von y+40 px, Zahl als Count-up, Fortschrittsbalken in Szene 3 von 0 auf Endbreite in 0.8 s wachsen lassen; in Szene 6 den Pinguin alle 2 s um 8 px auf/ab wippen."
-    },
-    {
-      "bereich": "information",
-      "schwere": "mittel",
-      "befund": "In Szene 3 (Bild 5) stehen die beiden Balken 2 Sekunden lang ohne Beschriftung da - erst in Bild 6 erscheinen 'zu hoch' und 'niedriger'; ausserdem fehlt an beiden Balken ein Zahlenwert, man sieht nur abstrakte Laengen.",
-      "bild": "Bild 5",
-      "vorschlag": "Labels 'zu hoch' / 'niedriger' bereits beim Szenenstart einblenden und rechts neben jedem Balken den Eurobetrag setzen (z.B. '450 EUR' und '280 EUR', 36 px, weiss, rechtsbuendig bei x=880)."
+      "vorschlag": "Alle drei Hookzeilen gemeinsam bis spaetestens 0.5 s einblenden (Zeilen-Delay von ca. 0.8 s auf 0.12 s reduzieren), nur Skalierung/Opazitaet animieren."
     },
     {
       "bereich": "lesbarkeit",
       "schwere": "mittel",
-      "befund": "Die Fussnote 'Rest geht an Steuer und Sozialabgaben' in Bild 1/2 steht in hellblauem Grau (ca. #AEB6C8) auf dunkelblauer Karte bei nur ca. 44 px Hoehe und faellt gegenueber der riesigen 550 komplett ab.",
+      "befund": "In Bild 2 ueberlappt der Untertitelkasten 'lassen sie verschweigt es' die dritte Hookzeile 'NICHTS' und schneidet deren Unterkante an.",
       "bild": "Bild 2",
-      "vorschlag": "Schriftgroesse auf 52 px erhoehen und Farbe auf #E6EAF2 aufhellen; Zeilenabstand 1.25."
+      "vorschlag": "Untertitel-Block von y=1340 auf y=1460 (1080x1920) verschieben oder Hook-Block als Ganzes um 80 px nach oben setzen."
+    },
+    {
+      "bereich": "bildwechsel",
+      "schwere": "mittel",
+      "befund": "Szene 2 bis 4 sind bis auf eine nachgeschobene Textzeile statisch: Karte, Pinguinkopf und Grosstext stehen zwischen Anfangs- und Endbild exakt gleich, einzige Bewegung ist der Untertitel.",
+      "bild": "Bild 7",
+      "vorschlag": "Je Szene eine sichtbare Bewegung ergaenzen, z.B. Karte um 2 % skalieren oder 20 px vertikal driften lassen und Listenpunkte/Zeilen gestaffelt mit 0.25 s Abstand einfliegen."
+    },
+    {
+      "bereich": "lesbarkeit",
+      "schwere": "mittel",
+      "befund": "Der dritte Listenpunkt in Bild 5 ('Guthaben und alte Kontoschliessung') steht waehrend des Einblendens in blassem Beige auf Dunkelblau, der Haken ist graugruen statt gruen.",
+      "bild": "Bild 5",
+      "vorschlag": "Einblend-Opazitaet der Listenzeilen nicht ueber die Farbe, sondern nur ueber Position animieren; Zieltextfarbe #FFFFFF und Hakenfarbe #27AE60 schon ab Frame 1 setzen."
     },
     {
       "bereich": "marke",
-      "schwere": "mittel",
-      "befund": "Der Pinguin lugt in den Szenen 1-5 immer an exakt derselben Stelle (ca. x=865, y=555 in 1080er Massstab) hinter der Karte hervor und bewegt sich nie - er wirkt wie ein aufgeklebtes Sticker-Element statt wie eine Figur mit Handschrift.",
-      "bild": "Bild 3",
-      "vorschlag": "Pinguin pro Szene an wechselnder Kartenecke platzieren (Szene 2 links oben x=160, Szene 4 rechts unten) und beim Szenenstart 0.3 s um 12 px hochploppen lassen."
-    },
-    {
-      "bereich": "sicherheit",
       "schwere": "klein",
-      "befund": "Die Untertitel-Box sitzt mittig bei ca. y=1340-1440 (gemessen 670-720) und liegt damit knapp ueber der Caption-Zone ab y=1500 - der Dekostrich darunter bei y=1482 reicht aber fast bis an die Kante.",
-      "bild": "Bild 7",
-      "vorschlag": "Untertitelbox und Strich gemeinsam um 80 px nach oben schieben (Box-Oberkante auf y=1260), damit zwischen Strich und y=1500 mindestens 100 px Luft bleiben."
+      "befund": "Die Endkarte ab Sekunde 23.24 zeigt nur noch Pinguin, Titel und Handle - der Untertitelkasten ist leer, die Flaeche darunter bleibt ueber eine Sekunde tot.",
+      "bild": "Bild 10",
+      "vorschlag": "In der Endkarte an Stelle des leeren Untertitelbereichs (y=1340-1440) einen statischen CTA-Balken 'Speichern + Folgen' in Dunkelblau mit gelbem Akzent einblenden."
     }
   ],
-  "staerkste": "Die visuelle Sprache ist konsequent: dunkelblaue Karte auf warmem Goldverlauf, gleiche Typo, gleicher Untertitelstil in jeder Szene - das Reel ist auf einen Blick als derselbe Kanal erkennbar, und die Zahl 550 in Bild 1/2 hat echte Groesse und Kontrast.",
-  "urteil": "Sauber gebautes, ruhig lesbares Kartenformat mit klarer Kanalhandschrift, das aber in jeder Szene zu lange stillsteht und dessen Einstieg eine Zahl zeigt, ohne den Konflikt zu benennen. Mit einem zugespitzten Hook, animierten Zahlen/Balken und frueher sichtbaren Labels waere das ein starkes Reel - aktuell gewinnt es den Daumen-Stopp nicht."
+  "staerkste": "Die visuelle Handschrift ist konsistent und wiedererkennbar: warmer Gelbverlauf, dunkelblaue Karten mit gelbem Reiter, der ueber die Kartenkante lugende Pinguin - das wirkt wie ein eigener Kanal und nicht wie eine Standardvorlage.",
+  "urteil": "Sauber gebautes, markenkonsistentes Reel mit klarem Aufbau, das aber an zwei Stellen echte Substanz verliert: Die Kennzahl behauptet durch Tausenderpunkt und Einheit '2.016 Jahre', und der Hook liefert seine Pointe erst nach fast drei Sekunden. Dazu stehen die Szenen 2 bis 4 praktisch still - ausser dem nachlaufenden Untertitel bewegt sich nichts."
 }
