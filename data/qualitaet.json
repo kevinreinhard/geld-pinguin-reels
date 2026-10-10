@@ -1,67 +1,60 @@
 {
-  "datum": "2026-10-10T16:23:46.416Z",
+  "datum": "2026-10-10T20:18:40.478Z",
   "datei": "build/reel.mp4",
-  "dauer": 26.23,
+  "dauer": 23.78,
   "noten": {
-    "hook": 58,
-    "lesbarkeit": 66,
-    "bildwechsel": 62,
+    "hook": 55,
+    "lesbarkeit": 72,
+    "bildwechsel": 58,
     "information": 70,
-    "marke": 64,
-    "sicherheit": 55
+    "marke": 62,
+    "sicherheit": 74
   },
-  "gesamt": 63,
+  "gesamt": 65,
   "maengel": [
     {
       "bereich": "hook",
       "schwere": "schwer",
-      "befund": "Die Hook-Szene laeuft 5,2 Sekunden - fast ein Fuenftel des Reels - und zeigt nur eine Zeile-fuer-Zeile aufgebaute Textaussage ueber dem statischen Pinguin; in Bild 1 ist die dritte Zeile noch nicht da, in Bild 2 steht sie, mehr passiert nicht.",
-      "bild": "Bild 1 und Bild 2",
-      "vorschlag": "Hook-Szene auf 2,5-3,0 s kuerzen (ersten Schnitt von 5,2 s auf ca. 3,0 s vorziehen) und die drei Textzeilen in den ersten 0,8 s komplett einblenden statt bis Sekunde 4,9 zu staffeln; Pinguin dabei leicht skalieren (1.0 -> 1.06) oder die Zahl 1.230 schon hier als grosses Element zeigen."
-    },
-    {
-      "bereich": "sicherheit",
-      "schwere": "schwer",
-      "befund": "Die Untertitel-Box sitzt mit Oberkante bei y=672 (gemessen 336) und Unterkante bei y=1444 ... korrekt gemessen: Box von y=1348 bis y=1444, die Trennlinie darunter bei y=1482 - das liegt knapp vor der Caption-Zone, aber der Untertitel in Bild 6 ('deine Steuer wirklich.') reicht mit der Linie bis y=1482 und damit faktisch an die Kante von y=1500 heran.",
-      "bild": "Bild 6",
-      "vorschlag": "Untertitelblock samt Trennlinie um 120 px nach oben schieben: Box-Mittelpunkt von y=1396 auf y=1270 setzen, Trennlinie entsprechend auf y=1356."
-    },
-    {
-      "bereich": "lesbarkeit",
-      "schwere": "schwer",
-      "befund": "In Bild 1 steht die zweite Hook-Zeile 'BRINGT OFT' in halbtransparentem Grau auf rosa Balken (Einblend-Zustand) und ist deutlich schlechter lesbar als die schwarze Zeile darueber; bei schnellem Wischen wirkt das wie ein Renderfehler.",
+      "befund": "Bild 1 (Sek 0.9) zeigt als Einstieg nur eine Karte mit dem Wort AUSGABEAUFSCHLAG und einer 5 % - Fachbegriff statt Reizpunkt, die Karte sitzt zudem mittig und fuellt nur etwa ein Drittel der Flaeche.",
       "bild": "Bild 1",
-      "vorschlag": "Einblendung nicht ueber Deckkraft der Schrift animieren, sondern Balken und Text gemeinsam mit Scale-In von 0.92 auf 1.0 bei voller Textdeckkraft (#111111) einblenden."
+      "vorschlag": "Hook-Zeile in Szene 1 auf eine Konfliktaussage umstellen, z.B. '500 EURO WEG - BEVOR DU INVESTIERT BIST' in 96 px Bold, und die Karte in den ersten 1,5 s von y=640 auf y=440 (1080x1920) hochziehen, damit die Aussage oberhalb der Bildmitte landet."
     },
     {
-      "bereich": "lesbarkeit",
-      "schwere": "mittel",
-      "befund": "Die Kopfzeile 'DIE 1230-EURO-HUERDE' (Oberkante ca. y=250) und das Handle '@geld.pinguin' bei ca. y=322 stehen in ca. 28 px bzw. 20 px Hoehe in dunkelgrau/braun auf gelbem Verlauf - das Handle ist auf dem Handy praktisch nicht zu entziffern.",
-      "bild": "Bild 3",
-      "vorschlag": "Handle auf mindestens 32 px Schrifthoehe vergroessern und auf Farbe #1B2A4A (Marineblau wie die Karte) setzen; Kopfzeile auf 36 px."
+      "bereich": "bildwechsel",
+      "schwere": "schwer",
+      "befund": "Szene 7 verliert in Bild 10 (Sek 23.4) gegenueber Bild 9 den Untertitel-Balken ersatzlos; die letzten Sekunden stehen als reines Standbild mit Pinguin und Handle da.",
+      "bild": "Bild 10",
+      "vorschlag": "Letzte Szene mit einem dauerhaften CTA-Element fuellen: Handle-Pill ab Sek 20 um 6 % pulsieren lassen oder eine zweite Zeile 'Depotauszug: Zeile Ausgabeaufschlag' bei y=1270 (1080x1920) einblenden statt den Untertitel abzuschalten."
     },
     {
       "bereich": "bildwechsel",
       "schwere": "mittel",
-      "befund": "Die Endkarte steht ab Sekunde 23,2 bis 26,2 nahezu bewegungslos; zwischen Bild 9 und Bild 10 verschwindet lediglich der Untertitel, der Rest ist identisch - die letzte Sekunde ist ein Standbild.",
-      "bild": "Bild 9 und Bild 10",
-      "vorschlag": "Im Endkarten-Loop Pinguin mit leichtem Wippen animieren (Rotation -3 bis +3 Grad, 1,2 s Zyklus) und den @geld.pinguin-Button ab Sekunde 25 pulsieren lassen (Scale 1.0 -> 1.05 -> 1.0)."
+      "befund": "Szene 1 bewegt sich zwischen Bild 1 (0.9 s) und Bild 2 (3.98 s) nur um wenige Pixel - Karteninhalt, Zahl und Nebensatz sind bereits beim Schnitt vollstaendig da, es bleibt ueber 3 Sekunden statisch.",
+      "bild": "Bild 1 und 2",
+      "vorschlag": "Die 5 % in Szene 1 von 0 auf 5 hochzaehlen lassen (ca. 0,8 s) und den Nebensatz 'Weg, bevor der Fonds ueberhaupt startet' erst bei Sek 1,8 einfaden, wie es Szene 2 und 4 bereits vormachen."
+    },
+    {
+      "bereich": "lesbarkeit",
+      "schwere": "mittel",
+      "befund": "Der Kanalname '@geld.pinguin' unter der Kopfzeile (Bild 1-10, ca. y=324 in 1080x1920) ist in etwa 22 px grauem Text auf orangem Verlauf gesetzt und faellt praktisch weg.",
+      "bild": "Bild 1",
+      "vorschlag": "Handle auf 34 px erhoehen und Farbe auf das Dunkelblau #16213E der Karten setzen (statt Grau), Opazitaet auf 100 %."
+    },
+    {
+      "bereich": "sicherheit",
+      "schwere": "mittel",
+      "befund": "Die Untertitel-Box sitzt mit Unterkante bei ca. y=1448 und die Trennlinie bei y=1482 (1080x1920) sehr dicht an der Caption-Zone ab y=1500; in Bild 9 reicht der Balken mit 'Prüf deine Abrechnung' bis x=800 und damit nah an die Buttonspalte.",
+      "bild": "Bild 9",
+      "vorschlag": "Untertitel-Block und Trennlinie gemeinsam um 80 px nach oben schieben (Box-Unterkante auf y=1368, Linie auf y=1400) und die Boxbreite auf max. x=880 begrenzen."
     },
     {
       "bereich": "marke",
-      "schwere": "mittel",
-      "befund": "Ab Szene 2 ist der Pinguin nur noch als halb hinter der Karte hervorlugender Kopf oben rechts bei ca. x=865, y=590 zu sehen und bleibt in allen Mittelszenen in exakt gleicher Position - das wirkt wie ein aufgeklebtes Vorlagen-Element statt wie eine Figur.",
-      "bild": "Bild 5",
-      "vorschlag": "Pinguinkopf pro Szene die Seite wechseln lassen (Szene 2 rechts bei x=865, Szene 3 links bei x=215, Szene 4 rechts) und beim Szenenstart um 40 px von hinter der Karte hochfahren lassen."
-    },
-    {
-      "bereich": "information",
       "schwere": "klein",
-      "befund": "In Bild 5 tragen die beiden Balken (rot kurz, gruen lang) keine Beschriftung des Effekts; erst in Bild 6, also 2 Sekunden spaeter, erklaeren '0 EUR Effekt' und 'senkt Steuer', was die Balken bedeuten.",
-      "bild": "Bild 5",
-      "vorschlag": "Die Labels '0 EUR Effekt' und 'senkt Steuer' bereits 0,3 s nach Szenenstart einblenden statt erst nach ca. 2 s; Balkenanimation parallel laufen lassen."
+      "befund": "Der Pinguin schaut in Bild 1-8 immer in derselben Pose hinter der rechten oberen Kartenecke hervor und wird zu keinem Zeitpunkt Teil der Aussage; in Bild 4 verdeckt die Karte ihn bis zum Halsansatz.",
+      "bild": "Bild 4",
+      "vorschlag": "Pinguin pro Szene variieren: in Kennzahl-Szenen auf die Zahl zeigen lassen (x-Position auf 240, Spiegelung) oder bei Szene 2 neben den roten Provisionsbalken setzen, statt ihn in jeder Szene bei x=865/y=580 zu parken."
     }
   ],
-  "staerkste": "Die Kennzahl-Szene: 1.230 EUR steht in sehr grossem Hellblau auf dunkler Karte, ist auf einen Blick erfasst und traegt die Aussage ohne Ton - das ist der visuell stabilste Moment des Reels.",
-  "urteil": "Sauber gebautes, konsistentes Kartenlayout mit klarer Farbsprache, das die Steueraussage auch stummgeschaltet transportiert. Es scheitert aber am Einstieg: Fuenf Sekunden fuer eine langsam aufgebaute Dreizeilen-Hook sind auf Instagram zu viel, und ausserhalb der Textwechsel bewegt sich im Bild kaum etwas."
+  "staerkste": "Die Vergleichsszene (Bild 3 zu 4): Der blaue Balken fuer 9.500 EUR gegen den winzigen roten Provisionspunkt erklaert den Ausgabeaufschlag in einer Sekunde ohne Ton - und die nachgeschobenen Zahlen 9.500 EUR / 500 EUR geben der Szene echte Bewegung.",
+  "urteil": "Sauber gebautes, konsistentes Kartenlayout mit guter Kontrastwahl und einer wirklich starken Vergleichsgrafik in der Mitte - inhaltlich traegt das Reel die Aussage auch stumm. Es scheitert an den Raendern: Der Einstieg startet mit einem Fachbegriff statt einer Reizaussage, und die Endkarte faellt in den letzten Sekunden in ein Standbild ohne Handlungsaufforderung zurueck."
 }
