@@ -1,67 +1,67 @@
 {
-  "datum": "2026-10-10T11:04:28.882Z",
+  "datum": "2026-10-10T16:23:46.416Z",
   "datei": "build/reel.mp4",
-  "dauer": 22.53,
+  "dauer": 26.23,
   "noten": {
-    "hook": 62,
+    "hook": 58,
     "lesbarkeit": 66,
-    "bildwechsel": 58,
+    "bildwechsel": 62,
     "information": 70,
-    "marke": 72,
-    "sicherheit": 74
+    "marke": 64,
+    "sicherheit": 55
   },
-  "gesamt": 67,
+  "gesamt": 63,
   "maengel": [
     {
       "bereich": "hook",
       "schwere": "schwer",
-      "befund": "Die Hook-Szene laeuft 5,4 Sekunden und zeigt in Bild 1 und Bild 2 praktisch dasselbe Standbild - nur die Untertitelzeile wechselt, Pinguin und Headline stehen still.",
-      "bild": "Bild 1 und 2",
-      "vorschlag": "Hook auf max. 3,0 s kuerzen (ersten Schnitt von 5,4 auf 3,0 vorziehen) und in Sekunde 1,5 ein zweites visuelles Ereignis setzen, z.B. '480 EUR' als Zaehler von 0 auf 480 hochzaehlen und den Pinguin um 3 Grad kippen/wippen (Keyframe rotation -3 bis +3 Grad, Dauer 0,6 s)."
+      "befund": "Die Hook-Szene laeuft 5,2 Sekunden - fast ein Fuenftel des Reels - und zeigt nur eine Zeile-fuer-Zeile aufgebaute Textaussage ueber dem statischen Pinguin; in Bild 1 ist die dritte Zeile noch nicht da, in Bild 2 steht sie, mehr passiert nicht.",
+      "bild": "Bild 1 und Bild 2",
+      "vorschlag": "Hook-Szene auf 2,5-3,0 s kuerzen (ersten Schnitt von 5,2 s auf ca. 3,0 s vorziehen) und die drei Textzeilen in den ersten 0,8 s komplett einblenden statt bis Sekunde 4,9 zu staffeln; Pinguin dabei leicht skalieren (1.0 -> 1.06) oder die Zahl 1.230 schon hier als grosses Element zeigen."
+    },
+    {
+      "bereich": "sicherheit",
+      "schwere": "schwer",
+      "befund": "Die Untertitel-Box sitzt mit Oberkante bei y=672 (gemessen 336) und Unterkante bei y=1444 ... korrekt gemessen: Box von y=1348 bis y=1444, die Trennlinie darunter bei y=1482 - das liegt knapp vor der Caption-Zone, aber der Untertitel in Bild 6 ('deine Steuer wirklich.') reicht mit der Linie bis y=1482 und damit faktisch an die Kante von y=1500 heran.",
+      "bild": "Bild 6",
+      "vorschlag": "Untertitelblock samt Trennlinie um 120 px nach oben schieben: Box-Mittelpunkt von y=1396 auf y=1270 setzen, Trennlinie entsprechend auf y=1356."
     },
     {
       "bereich": "lesbarkeit",
       "schwere": "schwer",
-      "befund": "In Bild 1 steht die zweite Headline-Zeile 'JAHR EXTRA' in graubrauner Schrift auf blassrotem Band - der Kontrast ist waehrend der Einblendanimation so niedrig, dass die Zeile wegfaellt, waehrend die Zeile darueber bereits in vollem Schwarz steht.",
+      "befund": "In Bild 1 steht die zweite Hook-Zeile 'BRINGT OFT' in halbtransparentem Grau auf rosa Balken (Einblend-Zustand) und ist deutlich schlechter lesbar als die schwarze Zeile darueber; bei schnellem Wischen wirkt das wie ein Renderfehler.",
       "bild": "Bild 1",
-      "vorschlag": "Die Einblendung der Headline-Zeilen nicht ueber Deckkraft der Textfarbe fahren, sondern Textfarbe fix auf #14213D setzen und nur das Band von links aufziehen; Band-Deckkraft waehrend der Animation mindestens 85 Prozent."
+      "vorschlag": "Einblendung nicht ueber Deckkraft der Schrift animieren, sondern Balken und Text gemeinsam mit Scale-In von 0.92 auf 1.0 bei voller Textdeckkraft (#111111) einblenden."
     },
     {
       "bereich": "lesbarkeit",
       "schwere": "mittel",
-      "befund": "Die Untertitelzeile in Bild 1 ('Dein Fitnessstudio verlaengert') ist mit rund 30 px Versalhoehe im 1080er Massstab die kleinste Textebene im Video und deutlich kleiner als jeder Kartentext.",
-      "bild": "Bild 1",
-      "vorschlag": "Untertitel-Schriftgroesse von ca. 46 px auf 60 px anheben und Box-Innenabstand auf 24 px links/rechts setzen, Boxbreite entsprechend bis max. x=100..980."
+      "befund": "Die Kopfzeile 'DIE 1230-EURO-HUERDE' (Oberkante ca. y=250) und das Handle '@geld.pinguin' bei ca. y=322 stehen in ca. 28 px bzw. 20 px Hoehe in dunkelgrau/braun auf gelbem Verlauf - das Handle ist auf dem Handy praktisch nicht zu entziffern.",
+      "bild": "Bild 3",
+      "vorschlag": "Handle auf mindestens 32 px Schrifthoehe vergroessern und auf Farbe #1B2A4A (Marineblau wie die Karte) setzen; Kopfzeile auf 36 px."
     },
     {
       "bereich": "bildwechsel",
       "schwere": "mittel",
-      "befund": "Die Endkarte verliert zwischen Bild 9 und Bild 10 die Untertitelzeile und zeigt danach 2,2 Sekunden lang ein reines Standbild aus Pinguin, Headline und Handle.",
-      "bild": "Bild 10",
-      "vorschlag": "In den letzten 2 s eine Bewegung ergaenzen: Handle-Pille von 100 auf 104 Prozent pulsieren lassen (Loop 0,8 s) oder ein Speichern-Icon bei x=540,y=1180 mit 0,3 s Pop einblenden."
-    },
-    {
-      "bereich": "information",
-      "schwere": "mittel",
-      "befund": "In Bild 3 stehen die Balken 'Frueher: +12 Monate' und 'Heute: unbestimmte Zeit' ohne Zahlenwerte da; die erklaerenden Werte '12 Monate' / '0 Monate' erscheinen erst in Bild 4, also erst am Ende der 4-Sekunden-Szene.",
-      "bild": "Bild 3",
-      "vorschlag": "Die Wertelabels rechts bereits ab 0,4 s nach Szenenstart einblenden statt erst nach ca. 3 s; Balkenanimation und Zahl gemeinsam ueber 0,6 s laufen lassen."
-    },
-    {
-      "bereich": "sicherheit",
-      "schwere": "mittel",
-      "befund": "Die Untertitelbox sitzt mit Oberkante bei etwa y=1344 und Unterkante bei etwa y=1448 (gemessen 672 bis 724) knapp ueber der Caption-Zone, die Trennlinie darunter liegt bei y=1482 - alles sehr dicht an der Grenze y=1500, Abweichungen bei laengeren Untertiteln geraten darunter.",
-      "bild": "Bild 8",
-      "vorschlag": "Untertitelblock samt Linie um 80 px nach oben versetzen (Boxmitte von y=1400 auf y=1320) und die Trennlinie auf y=1400 legen, damit auch zweizeilige Untertitel ueber y=1500 bleiben."
+      "befund": "Die Endkarte steht ab Sekunde 23,2 bis 26,2 nahezu bewegungslos; zwischen Bild 9 und Bild 10 verschwindet lediglich der Untertitel, der Rest ist identisch - die letzte Sekunde ist ein Standbild.",
+      "bild": "Bild 9 und Bild 10",
+      "vorschlag": "Im Endkarten-Loop Pinguin mit leichtem Wippen animieren (Rotation -3 bis +3 Grad, 1,2 s Zyklus) und den @geld.pinguin-Button ab Sekunde 25 pulsieren lassen (Scale 1.0 -> 1.05 -> 1.0)."
     },
     {
       "bereich": "marke",
+      "schwere": "mittel",
+      "befund": "Ab Szene 2 ist der Pinguin nur noch als halb hinter der Karte hervorlugender Kopf oben rechts bei ca. x=865, y=590 zu sehen und bleibt in allen Mittelszenen in exakt gleicher Position - das wirkt wie ein aufgeklebtes Vorlagen-Element statt wie eine Figur.",
+      "bild": "Bild 5",
+      "vorschlag": "Pinguinkopf pro Szene die Seite wechseln lassen (Szene 2 rechts bei x=865, Szene 3 links bei x=215, Szene 4 rechts) und beim Szenenstart um 40 px von hinter der Karte hochfahren lassen."
+    },
+    {
+      "bereich": "information",
       "schwere": "klein",
-      "befund": "Der Hintergrund ist in allen zehn Bildern derselbe gelbe Verlauf; zwischen den Szenen wechselt weder Farbton noch Richtung, wodurch die Schnitte optisch flach wirken.",
-      "bild": "Bild 1 bis 10",
-      "vorschlag": "Pro Szene den Verlaufswinkel um 20 Grad drehen oder den zweiten Farbstopp leicht variieren (z.B. Szene 3 #F5B301 statt #F7C948), damit jeder Schnitt auch im Hintergrund sichtbar wird."
+      "befund": "In Bild 5 tragen die beiden Balken (rot kurz, gruen lang) keine Beschriftung des Effekts; erst in Bild 6, also 2 Sekunden spaeter, erklaeren '0 EUR Effekt' und 'senkt Steuer', was die Balken bedeuten.",
+      "bild": "Bild 5",
+      "vorschlag": "Die Labels '0 EUR Effekt' und 'senkt Steuer' bereits 0,3 s nach Szenenstart einblenden statt erst nach ca. 2 s; Balkenanimation parallel laufen lassen."
     }
   ],
-  "staerkste": "Die dunkelblauen Karten mit klarer Typo-Hierarchie (Kicker in Farbe, grosse Kennzahl, farbcodierte Balken) sind sauber gesetzt, hoch kontrastreich und tragen die Aussage auch ohne Ton.",
-  "urteil": "Visuell solide gebaute Karten-Reel-Vorlage mit konsistenter Markenfarbe und gut lesbaren Kernaussagen, aber der Einstieg verschenkt 5,4 Sekunden auf einem fast unbewegten Standbild und die Headline-Zeile 'JAHR EXTRA' ist beim Einblenden kontrastschwach. Mit kuerzerem Hook, frueher sichtbaren Vergleichszahlen und etwas Bewegung in der Endkarte waere das ein deutlich konkurrenzfaehigeres Reel."
+  "staerkste": "Die Kennzahl-Szene: 1.230 EUR steht in sehr grossem Hellblau auf dunkler Karte, ist auf einen Blick erfasst und traegt die Aussage ohne Ton - das ist der visuell stabilste Moment des Reels.",
+  "urteil": "Sauber gebautes, konsistentes Kartenlayout mit klarer Farbsprache, das die Steueraussage auch stummgeschaltet transportiert. Es scheitert aber am Einstieg: Fuenf Sekunden fuer eine langsam aufgebaute Dreizeilen-Hook sind auf Instagram zu viel, und ausserhalb der Textwechsel bewegt sich im Bild kaum etwas."
 }
