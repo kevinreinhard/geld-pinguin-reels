@@ -1,60 +1,67 @@
 {
-  "datum": "2026-10-09T18:11:23.123Z",
+  "datum": "2026-10-10T11:04:28.882Z",
   "datei": "build/reel.mp4",
-  "dauer": 23.6,
+  "dauer": 22.53,
   "noten": {
-    "hook": 58,
-    "lesbarkeit": 62,
-    "bildwechsel": 55,
-    "information": 60,
-    "marke": 64,
-    "sicherheit": 72
+    "hook": 62,
+    "lesbarkeit": 66,
+    "bildwechsel": 58,
+    "information": 70,
+    "marke": 72,
+    "sicherheit": 74
   },
-  "gesamt": 62,
+  "gesamt": 67,
   "maengel": [
-    {
-      "bereich": "information",
-      "schwere": "schwer",
-      "befund": "Die Kennzahl in Bild 3 und 4 liest sich als '2.016 Jahre' - durch den Tausenderpunkt und das Wort 'Jahre' wird aus der Jahreszahl 2016 eine Dauer von zweitausend Jahren.",
-      "bild": "Bild 3",
-      "vorschlag": "Tausendertrennung fuer diese Kennzahl abschalten und Einheit aendern: Zahl 'seit 2016' ohne Punkt rendern, Suffix 'Jahre' loeschen, Label oben auf 'GESETZLICH GEREGELT' setzen."
-    },
     {
       "bereich": "hook",
       "schwere": "schwer",
-      "befund": "Der Hook baut sich bis Sekunde 2.87 zeilenweise auf - erst in Bild 2 steht 'KONTOWECHSEL KOSTET DICH NICHTS'; in Bild 1 steht die irrefuehrende Halbaussage 'KONTOWECHSEL KOSTET DICH'.",
+      "befund": "Die Hook-Szene laeuft 5,4 Sekunden und zeigt in Bild 1 und Bild 2 praktisch dasselbe Standbild - nur die Untertitelzeile wechselt, Pinguin und Headline stehen still.",
+      "bild": "Bild 1 und 2",
+      "vorschlag": "Hook auf max. 3,0 s kuerzen (ersten Schnitt von 5,4 auf 3,0 vorziehen) und in Sekunde 1,5 ein zweites visuelles Ereignis setzen, z.B. '480 EUR' als Zaehler von 0 auf 480 hochzaehlen und den Pinguin um 3 Grad kippen/wippen (Keyframe rotation -3 bis +3 Grad, Dauer 0,6 s)."
+    },
+    {
+      "bereich": "lesbarkeit",
+      "schwere": "schwer",
+      "befund": "In Bild 1 steht die zweite Headline-Zeile 'JAHR EXTRA' in graubrauner Schrift auf blassrotem Band - der Kontrast ist waehrend der Einblendanimation so niedrig, dass die Zeile wegfaellt, waehrend die Zeile darueber bereits in vollem Schwarz steht.",
       "bild": "Bild 1",
-      "vorschlag": "Alle drei Hookzeilen gemeinsam bis spaetestens 0.5 s einblenden (Zeilen-Delay von ca. 0.8 s auf 0.12 s reduzieren), nur Skalierung/Opazitaet animieren."
+      "vorschlag": "Die Einblendung der Headline-Zeilen nicht ueber Deckkraft der Textfarbe fahren, sondern Textfarbe fix auf #14213D setzen und nur das Band von links aufziehen; Band-Deckkraft waehrend der Animation mindestens 85 Prozent."
     },
     {
       "bereich": "lesbarkeit",
       "schwere": "mittel",
-      "befund": "In Bild 2 ueberlappt der Untertitelkasten 'lassen sie verschweigt es' die dritte Hookzeile 'NICHTS' und schneidet deren Unterkante an.",
-      "bild": "Bild 2",
-      "vorschlag": "Untertitel-Block von y=1340 auf y=1460 (1080x1920) verschieben oder Hook-Block als Ganzes um 80 px nach oben setzen."
+      "befund": "Die Untertitelzeile in Bild 1 ('Dein Fitnessstudio verlaengert') ist mit rund 30 px Versalhoehe im 1080er Massstab die kleinste Textebene im Video und deutlich kleiner als jeder Kartentext.",
+      "bild": "Bild 1",
+      "vorschlag": "Untertitel-Schriftgroesse von ca. 46 px auf 60 px anheben und Box-Innenabstand auf 24 px links/rechts setzen, Boxbreite entsprechend bis max. x=100..980."
     },
     {
       "bereich": "bildwechsel",
       "schwere": "mittel",
-      "befund": "Szene 2 bis 4 sind bis auf eine nachgeschobene Textzeile statisch: Karte, Pinguinkopf und Grosstext stehen zwischen Anfangs- und Endbild exakt gleich, einzige Bewegung ist der Untertitel.",
-      "bild": "Bild 7",
-      "vorschlag": "Je Szene eine sichtbare Bewegung ergaenzen, z.B. Karte um 2 % skalieren oder 20 px vertikal driften lassen und Listenpunkte/Zeilen gestaffelt mit 0.25 s Abstand einfliegen."
+      "befund": "Die Endkarte verliert zwischen Bild 9 und Bild 10 die Untertitelzeile und zeigt danach 2,2 Sekunden lang ein reines Standbild aus Pinguin, Headline und Handle.",
+      "bild": "Bild 10",
+      "vorschlag": "In den letzten 2 s eine Bewegung ergaenzen: Handle-Pille von 100 auf 104 Prozent pulsieren lassen (Loop 0,8 s) oder ein Speichern-Icon bei x=540,y=1180 mit 0,3 s Pop einblenden."
     },
     {
-      "bereich": "lesbarkeit",
+      "bereich": "information",
       "schwere": "mittel",
-      "befund": "Der dritte Listenpunkt in Bild 5 ('Guthaben und alte Kontoschliessung') steht waehrend des Einblendens in blassem Beige auf Dunkelblau, der Haken ist graugruen statt gruen.",
-      "bild": "Bild 5",
-      "vorschlag": "Einblend-Opazitaet der Listenzeilen nicht ueber die Farbe, sondern nur ueber Position animieren; Zieltextfarbe #FFFFFF und Hakenfarbe #27AE60 schon ab Frame 1 setzen."
+      "befund": "In Bild 3 stehen die Balken 'Frueher: +12 Monate' und 'Heute: unbestimmte Zeit' ohne Zahlenwerte da; die erklaerenden Werte '12 Monate' / '0 Monate' erscheinen erst in Bild 4, also erst am Ende der 4-Sekunden-Szene.",
+      "bild": "Bild 3",
+      "vorschlag": "Die Wertelabels rechts bereits ab 0,4 s nach Szenenstart einblenden statt erst nach ca. 3 s; Balkenanimation und Zahl gemeinsam ueber 0,6 s laufen lassen."
+    },
+    {
+      "bereich": "sicherheit",
+      "schwere": "mittel",
+      "befund": "Die Untertitelbox sitzt mit Oberkante bei etwa y=1344 und Unterkante bei etwa y=1448 (gemessen 672 bis 724) knapp ueber der Caption-Zone, die Trennlinie darunter liegt bei y=1482 - alles sehr dicht an der Grenze y=1500, Abweichungen bei laengeren Untertiteln geraten darunter.",
+      "bild": "Bild 8",
+      "vorschlag": "Untertitelblock samt Linie um 80 px nach oben versetzen (Boxmitte von y=1400 auf y=1320) und die Trennlinie auf y=1400 legen, damit auch zweizeilige Untertitel ueber y=1500 bleiben."
     },
     {
       "bereich": "marke",
       "schwere": "klein",
-      "befund": "Die Endkarte ab Sekunde 23.24 zeigt nur noch Pinguin, Titel und Handle - der Untertitelkasten ist leer, die Flaeche darunter bleibt ueber eine Sekunde tot.",
-      "bild": "Bild 10",
-      "vorschlag": "In der Endkarte an Stelle des leeren Untertitelbereichs (y=1340-1440) einen statischen CTA-Balken 'Speichern + Folgen' in Dunkelblau mit gelbem Akzent einblenden."
+      "befund": "Der Hintergrund ist in allen zehn Bildern derselbe gelbe Verlauf; zwischen den Szenen wechselt weder Farbton noch Richtung, wodurch die Schnitte optisch flach wirken.",
+      "bild": "Bild 1 bis 10",
+      "vorschlag": "Pro Szene den Verlaufswinkel um 20 Grad drehen oder den zweiten Farbstopp leicht variieren (z.B. Szene 3 #F5B301 statt #F7C948), damit jeder Schnitt auch im Hintergrund sichtbar wird."
     }
   ],
-  "staerkste": "Die visuelle Handschrift ist konsistent und wiedererkennbar: warmer Gelbverlauf, dunkelblaue Karten mit gelbem Reiter, der ueber die Kartenkante lugende Pinguin - das wirkt wie ein eigener Kanal und nicht wie eine Standardvorlage.",
-  "urteil": "Sauber gebautes, markenkonsistentes Reel mit klarem Aufbau, das aber an zwei Stellen echte Substanz verliert: Die Kennzahl behauptet durch Tausenderpunkt und Einheit '2.016 Jahre', und der Hook liefert seine Pointe erst nach fast drei Sekunden. Dazu stehen die Szenen 2 bis 4 praktisch still - ausser dem nachlaufenden Untertitel bewegt sich nichts."
+  "staerkste": "Die dunkelblauen Karten mit klarer Typo-Hierarchie (Kicker in Farbe, grosse Kennzahl, farbcodierte Balken) sind sauber gesetzt, hoch kontrastreich und tragen die Aussage auch ohne Ton.",
+  "urteil": "Visuell solide gebaute Karten-Reel-Vorlage mit konsistenter Markenfarbe und gut lesbaren Kernaussagen, aber der Einstieg verschenkt 5,4 Sekunden auf einem fast unbewegten Standbild und die Headline-Zeile 'JAHR EXTRA' ist beim Einblenden kontrastschwach. Mit kuerzerem Hook, frueher sichtbaren Vergleichszahlen und etwas Bewegung in der Endkarte waere das ein deutlich konkurrenzfaehigeres Reel."
 }
