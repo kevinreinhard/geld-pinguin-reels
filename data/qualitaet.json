@@ -1,60 +1,60 @@
 {
-  "datum": "2026-10-10T20:18:40.478Z",
+  "datum": "2026-10-11T11:21:28.733Z",
   "datei": "build/reel.mp4",
-  "dauer": 23.78,
+  "dauer": 20.87,
   "noten": {
-    "hook": 55,
-    "lesbarkeit": 72,
-    "bildwechsel": 58,
-    "information": 70,
-    "marke": 62,
-    "sicherheit": 74
+    "hook": 52,
+    "lesbarkeit": 66,
+    "bildwechsel": 55,
+    "information": 62,
+    "marke": 64,
+    "sicherheit": 70
   },
-  "gesamt": 65,
+  "gesamt": 62,
   "maengel": [
     {
-      "bereich": "hook",
+      "bereich": "information",
       "schwere": "schwer",
-      "befund": "Bild 1 (Sek 0.9) zeigt als Einstieg nur eine Karte mit dem Wort AUSGABEAUFSCHLAG und einer 5 % - Fachbegriff statt Reizpunkt, die Karte sitzt zudem mittig und fuellt nur etwa ein Drittel der Flaeche.",
+      "befund": "Szene 1 widerspricht sich selbst: Die Kennzahl '50 €' steht unter der Ueberschrift 'DEPOTGEBUEHR PRO JAHR', die Unterzeile darunter sagt 'Der Wechsel zu einem anderen Broker kostet nichts' - zwei unterschiedliche Aussagen in einer Karte, der Zuschauer weiss nicht, ob 50 € das Problem oder die Loesung sind.",
       "bild": "Bild 1",
-      "vorschlag": "Hook-Zeile in Szene 1 auf eine Konfliktaussage umstellen, z.B. '500 EURO WEG - BEVOR DU INVESTIERT BIST' in 96 px Bold, und die Karte in den ersten 1,5 s von y=640 auf y=440 (1080x1920) hochziehen, damit die Aussage oberhalb der Bildmitte landet."
-    },
-    {
-      "bereich": "bildwechsel",
-      "schwere": "schwer",
-      "befund": "Szene 7 verliert in Bild 10 (Sek 23.4) gegenueber Bild 9 den Untertitel-Balken ersatzlos; die letzten Sekunden stehen als reines Standbild mit Pinguin und Handle da.",
-      "bild": "Bild 10",
-      "vorschlag": "Letzte Szene mit einem dauerhaften CTA-Element fuellen: Handle-Pill ab Sek 20 um 6 % pulsieren lassen oder eine zweite Zeile 'Depotauszug: Zeile Ausgabeaufschlag' bei y=1270 (1080x1920) einblenden statt den Untertitel abzuschalten."
-    },
-    {
-      "bereich": "bildwechsel",
-      "schwere": "mittel",
-      "befund": "Szene 1 bewegt sich zwischen Bild 1 (0.9 s) und Bild 2 (3.98 s) nur um wenige Pixel - Karteninhalt, Zahl und Nebensatz sind bereits beim Schnitt vollstaendig da, es bleibt ueber 3 Sekunden statisch.",
-      "bild": "Bild 1 und 2",
-      "vorschlag": "Die 5 % in Szene 1 von 0 auf 5 hochzaehlen lassen (ca. 0,8 s) und den Nebensatz 'Weg, bevor der Fonds ueberhaupt startet' erst bei Sek 1,8 einfaden, wie es Szene 2 und 4 bereits vormachen."
+      "vorschlag": "Unterzeile in Szene 1 auf eine Aussage zur Zahl aendern, z.B. 'Das zahlst du jedes Jahr - fuer nichts.' Die Wechsel-Aussage erst in Szene 2 bringen."
     },
     {
       "bereich": "lesbarkeit",
-      "schwere": "mittel",
-      "befund": "Der Kanalname '@geld.pinguin' unter der Kopfzeile (Bild 1-10, ca. y=324 in 1080x1920) ist in etwa 22 px grauem Text auf orangem Verlauf gesetzt und faellt praktisch weg.",
-      "bild": "Bild 1",
-      "vorschlag": "Handle auf 34 px erhoehen und Farbe auf das Dunkelblau #16213E der Karten setzen (statt Grau), Opazitaet auf 100 %."
+      "schwere": "schwer",
+      "befund": "In Bild 5 und 6 sind zwei Listenpunkte ('Kein Verkauf deiner Anteile', 'Keine Steuer faellig') rot durchgestrichen und zusaetzlich mit rotem X markiert - optisch wird damit das Gegenteil behauptet: dass doch verkauft wird und Steuer anfaellt.",
+      "bild": "Bild 5",
+      "vorschlag": "Durchstreichung und rotes X entfernen; alle drei Zeilen mit gruenem Haken und weisser Schrift (#FFFFFF) setzen oder die Zeilen positiv formulieren ('Anteile bleiben', 'Keine Steuer')."
     },
     {
-      "bereich": "sicherheit",
+      "bereich": "hook",
       "schwere": "mittel",
-      "befund": "Die Untertitel-Box sitzt mit Unterkante bei ca. y=1448 und die Trennlinie bei y=1482 (1080x1920) sehr dicht an der Caption-Zone ab y=1500; in Bild 9 reicht der Balken mit 'Prüf deine Abrechnung' bis x=800 und damit nah an die Buttonspalte.",
-      "bild": "Bild 9",
-      "vorschlag": "Untertitel-Block und Trennlinie gemeinsam um 80 px nach oben schieben (Box-Unterkante auf y=1368, Linie auf y=1400) und die Boxbreite auf max. x=880 begrenzen."
+      "befund": "Die ersten zwei Sekunden zeigen nur eine dunkle Karte mit der Zahl 50 € - kein Konflikt, keine Frage, keine Bewegung ausser dem Untertitel; das haelt beim schnellen Wischen niemanden.",
+      "bild": "Bild 1",
+      "vorschlag": "Die Zahl in Sekunde 0-1 von 0 auf 50 hochzaehlen lassen und die Ueberschrift auf eine Reizfrage aendern, z.B. 'Zahlst du noch Depotgebuehr?' in 86 px Rot (#FF6B6B)."
+    },
+    {
+      "bereich": "bildwechsel",
+      "schwere": "mittel",
+      "befund": "Szene 1 (Bild 1 zu Bild 2) veraendert sich ausser dem Untertitel ueberhaupt nicht - 4 Sekunden faktisches Standbild; dasselbe gilt fuer Szene 3 (Bild 5 zu Bild 6), wo nur ein Haken die Farbe wechselt.",
+      "bild": "Bild 2",
+      "vorschlag": "Pro Szene mindestens ein sichtbares Ereignis einbauen: Zahl-Count-up in Szene 1, Listenzeilen in Szene 3 einzeln mit 0.4 s Versatz einfliegen lassen."
+    },
+    {
+      "bereich": "bildwechsel",
+      "schwere": "mittel",
+      "befund": "Die Endkarte verliert zwischen Bild 9 und Bild 10 den Untertitel und bleibt danach 2+ Sekunden voellig statisch; der Pinguin bewegt sich nur minimal nach unten.",
+      "bild": "Bild 10",
+      "vorschlag": "Auf der Endkarte ab Sekunde 19 einen pulsierenden Speichern-Hinweis (Icon + 'Speichern', Skalierung 1.0 -> 1.06, 0.8 s Loop) bei y=1500 einblenden."
     },
     {
       "bereich": "marke",
       "schwere": "klein",
-      "befund": "Der Pinguin schaut in Bild 1-8 immer in derselben Pose hinter der rechten oberen Kartenecke hervor und wird zu keinem Zeitpunkt Teil der Aussage; in Bild 4 verdeckt die Karte ihn bis zum Halsansatz.",
-      "bild": "Bild 4",
-      "vorschlag": "Pinguin pro Szene variieren: in Kennzahl-Szenen auf die Zahl zeigen lassen (x-Position auf 240, Spiegelung) oder bei Szene 2 neben den roten Provisionsbalken setzen, statt ihn in jeder Szene bei x=865/y=580 zu parken."
+      "befund": "Das Markenelement ist in jeder Szene identisch: gleiche dunkle Karte, gleiche Position, gleicher halb verdeckter Pinguin hinter der oberen rechten Kartenecke - das wirkt wie eine Vorlage statt wie eine Handschrift.",
+      "bild": "Bild 7",
+      "vorschlag": "Kartenformat pro Szenentyp variieren (z.B. Liste schmaler, Kennzahl als randloser Vollbild-Block) und den Pinguin je Szene an wechselnder Position mit unterschiedlicher Geste einsetzen."
     }
   ],
-  "staerkste": "Die Vergleichsszene (Bild 3 zu 4): Der blaue Balken fuer 9.500 EUR gegen den winzigen roten Provisionspunkt erklaert den Ausgabeaufschlag in einer Sekunde ohne Ton - und die nachgeschobenen Zahlen 9.500 EUR / 500 EUR geben der Szene echte Bewegung.",
-  "urteil": "Sauber gebautes, konsistentes Kartenlayout mit guter Kontrastwahl und einer wirklich starken Vergleichsgrafik in der Mitte - inhaltlich traegt das Reel die Aussage auch stumm. Es scheitert an den Raendern: Der Einstieg startet mit einem Fachbegriff statt einer Reizaussage, und die Endkarte faellt in den letzten Sekunden in ein Standbild ohne Handlungsaufforderung zurueck."
+  "staerkste": "Die Untertitelzeile unten ist durchgehend konsequent gesetzt: schwarzer Kasten, fette weisse Schrift mit gelber Karaoke-Hervorhebung, gut lesbar und oberhalb der Caption-Zone bei y=1340-1460.",
+  "urteil": "Handwerklich sauber gebaut - klare Typografie, stabiles Layout, sichere Raender - aber inhaltlich und dramaturgisch zu brav: Der Einstieg zeigt eine Zahl ohne Spannung, und zwei der sechs Szenen stehen praktisch still. Der schwerste Fehler sitzt in Szene 3, wo durchgestrichene Negativ-Saetze visuell das Gegenteil der Botschaft behaupten."
 }
