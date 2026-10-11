@@ -1,60 +1,67 @@
 {
-  "datum": "2026-10-11T11:21:28.733Z",
+  "datum": "2026-10-11T16:46:35.589Z",
   "datei": "build/reel.mp4",
-  "dauer": 20.87,
+  "dauer": 24.71,
   "noten": {
     "hook": 52,
-    "lesbarkeit": 66,
+    "lesbarkeit": 68,
     "bildwechsel": 55,
-    "information": 62,
-    "marke": 64,
-    "sicherheit": 70
+    "information": 70,
+    "marke": 62,
+    "sicherheit": 58
   },
-  "gesamt": 62,
+  "gesamt": 61,
   "maengel": [
     {
-      "bereich": "information",
+      "bereich": "hook",
       "schwere": "schwer",
-      "befund": "Szene 1 widerspricht sich selbst: Die Kennzahl '50 €' steht unter der Ueberschrift 'DEPOTGEBUEHR PRO JAHR', die Unterzeile darunter sagt 'Der Wechsel zu einem anderen Broker kostet nichts' - zwei unterschiedliche Aussagen in einer Karte, der Zuschauer weiss nicht, ob 50 € das Problem oder die Loesung sind.",
+      "befund": "Bild 1 zeigt in den ersten zwei Sekunden nur eine ruhige Karte mit '1,50 €' und dem Label 'JE SPARPLANRATE' - keine Spannung, keine Frage, kein Konflikt. Das liest sich wie ein Preisschild, nicht wie ein Grund, stehenzubleiben.",
       "bild": "Bild 1",
-      "vorschlag": "Unterzeile in Szene 1 auf eine Aussage zur Zahl aendern, z.B. 'Das zahlst du jedes Jahr - fuer nichts.' Die Wechsel-Aussage erst in Szene 2 bringen."
+      "vorschlag": "Szene 1 die ersten 1,5 s mit einer Reizzeile ueber der Karte starten, z.B. '3 % weg - bevor der ETF ueberhaupt laeuft' in Weiss, 64 px, bei y=560 (1080x1920), und die Zahl 1,50 € von 0 auf 1,50 hochzaehlen lassen statt sie statisch zu zeigen."
+    },
+    {
+      "bereich": "sicherheit",
+      "schwere": "schwer",
+      "befund": "Die Untertitel-Box und die Trennlinie liegen in allen Bildern zwischen y=1340 und y=1490 (gemessen 670-745), also direkt an der Caption-Kante bei y=1500; in Bild 9 reicht die Linie bis y=1482. Bei laengerer Caption oder Ton-Zeile kratzt das an der Verdeckungszone.",
+      "bild": "Bild 9",
+      "vorschlag": "Untertitel-Block samt Trennlinie um 120 px nach oben schieben: Box-Mitte von y=1396 auf y=1276, Trennlinie von y=1482 auf y=1362."
+    },
+    {
+      "bereich": "bildwechsel",
+      "schwere": "mittel",
+      "befund": "Szene 6 ist zwischen Bild 9 (21,56 s) und Bild 10 (24,36 s) nahezu ein Standbild - nur der Untertitel verschwindet, Pinguin, Headline und Handle bleiben unveraendert. Die letzten knapp 3 Sekunden tragen keine Bewegung.",
+      "bild": "Bild 10",
+      "vorschlag": "Pinguin in der Endkarte mit einer leichten Loop-Animation versehen (Scale 1.0 -> 1.04 -> 1.0, 1,2 s) und den @geld.pinguin-Chip nach 22,5 s einmal pulsen lassen (Scale 1.0 -> 1.08 ueber 300 ms)."
+    },
+    {
+      "bereich": "bildwechsel",
+      "schwere": "mittel",
+      "befund": "Szene 1 bewegt sich zwischen Bild 1 (0,9 s) und Bild 2 (5,82 s) praktisch nicht - Karte, Zahl und Unterzeile sind identisch, nur der Untertitel wechselt. Ueber 6 Sekunden ist das der laengste statische Abschnitt des Reels.",
+      "bild": "Bild 2",
+      "vorschlag": "Szene 1 auf maximal 4 s kuerzen oder die Unterzeile 'Ausfuehrungsgebuehr, bevor der ETF arbeitet' erst bei 2,5 s per Fade-Up (20 px) einblenden; zusaetzlich die Zahl in den ersten 600 ms hochzaehlen."
     },
     {
       "bereich": "lesbarkeit",
-      "schwere": "schwer",
-      "befund": "In Bild 5 und 6 sind zwei Listenpunkte ('Kein Verkauf deiner Anteile', 'Keine Steuer faellig') rot durchgestrichen und zusaetzlich mit rotem X markiert - optisch wird damit das Gegenteil behauptet: dass doch verkauft wird und Steuer anfaellt.",
-      "bild": "Bild 5",
-      "vorschlag": "Durchstreichung und rotes X entfernen; alle drei Zeilen mit gruenem Haken und weisser Schrift (#FFFFFF) setzen oder die Zeilen positiv formulieren ('Anteile bleiben', 'Keine Steuer')."
-    },
-    {
-      "bereich": "hook",
       "schwere": "mittel",
-      "befund": "Die ersten zwei Sekunden zeigen nur eine dunkle Karte mit der Zahl 50 € - kein Konflikt, keine Frage, keine Bewegung ausser dem Untertitel; das haelt beim schnellen Wischen niemanden.",
+      "befund": "In Bild 1 und 2 ueberlappt die weisse Unterzeile 'Ausfuehrungsgebuehr, bevor der ETF arbeitet' optisch mit der Unterkante der Riesenzahl '1,50 €' - der Zeilenabstand zwischen Zahlgrundlinie (ca. y=980) und Textoberkante (ca. y=1030) ist zu knapp, die Zeile wirkt angeklebt.",
       "bild": "Bild 1",
-      "vorschlag": "Die Zahl in Sekunde 0-1 von 0 auf 50 hochzaehlen lassen und die Ueberschrift auf eine Reizfrage aendern, z.B. 'Zahlst du noch Depotgebuehr?' in 86 px Rot (#FF6B6B)."
+      "vorschlag": "Abstand zwischen Zahl und Unterzeile von ca. 50 px auf 110 px erhoehen (Unterzeile auf y=1090 setzen) und die Karte entsprechend 60 px hoeher ziehen."
     },
     {
-      "bereich": "bildwechsel",
-      "schwere": "mittel",
-      "befund": "Szene 1 (Bild 1 zu Bild 2) veraendert sich ausser dem Untertitel ueberhaupt nicht - 4 Sekunden faktisches Standbild; dasselbe gilt fuer Szene 3 (Bild 5 zu Bild 6), wo nur ein Haken die Farbe wechselt.",
-      "bild": "Bild 2",
-      "vorschlag": "Pro Szene mindestens ein sichtbares Ereignis einbauen: Zahl-Count-up in Szene 1, Listenzeilen in Szene 3 einzeln mit 0.4 s Versatz einfliegen lassen."
-    },
-    {
-      "bereich": "bildwechsel",
-      "schwere": "mittel",
-      "befund": "Die Endkarte verliert zwischen Bild 9 und Bild 10 den Untertitel und bleibt danach 2+ Sekunden voellig statisch; der Pinguin bewegt sich nur minimal nach unten.",
-      "bild": "Bild 10",
-      "vorschlag": "Auf der Endkarte ab Sekunde 19 einen pulsierenden Speichern-Hinweis (Icon + 'Speichern', Skalierung 1.0 -> 1.06, 0.8 s Loop) bei y=1500 einblenden."
+      "bereich": "lesbarkeit",
+      "schwere": "klein",
+      "befund": "Das Handle '@geld.pinguin' unter der Kopfzeile ist in Bild 1-10 nur ca. 20 px hoch (gemessen 10 px) in hellem Grau auf gelbem Verlauf - auf dem Handy nicht lesbar und ausserdem im Bereich y=320, also knapp unter der Instagram-Kopfzeile.",
+      "bild": "Bild 3",
+      "vorschlag": "Handle auf 30 px vergroessern und in Dunkelblau #16213E statt Grau setzen, oder ganz weglassen, da es auf der Endkarte ohnehin prominent steht."
     },
     {
       "bereich": "marke",
       "schwere": "klein",
-      "befund": "Das Markenelement ist in jeder Szene identisch: gleiche dunkle Karte, gleiche Position, gleicher halb verdeckter Pinguin hinter der oberen rechten Kartenecke - das wirkt wie eine Vorlage statt wie eine Handschrift.",
-      "bild": "Bild 7",
-      "vorschlag": "Kartenformat pro Szenentyp variieren (z.B. Liste schmaler, Kennzahl als randloser Vollbild-Block) und den Pinguin je Szene an wechselnder Position mit unterschiedlicher Geste einsetzen."
+      "befund": "Der Pinguin lugt in Bild 1-8 immer identisch hinter der rechten oberen Kartenecke hervor und wird dabei von der Karte angeschnitten - er wirkt wie ein Sticker, nicht wie ein Maskottchen mit Rolle.",
+      "bild": "Bild 5",
+      "vorschlag": "Pinguin pro Szene minimal variieren (Wechsel zwischen x=860 und x=760 bei 1080 Breite, leichte Neigung +/- 5 Grad) und beim Szenenwechsel um 15 px nach oben huepfen lassen."
     }
   ],
-  "staerkste": "Die Untertitelzeile unten ist durchgehend konsequent gesetzt: schwarzer Kasten, fette weisse Schrift mit gelber Karaoke-Hervorhebung, gut lesbar und oberhalb der Caption-Zone bei y=1340-1460.",
-  "urteil": "Handwerklich sauber gebaut - klare Typografie, stabiles Layout, sichere Raender - aber inhaltlich und dramaturgisch zu brav: Der Einstieg zeigt eine Zahl ohne Spannung, und zwei der sechs Szenen stehen praktisch still. Der schwerste Fehler sitzt in Szene 3, wo durchgestrichene Negativ-Saetze visuell das Gegenteil der Botschaft behaupten."
+  "staerkste": "Die Szene 2 (Bild 3/4) ist der beste Teil: Zwei Balken, die sich fuellen, dann die Zahlen 48,50 € gegen 1,50 € = 3 % - die Aussage ist ohne Ton sofort verstanden und das Groessenverhaeltnis der Balken macht die 3 % koerperlich spuerbar.",
+  "urteil": "Visuell sauber, konsistent und durchgehend lesbar - die dunkelblaue Karte auf Gelbverlauf ist ein brauchbares Markenbild, und die Vergleichsszene erklaert die Kernaussage allein ueber das Bild. Was fehlt, ist ein Einstieg, der jemanden stoppt: Die ersten sechs Sekunden zeigen eine fast unbewegte Karte mit einer kleinen Zahl, und die Endkarte steht die letzten drei Sekunden still."
 }
