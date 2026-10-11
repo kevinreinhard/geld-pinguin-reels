@@ -1,67 +1,60 @@
 {
-  "datum": "2026-10-11T16:46:35.589Z",
+  "datum": "2026-10-11T20:54:21.802Z",
   "datei": "build/reel.mp4",
-  "dauer": 24.71,
+  "dauer": 22.13,
   "noten": {
-    "hook": 52,
-    "lesbarkeit": 68,
-    "bildwechsel": 55,
-    "information": 70,
-    "marke": 62,
-    "sicherheit": 58
+    "hook": 58,
+    "lesbarkeit": 62,
+    "bildwechsel": 48,
+    "information": 60,
+    "marke": 66,
+    "sicherheit": 72
   },
   "gesamt": 61,
   "maengel": [
     {
-      "bereich": "hook",
+      "bereich": "lesbarkeit",
       "schwere": "schwer",
-      "befund": "Bild 1 zeigt in den ersten zwei Sekunden nur eine ruhige Karte mit '1,50 €' und dem Label 'JE SPARPLANRATE' - keine Spannung, keine Frage, kein Konflikt. Das liest sich wie ein Preisschild, nicht wie ein Grund, stehenzubleiben.",
       "bild": "Bild 1",
-      "vorschlag": "Szene 1 die ersten 1,5 s mit einer Reizzeile ueber der Karte starten, z.B. '3 % weg - bevor der ETF ueberhaupt laeuft' in Weiss, 64 px, bei y=560 (1080x1920), und die Zahl 1,50 € von 0 auf 1,50 hochzaehlen lassen statt sie statisch zu zeigen."
+      "befund": "Die zweite Hookzeile 'NULL ZURUECK' steht in grauer Schrift auf lachsrotem Balken - der Kontrast liegt deutlich unter dem der ersten Zeile und die Zeile verschwindet auf dem Handy fast.",
+      "vorschlag": "Textfarbe der zweiten Hookzeile waehrend der Einblend-Animation von Grau (#8a8a8a) auf das gleiche Dunkelblau #141c35 wie Zeile 1 setzen; Farbuebergang entfernen oder auf unter 0.15 s kuerzen."
     },
     {
-      "bereich": "sicherheit",
+      "bereich": "information",
       "schwere": "schwer",
-      "befund": "Die Untertitel-Box und die Trennlinie liegen in allen Bildern zwischen y=1340 und y=1490 (gemessen 670-745), also direkt an der Caption-Kante bei y=1500; in Bild 9 reicht die Linie bis y=1482. Bei laengerer Caption oder Ton-Zeile kratzt das an der Verdeckungszone.",
       "bild": "Bild 9",
-      "vorschlag": "Untertitel-Block samt Trennlinie um 120 px nach oben schieben: Box-Mitte von y=1396 auf y=1276, Trennlinie von y=1482 auf y=1362."
+      "befund": "Die Untertitelzeile zeigt 'N. Speichere' - ein zerschnittener Satzrest, der als Text keinen Sinn ergibt und direkt unter der Call-to-Action steht.",
+      "vorschlag": "Untertitel-Segmentierung an Satzgrenzen binden statt an feste Zeichenzahl: Mindestlaenge 12 Zeichen pro Caption-Chunk, Einzelbuchstaben-Abkuerzungen wie 'N.' mit dem Folgewort zusammenfassen."
+    },
+    {
+      "bereich": "bildwechsel",
+      "schwere": "schwer",
+      "bild": "Bild 7 und Bild 8",
+      "befund": "In Szene 4 (10.4 s bis 13.3 s) aendert sich ausser der Untertitelzeile nichts - Karte, Ueberschrift und Fliesstext stehen die gesamten 2,6 Sekunden unveraendert, es wirkt wie ein Standbild.",
+      "vorschlag": "Wie in Szene 2 und 3 einen zweiten Textblock (z.B. '30 Cent je Kilometer, 46 Wochen') ab Sekunde 11.5 in die Karte einblenden; zusaetzlich den gruenen Fortschrittsbalken unter der Karte ueber die Szenendauer von 60 auf 200 Pixel Breite wachsen lassen."
+    },
+    {
+      "bereich": "information",
+      "schwere": "mittel",
+      "bild": "Bild 7",
+      "befund": "Die Kartenueberschrift 'Dazu eine Heimfahrt pro Woche,' wiederholt wortgleich das Kicker-Label 'EINE HEIMFAHRT PRO WOCHE' darueber und bringt keine zusaetzliche Information - dazu endet sie mit einem Komma.",
+      "vorschlag": "Kartentitel auf die eigentliche Kennzahl umstellen, z.B. '46 Fahrten x 2 x 30 ct'; Kicker-Label beibehalten. Satzzeichen am Ende von Kartentiteln im Template abschneiden."
     },
     {
       "bereich": "bildwechsel",
       "schwere": "mittel",
-      "befund": "Szene 6 ist zwischen Bild 9 (21,56 s) und Bild 10 (24,36 s) nahezu ein Standbild - nur der Untertitel verschwindet, Pinguin, Headline und Handle bleiben unveraendert. Die letzten knapp 3 Sekunden tragen keine Bewegung.",
-      "bild": "Bild 10",
-      "vorschlag": "Pinguin in der Endkarte mit einer leichten Loop-Animation versehen (Scale 1.0 -> 1.04 -> 1.0, 1,2 s) und den @geld.pinguin-Chip nach 22,5 s einmal pulsen lassen (Scale 1.0 -> 1.08 ueber 300 ms)."
-    },
-    {
-      "bereich": "bildwechsel",
-      "schwere": "mittel",
-      "befund": "Szene 1 bewegt sich zwischen Bild 1 (0,9 s) und Bild 2 (5,82 s) praktisch nicht - Karte, Zahl und Unterzeile sind identisch, nur der Untertitel wechselt. Ueber 6 Sekunden ist das der laengste statische Abschnitt des Reels.",
-      "bild": "Bild 2",
-      "vorschlag": "Szene 1 auf maximal 4 s kuerzen oder die Unterzeile 'Ausfuehrungsgebuehr, bevor der ETF arbeitet' erst bei 2,5 s per Fade-Up (20 px) einblenden; zusaetzlich die Zahl in den ersten 600 ms hochzaehlen."
+      "bild": "Bild 9 und Bild 10",
+      "befund": "Auf der Endkarte verschwindet die Untertitelzeile nach Bild 9 ersatzlos, zurueck bleibt ab ca. 20 s eine leere Flaeche mit nur einem Trennstrich bei y=1480 - die letzten zwei Sekunden stehen still.",
+      "vorschlag": "Ab Sekunde 20 ein Save-Icon mit Pfeil oder den Text 'Speichern -> Anlage N' an Position y=1390 einblenden und den Pinguin um 3 Grad pendeln lassen, statt die Flaeche leer zu lassen."
     },
     {
       "bereich": "lesbarkeit",
       "schwere": "mittel",
-      "befund": "In Bild 1 und 2 ueberlappt die weisse Unterzeile 'Ausfuehrungsgebuehr, bevor der ETF arbeitet' optisch mit der Unterkante der Riesenzahl '1,50 €' - der Zeilenabstand zwischen Zahlgrundlinie (ca. y=980) und Textoberkante (ca. y=1030) ist zu knapp, die Zeile wirkt angeklebt.",
-      "bild": "Bild 1",
-      "vorschlag": "Abstand zwischen Zahl und Unterzeile von ca. 50 px auf 110 px erhoehen (Unterzeile auf y=1090 setzen) und die Karte entsprechend 60 px hoeher ziehen."
-    },
-    {
-      "bereich": "lesbarkeit",
-      "schwere": "klein",
-      "befund": "Das Handle '@geld.pinguin' unter der Kopfzeile ist in Bild 1-10 nur ca. 20 px hoch (gemessen 10 px) in hellem Grau auf gelbem Verlauf - auf dem Handy nicht lesbar und ausserdem im Bereich y=320, also knapp unter der Instagram-Kopfzeile.",
       "bild": "Bild 3",
-      "vorschlag": "Handle auf 30 px vergroessern und in Dunkelblau #16213E statt Grau setzen, oder ganz weglassen, da es auf der Endkarte ohnehin prominent steht."
-    },
-    {
-      "bereich": "marke",
-      "schwere": "klein",
-      "befund": "Der Pinguin lugt in Bild 1-8 immer identisch hinter der rechten oberen Kartenecke hervor und wird dabei von der Karte angeschnitten - er wirkt wie ein Sticker, nicht wie ein Maskottchen mit Rolle.",
-      "bild": "Bild 5",
-      "vorschlag": "Pinguin pro Szene minimal variieren (Wechsel zwischen x=860 und x=760 bei 1080 Breite, leichte Neigung +/- 5 Grad) und beim Szenenwechsel um 15 px nach oben huepfen lassen."
+      "befund": "Der Handle '@geld.pinguin' unter der Kopfzeile steht in hellem Grau auf dem gelben Verlauf und ist bei ca. 26 Pixel Hoehe kaum zu entziffern; zudem liegt er bei y=320 teils im Instagram-Kopfbereich.",
+      "vorschlag": "Handle auf Dunkelblau #141c35 bei 60 Prozent Deckkraft umstellen, Schriftgroesse von 26 auf 34 Pixel erhoehen und den gesamten Kopfblock von y=260 auf y=230 anheben, damit nichts unter der Kopfzeile bis y=200 klemmt."
     }
   ],
-  "staerkste": "Die Szene 2 (Bild 3/4) ist der beste Teil: Zwei Balken, die sich fuellen, dann die Zahlen 48,50 € gegen 1,50 € = 3 % - die Aussage ist ohne Ton sofort verstanden und das Groessenverhaeltnis der Balken macht die 3 % koerperlich spuerbar.",
-  "urteil": "Visuell sauber, konsistent und durchgehend lesbar - die dunkelblaue Karte auf Gelbverlauf ist ein brauchbares Markenbild, und die Vergleichsszene erklaert die Kernaussage allein ueber das Bild. Was fehlt, ist ein Einstieg, der jemanden stoppt: Die ersten sechs Sekunden zeigen eine fast unbewegte Karte mit einer kleinen Zahl, und die Endkarte steht die letzten drei Sekunden still."
+  "staerkste": "Die Kartenszenen 2 und 3 sind sauber gebaut: dunkelblaue Karte auf warmem Verlauf, gruene Kennzahl '1.000 EUR' in Riesengroesse mit Kicker darueber und nachziehendem Erklaersatz - das traegt die Aussage auch ohne Ton.",
+  "urteil": "Ein optisch konsistentes, handwerklich ordentliches Reel mit klarer Farbsprache und einem brauchbaren Hook, das aber an drei Stellen Punkte liegen laesst: der graue Hooktext in Bild 1, der sinnlose Untertitelrest 'N. Speichere' und die stehende Szene 4. Die Kennzahlszene zeigt, was das Template kann - dieses Niveau muessten auch die Stichwortszenen und die Endkarte erreichen."
 }
