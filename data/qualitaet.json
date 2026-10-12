@@ -1,60 +1,67 @@
 {
-  "datum": "2026-10-11T20:54:21.802Z",
+  "datum": "2026-10-12T19:28:01.568Z",
   "datei": "build/reel.mp4",
-  "dauer": 22.13,
+  "dauer": 29.67,
   "noten": {
-    "hook": 58,
-    "lesbarkeit": 62,
-    "bildwechsel": 48,
-    "information": 60,
-    "marke": 66,
-    "sicherheit": 72
+    "hook": 52,
+    "lesbarkeit": 58,
+    "bildwechsel": 62,
+    "information": 66,
+    "marke": 61,
+    "sicherheit": 70
   },
-  "gesamt": 61,
+  "gesamt": 62,
   "maengel": [
     {
       "bereich": "lesbarkeit",
       "schwere": "schwer",
+      "befund": "In Bild 1 ist die zweite Hook-Zeile 'WEG, ANLAGE' noch halbtransparent eingeblendet: olivgruener Text auf lachsfarbenem Balken, praktisch kontrastlos - und das 0,9 s nach Start, also genau im entscheidenden Moment.",
       "bild": "Bild 1",
-      "befund": "Die zweite Hookzeile 'NULL ZURUECK' steht in grauer Schrift auf lachsrotem Balken - der Kontrast liegt deutlich unter dem der ersten Zeile und die Zeile verschwindet auf dem Handy fast.",
-      "vorschlag": "Textfarbe der zweiten Hookzeile waehrend der Einblend-Animation von Grau (#8a8a8a) auf das gleiche Dunkelblau #141c35 wie Zeile 1 setzen; Farbuebergang entfernen oder auf unter 0.15 s kuerzen."
-    },
-    {
-      "bereich": "information",
-      "schwere": "schwer",
-      "bild": "Bild 9",
-      "befund": "Die Untertitelzeile zeigt 'N. Speichere' - ein zerschnittener Satzrest, der als Text keinen Sinn ergibt und direkt unter der Call-to-Action steht.",
-      "vorschlag": "Untertitel-Segmentierung an Satzgrenzen binden statt an feste Zeichenzahl: Mindestlaenge 12 Zeichen pro Caption-Chunk, Einzelbuchstaben-Abkuerzungen wie 'N.' mit dem Folgewort zusammenfassen."
-    },
-    {
-      "bereich": "bildwechsel",
-      "schwere": "schwer",
-      "bild": "Bild 7 und Bild 8",
-      "befund": "In Szene 4 (10.4 s bis 13.3 s) aendert sich ausser der Untertitelzeile nichts - Karte, Ueberschrift und Fliesstext stehen die gesamten 2,6 Sekunden unveraendert, es wirkt wie ein Standbild.",
-      "vorschlag": "Wie in Szene 2 und 3 einen zweiten Textblock (z.B. '30 Cent je Kilometer, 46 Wochen') ab Sekunde 11.5 in die Karte einblenden; zusaetzlich den gruenen Fortschrittsbalken unter der Karte ueber die Szenendauer von 60 auf 200 Pixel Breite wachsen lassen."
-    },
-    {
-      "bereich": "information",
-      "schwere": "mittel",
-      "bild": "Bild 7",
-      "befund": "Die Kartenueberschrift 'Dazu eine Heimfahrt pro Woche,' wiederholt wortgleich das Kicker-Label 'EINE HEIMFAHRT PRO WOCHE' darueber und bringt keine zusaetzliche Information - dazu endet sie mit einem Komma.",
-      "vorschlag": "Kartentitel auf die eigentliche Kennzahl umstellen, z.B. '46 Fahrten x 2 x 30 ct'; Kicker-Label beibehalten. Satzzeichen am Ende von Kartentiteln im Template abschneiden."
-    },
-    {
-      "bereich": "bildwechsel",
-      "schwere": "mittel",
-      "bild": "Bild 9 und Bild 10",
-      "befund": "Auf der Endkarte verschwindet die Untertitelzeile nach Bild 9 ersatzlos, zurueck bleibt ab ca. 20 s eine leere Flaeche mit nur einem Trennstrich bei y=1480 - die letzten zwei Sekunden stehen still.",
-      "vorschlag": "Ab Sekunde 20 ein Save-Icon mit Pfeil oder den Text 'Speichern -> Anlage N' an Position y=1390 einblenden und den Pinguin um 3 Grad pendeln lassen, statt die Flaeche leer zu lassen."
+      "vorschlag": "Einblendung der Hook-Zeilen auf max. 0,25 s verkuerzen oder ganz ohne Opacity-Fade arbeiten; Textfarbe waehrend der Animation fix auf #141C2E halten statt mitzublenden, Balkenfarbe #FF6B6B unveraendert."
     },
     {
       "bereich": "lesbarkeit",
+      "schwere": "schwer",
+      "befund": "Die Untertitelkarte in Bild 10 ist halbtransparent ueber dem gelben Hintergrund: grauer Text 'ohne Bullshit' auf ausgewaschenem Kasten, nicht sauber lesbar.",
+      "bild": "Bild 10",
+      "vorschlag": "Untertitel-Box dauerhaft auf 100 % Deckkraft #141C2E mit weissem Text setzen, kein Fade-out am Szenenende; mindestens Alpha 0.9 als Minimum erzwingen."
+    },
+    {
+      "bereich": "sicherheit",
       "schwere": "mittel",
+      "befund": "Die Untertitelzeile sitzt mit Unterkante bei ca. y=1480 (gemessen 740) und die Trennlinie bei ca. y=1482 direkt an der Kante der Instagram-Caption-Zone ab y=1500 - bei zweizeiligen Untertiteln (Bild 6, Bild 8) ruecken sie noch naeher heran.",
+      "bild": "Bild 6",
+      "vorschlag": "Untertitelblock samt Trennlinie um 120 px nach oben verschieben, Unterkante auf y=1360 begrenzen."
+    },
+    {
+      "bereich": "hook",
+      "schwere": "mittel",
+      "befund": "Die Hook ist reine Typografie auf Farbflaeche: Pinguin steht statisch, die drei Zeilen bauen sich nur nacheinander auf - zwischen Bild 1 und Bild 2 passiert ausser einer zusaetzlichen Zeile nichts.",
+      "bild": "Bild 1",
+      "vorschlag": "In Sekunde 0-1 ein konkretes Bildmotiv zeigen (Schluesselbund-Icon oder 5.000-EUR-Zahl als Vorab-Blitz, 0,6 s) und den Pinguin mit einer leichten Scale-Bewegung 1.0 -> 1.06 animieren."
+    },
+    {
+      "bereich": "bildwechsel",
+      "schwere": "mittel",
+      "befund": "Szene 2 bis 4 benutzen dieselbe dunkelblaue Karte an identischer Position (x 92-988, y 640-1160) mit gleichem Pinguinkopf oben rechts - drei Szenen hintereinander sehen beim schnellen Schauen fast gleich aus.",
+      "bild": "Bild 7",
+      "vorschlag": "Kartenposition bzw. -format pro Szene variieren (z.B. Szene 3 Karte hochkant y=560-1280, Szene 4 Karte links buendig x=60) und den Schnitt mit einem 0,2-s-Slide statt hartem Austausch gestalten."
+    },
+    {
+      "bereich": "information",
+      "schwere": "klein",
+      "befund": "Die Balken in Bild 7/8 tragen keine Werte - 'oft raus' vs. 'zahlt' steht nur als Label, der rote Balken ist laenger als der gruene, was intuitiv die falsche Richtung suggeriert.",
+      "bild": "Bild 8",
+      "vorschlag": "Balkenlaengen umkehren (Guenstigtarif kurz, Tarif mit Baustein voll) oder Balken durch Haken/Kreuz-Symbole in 64 px ersetzen."
+    },
+    {
+      "bereich": "marke",
+      "schwere": "klein",
+      "befund": "Der Kopfbereich wiederholt in jeder Szene identisch 'VERLORENER SCHLUESSEL' plus '@geld.pinguin' in sehr kleinem, kontrastarmem Grau-Braun (ca. 24 px Versalhoehe beim Handle).",
       "bild": "Bild 3",
-      "befund": "Der Handle '@geld.pinguin' unter der Kopfzeile steht in hellem Grau auf dem gelben Verlauf und ist bei ca. 26 Pixel Hoehe kaum zu entziffern; zudem liegt er bei y=320 teils im Instagram-Kopfbereich.",
-      "vorschlag": "Handle auf Dunkelblau #141c35 bei 60 Prozent Deckkraft umstellen, Schriftgroesse von 26 auf 34 Pixel erhoehen und den gesamten Kopfblock von y=260 auf y=230 anheben, damit nichts unter der Kopfzeile bis y=200 klemmt."
+      "vorschlag": "Handle-Zeile auf 30 px erhoehen und Farbe auf #141C2E bei 70 % setzen; Titelzeile nur in Szene 1 und Endkarte zeigen, dazwischen ausblenden."
     }
   ],
-  "staerkste": "Die Kartenszenen 2 und 3 sind sauber gebaut: dunkelblaue Karte auf warmem Verlauf, gruene Kennzahl '1.000 EUR' in Riesengroesse mit Kicker darueber und nachziehendem Erklaersatz - das traegt die Aussage auch ohne Ton.",
-  "urteil": "Ein optisch konsistentes, handwerklich ordentliches Reel mit klarer Farbsprache und einem brauchbaren Hook, das aber an drei Stellen Punkte liegen laesst: der graue Hooktext in Bild 1, der sinnlose Untertitelrest 'N. Speichere' und die stehende Szene 4. Die Kennzahlszene zeigt, was das Template kann - dieses Niveau muessten auch die Stichwortszenen und die Endkarte erreichen."
+  "staerkste": "Die Kennzahl-Szene: 5.000 € in riesiger Lachsschrift auf dunkelblauer Karte ist auf einen Blick erfasst und liefert den Schockwert, den das Thema braucht.",
+  "urteil": "Sauber gebautes, konsistentes Template mit klarer Farbsprache und einer wirklich starken Zahlen-Szene - aber die Hook startet mit einer halbdurchsichtigen, kontrastlosen Textzeile und verschenkt die ersten zwei Sekunden an reine Typografie. Dazu kommen drei visuell fast identische Kartenszenen in Folge und Untertitel, die am unteren Rand zu dicht an der Caption-Zone kleben."
 }
