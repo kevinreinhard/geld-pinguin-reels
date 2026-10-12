@@ -292,7 +292,7 @@ export async function pruefe(datei) {
   };
 }
 
-function speichere(ergebnis) {
+export function speichere(ergebnis) {
   fs.mkdirSync("data", { recursive: true });
   fs.writeFileSync(STAND, JSON.stringify(ergebnis, null, 2), "utf8");
 

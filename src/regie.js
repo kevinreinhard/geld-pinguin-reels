@@ -170,15 +170,21 @@ Regeln, die zaehlen:
 Antworte ausschliesslich ueber das Tool bildregie.`;
 }
 
-function userPrompt(skript, saetze) {
+function userPrompt(skript, saetze, hinweise = []) {
   const liste = saetze.map((s, i) => `${i}: ${s}`).join("\n");
+  // Zweiter Anlauf nach der Bildkontrolle: Der erste Entwurf dieses Beitrags ist
+  // durchgefallen, die Befunde stehen hier. Sie gelten nur fuer diesen Entwurf.
+  const korrektur = hinweise.length
+    ? `\n\nDer erste Entwurf dieser Bildregie ist bei der Bildkontrolle durchgefallen. ` +
+      `Plane neu und behebe diese Befunde:\n${hinweise.map((h) => `- ${h}`).join("\n")}`
+    : "";
   return `Thema: ${skript.topic}
 Titel im Video: ${skript.title}
 
 Die gesprochenen Saetze:
 ${liste}
 
-Lege fuer jeden dieser ${saetze.length} Saetze die Bildkarte fest.`;
+Lege fuer jeden dieser ${saetze.length} Saetze die Bildkarte fest.${korrektur}`;
 }
 
 // ---------------------------------------------------------------- Pruefung
@@ -445,7 +451,7 @@ export function satzZeiten(words, saetze, { offset = 0, dauer }) {
 // ---------------------------------------------------------------- Aufruf
 
 /** Fragt Claude nach dem Szenenplan. Faellt bei Problemen auf Stichwortkarten zurueck. */
-export async function planeBilder(skript, saetze) {
+export async function planeBilder(skript, saetze, hinweise = []) {
   let roh = null;
   for (let versuch = 1; versuch <= 2; versuch++) {
     try {
@@ -457,7 +463,7 @@ export async function planeBilder(skript, saetze) {
         system: systemPrompt(),
         tools: [TOOL],
         tool_choice: { type: "tool", name: "bildregie" },
-        messages: [{ role: "user", content: userPrompt(skript, saetze) }],
+        messages: [{ role: "user", content: userPrompt(skript, saetze, hinweise) }],
       });
       const block = antwort.content.find((b) => b.type === "tool_use");
       if (block) {

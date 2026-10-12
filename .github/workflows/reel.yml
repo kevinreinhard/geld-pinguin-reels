@@ -138,6 +138,17 @@ jobs:
             echo "Kein Video vorhanden - Bildkontrolle uebersprungen."
             exit 0
           fi
+          # Das Bildtor in src/index.js hat das Video schon vor dem Hochladen
+          # geprueft und gespeichert - nicht ein zweites Mal bezahlen.
+          if [ -f build/qa-tor.json ]; then
+            {
+              echo "## Bildtor"
+              echo '```'
+              cat build/qa-tor.json
+              echo '```'
+            } >> "$GITHUB_STEP_SUMMARY"
+            exit 0
+          fi
           node scripts/qa.js | tee build/qa-ausgabe.txt
           {
             echo "## Bildkontrolle"

@@ -9,6 +9,7 @@ import { ladeHoch } from "./upload.js";
 import { veroeffentlicheReel, verbleibendesKontingent } from "./instagram.js";
 import { istEingerichtet as youtubeBereit, ladeShortHoch } from "./youtube.js";
 import { speicherePost } from "./history.js";
+import { pruefe, speichere as speichereQualitaet } from "../scripts/qa.js";
 
 const BUILD = "build";
 const flags = new Set(process.argv.slice(2));
@@ -117,6 +118,82 @@ function preflight() {
   }
 }
 
+// Bildtor: Die Bildkontrolle schaut sich das fertige Video vor dem Hochladen an.
+// Faellt es klar durch, wird die Bildregie einmal mit den Befunden neu geplant
+// und neu gerendert. Danach geht das bessere der beiden Videos raus - das Tor
+// haelt nie einen Beitrag zurueck, denn ein Modellurteil ueber Geschmack
+// (siehe Lehren aus fuenf Messrunden) darf den Tagesbeitrag nicht kosten.
+const TOR_MINDESTWERT = Number(process.env.QA_TOR_MINDESTWERT ?? 50);
+// Nur Bereiche, in denen die Beobachtungen des Kritikers verlaesslich waren.
+// Seine Pixelangaben zu Sicherheitsraendern waren es nicht.
+const TOR_BEREICHE = new Set(["lesbarkeit", "information"]);
+
+function torGruende(e) {
+  const gruende = [];
+  if (e.gesamt < TOR_MINDESTWERT) gruende.push(`Gesamtnote ${e.gesamt} unter ${TOR_MINDESTWERT}`);
+  const schwer = e.maengel.filter((m) => m.schwere === "schwer" && TOR_BEREICHE.has(m.bereich));
+  if (schwer.length) gruende.push(`${schwer.length} schwerer Mangel bei Lesbarkeit oder Information`);
+  return gruende;
+}
+
+function merkeTorErgebnis(daten) {
+  fs.writeFileSync(path.join(BUILD, "qa-tor.json"), JSON.stringify(daten, null, 2));
+}
+
+async function bildtor({ skript, saetze, video, renderEingabe }) {
+  const hatSchluessel = process.env.ANTHROPIC_API_KEY || process.env.ANTHROPIC_AUTH_TOKEN;
+  if (process.env.QA_TOR === "aus" || !hatSchluessel) {
+    console.log("  Bildtor aus - weiter ohne Kontrolle.");
+    return video;
+  }
+
+  let erste;
+  try {
+    erste = await pruefe(video.pfad);
+  } catch (e) {
+    console.warn(`  Bildkontrolle fehlgeschlagen (${e.message.slice(0, 120)}) - weiter ohne Tor.`);
+    return video;
+  }
+  console.log(`  Erster Entwurf: ${erste.gesamt}/100, ${erste.maengel.length} Maengel`);
+  const gruende = torGruende(erste);
+  if (!gruende.length) {
+    console.log("  Tor offen.");
+    speichereQualitaet(erste);
+    merkeTorErgebnis({ nachbesserung: false, gesamt: erste.gesamt });
+    return video;
+  }
+
+  console.log(`  Tor zu: ${gruende.join("; ")}. Bildregie wird einmal neu geplant.`);
+  const hinweise = erste.maengel
+    .filter((m) => m.schwere !== "klein")
+    .slice(0, 5)
+    .map((m) => `${m.befund} [${m.bereich}${m.bild ? ", " + m.bild : ""}] - ${m.vorschlag}`);
+
+  const sicherung = video.pfad.replace(/\.mp4$/, "-erster-entwurf.mp4");
+  fs.copyFileSync(video.pfad, sicherung);
+  const zurueck = () => fs.copyFileSync(sicherung, video.pfad);
+
+  try {
+    const szenen2 = await planeBilder(skript, saetze, hinweise);
+    fs.writeFileSync(path.join(BUILD, "szenenplan.json"), JSON.stringify(szenen2, null, 2));
+    const video2 = await rendere({ ...renderEingabe, szenen: szenen2 });
+    const zweite = await pruefe(video2.pfad);
+    console.log(`  Zweiter Entwurf: ${zweite.gesamt}/100 (erster: ${erste.gesamt}/100)`);
+    if (zweite.gesamt >= erste.gesamt) {
+      speichereQualitaet(zweite);
+      merkeTorErgebnis({ nachbesserung: true, gewaehlt: "zweiter", erste: erste.gesamt, zweite: zweite.gesamt });
+      return video2;
+    }
+    console.log("  Der erste Entwurf war besser - er geht raus.");
+  } catch (e) {
+    console.warn(`  Zweiter Anlauf gescheitert (${e.message.slice(0, 120)}) - erster Entwurf geht raus.`);
+  }
+  zurueck();
+  speichereQualitaet(erste);
+  merkeTorErgebnis({ nachbesserung: true, gewaehlt: "erster", erste: erste.gesamt });
+  return video;
+}
+
 async function main() {
   preflight();
   tokenWarnung();
@@ -172,7 +249,11 @@ async function main() {
 
   // 5 ------------------------------------------------------------- Video
   schritt(5, "Video rendern");
-  const video = await rendere({ skript, voicePfad, wordsPfad, text, szenen, saetze });
+  let video = await rendere({ skript, voicePfad, wordsPfad, text, szenen, saetze });
+
+  // 5b ------------------------------------------------------------- Bildtor
+  schritt("5b", "Bildkontrolle als Tor");
+  video = await bildtor({ skript, saetze, video, renderEingabe: { skript, voicePfad, wordsPfad, text, saetze } });
 
   if (ohneVeroeffentlichung) {
     console.log(`\nFertig ohne Veroeffentlichung. Datei: ${video.pfad}`);

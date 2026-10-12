@@ -26,7 +26,7 @@ export const STANDARD = {
   // getrennt. In Fassung 1 steckte beides in einer Stundenliste - bei einem
   // Beitrag pro Tag schrumpfte das Fenster dadurch auf eine Stunde, die
   // GitHub bei seiner Drosselung fast sicher verpasst hätte.
-  postsProTag: 1,
+  postsProTag: 2,
   fenster: [11, 20], // UTC, entspricht 13-22 Uhr deutscher Sommerzeit
 };
 
@@ -36,7 +36,8 @@ export const GRENZEN = {
   gewicht: { min: 0.25, max: 5 },
   zielWoerter: { min: 45, max: 90 },
   hookHinweise: { anzahl: 5, laenge: 200 },
-  postsProTag: { min: 1, max: 8 },
+  // Seit 12.10.2026 fest zwei am Tag (Kevin): der Analyse-Agent darf das nicht verschieben.
+  postsProTag: { min: 2, max: 2 },
   fensterMindestbreite: 3, // Stunden - schmaler wird bei verzögerten Läufen unzuverlässig
 };
 
