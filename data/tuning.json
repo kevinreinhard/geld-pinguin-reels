@@ -1,10 +1,16 @@
 {
-  "version": 3,
-  "aktualisiert": "2026-09-14T12:23:21.833Z",
-  "begruendung": "Von 1 auf 3 Beitraege pro Tag auf ausdrueckliche Anweisung von Kevin am 14.09.2026. Das kehrt die Entscheidung vom 07.09. um, die aus den Zahlen kam: Damals wurde von 4 auf 1 reduziert, weil sich die kleine Testverteilung eines jungen Kontos sonst auf zu viele Beitraege verteilt und keiner genug Signal sammelt. Diese Ueberlegung gilt unveraendert - der Kanal hat weiterhin einstellige Viewzahlen. Gegenargument fuer mehr Beitraege: Auf YouTube, wo neue Kanaele Kaltverteilung bekommen, ist mehr Material schlicht mehr Chancen, und der Hook-Waechter in src/hook.js haelt die Qualitaet je Beitrag jetzt hoeher als im September. Die naechste Auswertung sonntags zeigt, welche Seite recht behaelt: Steigen die Views pro Beitrag nicht mindestens proportional, gehoert die Zahl zurueck auf 1. Fenster 11-20 UTC ergibt bei drei Beitraegen rund drei Stunden Mindestabstand.",
+  "version": 2,
+  "aktualisiert": "2026-10-12T19:10:31.770Z",
+  "begruendung": "Hook-Auswertung: Viele Hooks nennen zwar Betrag und Verlust, lassen aber offen, wodurch der Verlust entsteht – der Ausloeser steckt oft erst im Skript (\"eine Kreditkarten-Einstellung\", \"ein Klick\", \"eine Bank behaelt\"). Mehrere beginnen mit einer blossen Groesse oder einer Feststellung ohne Einsatz (\"Eintausendeinhundert Euro Steuererstattung fuehlen sich wie ein Geschenk an\", \"Deine alte Bank muss deinen Kontowechsel selbst erledigen\"). Auffaellig oft taucht derselbe Satzbau auf – Betrag plus \"weg\" bzw. \"zu viel\" –, was die Hooks austauschbar macht. Zudem sind viele Zahlen Jahressummen oder gerundete Beispielwerte, deren Herkunft im Hook nicht nachvollziehbar ist.",
   "saeulenGewichte": {},
   "zielWoerter": 65,
-  "hookHinweise": [],
+  "hookHinweise": [
+    "Nenne im ersten Satz die konkrete Handlung oder Einstellung, die den Verlust ausloest - nicht 'eine Einstellung', 'ein Klick', sondern welche.",
+    "Verzichte auf die Formel 'X Euro sind weg' bzw. 'X Euro zu viel'; formuliere stattdessen, wer das Geld bekommt oder behaelt.",
+    "Beginne nie mit einem Betrag, der nur eine Groesse ist; jeder Betrag im Hook braucht im selben Satz die Folge oder den Gegenwert.",
+    "Streiche Feststellungen ueber Rechte oder Pflichten ohne Einsatz ('deine Bank muss...'); sag zuerst, was es kostet, wenn niemand es nutzt.",
+    "Mach die Zahl nachpruefbar: nenne Bezugsgroesse und Zeitraum (pro Jahr, bei 1.000 Euro Sparrate), statt eine runde Summe zu behaupten."
+  ],
   "postsProTag": 3,
   "fenster": [
     11,
