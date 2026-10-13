@@ -1,67 +1,60 @@
 {
-  "datum": "2026-10-12T19:38:10.584Z",
+  "datum": "2026-10-13T12:35:21.581Z",
   "datei": "build/reel.mp4",
-  "dauer": 22.97,
+  "dauer": 31.1,
   "noten": {
     "hook": 58,
     "lesbarkeit": 62,
-    "bildwechsel": 66,
-    "information": 64,
-    "marke": 61,
+    "bildwechsel": 55,
+    "information": 68,
+    "marke": 66,
     "sicherheit": 72
   },
   "gesamt": 64,
   "maengel": [
     {
+      "bereich": "bildwechsel",
+      "schwere": "schwer",
+      "befund": "Szene 1 laeuft 6,4 Sekunden und zeigt zwischen Bild 1 und Bild 2 fast nichts Neues: Pinguin steht still, Titel ist nur um eine zweite eingeblendete Zeile ergaenzt - knapp ein Viertel des Reels wirkt wie ein Standbild.",
+      "vorschlag": "Szene 1 auf maximal 3,5 s kuerzen und dem Pinguin eine sichtbare Bewegung geben (z.B. y-Offset -20 px Idle-Bounce mit 0,8 s Periode) oder ab Sekunde 2 einen fallenden Kurspfeil hinter dem Titel einblenden.",
+      "bild": "Bild 1 und 2"
+    },
+    {
       "bereich": "lesbarkeit",
       "schwere": "schwer",
-      "befund": "Die Untertitel-Box steht mittig bei y≈1398 (gemessen 699) und ragt mit ihrer Unterkante bis ca. y≈1448 (724) heran; in Bild 10 ist der Untertitel 'Bestellung.' grau-transparent auf gelbem Hintergrund und praktisch kontrastlos.",
-      "bild": "Bild 10",
-      "vorschlag": "Untertitel-Box dauerhaft auf opakes #141E33 mit weisser Schrift rendern (kein Alpha-Fade beim Wortwechsel) und den Block von y=1398 auf y=1300 hochziehen, damit zur Caption-Zone ab y=1500 Luft bleibt."
+      "befund": "Die Untertitelbox sitzt mit Unterkante bei ca. y=1450 direkt an der Caption-Zone, und in Bild 10 liegt der Text 'roten Tag.' in Dunkelblau auf einem grau-transparenten Kasten - praktisch kein Kontrast, die Zeile ist unlesbar.",
+      "vorschlag": "Untertitel-Hintergrund dauerhaft auf #16213E mit Deckkraft 1.0 setzen und Textfarbe #FFFFFF; die Ein-/Ausblend-Animation darf die Deckkraft des Textes nicht unter 1.0 ziehen.",
+      "bild": "Bild 10"
+    },
+    {
+      "bereich": "hook",
+      "schwere": "schwer",
+      "befund": "Der Hook besteht nur aus Textzeilen auf gelbem Verlauf; die zweite Zeile 'KOSTET DICH' ist in Bild 1 noch halbtransparent und liefert keine Zahl, kein Bild, keinen Konflikt - der Einstieg sieht aus wie hunderte Finanz-Templates.",
+      "vorschlag": "Die Kennzahl '43 % mehr Anteile' oder ein rot fallendes Chart bereits in Sekunde 0,5 in den Hook ziehen statt erst ab Sekunde 6,4; Titelzeile 2 sofort mit Deckkraft 1.0 einblenden.",
+      "bild": "Bild 1"
+    },
+    {
+      "bereich": "lesbarkeit",
+      "schwere": "mittel",
+      "befund": "In Bild 7 ist der dritte Listenpunkt 'Kein Pausieren bei roten Kursen' schon durchgestrichen, waehrend das Icon noch gelb/neutral ist - die Durchstreichung in Gelb auf Dunkelblau wirkt wie ein Renderfehler und erschwert das Lesen.",
+      "vorschlag": "Durchstreich-Linie erst synchron mit dem roten X-Icon einblenden (gleicher Keyframe) und Linienfarbe auf #FF6B6B setzen, Textfarbe auf 70 % Weiss.",
+      "bild": "Bild 7"
     },
     {
       "bereich": "information",
-      "schwere": "schwer",
-      "befund": "Der Untertitel zeigt abgehackte Satzfragmente ohne Sinn: 'Waehlst du', 'Aus 60 Euro', 'so 80. Dein Kopf', 'trotzdem. Stell', 'sofort. Speichere' - teils mitten im Satz abgeschnitten und in Bild 9 sogar ein verstuemmeltes Wort.",
-      "bild": "Bild 9",
-      "vorschlag": "Untertitel in Sinngruppen von 3-5 Woertern an Satzgrenzen umbrechen statt nach fixer Zeichenzahl; Wortgrenzen pruefen, damit kein 'Speichere' statt 'Speichern' entsteht."
-    },
-    {
-      "bereich": "hook",
       "schwere": "mittel",
-      "befund": "In Bild 1 steht '+33 %' in Orange auf orangem Badge auf orangem Hintergrund - die Kernzahl der Hook ist die kontrastaermste Stelle im Bild, erst in Bild 2 wird sie dunkel.",
-      "bild": "Bild 1",
-      "vorschlag": "Die Zahl '+33 %' von Anfang an in #141E33 auf dem Badge #FF6B6B setzen; den Einblend-Effekt als Scale statt als Farb-Fade animieren."
-    },
-    {
-      "bereich": "hook",
-      "schwere": "mittel",
-      "befund": "Die Hook-Szene laeuft 4,7 Sekunden mit statischem Pinguin-Icon und nur zwei nachwachsenden Textzeilen - die erste Sekunde zeigt lediglich eine Zeile Text ueber einem bewegungslosen Icon.",
-      "bild": "Bild 1",
-      "vorschlag": "Hook auf 3,0 s kuerzen und dem Pinguin ab Frame 0 eine leichte Bewegung geben (y-Versatz +/-12 px, 0,8 s Schleife) oder die '+33 %'-Zahl von 0 auf 33 hochzaehlen lassen."
-    },
-    {
-      "bereich": "lesbarkeit",
-      "schwere": "mittel",
-      "befund": "In Bild 7/8 steht 'Tage' in gedecktem Braunrot auf dunkelblauer Karte, deutlich dunkler als die '30' daneben - das Wort verschwindet fast im Kartenhintergrund.",
-      "bild": "Bild 7",
-      "vorschlag": "'Tage' von der gedaempften Variante auf #FFFFFF bei 85 % Deckkraft umstellen, Schriftgrad bleibt."
-    },
-    {
-      "bereich": "bildwechsel",
-      "schwere": "mittel",
-      "befund": "Szene 3 und 4 benutzen dasselbe Layout (dunkle Karte mittig, Titel oben, Unterzeile darunter) - zwischen Bild 5/6 und 7/8 aendert sich nur der Text, nicht die Bildidee.",
-      "bild": "Bild 7",
-      "vorschlag": "Fuer Szene 4 das Kartenlayout variieren: Karte auf 70 % Breite verkleinern, nach links versetzt (x=120) und die '30' als Zaehler von 0 auf 30 in 0,8 s hochlaufen lassen."
+      "befund": "Die Balken in Szene 3 sind in Bild 5 ohne Beschriftung ('guenstig'/'teurer' kommen erst spaeter) und tragen keine Zahlen, der Laengenunterschied zwischen beiden Balken ist minimal - der Vergleich erklaert sich visuell nicht.",
+      "vorschlag": "Labels 'guenstig'/'teurer' ab Szenenstart zeigen und Balkenlaengen deutlicher spreizen (z.B. 55 % vs. 100 % der Breite) sowie konkrete Preise wie '70 EUR' / '100 EUR' am Balkenende setzen.",
+      "bild": "Bild 5"
     },
     {
       "bereich": "marke",
-      "schwere": "klein",
-      "befund": "Der Pinguin wird in den Szenen 2-4 nur als abgeschnittener Kopf hinter der Kartenkante bei x≈865, y≈570 gezeigt und bewegt sich dort ueber drei Szenen hinweg nicht.",
-      "bild": "Bild 4",
-      "vorschlag": "Pinguinkopf pro Szene um 10-15 px auf- und abtauchen lassen oder die Position wechseln (Szene 3 links bei x=150), damit er als wiederkehrende Figur statt als Deko-Rest wirkt."
+      "schwere": "mittel",
+      "befund": "Der Pinguin wird ab Szene 2 zu einem halb hinter der Karte abgeschnittenen Kopf bei ca. x=865, y=555 degradiert und bleibt ueber vier Szenen unbewegt - die Figur verliert ihre Funktion als Markenanker.",
+      "vorschlag": "Pinguin-Peek pro Szene variieren (Augen-Blinzeln alle 2 s, Kopfneigung +-5 Grad) oder ihn szenenweise die Seite wechseln lassen (x=865 bzw. x=215).",
+      "bild": "Bild 3 bis 8"
     }
   ],
-  "staerkste": "Die Vergleichsszene 2: Die dunkle Karte mit zwei beschrifteten Balken, die sich von Bild 3 zu Bild 4 mit 60 € / 80 € fuellen, transportiert die Kernaussage rein visuell und ohne Ton.",
-  "urteil": "Ein sauber gebautes, farblich konsistentes Reel mit einer wirklich guten Vergleichsszene, aber einer Hook, deren Kernzahl im ersten Moment in Orange auf Orange untergeht. Groesster Schwachpunkt ist die Untertitelspur: zerhackte Fragmente wie 'so 80. Dein Kopf' und eine halbtransparente graue Box in Bild 10 ziehen Lesbarkeit und Professionalitaet spuerbar nach unten."
+  "staerkste": "Die Szenenlogik ist sauber: Hook, Kennzahl, Vergleich, Checkliste, Endkarte mit Handle - die Kennzahl-Karte in Bild 4 mit '43 % mehr Anteile fuer dieselbe Rate' traegt die Aussage allein ueber das Bild und ist der stabilste Moment des Reels.",
+  "urteil": "Handwerklich ordentlich gebautes Karten-Reel mit klarer Farbwelt und lesbaren Hauptzeilen, aber der Einstieg ist sechs Sekunden lang ein fast unbewegtes Textbild und verschenkt die staerkste Zahl des Videos. Dazu kommen vermeidbare Lesbarkeitsfehler in der Untertitelzeile und ein Vergleichsdiagramm, das ohne Ton nicht erklaert, was es zeigt."
 }
