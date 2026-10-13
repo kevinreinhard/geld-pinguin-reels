@@ -1,60 +1,60 @@
 {
-  "datum": "2026-10-13T12:35:21.581Z",
+  "datum": "2026-10-13T19:51:06.074Z",
   "datei": "build/reel.mp4",
-  "dauer": 31.1,
+  "dauer": 21.14,
   "noten": {
     "hook": 58,
-    "lesbarkeit": 62,
+    "lesbarkeit": 66,
     "bildwechsel": 55,
-    "information": 68,
-    "marke": 66,
+    "information": 62,
+    "marke": 64,
     "sicherheit": 72
   },
-  "gesamt": 64,
+  "gesamt": 63,
   "maengel": [
     {
       "bereich": "bildwechsel",
       "schwere": "schwer",
-      "befund": "Szene 1 laeuft 6,4 Sekunden und zeigt zwischen Bild 1 und Bild 2 fast nichts Neues: Pinguin steht still, Titel ist nur um eine zweite eingeblendete Zeile ergaenzt - knapp ein Viertel des Reels wirkt wie ein Standbild.",
-      "vorschlag": "Szene 1 auf maximal 3,5 s kuerzen und dem Pinguin eine sichtbare Bewegung geben (z.B. y-Offset -20 px Idle-Bounce mit 0,8 s Periode) oder ab Sekunde 2 einen fallenden Kurspfeil hinter dem Titel einblenden.",
-      "bild": "Bild 1 und 2"
-    },
-    {
-      "bereich": "lesbarkeit",
-      "schwere": "schwer",
-      "befund": "Die Untertitelbox sitzt mit Unterkante bei ca. y=1450 direkt an der Caption-Zone, und in Bild 10 liegt der Text 'roten Tag.' in Dunkelblau auf einem grau-transparenten Kasten - praktisch kein Kontrast, die Zeile ist unlesbar.",
-      "vorschlag": "Untertitel-Hintergrund dauerhaft auf #16213E mit Deckkraft 1.0 setzen und Textfarbe #FFFFFF; die Ein-/Ausblend-Animation darf die Deckkraft des Textes nicht unter 1.0 ziehen.",
-      "bild": "Bild 10"
-    },
-    {
-      "bereich": "hook",
-      "schwere": "schwer",
-      "befund": "Der Hook besteht nur aus Textzeilen auf gelbem Verlauf; die zweite Zeile 'KOSTET DICH' ist in Bild 1 noch halbtransparent und liefert keine Zahl, kein Bild, keinen Konflikt - der Einstieg sieht aus wie hunderte Finanz-Templates.",
-      "vorschlag": "Die Kennzahl '43 % mehr Anteile' oder ein rot fallendes Chart bereits in Sekunde 0,5 in den Hook ziehen statt erst ab Sekunde 6,4; Titelzeile 2 sofort mit Deckkraft 1.0 einblenden.",
-      "bild": "Bild 1"
-    },
-    {
-      "bereich": "lesbarkeit",
-      "schwere": "mittel",
-      "befund": "In Bild 7 ist der dritte Listenpunkt 'Kein Pausieren bei roten Kursen' schon durchgestrichen, waehrend das Icon noch gelb/neutral ist - die Durchstreichung in Gelb auf Dunkelblau wirkt wie ein Renderfehler und erschwert das Lesen.",
-      "vorschlag": "Durchstreich-Linie erst synchron mit dem roten X-Icon einblenden (gleicher Keyframe) und Linienfarbe auf #FF6B6B setzen, Textfarbe auf 70 % Weiss.",
-      "bild": "Bild 7"
+      "befund": "In Szene 1 (Bild 1 zu Bild 2) aendert sich zwischen Sekunde 0.9 und 2.99 ausser der Untertitelzeile praktisch nichts: Pinguin, Hintergrund und Titelbloecke stehen still, nur das Highlight-Rechteck hinter 'JACKE' rutscht minimal. Die ersten drei Sekunden wirken wie ein Standbild.",
+      "bild": "Bild 1 und Bild 2",
+      "vorschlag": "In Szene 1 eine sichtbare Bewegung einbauen: Pinguin von y=560 auf y=600 (1080er Massstab) mit 2 px Amplitude wippen lassen UND den Preis '70 €' ab Sekunde 1.5 mit einem roten Durchstreich-Strich (Hoehe 12 px, Farbe #E8484F) ueberziehen, der in 0.3 s von links nach rechts waechst."
     },
     {
       "bereich": "information",
+      "schwere": "schwer",
+      "befund": "Szene 3 (Bild 5) zeigt die Balken 'Kauf mit Rabatt' und 'Nicht gekauft' zwei Sekunden lang ohne Zahlen; die Werte -70 € und 0 € erscheinen erst in Bild 6. Ohne Ton ist der Balkenvergleich bis dahin bedeutungslos, zumal der rote Balken (Ausgabe) laenger ist als der gruene (Ersparnis) und damit intuitiv falsch herum wirkt.",
+      "bild": "Bild 5",
+      "vorschlag": "Werte-Labels '-70 €' und '0 €' sofort beim Szenenstart einblenden statt verzoegert, und die Balkenbeschriftung auf 'Kauf mit Rabatt: -70 €' / 'Nicht gekauft: 0 € ausgegeben' erweitern."
+    },
+    {
+      "bereich": "lesbarkeit",
       "schwere": "mittel",
-      "befund": "Die Balken in Szene 3 sind in Bild 5 ohne Beschriftung ('guenstig'/'teurer' kommen erst spaeter) und tragen keine Zahlen, der Laengenunterschied zwischen beiden Balken ist minimal - der Vergleich erklaert sich visuell nicht.",
-      "vorschlag": "Labels 'guenstig'/'teurer' ab Szenenstart zeigen und Balkenlaengen deutlicher spreizen (z.B. 55 % vs. 100 % der Breite) sowie konkrete Preise wie '70 EUR' / '100 EUR' am Balkenende setzen.",
-      "bild": "Bild 5"
+      "befund": "Die Kanalzeile '@geld.pinguin' bei y=326 (gemessen y=163) steht in ca. 22 px grauem Text auf dem gelben Verlauf und ist im Kontrast zu schwach, um auf dem Handy gelesen zu werden.",
+      "bild": "Bild 1 bis Bild 10",
+      "vorschlag": "Schriftgroesse auf 34 px erhoehen und Farbe von Grau auf #1B2437 (Dunkelblau des Kartenhintergrunds) setzen."
+    },
+    {
+      "bereich": "bildwechsel",
+      "schwere": "mittel",
+      "befund": "In Szene 7 verschwindet zwischen Bild 9 und Bild 10 die Untertitelzeile 'Folge für Tricks' ersatzlos; die letzten rund 2 Sekunden zeigen eine leere Flaeche zwischen Handle-Pille (y=1224) und Trennstrich (y=1480).",
+      "bild": "Bild 10",
+      "vorschlag": "Untertitel bis Videoende stehen lassen oder an derselben Stelle (y≈1390, 1080er Massstab) einen statischen CTA-Text 'Teilen nicht vergessen' in 48 px Dunkelblau einsetzen."
+    },
+    {
+      "bereich": "hook",
+      "schwere": "mittel",
+      "befund": "Der Hook '70 € FÜR EINE JACKE' ist eine reine Feststellung ohne Spannung oder Widerspruch; die Kopfzeile 'DER DURCHGESTRICHENE PREIS' darueber nimmt das Thema vorweg, ohne Neugier zu erzeugen.",
+      "bild": "Bild 1",
+      "vorschlag": "Hooktext auf eine Frage oder Behauptung aendern, z.B. '70 € FÜR EINE JACKE - UND DU HAST NICHTS GESPART', zweite Zeile in Rot #E8484F, und die Topic-Zeile bis Sekunde 3 ausblenden."
     },
     {
       "bereich": "marke",
-      "schwere": "mittel",
-      "befund": "Der Pinguin wird ab Szene 2 zu einem halb hinter der Karte abgeschnittenen Kopf bei ca. x=865, y=555 degradiert und bleibt ueber vier Szenen unbewegt - die Figur verliert ihre Funktion als Markenanker.",
-      "vorschlag": "Pinguin-Peek pro Szene variieren (Augen-Blinzeln alle 2 s, Kopfneigung +-5 Grad) oder ihn szenenweise die Seite wechseln lassen (x=865 bzw. x=215).",
-      "bild": "Bild 3 bis 8"
+      "schwere": "klein",
+      "befund": "Die Kartenszenen 2 bis 4 (Bilder 3 bis 8) nutzen dieselbe dunkelblaue Karte mit gelbem Eck-Strich, blauem Titel und blauem Unterstrich - ein Standard-Layout ohne eigenes Gestaltungsmerkmal; der Pinguin lugt immer in identischer Pose aus derselben Ecke (x≈865, y≈600).",
+      "bild": "Bild 3 bis Bild 8",
+      "vorschlag": "Pinguin je Szene an wechselnder Kartenkante positionieren (Szene 2 rechts oben, Szene 3 links unten x≈120/y≈1180, Szene 4 rechts unten) und ihm pro Szene ein anderes Requisit geben (Preisschild, Taschenrechner, Anker)."
     }
   ],
-  "staerkste": "Die Szenenlogik ist sauber: Hook, Kennzahl, Vergleich, Checkliste, Endkarte mit Handle - die Kennzahl-Karte in Bild 4 mit '43 % mehr Anteile fuer dieselbe Rate' traegt die Aussage allein ueber das Bild und ist der stabilste Moment des Reels.",
-  "urteil": "Handwerklich ordentlich gebautes Karten-Reel mit klarer Farbwelt und lesbaren Hauptzeilen, aber der Einstieg ist sechs Sekunden lang ein fast unbewegtes Textbild und verschenkt die staerkste Zahl des Videos. Dazu kommen vermeidbare Lesbarkeitsfehler in der Untertitelzeile und ein Vergleichsdiagramm, das ohne Ton nicht erklaert, was es zeigt."
+  "staerkste": "Die durchgehende Farbwelt - gelber Verlauf, dunkelblaue Karte, gelbe Akzentwoerter im Untertitel - ist konsequent und sofort wiedererkennbar, und der Untertitel mit farbig hervorgehobenem Schluesselwort sitzt in jeder Szene an derselben sicheren Position bei y=1396.",
+  "urteil": "Sauber gebautes, stilistisch geschlossenes Reel, dessen Schnitte tragen, dessen Szenen innen aber zu wenig passiert - vor allem der dreisekuendige Hook steht faktisch still. Inhaltlich fehlt der entscheidende Schritt: Die Kernzahl 70 € vs. gefuehlte 30 € Ersparnis wird nie in einem Bild gegenuebergestellt, der Balkenvergleich kommt zudem zwei Sekunden lang ohne Zahlen aus."
 }
