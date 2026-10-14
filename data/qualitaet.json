@@ -1,60 +1,67 @@
 {
-  "datum": "2026-10-13T19:51:06.074Z",
+  "datum": "2026-10-14T15:06:45.807Z",
   "datei": "build/reel.mp4",
-  "dauer": 21.14,
+  "dauer": 25.47,
   "noten": {
-    "hook": 58,
+    "hook": 62,
     "lesbarkeit": 66,
-    "bildwechsel": 55,
-    "information": 62,
+    "bildwechsel": 58,
+    "information": 70,
     "marke": 64,
     "sicherheit": 72
   },
-  "gesamt": 63,
+  "gesamt": 65,
   "maengel": [
+    {
+      "bereich": "lesbarkeit",
+      "schwere": "schwer",
+      "befund": "In Bild 1 ist die zweite Hook-Zeile 'STEUERPFLICHTIG' noch halbtransparent eingeblendet - graubrauner Text auf lachsfarbenem Halbton-Balken auf gelbem Verlauf, der Kontrast liegt deutlich unter 3:1 und die Zeile verschwimmt.",
+      "bild": "Bild 1",
+      "vorschlag": "Einblend-Animation der zweiten Hook-Zeile auf maximal 0.25 s verkuerzen oder Opacity nicht unter 1.0 animieren, stattdessen nur Y-Offset (z.B. von +30 px auf 0) animieren; Textfarbe hart auf #11203A (dunkelblau) setzen, nicht ueber Alpha blenden."
+    },
     {
       "bereich": "bildwechsel",
       "schwere": "schwer",
-      "befund": "In Szene 1 (Bild 1 zu Bild 2) aendert sich zwischen Sekunde 0.9 und 2.99 ausser der Untertitelzeile praktisch nichts: Pinguin, Hintergrund und Titelbloecke stehen still, nur das Highlight-Rechteck hinter 'JACKE' rutscht minimal. Die ersten drei Sekunden wirken wie ein Standbild.",
-      "bild": "Bild 1 und Bild 2",
-      "vorschlag": "In Szene 1 eine sichtbare Bewegung einbauen: Pinguin von y=560 auf y=600 (1080er Massstab) mit 2 px Amplitude wippen lassen UND den Preis '70 €' ab Sekunde 1.5 mit einem roten Durchstreich-Strich (Hoehe 12 px, Farbe #E8484F) ueberziehen, der in 0.3 s von links nach rechts waechst."
+      "befund": "Szene 7 (Bild 9 zu Bild 10) verliert nur den Untertitel-Balken; Pinguin, Headline und Handle stehen 3,6 Sekunden exakt still - der Schluss wirkt als Standbild und damit als Absprungpunkt.",
+      "bild": "Bild 10",
+      "vorschlag": "Pinguin in der Endkarte mit leichter Loop-Bewegung versehen (z.B. sin-Bob +/- 12 px auf y, Periode 1.4 s) und den @geld.pinguin-Pill ab Sekunde 24 einmal pulsieren lassen (Scale 1.0 -> 1.06 -> 1.0 in 0.5 s)."
     },
     {
-      "bereich": "information",
-      "schwere": "schwer",
-      "befund": "Szene 3 (Bild 5) zeigt die Balken 'Kauf mit Rabatt' und 'Nicht gekauft' zwei Sekunden lang ohne Zahlen; die Werte -70 € und 0 € erscheinen erst in Bild 6. Ohne Ton ist der Balkenvergleich bis dahin bedeutungslos, zumal der rote Balken (Ausgabe) laenger ist als der gruene (Ersparnis) und damit intuitiv falsch herum wirkt.",
-      "bild": "Bild 5",
-      "vorschlag": "Werte-Labels '-70 €' und '0 €' sofort beim Szenenstart einblenden statt verzoegert, und die Balkenbeschriftung auf 'Kauf mit Rabatt: -70 €' / 'Nicht gekauft: 0 € ausgegeben' erweitern."
+      "bereich": "bildwechsel",
+      "schwere": "mittel",
+      "befund": "Szene 1 laeuft 4,9 Sekunden, aber zwischen Bild 1 und Bild 2 aendert sich ausser dem Einblenden der zweiten Hook-Zeile und dem Untertitel nichts - der Pinguin steht unbewegt.",
+      "bild": "Bild 2",
+      "vorschlag": "Pinguin ab Sekunde 1.5 mit Bob-Animation (+/- 10 px y, 1.2 s Periode) versehen und den roten Hook-Balken bei Sekunde 2.5 kurz um 2 Grad kippen (Rotation -2 -> 0)."
     },
     {
       "bereich": "lesbarkeit",
       "schwere": "mittel",
-      "befund": "Die Kanalzeile '@geld.pinguin' bei y=326 (gemessen y=163) steht in ca. 22 px grauem Text auf dem gelben Verlauf und ist im Kontrast zu schwach, um auf dem Handy gelesen zu werden.",
-      "bild": "Bild 1 bis Bild 10",
-      "vorschlag": "Schriftgroesse auf 34 px erhoehen und Farbe von Grau auf #1B2437 (Dunkelblau des Kartenhintergrunds) setzen."
+      "befund": "Der Untertitel-Balken wechselt seine Breite von Bild zu Bild (Bild 5: x=142-398, Bild 8: x=94-446, im Massstab 1080: 284-796 bzw. 188-892) - der Text springt bei jedem Wortwechsel horizontal und das Auge muss neu suchen.",
+      "bild": "Bild 8",
+      "vorschlag": "Untertitel-Box auf feste Breite 760 px, zentriert bei x=540, setzen und den Text darin linksbuendig mit 40 px Innenabstand umbrechen statt die Box der Textlaenge folgen zu lassen."
     },
     {
-      "bereich": "bildwechsel",
+      "bereich": "information",
       "schwere": "mittel",
-      "befund": "In Szene 7 verschwindet zwischen Bild 9 und Bild 10 die Untertitelzeile 'Folge für Tricks' ersatzlos; die letzten rund 2 Sekunden zeigen eine leere Flaeche zwischen Handle-Pille (y=1224) und Trennstrich (y=1480).",
-      "bild": "Bild 10",
-      "vorschlag": "Untertitel bis Videoende stehen lassen oder an derselben Stelle (y≈1390, 1080er Massstab) einen statischen CTA-Text 'Teilen nicht vergessen' in 48 px Dunkelblau einsetzen."
-    },
-    {
-      "bereich": "hook",
-      "schwere": "mittel",
-      "befund": "Der Hook '70 € FÜR EINE JACKE' ist eine reine Feststellung ohne Spannung oder Widerspruch; die Kopfzeile 'DER DURCHGESTRICHENE PREIS' darueber nimmt das Thema vorweg, ohne Neugier zu erzeugen.",
-      "bild": "Bild 1",
-      "vorschlag": "Hooktext auf eine Frage oder Behauptung aendern, z.B. '70 € FÜR EINE JACKE - UND DU HAST NICHTS GESPART', zweite Zeile in Rot #E8484F, und die Topic-Zeile bis Sekunde 3 ausblenden."
+      "befund": "In Bild 7 stehen die beiden Balken ohne Zahlen rechts - was '50,00 € Gutschein' versus '50,01 € Gutschein' bedeutet, erschliesst sich erst in Bild 8 mit '0 €' und '50,01 €'; 2,7 Sekunden lang traegt die Grafik die Aussage nicht.",
+      "bild": "Bild 7",
+      "vorschlag": "Die Wertelabels '0 €' und '50,01 €' bereits bei Szenenstart einblenden (Delay von aktuell ca. 2.0 s auf 0.3 s reduzieren) und die Balken synchron dazu von Breite 0 auf Endwert wachsen lassen."
     },
     {
       "bereich": "marke",
+      "schwere": "mittel",
+      "befund": "Die Kopfzeile '51 EURO FALLE' mit '@geld.pinguin' steht in ca. 28 px dunkelbraun auf gelbem Verlauf - bei y=265 (1080er Massstab) zwar ausserhalb der Instagram-Kopfzeile, aber so klein und kontrastarm, dass die Markenklammer visuell nicht traegt.",
+      "bild": "Bild 3",
+      "vorschlag": "Kanalzeile auf 34 px erhoehen, Farbe auf #11203A setzen und den Handle als kleinen dunkelblauen Pill (Radius 20 px, Hoehe 48 px) hinterlegen statt als grauen Text bei 55 % Opacity."
+    },
+    {
+      "bereich": "lesbarkeit",
       "schwere": "klein",
-      "befund": "Die Kartenszenen 2 bis 4 (Bilder 3 bis 8) nutzen dieselbe dunkelblaue Karte mit gelbem Eck-Strich, blauem Titel und blauem Unterstrich - ein Standard-Layout ohne eigenes Gestaltungsmerkmal; der Pinguin lugt immer in identischer Pose aus derselben Ecke (x≈865, y≈600).",
-      "bild": "Bild 3 bis Bild 8",
-      "vorschlag": "Pinguin je Szene an wechselnder Kartenkante positionieren (Szene 2 rechts oben, Szene 3 links unten x≈120/y≈1180, Szene 4 rechts unten) und ihm pro Szene ein anderes Requisit geben (Preisschild, Taschenrechner, Anker)."
+      "befund": "In Bild 4 steht der Erklaersatz 'Bis hierhin steuer- und abgabenfrei' in hellgrauem Weiss direkt unter der 50-€-Zahl und kollidiert optisch mit dem Euro-Zeichen - der Zeilenabstand zur Zahl betraegt nur rund 20 px (1080: 40 px).",
+      "bild": "Bild 4",
+      "vorschlag": "Abstand zwischen Kennzahl-Block und Erklaersatz auf 90 px erhoehen und den Satz in reinem Weiss #FFFFFF statt #CBD5E1 setzen."
     }
   ],
-  "staerkste": "Die durchgehende Farbwelt - gelber Verlauf, dunkelblaue Karte, gelbe Akzentwoerter im Untertitel - ist konsequent und sofort wiedererkennbar, und der Untertitel mit farbig hervorgehobenem Schluesselwort sitzt in jeder Szene an derselben sicheren Position bei y=1396.",
-  "urteil": "Sauber gebautes, stilistisch geschlossenes Reel, dessen Schnitte tragen, dessen Szenen innen aber zu wenig passiert - vor allem der dreisekuendige Hook steht faktisch still. Inhaltlich fehlt der entscheidende Schritt: Die Kernzahl 70 € vs. gefuehlte 30 € Ersparnis wird nie in einem Bild gegenuebergestellt, der Balkenvergleich kommt zudem zwei Sekunden lang ohne Zahlen aus."
+  "staerkste": "Die Vergleichsszene 4: zwei Balken, zwei fast identische Betraege, Gruen gegen Rot - die Pointe 'ein Cent darueber kippt alles' ist in Bild 8 ohne Ton sofort verstanden, und der Bildaufbau ist sauber in der sicheren Zone zwischen y=640 und y=1160.",
+  "urteil": "Ein handwerklich sauberes, konsistent gestaltetes Reel mit klarer Farblogik (Gelb aussen, Dunkelblau als Karte, Gruen/Rot als Wertung) und einer Pointe, die visuell wirklich sitzt. Es verliert Punkte, weil die Hook-Zeile in den entscheidenden ersten Sekunden noch halbtransparent einblendet, die Szenen innerlich zu statisch sind und die Endkarte dreieinhalb Sekunden als Standbild ausklingt."
 }
