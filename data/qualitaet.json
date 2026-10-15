@@ -1,67 +1,67 @@
 {
-  "datum": "2026-10-14T15:06:45.807Z",
+  "datum": "2026-10-15T14:49:21.455Z",
   "datei": "build/reel.mp4",
-  "dauer": 25.47,
+  "dauer": 29.6,
   "noten": {
-    "hook": 62,
-    "lesbarkeit": 66,
+    "hook": 52,
+    "lesbarkeit": 74,
     "bildwechsel": 58,
     "information": 70,
-    "marke": 64,
-    "sicherheit": 72
+    "marke": 62,
+    "sicherheit": 80
   },
-  "gesamt": 65,
+  "gesamt": 66,
   "maengel": [
     {
-      "bereich": "lesbarkeit",
+      "bereich": "hook",
       "schwere": "schwer",
-      "befund": "In Bild 1 ist die zweite Hook-Zeile 'STEUERPFLICHTIG' noch halbtransparent eingeblendet - graubrauner Text auf lachsfarbenem Halbton-Balken auf gelbem Verlauf, der Kontrast liegt deutlich unter 3:1 und die Zeile verschwimmt.",
+      "befund": "Bild 1 oeffnet mit der nuechternen Kopfzeile 'MONATLICHE ZAHLWEISE' und der Zahl 60 EUR - die Zahl allein hat keine Fallhoehe, weil weder Bezug ('fuer nichts') noch Reizwort im ersten Moment sichtbar ist.",
       "bild": "Bild 1",
-      "vorschlag": "Einblend-Animation der zweiten Hook-Zeile auf maximal 0.25 s verkuerzen oder Opacity nicht unter 1.0 animieren, stattdessen nur Y-Offset (z.B. von +30 px auf 0) animieren; Textfarbe hart auf #11203A (dunkelblau) setzen, nicht ueber Alpha blenden."
+      "vorschlag": "Karten-Kopfzeile in Szene 1 auf eine Reizformulierung aendern, z.B. '60 EUR FUER NICHTS' in Rot #FF5A5F, und den Untertitel auf 'nur weil du monatlich zahlst' kuerzen; Zahl '60' von ca. 150 px auf 210 px Hoehe vergroessern."
     },
     {
       "bereich": "bildwechsel",
       "schwere": "schwer",
-      "befund": "Szene 7 (Bild 9 zu Bild 10) verliert nur den Untertitel-Balken; Pinguin, Headline und Handle stehen 3,6 Sekunden exakt still - der Schluss wirkt als Standbild und damit als Absprungpunkt.",
-      "bild": "Bild 10",
-      "vorschlag": "Pinguin in der Endkarte mit leichter Loop-Bewegung versehen (z.B. sin-Bob +/- 12 px auf y, Periode 1.4 s) und den @geld.pinguin-Pill ab Sekunde 24 einmal pulsieren lassen (Scale 1.0 -> 1.06 -> 1.0 in 0.5 s)."
+      "befund": "Szene 1 steht von Sekunde 0.9 bis 5.12 praktisch still: Bild 1 und Bild 2 sind bis auf die Untertitelzeile identisch, die Karte zeigt ueber 4,2 Sekunden denselben Inhalt.",
+      "bild": "Bild 1 und Bild 2",
+      "vorschlag": "Die Zahl 60 in Szene 1 als Count-up von 0 auf 60 ueber 0.8 s animieren und den Untertitel 'Aufschlag pro Jahr...' erst ab Sekunde 1.5 einblenden, statt beide Elemente ab Frame 1 statisch zu zeigen."
     },
     {
       "bereich": "bildwechsel",
       "schwere": "mittel",
-      "befund": "Szene 1 laeuft 4,9 Sekunden, aber zwischen Bild 1 und Bild 2 aendert sich ausser dem Einblenden der zweiten Hook-Zeile und dem Untertitel nichts - der Pinguin steht unbewegt.",
-      "bild": "Bild 2",
-      "vorschlag": "Pinguin ab Sekunde 1.5 mit Bob-Animation (+/- 10 px y, 1.2 s Periode) versehen und den roten Hook-Balken bei Sekunde 2.5 kurz um 2 Grad kippen (Rotation -2 -> 0)."
-    },
-    {
-      "bereich": "lesbarkeit",
-      "schwere": "mittel",
-      "befund": "Der Untertitel-Balken wechselt seine Breite von Bild zu Bild (Bild 5: x=142-398, Bild 8: x=94-446, im Massstab 1080: 284-796 bzw. 188-892) - der Text springt bei jedem Wortwechsel horizontal und das Auge muss neu suchen.",
-      "bild": "Bild 8",
-      "vorschlag": "Untertitel-Box auf feste Breite 760 px, zentriert bei x=540, setzen und den Text darin linksbuendig mit 40 px Innenabstand umbrechen statt die Box der Textlaenge folgen zu lassen."
+      "befund": "Die Balken in Szene 3 sind schon in Bild 5 (Sek 10.77, 0.6 s nach dem Schnitt) fast vollstaendig gefuellt; der Vergleichseffekt verpufft, weil die Werte 1.200 EUR / 1.260 EUR erst spaeter erscheinen.",
+      "bild": "Bild 5",
+      "vorschlag": "Balkenfuellung in Szene 3 ueber 1.2 s von 0 auf Zielbreite animieren und die Zahlenlabels rechts gleichzeitig mitzaehlen lassen, Start bei Schnitt 10.2 s."
     },
     {
       "bereich": "information",
       "schwere": "mittel",
-      "befund": "In Bild 7 stehen die beiden Balken ohne Zahlen rechts - was '50,00 € Gutschein' versus '50,01 € Gutschein' bedeutet, erschliesst sich erst in Bild 8 mit '0 €' und '50,01 €'; 2,7 Sekunden lang traegt die Grafik die Aussage nicht.",
-      "bild": "Bild 7",
-      "vorschlag": "Die Wertelabels '0 €' und '50,01 €' bereits bei Szenenstart einblenden (Delay von aktuell ca. 2.0 s auf 0.3 s reduzieren) und die Balken synchron dazu von Breite 0 auf Endwert wachsen lassen."
-    },
-    {
-      "bereich": "marke",
-      "schwere": "mittel",
-      "befund": "Die Kopfzeile '51 EURO FALLE' mit '@geld.pinguin' steht in ca. 28 px dunkelbraun auf gelbem Verlauf - bei y=265 (1080er Massstab) zwar ausserhalb der Instagram-Kopfzeile, aber so klein und kontrastarm, dass die Markenklammer visuell nicht traegt.",
-      "bild": "Bild 3",
-      "vorschlag": "Kanalzeile auf 34 px erhoehen, Farbe auf #11203A setzen und den Handle als kleinen dunkelblauen Pill (Radius 20 px, Hoehe 48 px) hinterlegen statt als grauen Text bei 55 % Opacity."
+      "befund": "In Bild 5 stehen beide Balken ohne Zahlen - der Unterschied zwischen gruen und rot betraegt optisch nur wenige Pixel und ist ohne Werte nicht deutbar.",
+      "bild": "Bild 5",
+      "vorschlag": "Balkenlaengen staerker spreizen (gruen 60 % statt 92 % Breite, rot 100 %) oder die Differenz als rotes Delta-Label '+60 EUR' rechts neben dem roten Balken bei ca. x=800, y=1020 einblenden."
     },
     {
       "bereich": "lesbarkeit",
+      "schwere": "mittel",
+      "befund": "Die Handle-Zeile '@geld.pinguin' unter dem Titel steht in ca. 22 px dunklem Grau auf gelbem Verlauf und liegt bei y=320 - sie ist auf dem Handy kaum zu entziffern.",
+      "bild": "Bild 1 bis Bild 10",
+      "vorschlag": "Schriftgroesse der Handle-Zeile von ca. 22 px auf 32 px erhoehen und Farbe auf das Dunkelblau #141C33 mit 85 % Deckkraft setzen."
+    },
+    {
+      "bereich": "marke",
       "schwere": "klein",
-      "befund": "In Bild 4 steht der Erklaersatz 'Bis hierhin steuer- und abgabenfrei' in hellgrauem Weiss direkt unter der 50-€-Zahl und kollidiert optisch mit dem Euro-Zeichen - der Zeilenabstand zur Zahl betraegt nur rund 20 px (1080: 40 px).",
-      "bild": "Bild 4",
-      "vorschlag": "Abstand zwischen Kennzahl-Block und Erklaersatz auf 90 px erhoehen und den Satz in reinem Weiss #FFFFFF statt #CBD5E1 setzen."
+      "befund": "Alle sieben Szenen nutzen dasselbe dunkelblaue Kartenrechteck in gleicher Groesse und Position, nur der Inhalt wechselt - das wirkt wie eine Vorlage statt wie eine Handschrift.",
+      "bild": "Bild 1 bis Bild 8",
+      "vorschlag": "Kartenhoehe je Szenentyp variieren (kennzahl kompakter, stichwort hoeher) und den Pinguin pro Szene an wechselnde Ecken setzen, z.B. Szene 2 links oben bei x=120, y=640."
+    },
+    {
+      "bereich": "bildwechsel",
+      "schwere": "klein",
+      "befund": "In Bild 10 (Sek 29.24) ist die Untertitelbox verschwunden, es bleibt nur die leere schwarze Trennlinie bei y=1480 stehen.",
+      "bild": "Bild 10",
+      "vorschlag": "Die Unterstrich-Linie unter der Untertitelbox ausblenden, sobald kein Untertiteltext mehr aktiv ist, statt sie bis zum Videoende stehen zu lassen."
     }
   ],
-  "staerkste": "Die Vergleichsszene 4: zwei Balken, zwei fast identische Betraege, Gruen gegen Rot - die Pointe 'ein Cent darueber kippt alles' ist in Bild 8 ohne Ton sofort verstanden, und der Bildaufbau ist sauber in der sicheren Zone zwischen y=640 und y=1160.",
-  "urteil": "Ein handwerklich sauberes, konsistent gestaltetes Reel mit klarer Farblogik (Gelb aussen, Dunkelblau als Karte, Gruen/Rot als Wertung) und einer Pointe, die visuell wirklich sitzt. Es verliert Punkte, weil die Hook-Zeile in den entscheidenden ersten Sekunden noch halbtransparent einblendet, die Szenen innerlich zu statisch sind und die Endkarte dreieinhalb Sekunden als Standbild ausklingt."
+  "staerkste": "Die Szene 3 mit den beiden Balken und den ausgeschriebenen Werten 1.200 EUR gegen 1.260 EUR (Bild 6) transportiert die Kernaussage rein visuell - das ist der stimmigste Moment des Reels.",
+  "urteil": "Sauber gebautes, konsistentes Karten-Layout mit guter Kontrastlage und Untertiteln, die klar in der sicheren Zone zwischen y=1330 und y=1480 liegen. Es scheitert aber am Einstieg: Die erste Szene steht vier Sekunden lang fast bewegungslos und bietet keinen Reiz, der jemanden beim Wischen stoppt."
 }
