@@ -12,6 +12,7 @@
     "intro": "Das ist eine technische Probe. Sie zeigt, ob Bild, Ton und Einblendungen zusammenpassen. Zwei Motorräder, zwei kurze Abschnitte, dann ist Schluss.",
     "modelle": [
       {
+        "nr": 2,
         "rang": 2,
         "name": "Yamaha MT-07",
         "kennzahlen": [
@@ -22,6 +23,7 @@
         "text": "Platz zwei in dieser Probe: die Yamaha MT-07. In diesem Abschnitt stehen absichtlich keine Fakten. Geprüft wird nur, ob die Titelkarte lesbar ist, ob die drei Kästen unten sauber sitzen und ob die Bauchbinde danach erscheint. Der Abschnitt ist lang genug für drei Einstellungen."
       },
       {
+        "nr": 1,
         "rang": 1,
         "name": "Honda CB500F",
         "kennzahlen": [

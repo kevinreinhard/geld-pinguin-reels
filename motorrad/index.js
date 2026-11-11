@@ -15,7 +15,7 @@ import { execFileSync } from "node:child_process";
 
 const B = "build/motorrad";
 const ANZAHL = 7; // Modelle im Video
-const KANDIDATEN = 10; // recherchiert werden mehr, weil nicht jedes genug Fotos hat
+const KANDIDATEN = 12; // recherchiert werden mehr, weil nicht jedes genug Fotos hat
 const MIN_BILDER = 3;
 const STIMME = { voice: "de-DE-FlorianMultilingualNeural", rate: "+3%" };
 
@@ -151,15 +151,15 @@ async function main() {
   schreib(`${B}/skript.json`, skript);
 
   // Modelle des Skripts den Fotos zuordnen (Name aus dem Faktenblatt).
-  const fotosVon = (name) => {
-    const m = modelle.find((x) => x.name === name) ?? modelle.find((x) => name.includes(x.name) || x.name.includes(name));
-    if (!m?.bilder?.length) throw new Error(`Keine Fotos für «${name}».`);
-    return m.bilder;
+  const fotosVon = (m) => {
+    const bilder = modelle[m.nr - 1]?.bilder;
+    if (!bilder?.length) throw new Error(`Keine Fotos für «${m.name}» (nr ${m.nr}).`);
+    return bilder;
   };
 
   console.log("4/5 Ton ...");
   const segmente = [];
-  const titelbilder = skript.modelle.map((m) => fotosVon(m.name)[0]);
+  const titelbilder = skript.modelle.map((m) => fotosVon(m)[0]);
   segmente.push({ typ: "intro", titelzeile: skript.titel, audio: sprich(skript.intro, "00-intro"), bilder: titelbilder });
   skript.modelle.forEach((m, i) => {
     segmente.push({
@@ -168,13 +168,13 @@ async function main() {
       name: m.name,
       kennzahlen: m.kennzahlen,
       audio: sprich(m.text, `${String(i + 1).padStart(2, "0")}-${kuerzel(m.name)}`),
-      bilder: fotosVon(m.name),
+      bilder: fotosVon(m),
     });
   });
   const sieger = skript.modelle.at(-1);
   segmente.push({ typ: "outro", audio: sprich(skript.outro, "99-outro"), bilder: [...titelbilder].reverse() });
 
-  schreib(`${B}/plan.json`, { segmente, thumbnail: { bild: fotosVon(sieger.name)[0].datei, text: skript.thumbnailText } });
+  schreib(`${B}/plan.json`, { segmente, thumbnail: { bild: fotosVon(sieger)[0].datei, text: skript.thumbnailText } });
 
   // Vor dem Schnitt: Scheitert die Beschreibung, soll das nicht erst nach zehn Minuten Rechnen auffallen.
   schreibMeta(thema, skript, modelle, segmente);

@@ -88,8 +88,9 @@ const VIDEO = {
     intro: { type: "string", description: "Gesprochener Einstieg, 60-80 Wörter" },
     modelle: liste(
       objekt({
+        nr: { type: "integer", description: "Nummer des Modells im Faktenblatt (1 = erstes)" },
         rang: { type: "integer" },
-        name: text,
+        name: { type: "string", description: "Kurzer Anzeigename, hoechstens 26 Zeichen, z. B. «Honda CBF 600»" },
         kennzahlen: liste(objekt({ label: text, wert: text })),
         text: { type: "string", description: "Gesprochener Text, 150-180 Wörter" },
       }),
@@ -135,9 +136,9 @@ export async function schreibe(thema, modelle, korrekturen = null, vorher = null
   }
   const s = await frage({ system: KANAL, effort: "high", werkzeug: VIDEO, inhalt });
 
-  if (s.modelle.length !== modelle.length) {
-    throw new Error(`Skript hat ${s.modelle.length} statt ${modelle.length} Modelle.`);
-  }
+  const nummern = s.modelle.map((m) => m.nr).sort((a, b) => a - b).join(",");
+  const soll = modelle.map((_, i) => i + 1).join(",");
+  if (nummern !== soll) throw new Error(`Skript ordnet die Modelle falsch zu: nr ${nummern} statt ${soll}.`);
   // Absteigend sortieren: Das Video zählt herunter.
   s.modelle.sort((a, b) => b.rang - a.rang);
   s.titel = s.titel.replace(/[<>]/g, "").slice(0, 100);

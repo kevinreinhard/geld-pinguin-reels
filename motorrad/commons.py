@@ -94,7 +94,9 @@ def main():
                 "lizenz": lizenz,
                 "seite": info.get("descriptionurl", ""),
                 "rang": rang,
-                "url": info["thumburl"],
+                # Unter 1920 Pixel Breite gibt es keine 1920er-Fassung; die krumme Zwischengroesse beantwortet
+                # Wikimedia mit 429. Dann das Original nehmen.
+                "url": info["thumburl"] if breite >= 1920 else info["url"],
             })
         time.sleep(0.5)
 

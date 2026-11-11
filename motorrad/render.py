@@ -252,6 +252,20 @@ def main():
         ffmpeg("-ss", f"{laufzeit * anteil:.2f}", "-i", video, "-frames:v", "1", "-vf", "scale=960:-1",
                os.path.join(kontrolle, f"bild-{i}.jpg"))
 
+    # Alle verwendeten Fotos auf einem Bogen: So fällt ein falsches Modell auf, ohne das Video durchzusehen.
+    fotos = []
+    for abschnitt in plan["segmente"]:
+        if abschnitt["typ"] == "modell":
+            fotos += [(abschnitt["name"], f["datei"]) for f in abschnitt["bilder"]]
+    spalten = 6
+    bogen = Image.new("RGB", (spalten * 320, ((len(fotos) + spalten - 1) // spalten) * 200), DUNKEL)
+    z = ImageDraw.Draw(bogen)
+    for i, (name, datei) in enumerate(fotos):
+        x, y = (i % spalten) * 320, (i // spalten) * 200
+        bogen.paste(ImageOps.fit(Image.open(datei).convert("RGB"), (320, 180)), (x, y))
+        z.text((x + 6, y + 182), name[:34], font=schrift("normal", 14), fill=WEISS)
+    bogen.save(os.path.join(kontrolle, "fotos.jpg"), quality=85)
+
     print(json.dumps({"ok": True, "dauer": round(laufzeit, 1), "einstellungen": len(clips)}))
 
 
