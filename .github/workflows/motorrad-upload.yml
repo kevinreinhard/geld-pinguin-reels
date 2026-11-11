@@ -1,0 +1,71 @@
+name: Motorrad Kompass - Video hochladen
+
+# Lädt das Video eines früheren Laufs von «Motorrad Kompass - Video erzeugen»
+# auf den Kanal und trägt es in die Historie ein (damit das Thema nicht
+# noch einmal drankommt). Standard ist «private»: erst ansehen, dann freigeben.
+on:
+  workflow_dispatch:
+    inputs:
+      lauf:
+        description: "Lauf-ID des erzeugten Videos"
+        type: string
+        required: true
+      sichtbarkeit:
+        description: "Sichtbarkeit auf YouTube"
+        type: choice
+        options: [private, unlisted, public]
+        default: private
+
+permissions:
+  contents: write
+  actions: read
+
+concurrency:
+  group: motorrad-upload
+  cancel-in-progress: false
+
+jobs:
+  upload:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Video holen
+        env:
+          GH_TOKEN: ${{ github.token }}
+          LAUF: ${{ inputs.lauf }}
+        run: |
+          set -euo pipefail
+          gh run download "$LAUF" -D vorlauf
+          ordner=$(dirname "$(find vorlauf -name video.mp4 | head -1)")
+          test -f "$ordner/meta.json"
+          echo "ORDNER=$ordner" >> "$GITHUB_ENV"
+
+      - name: Hochladen
+        env:
+          YT_CLIENT_ID: ${{ secrets.YT_CLIENT_ID_MOTORRAD }}
+          YT_CLIENT_SECRET: ${{ secrets.YT_CLIENT_SECRET_MOTORRAD }}
+          YT_REFRESH_TOKEN: ${{ secrets.YT_REFRESH_TOKEN_MOTORRAD }}
+          YT_CHANNEL_ID: ${{ secrets.YT_CHANNEL_ID_MOTORRAD }}
+        run: node motorrad/hochladen.js "$ORDNER" "${{ inputs.sichtbarkeit }}"
+
+      - name: Historie zurückschreiben
+        run: |
+          set -euo pipefail
+          datei=data/motorrad-historie.json
+          [ -f "$datei" ] || echo "[]" > "$datei"
+          jq --slurpfile neu "$ORDNER/upload.json" '. + $neu' "$datei" > "$datei.neu" && mv "$datei.neu" "$datei"
+          git config user.name "motorrad-kompass-bot"
+          git config user.email "bot@users.noreply.github.com"
+          git add "$datei"
+          git commit -m "Motorrad Kompass: Video hochgeladen [skip ci]"
+          for i in 1 2 3; do
+            git pull --rebase --autostash origin "${GITHUB_REF_NAME}" && git push && exit 0
+            sleep 5
+          done
+          exit 1
