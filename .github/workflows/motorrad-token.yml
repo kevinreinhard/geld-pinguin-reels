@@ -1,0 +1,60 @@
+name: Motorrad Kompass - Upload-Zugang einrichten
+
+# Tauscht den einmaligen Anmeldecode von Google gegen ein dauerhaftes
+# Refresh-Token und legt es als Secret ab. Das Client-Geheimnis bleibt dabei
+# in GitHub; auf keinem Rechner und in keinem Protokoll steht ein Geheimnis.
+# Gestartet wird der Lauf von scripts/motorrad-anmelden.js.
+on:
+  workflow_dispatch:
+    inputs:
+      code:
+        description: "Einmaliger Anmeldecode von Google (verfällt nach Minuten)"
+        type: string
+        required: true
+
+permissions:
+  contents: read
+
+jobs:
+  token:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Code tauschen und Secret setzen
+        env:
+          CODE: ${{ inputs.code }}
+          YT_CLIENT_ID: ${{ secrets.YT_CLIENT_ID_MOTORRAD }}
+          YT_CLIENT_SECRET: ${{ secrets.YT_CLIENT_SECRET_MOTORRAD }}
+          GH_TOKEN: ${{ secrets.GH_PAT }}
+          KANAL: UCkj3T56hmbmIIgzHIQfN4Mw
+        run: |
+          set -euo pipefail
+          echo "::add-mask::$CODE"
+          if [ -z "$YT_CLIENT_ID" ] || [ -z "$YT_CLIENT_SECRET" ]; then
+            echo "YT_CLIENT_ID_MOTORRAD oder YT_CLIENT_SECRET_MOTORRAD fehlt."
+            exit 1
+          fi
+          antwort=$(curl -sS https://oauth2.googleapis.com/token \
+            -d client_id="$YT_CLIENT_ID" -d client_secret="$YT_CLIENT_SECRET" \
+            --data-urlencode code="$CODE" -d grant_type=authorization_code \
+            -d redirect_uri=http://localhost:8765)
+          refresh=$(echo "$antwort" | jq -r '.refresh_token // empty')
+          zugriff=$(echo "$antwort" | jq -r '.access_token // empty')
+          if [ -z "$refresh" ] || [ -z "$zugriff" ]; then
+            echo "Tausch fehlgeschlagen: $(echo "$antwort" | jq -r '.error // "unbekannt"') - $(echo "$antwort" | jq -r '.error_description // ""')"
+            exit 1
+          fi
+          echo "::add-mask::$refresh"
+          echo "::add-mask::$zugriff"
+
+          # Sicherung gegen den falschen Kanal: erst prüfen, dann speichern.
+          kanal=$(curl -sS -H "Authorization: Bearer $zugriff" \
+            "https://www.googleapis.com/youtube/v3/channels?part=snippet&mine=true" | jq -r '.items[0].id // empty')
+          if [ "$kanal" != "$KANAL" ]; then
+            echo "Angemeldet ist Kanal «$kanal», erwartet «$KANAL». Nichts gespeichert."
+            exit 1
+          fi
+
+          gh secret set YT_REFRESH_TOKEN_MOTORRAD --body "$refresh" --repo "$GITHUB_REPOSITORY"
+          gh secret set YT_CHANNEL_ID_MOTORRAD --body "$KANAL" --repo "$GITHUB_REPOSITORY"
+          echo "Upload-Zugang für Kanal $KANAL gespeichert."
