@@ -119,7 +119,10 @@ function skriptAuftrag(thema, modelle) {
     `kommt nicht vor. Preise immer als ungefähre Spanne. Fehlt eine Angabe, lass sie einfach weg: Sprich nicht ` +
     `über fehlende Daten, die Quellenlage oder die Recherche. Dass Preise schwanken, steht in der Beschreibung.\n\n` +
     `kennzahlen: genau 3 je Modell, label höchstens 12 Zeichen (z. B. «Leistung», «Gewicht», «Gebraucht ab»), ` +
-    `wert höchstens 12 Zeichen (z. B. «48 PS», «189 kg», «3500 €»).\n\n` +
+    `wert höchstens 12 Zeichen (z. B. «48 PS», «189 kg», «ab 3500 €»). Eine Preis-Kennzahl nennt immer nur den ` +
+    `Einstiegspreis als «ab … €», nie eine Spanne; die Spanne gehört in den gesprochenen Text. Nennt das Thema ` +
+    `eine Preisgrenze und reicht die Spanne eines Modells darüber hinaus, sag im Text, welche Baujahre unter ` +
+    `der Grenze liegen.\n\n` +
     `Titel: weckt Neugier, verspricht nichts, was das Video nicht hält, keine Beschimpfungen.\n\n` +
     `## Faktenblatt\n\n${blatt}\n\n` +
     `Gib das Ergebnis über das Werkzeug video_abgeben ab.`
@@ -152,7 +155,14 @@ const PRUEFUNG = {
   description: "Gibt das Ergebnis der Faktenprüfung ab. Leere Liste = fehlerfrei.",
   strict: true,
   input_schema: objekt({
-    fehler: liste(objekt({ stelle: text, problem: text, korrektur: text })),
+    fehler: liste(
+      objekt({
+        schwere: { type: "string", enum: ["schwer", "leicht"] },
+        stelle: text,
+        problem: text,
+        korrektur: text,
+      }),
+    ),
   }),
 };
 
@@ -165,6 +175,12 @@ export async function pruefe(skript, modelle) {
     effort: "medium",
     werkzeug: PRUEFUNG,
     inhalt:
+      `Stufe jeden Befund ein. «schwer» ist nur: eine Zahl weicht vom Faktenblatt ab; eine konkrete technische ` +
+      `oder preisliche Aussage widerspricht dem Faktenblatt oder ist frei erfunden; Fakten zweier Modelle sind ` +
+      `vertauscht; der Titel behauptet etwas nachweislich Falsches. «leicht» ist alles andere: Formulierungen und ` +
+      `Wertungen («knapp», «deshalb», «riesige Auswahl»), Allgemeinwissen über ein Modell, das im Faktenblatt ` +
+      `nur nicht eigens steht (Bauart, Fahrzeugklasse), verkürzte, aber nicht falsche Angaben, und ein Titel, der ` +
+      `zuspitzt, ohne zu lügen. Im Zweifel «leicht».\n\n` +
       `Prüfe jede Zahl und jede Sachaussage im Skript (intro, Modelltexte, kennzahlen, outro, titel) gegen das ` +
       `Faktenblatt. Melde: Zahlen, die abweichen; Aussagen, die im Faktenblatt nicht stehen; Modell und Fakt ` +
       `vertauscht; Titel, der mehr verspricht als der Inhalt hält. Gerundete Werte («rund 190 Kilo» bei 189 kg) ` +

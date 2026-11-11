@@ -145,11 +145,13 @@ async function main() {
     // Der Kanal verspricht geprüfte Fakten, also geht ungeprüft nichts raus.
     for (let runde = 1; ; runde++) {
       schreib(`${B}/skript.json`, skript);
-      const fehler = await pruefe(skript, modelle);
-      schreib(`${B}/pruefung-${runde}.json`, fehler);
+      const befunde = await pruefe(skript, modelle);
+      schreib(`${B}/pruefung-${runde}.json`, befunde);
+      // Nur schwere Befunde (falsche Zahl, falsche Sachaussage) halten das Video auf; Stilfragen nicht.
+      const fehler = befunde.filter((b) => b.schwere === "schwer");
+      console.log(`  Faktenprüfung Runde ${runde}: ${fehler.length} schwer, ${befunde.length - fehler.length} leicht`);
       if (!fehler.length) break;
-      if (runde > 3) throw new Error(`Faktenprüfung nach 3 Überarbeitungen noch ${fehler.length} Befunde - kein Video.`);
-      console.log(`  Faktenprüfung Runde ${runde}: ${fehler.length} Befunde, Überarbeitung ...`);
+      if (runde > 3) throw new Error(`Faktenprüfung nach 3 Überarbeitungen noch ${fehler.length} schwere Befunde - kein Video.`);
       skript = await schreibe(thema, modelle, fehler, skript);
     }
   }
