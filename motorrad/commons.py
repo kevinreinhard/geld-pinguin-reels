@@ -33,7 +33,7 @@ def hole(url, binaer=False):
             if versuch == 2:
                 raise
             print(f"  Commons-Versuch {versuch + 1}: {fehler}", file=sys.stderr)
-            time.sleep(4 * (versuch + 1))
+            time.sleep(20 * (versuch + 1))  # 429: Wikimedia will Abstand, nicht Tempo
 
 
 def lizenzrang(kurz):
@@ -120,7 +120,7 @@ def main():
             continue
         kandidat.update({"datei": datei.replace("\\", "/"), "vorschau": vorschau.replace("\\", "/")})
         ergebnis.append(kandidat)
-        time.sleep(0.5)
+        time.sleep(2)
 
     sys.stdout.reconfigure(encoding="utf-8")
     print(json.dumps(ergebnis, ensure_ascii=False))

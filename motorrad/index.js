@@ -21,6 +21,7 @@ const STIMME = { voice: "de-DE-FlorianMultilingualNeural", rate: "+3%" };
 
 const args = process.argv.slice(2);
 const muster = args.includes("--muster");
+const nurMeta = args.includes("--nur-meta"); // meta.json aus vorhandenem Skript und Plan neu schreiben
 const themaArg = args.includes("--thema") ? args[args.indexOf("--thema") + 1] : "";
 
 const lies = (p) => JSON.parse(fs.readFileSync(p, "utf8"));
@@ -73,14 +74,15 @@ function sprich(text, name) {
 function beschreibung(skript, modelle, bilder) {
   const quellen = [...new Set(modelle.flatMap((m) => m.quellen ?? []))].slice(0, 12);
   const nachweise = [...new Map(bilder.map((b) => [b.titel, b])).values()].map(
-    (b) => `${b.titel} – ${b.autor} – ${b.lizenz} – ${b.seite}`,
+    (b) => `${b.titel} – ${b.autor} – ${b.lizenz}`,
   );
   const teile = [
     skript.beschreibung,
     "Preise sind ungefähre Spannen vom deutschen Gebrauchtmarkt und ändern sich. Zustand und Wartungshistorie zählen mehr als das Modell.",
     "Die Sprecherstimme ist computergeneriert.",
     quellen.length ? "Quellen:\n" + quellen.join("\n") : "",
-    "Bildnachweise (Wikimedia Commons, Bilder zugeschnitten):\n" + nachweise.join("\n"),
+    "Bildnachweise (Dateien auf commons.wikimedia.org unter dem genannten Namen, Bilder zugeschnitten):\n" +
+      nachweise.join("\n"),
   ].filter(Boolean);
   let text = teile.join("\n\n").replace(/[<>]/g, "");
   // YouTube nimmt höchstens 5000 Zeichen. Die Bildnachweise sind Lizenzpflicht und bleiben; gekürzt werden die Quellen.
@@ -92,7 +94,22 @@ function beschreibung(skript, modelle, bilder) {
   return text;
 }
 
+function schreibMeta(thema, skript, modelle, segmente) {
+  schreib(`${B}/meta.json`, {
+    thema,
+    titel: skript.titel,
+    beschreibung: beschreibung(skript, modelle, segmente.flatMap((s) => s.bilder)),
+    tags: (skript.tags ?? []).slice(0, 15),
+    erzeugt: new Date().toISOString(),
+  });
+}
+
 async function main() {
+  if (nurMeta) {
+    schreibMeta(themaArg, lies(`${B}/skript.json`), lies(`${B}/faktenblatt.json`), lies(`${B}/plan.json`).segmente);
+    console.log("meta.json neu geschrieben.");
+    return;
+  }
   for (const d of ["bilder", "ton"]) fs.mkdirSync(path.join(B, d), { recursive: true });
 
   let thema, modelle, skript;
@@ -159,17 +176,11 @@ async function main() {
 
   schreib(`${B}/plan.json`, { segmente, thumbnail: { bild: fotosVon(sieger.name)[0].datei, text: skript.thumbnailText } });
 
+  // Vor dem Schnitt: Scheitert die Beschreibung, soll das nicht erst nach zehn Minuten Rechnen auffallen.
+  schreibMeta(thema, skript, modelle, segmente);
+
   console.log("5/5 Schnitt ...");
   execFileSync("python", ["motorrad/render.py", `${B}/plan.json`], { stdio: "inherit" });
-
-  const alleBilder = segmente.flatMap((s) => s.bilder);
-  schreib(`${B}/meta.json`, {
-    thema,
-    titel: skript.titel,
-    beschreibung: beschreibung(skript, modelle, alleBilder),
-    tags: (skript.tags ?? []).slice(0, 15),
-    erzeugt: new Date().toISOString(),
-  });
   console.log(`Fertig: ${B}/video.mp4 – «${skript.titel}»`);
 }
 

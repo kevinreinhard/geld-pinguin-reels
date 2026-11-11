@@ -52,7 +52,7 @@ const FAKTENBLATT = {
 export async function recherche(thema, anzahl) {
   const ergebnis = await frage({
     system: KANAL,
-    websuche: 14,
+    websuche: 24,
     effort: "medium",
     werkzeug: FAKTENBLATT,
     inhalt:
@@ -62,7 +62,10 @@ export async function recherche(thema, anzahl) {
       `Regeln:\n` +
       `- Jede Zahl (PS, Gewicht, Sitzhöhe, Preis, Baujahre) muss in einer Quelle stehen, die du gefunden hast. ` +
       `Findest du eine Zahl nicht, lass sie weg, statt sie zu schätzen.\n` +
-      `- Gebrauchtpreise als Spanne für den deutschen Markt, mit dem Hinweis «Stand ${new Date().getFullYear()}».\n` +
+      `- Gebrauchtpreise: Suche gezielt danach (Gebrauchtberatungen von motorradonline.de und 1000ps.de, ` +
+      `Preisübersichten von Inserateportalen) und gib eine Spanne für den deutschen Markt an, mit dem Hinweis ` +
+      `«Stand ${new Date().getFullYear()}». Nennt das Thema eine Preisgrenze, gehört ein Modell ohne belegte ` +
+      `Preisspanne nicht in die Liste: Nimm dann ein anderes.\n` +
       `- Nenne zu jedem Modell mindestens eine echte Schwachstelle.\n` +
       `- Quellen als vollständige Adressen.\n\n` +
       `Gib das Ergebnis über das Werkzeug faktenblatt_abgeben ab.`,
@@ -112,7 +115,8 @@ function skriptAuftrag(thema, modelle) {
     `worauf beim Gebrauchtkauf zu achten ist. Beginne jeden Modelltext mit «Platz N» und dem Namen.\n` +
     `- outro: kurzes Fazit und eine Frage an die Zuschauer für die Kommentare\n\n` +
     `Fakten: Verwende ausschliesslich Zahlen und Aussagen aus dem Faktenblatt unten. Was dort nicht steht, ` +
-    `kommt nicht vor. Preise immer als ungefähre Spanne.\n\n` +
+    `kommt nicht vor. Preise immer als ungefähre Spanne. Fehlt eine Angabe, lass sie einfach weg: Sprich nicht ` +
+    `über fehlende Daten, die Quellenlage oder die Recherche. Dass Preise schwanken, steht in der Beschreibung.\n\n` +
     `kennzahlen: genau 3 je Modell, label höchstens 12 Zeichen (z. B. «Leistung», «Gewicht», «Gebraucht ab»), ` +
     `wert höchstens 12 Zeichen (z. B. «48 PS», «189 kg», «3500 €»).\n\n` +
     `Titel: weckt Neugier, verspricht nichts, was das Video nicht hält, keine Beschimpfungen.\n\n` +
@@ -192,7 +196,8 @@ export async function waehleBilder(name, vorschauen) {
       `Brauchbar ist ein Bild nur, wenn es ein echtes Foto ist, das Motorrad das Hauptmotiv ist, es erkennbar ` +
       `dieses Modell (oder eine direkte Variante davon) zeigt, und es scharf und ordentlich belichtet ist.\n` +
       `Unbrauchbar: andere Modelle, Detailaufnahmen ohne erkennbares Motorrad, Zeichnungen, Logos, Unfälle, ` +
-      `Menschen als Hauptmotiv, erkennbare Gesichter in Nahaufnahme, politische oder historische Symbole, ` +
+      `Menschen als Hauptmotiv, erkennbare Gesichter in Nahaufnahme, Polizei- und Behördenfahrzeuge, ` +
+      `politische oder historische Symbole, ` +
       `starke Wasserzeichen.\n` +
       `Sortiere die brauchbaren von der besten zur schwächsten Aufnahme; an erster Stelle möglichst eine ` +
       `Seitenansicht des ganzen Motorrads. Bist du beim Modell unsicher, lass das Bild weg.\n` +

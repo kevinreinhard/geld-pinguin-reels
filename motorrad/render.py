@@ -176,7 +176,7 @@ def einstellung(foto, karte, bilder, ziel, hinein):
         f"[bg][1:v]overlay=0:0:format=auto,format=yuv420p[v]"
     )
     ffmpeg("-i", foto, "-i", karte, "-filter_complex", filter_, "-map", "[v]", "-frames:v", str(bilder),
-           "-c:v", "libx264", "-preset", "veryfast", "-crf", "20", "-r", str(FPS), ziel)
+           "-c:v", "libx264", "-preset", "veryfast", "-crf", "23", "-r", str(FPS), ziel)
 
 
 def vorschaubild(plan, ordner):
