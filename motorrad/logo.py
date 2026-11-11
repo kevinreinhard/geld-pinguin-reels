@@ -64,7 +64,7 @@ def zeichnen():
     kreis(z, 30 * e, fill=DUNKEL)
     kreis(z, 14 * e, fill=WEISS)
 
-    return bild.resize((ZIEL, ZIEL), Image.LANCZOS)
+    return bild.resize((ZIEL, ZIEL), Image.Resampling.LANCZOS)
 
 
 if __name__ == "__main__":
@@ -81,7 +81,7 @@ if __name__ == "__main__":
     probe = Image.new("RGB", (560, 240), (255, 255, 255))
     x = 20
     for g in (176, 88, 48, 32):
-        probe.paste(rund.resize((g, g), Image.LANCZOS), (x, (240 - g) // 2))
+        probe.paste(rund.resize((g, g), Image.Resampling.LANCZOS), (x, (240 - g) // 2))
         x += g + 30
     probe.save(os.path.join(os.path.dirname(pfad), "logo-probe.png"))
     print(pfad)
