@@ -21,6 +21,8 @@ const STIMME = { voice: "de-DE-FlorianMultilingualNeural", rate: "+3%" };
 
 const args = process.argv.slice(2);
 const muster = args.includes("--muster");
+// Recherche eines frueheren Laufs wiederverwenden (spart Websuche und Zeit, wenn nur ein spaeterer Schritt scheiterte)
+const blattArg = args.includes("--faktenblatt") ? args[args.indexOf("--faktenblatt") + 1] : "";
 const nurMeta = args.includes("--nur-meta"); // meta.json aus vorhandenem Skript und Plan neu schreiben
 const themaArg = args.includes("--thema") ? args[args.indexOf("--thema") + 1] : "";
 
@@ -123,7 +125,8 @@ async function main() {
     const { recherche, schreibe, pruefe } = await import("./skript.js");
     thema = naechstesThema();
     console.log(`Thema: ${thema}\n1/5 Recherche ...`);
-    const kandidaten = await recherche(thema, KANDIDATEN);
+    const kandidaten = blattArg ? lies(blattArg) : await recherche(thema, KANDIDATEN);
+    for (const k of kandidaten) delete k.bilder;
     schreib(`${B}/faktenblatt.json`, kandidaten);
 
     console.log("2/5 Bilder ...");
@@ -138,14 +141,16 @@ async function main() {
 
     console.log(`3/5 Skript für ${modelle.length} Modelle ...`);
     skript = await schreibe(thema, modelle);
-    const fehler = await pruefe(skript, modelle);
-    schreib(`${B}/pruefung.json`, fehler);
-    if (fehler.length) {
-      console.log(`  Faktenprüfung: ${fehler.length} Befunde, Überarbeitung ...`);
+    // Bis zu drei Überarbeitungen. Bleibt danach ein Befund, gibt es kein Video:
+    // Der Kanal verspricht geprüfte Fakten, also geht ungeprüft nichts raus.
+    for (let runde = 1; ; runde++) {
+      schreib(`${B}/skript.json`, skript);
+      const fehler = await pruefe(skript, modelle);
+      schreib(`${B}/pruefung-${runde}.json`, fehler);
+      if (!fehler.length) break;
+      if (runde > 3) throw new Error(`Faktenprüfung nach 3 Überarbeitungen noch ${fehler.length} Befunde - kein Video.`);
+      console.log(`  Faktenprüfung Runde ${runde}: ${fehler.length} Befunde, Überarbeitung ...`);
       skript = await schreibe(thema, modelle, fehler, skript);
-      const rest = await pruefe(skript, modelle);
-      schreib(`${B}/pruefung-2.json`, rest);
-      if (rest.length) throw new Error(`Faktenprüfung nach Überarbeitung noch ${rest.length} Befunde - kein Video.`);
     }
   }
   schreib(`${B}/skript.json`, skript);

@@ -13,9 +13,14 @@ on:
         description: "Thema (leer = nächstes aus motorrad/themen.json)"
         type: string
         default: ""
+      faktenblatt_aus_lauf:
+        description: "Recherche eines frueheren Laufs wiederverwenden (Lauf-ID, leer = neu recherchieren)"
+        type: string
+        default: ""
 
 permissions:
   contents: read
+  actions: read
 
 concurrency:
   group: motorrad-video
@@ -55,14 +60,21 @@ jobs:
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           THEMA: ${{ inputs.thema }}
+          VORLAUF: ${{ inputs.faktenblatt_aus_lauf }}
+          GH_TOKEN: ${{ github.token }}
         run: |
           set -euo pipefail
+          blatt=""
+          if [ -n "$VORLAUF" ]; then
+            gh run download "$VORLAUF" -D vorlauf
+            blatt="--faktenblatt $(find vorlauf -name faktenblatt.json | head -1)"
+          fi
           if [ "${{ inputs.muster }}" = "true" ]; then
             node motorrad/index.js --muster
           elif [ -n "$THEMA" ]; then
-            node motorrad/index.js --thema "$THEMA"
+            node motorrad/index.js --thema "$THEMA" $blatt
           else
-            node motorrad/index.js
+            node motorrad/index.js $blatt
           fi
 
       - name: Ergebnis sichern
