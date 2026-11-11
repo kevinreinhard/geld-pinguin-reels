@@ -1,0 +1,37 @@
+{
+  "thema": "Schnittprobe mit zwei Modellen",
+  "modelle": [
+    { "name": "Honda CB500F", "suchbegriffe": ["Honda CB500F", "Honda CB 500 F"], "quellen": [] },
+    { "name": "Yamaha MT-07", "suchbegriffe": ["Yamaha MT-07", "Yamaha MT07"], "quellen": [] }
+  ],
+  "skript": {
+    "titel": "Schnittprobe: zwei Motorräder im Kurzvergleich",
+    "thumbnailText": "NUR EINE PROBE",
+    "beschreibung": "Technische Probe der Schnittstrecke. Wird nicht veröffentlicht.",
+    "tags": ["probe"],
+    "intro": "Das ist eine technische Probe. Sie zeigt, ob Bild, Ton und Einblendungen zusammenpassen. Zwei Motorräder, zwei kurze Abschnitte, dann ist Schluss.",
+    "modelle": [
+      {
+        "rang": 2,
+        "name": "Yamaha MT-07",
+        "kennzahlen": [
+          { "label": "Abschnitt", "wert": "Probe" },
+          { "label": "Zweck", "wert": "Schnitt" },
+          { "label": "Zahlen", "wert": "keine" }
+        ],
+        "text": "Platz zwei in dieser Probe: die Yamaha MT-07. In diesem Abschnitt stehen absichtlich keine Fakten. Geprüft wird nur, ob die Titelkarte lesbar ist, ob die drei Kästen unten sauber sitzen und ob die Bauchbinde danach erscheint. Der Abschnitt ist lang genug für drei Einstellungen."
+      },
+      {
+        "rang": 1,
+        "name": "Honda CB500F",
+        "kennzahlen": [
+          { "label": "Abschnitt", "wert": "Probe" },
+          { "label": "Gebraucht ab", "wert": "0000 €" },
+          { "label": "Sehr langes Label", "wert": "Langer Wert 12" }
+        ],
+        "text": "Platz eins in dieser Probe: die Honda CB500F. Auch hier stehen keine Fakten. Der zweite Abschnitt prüft lange Texte in den Kästen und den Übergang zum Schluss. Danach folgt die Frage an die Zuschauer."
+      }
+    ],
+    "outro": "Das war die Probe. Wenn Bild und Ton bis hierher zusammenpassen, läuft der Schnitt."
+  }
+}

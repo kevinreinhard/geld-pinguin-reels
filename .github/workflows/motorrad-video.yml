@@ -1,0 +1,83 @@
+name: Motorrad Kompass - Video erzeugen
+
+# Baut ein Ranglisten-Video für den Kanal Motorrad Kompass und legt es als
+# Artefakt ab. Hochgeladen wird hier noch nichts.
+on:
+  workflow_dispatch:
+    inputs:
+      muster:
+        description: "Nur Schnittprobe mit festem Musterskript (kein Modellaufruf, keine Kosten)"
+        type: boolean
+        default: false
+      thema:
+        description: "Thema (leer = nächstes aus motorrad/themen.json)"
+        type: string
+        default: ""
+
+permissions:
+  contents: read
+
+concurrency:
+  group: motorrad-video
+  cancel-in-progress: false
+
+jobs:
+  video:
+    runs-on: ubuntu-latest
+    timeout-minutes: 75
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: ffmpeg und Schriften installieren
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg fonts-dejavu-core
+          mkdir -p assets/fonts
+          curl -fsSL --retry 2 -o assets/fonts/Anton-Regular.ttf \
+            https://raw.githubusercontent.com/google/fonts/main/ofl/anton/Anton-Regular.ttf \
+            || echo "Anton konnte nicht geladen werden - es wird DejaVu Sans verwendet."
+
+      - name: Abhaengigkeiten
+        run: |
+          npm ci --omit=optional
+          pip install --quiet -r requirements.txt
+
+      - name: Video bauen
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          THEMA: ${{ inputs.thema }}
+        run: |
+          set -euo pipefail
+          if [ "${{ inputs.muster }}" = "true" ]; then
+            node motorrad/index.js --muster
+          elif [ -n "$THEMA" ]; then
+            node motorrad/index.js --thema "$THEMA"
+          else
+            node motorrad/index.js
+          fi
+
+      - name: Ergebnis sichern
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: motorrad-${{ github.run_number }}
+          path: |
+            build/motorrad/video.mp4
+            build/motorrad/thumbnail.jpg
+            build/motorrad/meta.json
+            build/motorrad/skript.json
+            build/motorrad/faktenblatt.json
+            build/motorrad/pruefung*.json
+            build/motorrad/plan.json
+            build/motorrad/kontrolle/
+          retention-days: 14
+          if-no-files-found: ignore
