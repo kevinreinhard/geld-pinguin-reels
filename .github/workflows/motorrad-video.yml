@@ -1,8 +1,12 @@
 name: Motorrad Kompass - Video erzeugen
 
 # Baut ein Ranglisten-Video für den Kanal Motorrad Kompass und legt es als
-# Artefakt ab. Hochgeladen wird hier noch nichts.
+# Artefakt ab. Nach Zeitplan (Dienstag und Freitag) wird es danach gleich
+# oeffentlich hochgeladen; von Hand gestartete Laeufe laden nichts hoch
+# (dafuer motorrad-upload.yml).
 on:
+  schedule:
+    - cron: "17 15 * * 2,5" # Di und Fr 16:17 MEZ
   workflow_dispatch:
     inputs:
       muster:
@@ -44,8 +48,12 @@ jobs:
 
       - name: ffmpeg und Schriften installieren
         run: |
-          sudo apt-get update -qq
-          sudo apt-get install -y -qq ffmpeg fonts-dejavu-core
+          # Am 11.11. scheiterte ein Lauf an einer Netzstoerung beim Paketabruf.
+          for i in 1 2 3; do
+            sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg fonts-dejavu-core && break
+            [ "$i" = 3 ] && exit 1
+            sleep 60
+          done
           mkdir -p assets/fonts
           curl -fsSL --retry 2 -o assets/fonts/Anton-Regular.ttf \
             https://raw.githubusercontent.com/google/fonts/main/ofl/anton/Anton-Regular.ttf \
@@ -93,3 +101,49 @@ jobs:
             build/motorrad/kontrolle/
           retention-days: 14
           if-no-files-found: ignore
+
+  upload:
+    if: github.event_name == 'schedule'
+    needs: video
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - uses: actions/download-artifact@v4
+        with:
+          name: motorrad-${{ github.run_number }}
+          path: fertig
+
+      - name: Hochladen
+        env:
+          YT_CLIENT_ID: ${{ secrets.YT_CLIENT_ID_MOTORRAD }}
+          YT_CLIENT_SECRET: ${{ secrets.YT_CLIENT_SECRET_MOTORRAD }}
+          YT_REFRESH_TOKEN: ${{ secrets.YT_REFRESH_TOKEN_MOTORRAD }}
+          YT_CHANNEL_ID: ${{ secrets.YT_CHANNEL_ID_MOTORRAD }}
+        run: |
+          set -euo pipefail
+          test -f fertig/video.mp4 && test -f fertig/meta.json
+          node motorrad/hochladen.js fertig public
+
+      - name: Historie zurueckschreiben
+        run: |
+          set -euo pipefail
+          datei=data/motorrad-historie.json
+          [ -f "$datei" ] || echo "[]" > "$datei"
+          jq --slurpfile neu fertig/upload.json '. + $neu' "$datei" > "$datei.neu" && mv "$datei.neu" "$datei"
+          git config user.name "motorrad-kompass-bot"
+          git config user.email "bot@users.noreply.github.com"
+          git add "$datei"
+          git commit -m "Motorrad Kompass: Video hochgeladen [skip ci]"
+          for i in 1 2 3; do
+            git pull --rebase --autostash origin "${GITHUB_REF_NAME}" && git push && exit 0
+            sleep 5
+          done
+          exit 1
