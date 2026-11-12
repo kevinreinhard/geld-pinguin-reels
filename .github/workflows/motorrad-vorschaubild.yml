@@ -1,0 +1,78 @@
+name: Motorrad Kompass - Vorschaubild setzen
+
+# Setzt das Vorschaubild eines schon hochgeladenen Videos nach (thumbnail.jpg
+# aus dem Artefakt des Erzeuger-Laufs). Nötig, wenn der Upload es nicht setzen
+# konnte, z. B. weil der Kanal noch nicht per Telefon bestätigt war.
+on:
+  workflow_dispatch:
+    inputs:
+      lauf:
+        description: "Lauf-ID des erzeugten Videos"
+        type: string
+        required: true
+      video:
+        description: "YouTube-Video-ID"
+        type: string
+        required: true
+
+permissions:
+  contents: write
+  actions: read
+
+jobs:
+  vorschaubild:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Bild holen
+        env:
+          GH_TOKEN: ${{ github.token }}
+          LAUF: ${{ inputs.lauf }}
+        run: |
+          set -euo pipefail
+          gh run download "$LAUF" -D vorlauf
+          bild=$(find vorlauf -name thumbnail.jpg | head -1)
+          test -f "$bild"
+          echo "BILD=$bild" >> "$GITHUB_ENV"
+
+      - name: Vorschaubild setzen
+        env:
+          YT_CLIENT_ID: ${{ secrets.YT_CLIENT_ID_MOTORRAD }}
+          YT_CLIENT_SECRET: ${{ secrets.YT_CLIENT_SECRET_MOTORRAD }}
+          YT_REFRESH_TOKEN: ${{ secrets.YT_REFRESH_TOKEN_MOTORRAD }}
+          KANAL: ${{ secrets.YT_CHANNEL_ID_MOTORRAD }}
+          VIDEO: ${{ inputs.video }}
+        run: |
+          set -euo pipefail
+          token=$(curl -sS https://oauth2.googleapis.com/token \
+            -d client_id="$YT_CLIENT_ID" -d client_secret="$YT_CLIENT_SECRET" \
+            -d refresh_token="$YT_REFRESH_TOKEN" -d grant_type=refresh_token | jq -r '.access_token // empty')
+          [ -n "$token" ] || { echo "Google-Token abgelehnt (Zugang abgelaufen?)."; exit 1; }
+          echo "::add-mask::$token"
+
+          # Nur Videos des eigenen Kanals anfassen.
+          vorher=$(curl -sS -H "Authorization: Bearer $token" \
+            "https://www.googleapis.com/youtube/v3/videos?part=snippet&id=$VIDEO")
+          [ "$(echo "$vorher" | jq -r '.items[0].snippet.channelId // empty')" = "$KANAL" ] \
+            || { echo "Video $VIDEO gehört nicht zum Kanal. Nichts geändert."; exit 1; }
+
+          antwort=$(curl -sS -X POST -H "Authorization: Bearer $token" -H "Content-Type: image/jpeg" \
+            --data-binary "@$BILD" \
+            "https://www.googleapis.com/upload/youtube/v3/thumbnails/set?videoId=$VIDEO&uploadType=media")
+          echo "$antwort" | jq -e '.items[0]' >/dev/null \
+            || { echo "Abgelehnt: $(echo "$antwort" | jq -r '.error.message // "unbekannt"')"; exit 1; }
+          echo "Vorschaubild für $VIDEO gesetzt."
+
+      - name: Historie nachführen
+        run: |
+          set -euo pipefail
+          datei=data/motorrad-historie.json
+          jq --arg id "${{ inputs.video }}" 'map(if .youtubeId == $id then .vorschaubild = "gesetzt" else . end)' "$datei" > "$datei.neu" && mv "$datei.neu" "$datei"
+          git diff --quiet -- "$datei" && exit 0
+          git config user.name "motorrad-kompass-bot"
+          git config user.email "bot@users.noreply.github.com"
+          git add "$datei"
+          git commit -m "Motorrad Kompass: Vorschaubild nachgesetzt [skip ci]"
+          git pull --rebase --autostash origin "${GITHUB_REF_NAME}" && git push
