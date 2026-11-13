@@ -229,3 +229,110 @@ export async function waehleBilder(name, vorschauen) {
   });
   return (ergebnis.gut ?? []).filter((n) => Number.isInteger(n) && n >= 0 && n < vorschauen.length);
 }
+
+// ---------------------------------------------------------------- Shorts
+
+const SHORTBLATT = {
+  name: "shorts_abgeben",
+  description: "Gibt die recherchierten Modelle für Kurzvideos ab.",
+  strict: true,
+  input_schema: objekt({
+    modelle: liste(
+      objekt({
+        name: { type: "string", description: "Marke und Modell, z. B. «Honda CB500F»" },
+        winkel: {
+          type: "string",
+          description: "Worum es im Kurzvideo geht, 3-6 Wörter, z. B. «Schwachstellen beim Gebrauchtkauf»",
+        },
+        suchbegriffe: {
+          ...liste(text),
+          description: "2-3 Suchbegriffe für Fotos auf Wikimedia Commons, verschiedene Schreibweisen",
+        },
+        fakten: {
+          type: "string",
+          description:
+            "Stichpunkte: Bauzeit, Motor, Leistung in PS, Gewicht fahrfertig, Sitzhöhe, typischer " +
+            "Gebrauchtpreis in Deutschland, bekannte Schwachstellen, für wen das Modell passt",
+        },
+        quellen: liste(text),
+      }),
+    ),
+  }),
+};
+
+/** Sucht Modelle für die Shorts des Tages. `erledigt` = bisherige Shorts als «Modell – Winkel», neueste zuletzt. */
+export async function rechercheShorts(anzahl, erledigt) {
+  const ergebnis = await frage({
+    system: KANAL,
+    websuche: 14,
+    effort: "medium",
+    werkzeug: SHORTBLATT,
+    inhalt:
+      `Der Kanal bringt täglich Kurzvideos (Shorts, rund 40 Sekunden) über je ein Motorradmodell. ` +
+      `Recherchiere mit der Websuche ${anzahl} Modelle für die nächsten Shorts.\n\n` +
+      `Auswahl:\n` +
+      `- Modelle, die in Deutschland oft gebraucht gehandelt werden und von denen es viele Fotos gibt. ` +
+      `Mische Marken und Klassen (Naked, Reiseenduro, Tourer, Sportler, Cruiser, Roller, 125er).\n` +
+      `- Gib jedem Modell einen eigenen Winkel, zum Beispiel: Schwachstellen beim Gebrauchtkauf; für wen sie passt; ` +
+      `was sie im Unterhalt kostet; warum sie so beliebt ist; welches Baujahr man nehmen sollte. ` +
+      `Nimm den Winkel, zu dem du die besten Belege findest, und wechsle zwischen den Modellen ab.\n` +
+      `- Keines der letzten 60 Modelle der Liste unten wiederholen. Ältere Modelle dürfen wiederkommen, ` +
+      `aber nur mit einem anderen Winkel.\n\n` +
+      `Regeln:\n` +
+      `- Jede Zahl (PS, Gewicht, Sitzhöhe, Preis, Baujahre) muss in einer Quelle stehen, die du gefunden hast. ` +
+      `Findest du eine Zahl nicht, lass sie weg, statt sie zu schätzen.\n` +
+      `- Gebrauchtpreise als Spanne für den deutschen Markt, «Stand ${new Date().getFullYear()}».\n` +
+      `- Nenne zu jedem Modell mindestens eine echte Schwachstelle.\n` +
+      `- Quellen als vollständige Adressen.\n\n` +
+      `## Bisherige Shorts (älteste zuerst)\n\n${erledigt.length ? erledigt.join("\n") : "noch keine"}\n\n` +
+      `Gib das Ergebnis über das Werkzeug shorts_abgeben ab.`,
+  });
+  if (!ergebnis.modelle?.length) throw new Error("Recherche lieferte keine Modelle.");
+  return ergebnis.modelle;
+}
+
+const SHORT = {
+  name: "short_abgeben",
+  description: "Gibt das fertige Skript für ein Kurzvideo ab.",
+  strict: true,
+  input_schema: objekt({
+    titel: { type: "string", description: "YouTube-Titel, höchstens 60 Zeichen, nennt das Modell" },
+    hook: { type: "string", description: "Zeile unter dem Modellnamen im Bild, höchstens 36 Zeichen" },
+    beschreibung: { type: "string", description: "1-2 Sätze für die Videobeschreibung" },
+    tags: liste(text),
+    kennzahlen: liste(objekt({ label: text, wert: text })),
+    text: { type: "string", description: "Gesprochener Text, 90-115 Wörter" },
+  }),
+};
+
+export async function schreibeShort(modell, korrekturen = null, vorher = null) {
+  let inhalt =
+    `Schreibe das Skript für ein Kurzvideo (YouTube Short, hochkant, rund 40 Sekunden) über das Modell ` +
+    `«${modell.name}». Winkel: ${modell.winkel}.\n\n` +
+    `Der Text wird von einer Computerstimme gesprochen und nicht gelesen:\n` +
+    `- 90 bis 115 Wörter, kurze Sätze, keine Klammern, keine Aufzählungszeichen, keine Abkürzungen ausser PS und Kilo\n` +
+    `- Zahlen so schreiben, wie man sie spricht («48 PS», «rund 3500 Euro»)\n` +
+    `- Der erste Satz nennt das Modell und macht neugierig auf den Winkel, ohne Begrüssung und ohne «in diesem Video»\n` +
+    `- danach zwei bis drei konkrete Punkte zum Winkel, darunter eine echte Schwachstelle\n` +
+    `- letzter Satz: ein klares Fazit oder eine kurze Frage an die Zuschauer\n\n` +
+    `Fakten: Verwende ausschliesslich Zahlen und Aussagen aus dem Faktenblatt unten. Was dort nicht steht, ` +
+    `kommt nicht vor. Preise immer als ungefähre Spanne. Fehlt eine Angabe, lass sie einfach weg.\n\n` +
+    `kennzahlen: genau 3, label höchstens 12 Zeichen (z. B. «Leistung», «Gewicht», «Gebraucht ab»), wert ` +
+    `höchstens 10 Zeichen (z. B. «48 PS», «189 kg», «ab 3500 €»). Eine Preis-Kennzahl nennt nur den Einstiegspreis.\n\n` +
+    `Titel: weckt Neugier, verspricht nichts, was das Video nicht hält, keine Beschimpfungen, keine Hashtags.\n\n` +
+    `## Faktenblatt\n\n### ${modell.name}\n${modell.fakten}\n\n` +
+    `Gib das Ergebnis über das Werkzeug short_abgeben ab.`;
+  if (korrekturen) {
+    inhalt +=
+      `\n\n## Überarbeitung\n\nDein erster Entwurf:\n${JSON.stringify(vorher)}\n\n` +
+      `Die Faktenprüfung hat diese Fehler gefunden. Behebe jeden, ändere sonst nichts:\n` +
+      korrekturen.map((k) => `- ${k.stelle}: ${k.problem} -> ${k.korrektur}`).join("\n");
+  }
+  const s = await frage({ system: KANAL, effort: "medium", maxTokens: 12000, werkzeug: SHORT, inhalt });
+  const woerter = s.text.trim().split(/\s+/).length;
+  if (woerter < 60 || woerter > 150) throw new Error(`Short-Text hat ${woerter} Wörter statt 90-115.`);
+  if (s.kennzahlen.length !== 3) throw new Error(`Short hat ${s.kennzahlen.length} Kennzahlen statt 3.`);
+  s.titel = s.titel.replace(/[<>#]/g, "").trim().slice(0, 90);
+  s.hook = s.hook.replace(/[<>]/g, "").trim();
+  return s;
+}

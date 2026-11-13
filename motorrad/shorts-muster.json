@@ -1,0 +1,32 @@
+[
+  {
+    "modell": { "name": "Honda CB500F", "winkel": "Schnittprobe", "suchbegriffe": ["Honda CB500F", "Honda CB 500 F"], "quellen": [] },
+    "skript": {
+      "titel": "Schnittprobe Short: Honda CB500F",
+      "hook": "Nur eine technische Probe",
+      "beschreibung": "Technische Probe der Shorts-Strecke. Wird nicht veröffentlicht.",
+      "tags": ["probe"],
+      "kennzahlen": [
+        { "label": "Abschnitt", "wert": "Probe" },
+        { "label": "Gebraucht ab", "wert": "ab 0000 €" },
+        { "label": "Sehr langes L", "wert": "Langer Wert" }
+      ],
+      "text": "Das ist eine technische Probe für die Honda CB500F. Sie zeigt, ob Bild, Ton und Untertitel zusammenpassen. In diesem Text stehen absichtlich keine Fakten. Geprüft wird, ob der Modellname oben lesbar ist, ob die drei Kästen sauber unter dem Foto sitzen und ob die Untertitel im Takt der Stimme laufen. Auch lange Wörter wie Gebrauchtmotorradkaufberatung müssen in die Zeile passen. Wenn alles stimmt, läuft der Schnitt."
+    }
+  },
+  {
+    "modell": { "name": "Yamaha MT-07", "winkel": "Schnittprobe", "suchbegriffe": ["Yamaha MT-07", "Yamaha MT07"], "quellen": [] },
+    "skript": {
+      "titel": "Schnittprobe Short: Yamaha MT-07",
+      "hook": "Zweite Probe mit einer längeren Zeile",
+      "beschreibung": "Technische Probe der Shorts-Strecke. Wird nicht veröffentlicht.",
+      "tags": ["probe"],
+      "kennzahlen": [
+        { "label": "Leistung", "wert": "00 PS" },
+        { "label": "Gewicht", "wert": "000 kg" },
+        { "label": "Zweck", "wert": "Schnitt" }
+      ],
+      "text": "Zweite Probe mit der Yamaha MT-07. Auch hier stehen keine Fakten. Dieser Durchgang prüft, ob ein zweites Short im selben Lauf sauber in einem eigenen Ordner landet und die Fotos des ersten nicht übernimmt. Danach ist Schluss."
+    }
+  }
+]

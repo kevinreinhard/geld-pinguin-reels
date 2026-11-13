@@ -1,7 +1,10 @@
 /**
  * Lädt ein fertiges Video auf den Kanal Motorrad Kompass.
  *
- *   node motorrad/hochladen.js <Ordner mit video.mp4, thumbnail.jpg, meta.json> [private|unlisted|public]
+ *   node motorrad/hochladen.js <Ordner mit video.mp4, thumbnail.jpg, meta.json> [private|unlisted|public] [Zeitpunkt]
+ *
+ * Mit Zeitpunkt (ISO, z. B. 2026-11-14T11:00:00Z) bleibt das Video bis dahin privat und wird dann
+ * von YouTube selbst veroeffentlicht. Ohne thumbnail.jpg (Shorts) bleibt das Vorschaubild weg.
  *
  * Braucht YT_CLIENT_ID, YT_CLIENT_SECRET, YT_REFRESH_TOKEN und YT_CHANNEL_ID
  * (im Workflow aus den *_MOTORRAD-Secrets). Vor dem Upload wird der Zielkanal
@@ -13,6 +16,7 @@ import path from "node:path";
 
 const ordner = process.argv[2];
 const sichtbarkeit = process.argv[3] || "private";
+const geplant = process.argv[4] || "";
 if (!ordner || !["private", "unlisted", "public"].includes(sichtbarkeit)) {
   console.error("Aufruf: node motorrad/hochladen.js <Ordner> [private|unlisted|public]");
   process.exit(1);
@@ -57,7 +61,7 @@ async function main() {
   if (ziel?.id !== process.env.YT_CHANNEL_ID) {
     throw new Error(`Token hängt an Kanal «${ziel?.snippet?.title}» (${ziel?.id}), erwartet ${process.env.YT_CHANNEL_ID}. Kein Upload.`);
   }
-  console.log(`Zielkanal: ${ziel.snippet.title} – ${(video.length / 1e6).toFixed(0)} MB, Sichtbarkeit ${sichtbarkeit}`);
+  console.log(`Zielkanal: ${ziel.snippet.title} – ${(video.length / 1e6).toFixed(0)} MB, Sichtbarkeit ${geplant ? "geplant auf " + geplant : sichtbarkeit}`);
 
   // Zweistufig (resumable): erst die Angaben, dann die Datei an die zurückgegebene Adresse.
   const start = await fetch(
@@ -79,7 +83,11 @@ async function main() {
           defaultLanguage: "de",
           defaultAudioLanguage: "de",
         },
-        status: { privacyStatus: sichtbarkeit, selfDeclaredMadeForKids: false, embeddable: true },
+        status: {
+          ...(geplant ? { privacyStatus: "private", publishAt: geplant } : { privacyStatus: sichtbarkeit }),
+          selfDeclaredMadeForKids: false,
+          embeddable: true,
+        },
       }),
     },
   );
@@ -112,7 +120,7 @@ async function main() {
   fs.writeFileSync(
     path.join(ordner, "upload.json"),
     JSON.stringify(
-      { thema: meta.thema, titel: meta.titel, youtubeId: fertig.id, sichtbarkeit: fertig.status?.privacyStatus, vorschaubild, zeit: new Date().toISOString() },
+      { thema: meta.thema, titel: meta.titel, youtubeId: fertig.id, sichtbarkeit: fertig.status?.privacyStatus, geplant: fertig.status?.publishAt, vorschaubild, zeit: new Date().toISOString() },
       null,
       1,
     ),

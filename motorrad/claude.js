@@ -12,6 +12,9 @@ const client = new Anthropic({ maxRetries: 4 });
 
 export const MODELL = "claude-opus-5-5";
 
+/** Summe über alle Aufrufe eines Laufs, damit die Kosten im Protokoll nachzurechnen sind. */
+export const verbrauch = { aufrufe: 0, eingabe: 0, ausgabe: 0, suchen: 0 };
+
 export async function frage({ system, inhalt, werkzeug, websuche = 0, effort = "medium", maxTokens = 32000 }) {
   const tools = [werkzeug];
   if (websuche) tools.push({ type: "web_search_20260209", name: "web_search", max_uses: websuche });
@@ -33,6 +36,11 @@ export async function frage({ system, inhalt, werkzeug, websuche = 0, effort = "
         messages,
       })
       .finalMessage();
+
+    verbrauch.aufrufe++;
+    verbrauch.eingabe += antwort.usage?.input_tokens ?? 0;
+    verbrauch.ausgabe += antwort.usage?.output_tokens ?? 0;
+    verbrauch.suchen += antwort.usage?.server_tool_use?.web_search_requests ?? 0;
 
     if (antwort.stop_reason === "refusal") {
       throw new Error(`Modell hat abgelehnt (${antwort.stop_details?.category ?? "unbekannt"}).`);

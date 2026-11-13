@@ -1,0 +1,150 @@
+name: Motorrad Kompass - Shorts
+
+# Baut jeden Morgen bis zu drei Shorts (je ein Modell, rund 40 Sekunden) und
+# laedt sie hoch. YouTube veroeffentlicht sie selbst zu den Zeiten in SLOTS
+# (deutsche Zeit), damit sie ueber den Tag verteilt erscheinen.
+# Von Hand gestartete Laeufe laden nur mit hochladen=true hoch.
+on:
+  # schedule:
+  #   - cron: "23 3 * * *" # taeglich 04:23 MEZ
+  workflow_dispatch:
+    inputs:
+      muster:
+        description: "Nur Schnittprobe mit festem Musterskript (kein Modellaufruf, keine Kosten)"
+        type: boolean
+        default: false
+      anzahl:
+        description: "Anzahl Shorts"
+        type: string
+        default: "3"
+      hochladen:
+        description: "Nach dem Bau hochladen und zu den Tageszeiten veroeffentlichen"
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+concurrency:
+  group: motorrad-shorts
+  cancel-in-progress: false
+
+env:
+  SLOTS: "06:30 12:00 17:30"
+
+jobs:
+  shorts:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: ffmpeg und Schriften installieren
+        run: |
+          for i in 1 2 3; do
+            sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg fonts-dejavu-core && break
+            [ "$i" = 3 ] && exit 1
+            sleep 60
+          done
+
+      - name: Abhaengigkeiten
+        run: |
+          npm ci --omit=optional
+          pip install --quiet -r requirements.txt
+
+      - name: Shorts bauen
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          ANZAHL: ${{ inputs.anzahl || '3' }}
+        run: |
+          set -euo pipefail
+          if [ "${{ inputs.muster }}" = "true" ]; then
+            node motorrad/shorts.js --muster
+          else
+            node motorrad/shorts.js --anzahl "$ANZAHL"
+          fi
+
+      - name: Ergebnis sichern
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: motorrad-shorts-${{ github.run_number }}
+          path: |
+            build/motorrad-shorts/faktenblatt.json
+            build/motorrad-shorts/*/video.mp4
+            build/motorrad-shorts/*/meta.json
+            build/motorrad-shorts/*/skript.json
+            build/motorrad-shorts/*/pruefung*.json
+            build/motorrad-shorts/*/kontrolle/
+          retention-days: 7
+          if-no-files-found: ignore
+
+  upload:
+    if: github.event_name == 'schedule' || (inputs.hochladen && !inputs.muster)
+    needs: shorts
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - uses: actions/download-artifact@v4
+        with:
+          name: motorrad-shorts-${{ github.run_number }}
+          path: fertig
+
+      - name: Hochladen
+        env:
+          YT_CLIENT_ID: ${{ secrets.YT_CLIENT_ID_MOTORRAD }}
+          YT_CLIENT_SECRET: ${{ secrets.YT_CLIENT_SECRET_MOTORRAD }}
+          YT_REFRESH_TOKEN: ${{ secrets.YT_REFRESH_TOKEN_MOTORRAD }}
+          YT_CHANNEL_ID: ${{ secrets.YT_CHANNEL_ID_MOTORRAD }}
+        run: |
+          set -euo pipefail
+          read -ra slots <<< "$SLOTS"
+          jetzt=$(date +%s)
+          i=0
+          for ordner in fertig/[0-9]*/; do
+            test -f "$ordner/video.mp4" && test -f "$ordner/meta.json"
+            # Zeitpunkt in deutscher Zeit; liegt er schon hinter uns (verspaeteter oder
+            # von Hand gestarteter Lauf), geht das Short sofort oeffentlich.
+            ziel=$(TZ=Europe/Berlin date -d "today ${slots[$i]:-17:30}" +%s)
+            if [ "$ziel" -gt $((jetzt + 1200)) ]; then
+              node motorrad/hochladen.js "$ordner" private "$(date -u -d "@$ziel" +%Y-%m-%dT%H:%M:%SZ)"
+            else
+              node motorrad/hochladen.js "$ordner" public
+            fi
+            i=$((i + 1))
+          done
+          test "$i" -gt 0
+
+      - name: Historie zurueckschreiben
+        if: always()
+        run: |
+          set -euo pipefail
+          datei=data/motorrad-shorts.json
+          [ -f "$datei" ] || echo "[]" > "$datei"
+          jq -s '.[0] + .[1:]' "$datei" fertig/[0-9]*/upload.json > "$datei.neu" && mv "$datei.neu" "$datei"
+          git config user.name "motorrad-kompass-bot"
+          git config user.email "bot@users.noreply.github.com"
+          git add "$datei"
+          git commit -m "Motorrad Kompass: Shorts hochgeladen [skip ci]"
+          for i in 1 2 3; do
+            git pull --rebase --autostash origin "${GITHUB_REF_NAME}" && git push && exit 0
+            sleep 5
+          done
+          exit 1
