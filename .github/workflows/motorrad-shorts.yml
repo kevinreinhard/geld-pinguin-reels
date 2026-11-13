@@ -5,8 +5,8 @@ name: Motorrad Kompass - Shorts
 # (deutsche Zeit), damit sie ueber den Tag verteilt erscheinen.
 # Von Hand gestartete Laeufe laden nur mit hochladen=true hoch.
 on:
-  # schedule:
-  #   - cron: "23 3 * * *" # taeglich 04:23 MEZ
+  schedule:
+    - cron: "23 3 * * *" # taeglich 04:23 MEZ
   workflow_dispatch:
     inputs:
       muster:
