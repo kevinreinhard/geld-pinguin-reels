@@ -163,15 +163,18 @@ jobs:
         if: always()
         run: |
           set -euo pipefail
+          # Erst den neusten Stand holen, dann eintragen: Am 14.11. scheiterte der Eintrag an einem
+          # Konflikt, weil gleichzeitig ein einzelnes Short von Hand hochgeladen wurde.
           datei=data/motorrad-shorts.json
-          [ -f "$datei" ] || echo "[]" > "$datei"
-          jq -s '.[0] + .[1:]' "$datei" fertig/[0-9]*/upload.json > "$datei.neu" && mv "$datei.neu" "$datei"
           git config user.name "motorrad-kompass-bot"
           git config user.email "bot@users.noreply.github.com"
-          git add "$datei"
-          git commit -m "Motorrad Kompass: Shorts hochgeladen [skip ci]"
-          for i in 1 2 3; do
-            git pull --rebase --autostash origin "${GITHUB_REF_NAME}" && git push && exit 0
-            sleep 5
+          for i in 1 2 3 4; do
+            git fetch -q origin "${GITHUB_REF_NAME}" && git reset -q --hard FETCH_HEAD
+            [ -f "$datei" ] || echo "[]" > "$datei"
+            jq -s '.[0] + .[1:]' "$datei" fertig/[0-9]*/upload.json > "$datei.neu" && mv "$datei.neu" "$datei"
+            git add "$datei"
+            git commit -q -m "Motorrad Kompass: Shorts hochgeladen [skip ci]"
+            git push && exit 0
+            sleep 7
           done
           exit 1

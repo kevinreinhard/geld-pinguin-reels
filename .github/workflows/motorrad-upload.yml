@@ -69,14 +69,16 @@ jobs:
         run: |
           set -euo pipefail
           datei=$HISTORIE
-          [ -f "$datei" ] || echo "[]" > "$datei"
-          jq --slurpfile neu "$ORDNER/upload.json" '. + $neu' "$datei" > "$datei.neu" && mv "$datei.neu" "$datei"
           git config user.name "motorrad-kompass-bot"
           git config user.email "bot@users.noreply.github.com"
-          git add "$datei"
-          git commit -m "Motorrad Kompass: Video hochgeladen [skip ci]"
-          for i in 1 2 3; do
-            git pull --rebase --autostash origin "${GITHUB_REF_NAME}" && git push && exit 0
-            sleep 5
+          # Erst den neusten Stand holen, dann eintragen (sonst Konflikt bei gleichzeitigen Uploads).
+          for i in 1 2 3 4; do
+            git fetch -q origin "${GITHUB_REF_NAME}" && git reset -q --hard FETCH_HEAD
+            [ -f "$datei" ] || echo "[]" > "$datei"
+            jq --slurpfile neu "$ORDNER/upload.json" '. + $neu' "$datei" > "$datei.neu" && mv "$datei.neu" "$datei"
+            git add "$datei"
+            git commit -q -m "Motorrad Kompass: Video hochgeladen [skip ci]"
+            git push && exit 0
+            sleep 7
           done
           exit 1

@@ -1,34 +1,60 @@
 [
-  {
-    "thema": "Yamaha MT-07 – Schwachstellen beim Gebrauchtkauf",
-    "titel": "Yamaha MT-07 gebraucht: Hier solltest du genau hinschauen",
-    "youtubeId": "_Nko-FYfNF0",
-    "sichtbarkeit": "public",
-    "vorschaubild": "nicht gesetzt – ENOENT: no such file or directory, open 'vorlauf/motorrad-shorts-2/1/thumbnail.jpg'",
-    "zeit": "2026-11-14T06:22:00.556Z"
-  },
-  {
-    "thema": "Honda CBR600RR (PC40) – Was sie im Unterhalt kostet",
-    "titel": "Honda CBR600RR PC40: Was kostet sie im Unterhalt?",
-    "youtubeId": "B4bsjpvRlPU",
-    "sichtbarkeit": "public",
-    "vorschaubild": "nicht gesetzt – ENOENT: no such file or directory, open 'vorlauf/motorrad-shorts-2/2/thumbnail.jpg'",
-    "zeit": "2026-11-14T08:07:43.505Z"
-  },
-  {
-    "thema": "Kawasaki Vulcan S – Für wen sie passt",
-    "titel": "Kawasaki Vulcan S: Für wen passt sie wirklich?",
-    "youtubeId": "WJryOLLzvog",
-    "sichtbarkeit": "public",
-    "vorschaubild": "nicht gesetzt – ENOENT: no such file or directory, open 'vorlauf/motorrad-shorts-2/3/thumbnail.jpg'",
-    "zeit": "2026-11-14T08:08:18.385Z"
-  },
-  {
-    "thema": "Kawasaki Ninja 650 (ab 2017) – Welches Baujahr: 2017–2019 oder ab 2020",
-    "titel": "Kawasaki Ninja 650: Welches Baujahr lohnt sich?",
-    "youtubeId": "hk6P0nWYUSY",
-    "sichtbarkeit": "public",
-    "vorschaubild": "nicht gesetzt – ENOENT: no such file or directory, open 'vorlauf/motorrad-shorts-3/3/thumbnail.jpg'",
-    "zeit": "2026-11-14T08:26:17.447Z"
-  }
+ {
+  "thema": "Yamaha MT-07 – Schwachstellen beim Gebrauchtkauf",
+  "titel": "Yamaha MT-07 gebraucht: Hier solltest du genau hinschauen",
+  "youtubeId": "_Nko-FYfNF0",
+  "sichtbarkeit": "public",
+  "vorschaubild": "nicht gesetzt – ENOENT: no such file or directory, open 'vorlauf/motorrad-shorts-2/1/thumbnail.jpg'",
+  "zeit": "2026-11-14T06:22:00.556Z"
+ },
+ {
+  "thema": "Honda CBR600RR (PC40) – Was sie im Unterhalt kostet",
+  "titel": "Honda CBR600RR PC40: Was kostet sie im Unterhalt?",
+  "youtubeId": "B4bsjpvRlPU",
+  "sichtbarkeit": "public",
+  "vorschaubild": "nicht gesetzt – ENOENT: no such file or directory, open 'vorlauf/motorrad-shorts-2/2/thumbnail.jpg'",
+  "zeit": "2026-11-14T08:07:43.505Z"
+ },
+ {
+  "thema": "Kawasaki Vulcan S – Für wen sie passt",
+  "titel": "Kawasaki Vulcan S: Für wen passt sie wirklich?",
+  "youtubeId": "WJryOLLzvog",
+  "sichtbarkeit": "public",
+  "vorschaubild": "nicht gesetzt – ENOENT: no such file or directory, open 'vorlauf/motorrad-shorts-2/3/thumbnail.jpg'",
+  "zeit": "2026-11-14T08:08:18.385Z"
+ },
+ {
+  "thema": "Kawasaki Ninja 650 (ab 2017) – Welches Baujahr: 2017–2019 oder ab 2020",
+  "titel": "Kawasaki Ninja 650: Welches Baujahr lohnt sich?",
+  "youtubeId": "hk6P0nWYUSY",
+  "sichtbarkeit": "public",
+  "vorschaubild": "nicht gesetzt – ENOENT: no such file or directory, open 'vorlauf/motorrad-shorts-3/3/thumbnail.jpg'",
+  "zeit": "2026-11-14T08:26:17.447Z"
+ },
+ {
+  "thema": "BMW R 1200 GS – Welches Baujahr man nehmen sollte",
+  "titel": "BMW R 1200 GS: Welches Baujahr lohnt sich wirklich?",
+  "youtubeId": "ag9so1QIbUw",
+  "sichtbarkeit": "public",
+  "vorschaubild": "keines (Short)",
+  "zeit": "2026-11-14T08:34:00.000Z"
+ },
+ {
+  "thema": "KTM 125 Duke – Schwachstellen beim Gebrauchtkauf",
+  "titel": "KTM 125 Duke gebraucht: Diese Schwachstellen prüfen",
+  "youtubeId": "S3Rf6q2ZA-E",
+  "sichtbarkeit": "private",
+  "geplant": "2026-11-14T11:00:00Z",
+  "vorschaubild": "keines (Short)",
+  "zeit": "2026-11-14T08:34:00.000Z"
+ },
+ {
+  "thema": "Kawasaki Z900 – Warum sie so beliebt ist",
+  "titel": "Kawasaki Z900: Warum ist sie so beliebt?",
+  "youtubeId": "Wp8B4VX0i2w",
+  "sichtbarkeit": "private",
+  "geplant": "2026-11-14T16:30:00Z",
+  "vorschaubild": "keines (Short)",
+  "zeit": "2026-11-14T08:34:00.000Z"
+ }
 ]
