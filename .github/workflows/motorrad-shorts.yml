@@ -21,6 +21,10 @@ on:
         description: "Nach dem Bau hochladen und zu den Tageszeiten veroeffentlichen"
         type: boolean
         default: false
+      einmal_am_tag:
+        description: "Nichts tun, wenn heute schon Shorts hochgeladen wurden (fuer den Anstoss vom PC)"
+        type: boolean
+        default: false
 
 permissions:
   contents: read
@@ -33,7 +37,30 @@ env:
   SLOTS: "06:30 12:00 17:30"
 
 jobs:
+  # GitHub startet Zeitplaene oft Stunden zu spaet oder gar nicht (14.11.2026: kein Lauf).
+  # Darum stoesst zusaetzlich ein PC den Lauf an; wer zuerst kommt, baut, der andere tut nichts.
+  wache:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    outputs:
+      bauen: ${{ steps.pruefen.outputs.bauen }}
+    steps:
+      - uses: actions/checkout@v4
+      - id: pruefen
+        run: |
+          bauen=true
+          if [ "${{ github.event_name }}" = "schedule" ] || [ "${{ inputs.einmal_am_tag }}" = "true" ]; then
+            heute=$(date -u +%F)
+            if [ -f data/motorrad-shorts.json ] && jq -e --arg d "$heute" 'any(.[]; .zeit | startswith($d))' data/motorrad-shorts.json > /dev/null; then
+              echo "Heute ($heute) wurden schon Shorts hochgeladen - nichts zu tun."
+              bauen=false
+            fi
+          fi
+          echo "bauen=$bauen" >> "$GITHUB_OUTPUT"
+
   shorts:
+    needs: wache
+    if: needs.wache.outputs.bauen == 'true'
     runs-on: ubuntu-latest
     timeout-minutes: 60
     steps:
