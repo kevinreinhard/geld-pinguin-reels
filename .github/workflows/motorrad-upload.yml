@@ -15,6 +15,10 @@ on:
         type: choice
         options: [private, unlisted, public]
         default: private
+      short:
+        description: "Nummer des Shorts aus einem Shorts-Lauf (leer = langes Video)"
+        type: string
+        default: ""
 
 permissions:
   contents: write
@@ -39,10 +43,17 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
           LAUF: ${{ inputs.lauf }}
+          SHORT: ${{ inputs.short }}
         run: |
           set -euo pipefail
           gh run download "$LAUF" -D vorlauf
-          ordner=$(dirname "$(find vorlauf -name video.mp4 | head -1)")
+          if [ -n "$SHORT" ]; then
+            ordner=$(dirname "$(find vorlauf -path "*/$SHORT/video.mp4" | head -1)")
+            echo "HISTORIE=data/motorrad-shorts.json" >> "$GITHUB_ENV"
+          else
+            ordner=$(dirname "$(find vorlauf -name video.mp4 | head -1)")
+            echo "HISTORIE=data/motorrad-historie.json" >> "$GITHUB_ENV"
+          fi
           test -f "$ordner/meta.json"
           echo "ORDNER=$ordner" >> "$GITHUB_ENV"
 
@@ -57,7 +68,7 @@ jobs:
       - name: Historie zurückschreiben
         run: |
           set -euo pipefail
-          datei=data/motorrad-historie.json
+          datei=$HISTORIE
           [ -f "$datei" ] || echo "[]" > "$datei"
           jq --slurpfile neu "$ORDNER/upload.json" '. + $neu' "$datei" > "$datei.neu" && mv "$datei.neu" "$datei"
           git config user.name "motorrad-kompass-bot"
