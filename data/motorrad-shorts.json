@@ -85,11 +85,11 @@
   {
     "thema": "Honda CRF1000L Africa Twin – Welches Baujahr: 2016/17 oder ab 2018",
     "titel": "Africa Twin CRF1000L: 2016/17 oder ab 2018?",
-    "youtubeId": "a2xOmUbt0NI",
-    "sichtbarkeit": "private",
-    "geplant": "2026-11-15T11:00:00Z",
-    "vorschaubild": "nicht gesetzt – ENOENT: no such file or directory, open 'fertig/2/thumbnail.jpg'",
-    "zeit": "2026-11-15T03:30:08.320Z"
+    "youtubeId": "2LRCXTRHL0g",
+    "sichtbarkeit": "public",
+    "vorschaubild": "nicht gesetzt – ENOENT: no such file or directory, open 'neu/thumbnail.jpg'",
+    "zeit": "2026-11-15T03:30:08.320Z",
+    "ersetzt": "a2xOmUbt0NI"
   },
   {
     "thema": "Yamaha Tracer 900 (MT-09 Tracer) – Für wen sie passt",
