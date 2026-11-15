@@ -94,10 +94,11 @@
   {
     "thema": "Yamaha Tracer 900 (MT-09 Tracer) – Für wen sie passt",
     "titel": "Yamaha Tracer 900: Für wen passt sie wirklich?",
-    "youtubeId": "H9mAkXHjNE4",
+    "youtubeId": "-aOdJdLIKdY",
     "sichtbarkeit": "private",
     "geplant": "2026-11-15T16:30:00Z",
-    "vorschaubild": "nicht gesetzt – ENOENT: no such file or directory, open 'fertig/3/thumbnail.jpg'",
-    "zeit": "2026-11-15T03:30:11.030Z"
+    "vorschaubild": "nicht gesetzt – ENOENT: no such file or directory, open 'neu/thumbnail.jpg'",
+    "zeit": "2026-11-15T03:30:11.030Z",
+    "ersetzt": "H9mAkXHjNE4"
   }
 ]
