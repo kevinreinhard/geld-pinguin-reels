@@ -36,7 +36,7 @@ concurrency:
 env:
   SLOTS: "06:30 12:00 17:30"
   # So viele Shorts am Tag bekommen Kling-Clips (3 x 7,5 Credits je Short). Das Plus-Abo
-  # (rund 1000 Credits im Monat) reicht für eins am Tag; für alle drei braucht es ein grösseres Abo.
+  # (1200 Credits im Monat) reicht für eins am Tag (675); für alle drei braucht es ein grösseres Abo.
   KLING_JE_TAG: "1"
 
 jobs:
