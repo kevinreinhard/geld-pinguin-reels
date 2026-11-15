@@ -1,0 +1,127 @@
+name: Motorrad Kompass - Short ersetzen
+
+# Ersetzt ein hochgeladenes Short durch eine neue Fassung: Die neue Datei liegt als
+# Anhang am Release «proben», Titel/Beschreibung/Tags kommen aus dem urspruenglichen
+# Shorts-Lauf. Das alte Video wird auf «private» gestellt (nicht geloescht, damit
+# es zurueckgeholt werden kann), die Historie zeigt danach auf das neue.
+on:
+  workflow_dispatch:
+    inputs:
+      alt:
+        description: "YouTube-ID des alten Videos"
+        type: string
+        required: true
+      lauf:
+        description: "Lauf-ID des urspruenglichen Shorts-Laufs (fuer meta.json)"
+        type: string
+        required: true
+      short:
+        description: "Nummer des Shorts in diesem Lauf"
+        type: string
+        required: true
+      datei:
+        description: "Name der neuen mp4 am Release «proben»"
+        type: string
+        required: true
+      zeitpunkt:
+        description: "Veroeffentlichen um (ISO UTC, leer = sofort oeffentlich)"
+        type: string
+        default: ""
+
+permissions:
+  contents: write
+  actions: read
+
+concurrency:
+  group: motorrad-upload
+  cancel-in-progress: false
+
+jobs:
+  ersetzen:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Angaben und neue Datei holen
+        env:
+          GH_TOKEN: ${{ github.token }}
+          LAUF: ${{ inputs.lauf }}
+          SHORT: ${{ inputs.short }}
+          DATEI: ${{ inputs.datei }}
+        run: |
+          set -euo pipefail
+          gh run download "$LAUF" -D vorlauf
+          meta=$(find vorlauf -path "*/$SHORT/meta.json" | head -1)
+          test -f "$meta"
+          mkdir -p neu
+          cp "$meta" neu/meta.json
+          gh release download proben -p "$DATEI" -O neu/video.mp4
+          test -s neu/video.mp4
+          jq -r .titel neu/meta.json
+
+      - name: Neue Fassung hochladen
+        env:
+          YT_CLIENT_ID: ${{ secrets.YT_CLIENT_ID_MOTORRAD }}
+          YT_CLIENT_SECRET: ${{ secrets.YT_CLIENT_SECRET_MOTORRAD }}
+          YT_REFRESH_TOKEN: ${{ secrets.YT_REFRESH_TOKEN_MOTORRAD }}
+          YT_CHANNEL_ID: ${{ secrets.YT_CHANNEL_ID_MOTORRAD }}
+          ZEIT: ${{ inputs.zeitpunkt }}
+        run: |
+          set -euo pipefail
+          if [ -n "$ZEIT" ] && [ "$(date -d "$ZEIT" +%s)" -gt $(( $(date +%s) + 1200 )) ]; then
+            node motorrad/hochladen.js neu private "$ZEIT"
+          else
+            node motorrad/hochladen.js neu public
+          fi
+
+      - name: Altes Video auf privat
+        env:
+          YT_CLIENT_ID: ${{ secrets.YT_CLIENT_ID_MOTORRAD }}
+          YT_CLIENT_SECRET: ${{ secrets.YT_CLIENT_SECRET_MOTORRAD }}
+          YT_REFRESH_TOKEN: ${{ secrets.YT_REFRESH_TOKEN_MOTORRAD }}
+          KANAL: ${{ secrets.YT_CHANNEL_ID_MOTORRAD }}
+          VIDEO: ${{ inputs.alt }}
+        run: |
+          set -euo pipefail
+          token=$(curl -sS https://oauth2.googleapis.com/token \
+            -d client_id="$YT_CLIENT_ID" -d client_secret="$YT_CLIENT_SECRET" \
+            -d refresh_token="$YT_REFRESH_TOKEN" -d grant_type=refresh_token | jq -r '.access_token // empty')
+          [ -n "$token" ] || { echo "Google-Token abgelehnt."; exit 1; }
+          echo "::add-mask::$token"
+          vorher=$(curl -sS -H "Authorization: Bearer $token" \
+            "https://www.googleapis.com/youtube/v3/videos?part=snippet,status&id=$VIDEO")
+          [ "$(echo "$vorher" | jq -r '.items[0].snippet.channelId // empty')" = "$KANAL" ] \
+            || { echo "Video $VIDEO gehoert nicht zum Kanal. Nichts geaendert."; exit 1; }
+          # publishAt muss weg, sonst veroeffentlicht YouTube das alte Video trotzdem.
+          antwort=$(curl -sS -X PUT -H "Authorization: Bearer $token" -H "Content-Type: application/json" \
+            "https://www.googleapis.com/youtube/v3/videos?part=status" \
+            -d "$(jq -n --arg id "$VIDEO" '{id:$id,status:{privacyStatus:"private",selfDeclaredMadeForKids:false,embeddable:true}}')")
+          echo "$antwort" | jq -e '.status' >/dev/null || { echo "Abgelehnt: $(echo "$antwort" | jq -r '.error.message // "unbekannt"')"; exit 1; }
+          sleep 5
+          curl -sS -H "Authorization: Bearer $token" \
+            "https://www.googleapis.com/youtube/v3/videos?part=status&id=$VIDEO" | jq -c '.items[0].status | {privacyStatus, publishAt}'
+
+      - name: Historie nachfuehren
+        env:
+          ALT: ${{ inputs.alt }}
+        run: |
+          set -euo pipefail
+          datei=data/motorrad-shorts.json
+          git config user.name "motorrad-kompass-bot"
+          git config user.email "bot@users.noreply.github.com"
+          for i in 1 2 3 4; do
+            git fetch -q origin "${GITHUB_REF_NAME}" && git reset -q --hard FETCH_HEAD
+            jq --arg alt "$ALT" --slurpfile neu neu/upload.json \
+              'map(if .youtubeId == $alt then ($neu[0] + {zeit: .zeit, ersetzt: $alt}) else . end)' "$datei" > "$datei.neu"
+            mv "$datei.neu" "$datei"
+            git add "$datei"
+            git commit -q -m "Motorrad Kompass: Short ersetzt [skip ci]"
+            git push && exit 0
+            sleep 7
+          done
+          exit 1
