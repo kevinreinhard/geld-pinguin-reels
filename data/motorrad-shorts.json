@@ -72,5 +72,32 @@
     "sichtbarkeit": "public",
     "vorschaubild": "nicht gesetzt – ENOENT: no such file or directory, open 'vorlauf/motorrad-shorts-3/2/thumbnail.jpg'",
     "zeit": "2026-11-14T09:15:07.689Z"
+  },
+  {
+    "thema": "Suzuki SV650 – Schwachstellen beim Gebrauchtkauf",
+    "titel": "Suzuki SV650 gebraucht: Diese Schwachstellen prüfen",
+    "youtubeId": "kkLC3M3PHa0",
+    "sichtbarkeit": "private",
+    "geplant": "2026-11-15T05:30:00Z",
+    "vorschaubild": "nicht gesetzt – ENOENT: no such file or directory, open 'fertig/1/thumbnail.jpg'",
+    "zeit": "2026-11-15T03:30:05.285Z"
+  },
+  {
+    "thema": "Honda CRF1000L Africa Twin – Welches Baujahr: 2016/17 oder ab 2018",
+    "titel": "Africa Twin CRF1000L: 2016/17 oder ab 2018?",
+    "youtubeId": "a2xOmUbt0NI",
+    "sichtbarkeit": "private",
+    "geplant": "2026-11-15T11:00:00Z",
+    "vorschaubild": "nicht gesetzt – ENOENT: no such file or directory, open 'fertig/2/thumbnail.jpg'",
+    "zeit": "2026-11-15T03:30:08.320Z"
+  },
+  {
+    "thema": "Yamaha Tracer 900 (MT-09 Tracer) – Für wen sie passt",
+    "titel": "Yamaha Tracer 900: Für wen passt sie wirklich?",
+    "youtubeId": "H9mAkXHjNE4",
+    "sichtbarkeit": "private",
+    "geplant": "2026-11-15T16:30:00Z",
+    "vorschaubild": "nicht gesetzt – ENOENT: no such file or directory, open 'fertig/3/thumbnail.jpg'",
+    "zeit": "2026-11-15T03:30:11.030Z"
   }
 ]
