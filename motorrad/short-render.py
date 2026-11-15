@@ -4,6 +4,8 @@ Aufruf: python motorrad/short-render.py build/motorrad-shorts/1/plan.json
 
 Aufbau des Bildes (1080x1920): oben Modellname und Aufhänger, darunter das Foto
 im Querformat mit langsamem Zoom, dann drei Kennzahlen, dann die Untertitel.
+Hat ein Bild einen Kling-Clip ("video", "max" in Sekunden), läuft statt des Zooms der
+geprüfte Anfang des Clips, auf die Länge der Einstellung gestreckt.
 Rechts und ganz unten bleibt frei, dort liegen die Knöpfe und der Titel von YouTube.
 """
 import json
@@ -151,13 +153,27 @@ def main():
         karte = os.path.join(arbeit, f"karte-{n:02d}.png")
         rahmen(foto, plan, eintrag.get("credit", "")).save(karte)
 
-        zoom = f"1+0.12*on/{bilder}" if n % 2 == 0 else f"1.12-0.12*on/{bilder}"
-        filter_ = (
-            f"[0:v]zoompan=z='{zoom}':x='iw/2-(iw/zoom/2)':y='ih/2-(ih/zoom/2)':d={bilder}:s={FOTO_B}x{FOTO_H}:fps={FPS},"
-            f"pad={W}:{H}:0:{FOTO_Y}:black[bg];[bg][1:v]overlay=0:0:format=auto,format=yuv420p[v]"
-        )
         ziel = os.path.join(arbeit, f"clip-{n:02d}.mp4")
-        ffmpeg("-i", quelle, "-i", karte, "-filter_complex", filter_, "-map", "[v]", "-frames:v", str(bilder),
+        if eintrag.get("video"):
+            # Nur der geprüfte Anfang, gestreckt auf die Einstellung; beim zweiten Durchlauf
+            # durch die Bilder rückwärts, damit sich derselbe Clip nicht gleich wiederholt.
+            laenge = bilder / FPS
+            nutz = min(eintrag["max"], laenge)
+            rueck = ",reverse" if (n // len(plan["bilder"])) % 2 else ""
+            filter_ = (
+                f"[0:v]trim=0:{nutz:.3f},setpts=PTS-STARTPTS{rueck},setpts={laenge / nutz:.4f}*PTS,fps={FPS},"
+                f"scale={FOTO_B}:{FOTO_H}:force_original_aspect_ratio=increase,crop={FOTO_B}:{FOTO_H},"
+                f"pad={W}:{H}:0:{FOTO_Y}:black[bg];[bg][1:v]overlay=0:0:format=auto,format=yuv420p[v]"
+            )
+            eingabe = eintrag["video"]
+        else:
+            zoom = f"1+0.12*on/{bilder}" if n % 2 == 0 else f"1.12-0.12*on/{bilder}"
+            filter_ = (
+                f"[0:v]zoompan=z='{zoom}':x='iw/2-(iw/zoom/2)':y='ih/2-(ih/zoom/2)':d={bilder}:s={FOTO_B}x{FOTO_H}:fps={FPS},"
+                f"pad={W}:{H}:0:{FOTO_Y}:black[bg];[bg][1:v]overlay=0:0:format=auto,format=yuv420p[v]"
+            )
+            eingabe = quelle
+        ffmpeg("-i", eingabe, "-i", karte, "-filter_complex", filter_, "-map", "[v]", "-frames:v", str(bilder),
                "-c:v", "libx264", "-preset", "veryfast", "-crf", "18", "-r", str(FPS), ziel)
         clips.append(ziel)
 

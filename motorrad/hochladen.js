@@ -87,6 +87,8 @@ async function main() {
           ...(geplant ? { privacyStatus: "private", publishAt: geplant } : { privacyStatus: sichtbarkeit }),
           selfDeclaredMadeForKids: false,
           embeddable: true,
+          // Kling-Kamerafahrten sind realistisch veränderte Aufnahmen: bei YouTube als KI-verändert angeben.
+          ...(meta.ki ? { containsSyntheticMedia: true } : {}),
         },
       }),
     },

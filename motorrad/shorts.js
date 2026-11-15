@@ -5,6 +5,9 @@
  *   node motorrad/shorts.js --anzahl 2   andere Anzahl
  *   node motorrad/shorts.js --muster     festes Musterskript, kein Modellaufruf (Schnittprobe)
  *
+ * Mit KLING_JE_TAG=n bekommen die ersten n Shorts bewegte Einstellungen aus Kling (motorrad/kling.js,
+ * 7,5 Credits je Clip, drei Clips je Short). Ohne Anmeldung oder Guthaben bleibt es beim Zoom.
+ *
  * Ergebnis in build/motorrad-shorts/<n>/: video.mp4, meta.json, skript.json, kontrolle/.
  * Scheitert ein Modell (zu wenig Fotos, Faktenprüfung), kommt das nächste dran;
  * recherchiert werden deshalb doppelt so viele, wie gebraucht werden.
@@ -21,6 +24,7 @@ const STIMME = { voice: "de-DE-FlorianMultilingualNeural", rate: "+6%" };
 const args = process.argv.slice(2);
 const muster = args.includes("--muster");
 const ANZAHL = args.includes("--anzahl") ? Number(args[args.indexOf("--anzahl") + 1]) : 3;
+const KLING_JE_TAG = muster ? 0 : Number(process.env.KLING_JE_TAG || 0);
 
 const lies = (p) => JSON.parse(fs.readFileSync(p, "utf8"));
 const schreib = (p, d) => fs.writeFileSync(p, JSON.stringify(d, null, 1));
@@ -50,14 +54,15 @@ async function holeBilder(modell, pruefen) {
   }));
 }
 
-function beschreibung(skript, modell, bilder) {
+function beschreibung(skript, modell, bilder, ki) {
   const nachweise = [...new Map(bilder.map((b) => [b.titel, b])).values()].map(
     (b) => `${b.titel} – ${b.autor} – ${b.lizenz}`,
   );
   const quellen = (modell.quellen ?? []).slice(0, 6);
   return [
     skript.beschreibung,
-    "Preise sind ungefähre Spannen vom deutschen Gebrauchtmarkt und ändern sich. Die Sprecherstimme ist computergeneriert.",
+    "Preise sind ungefähre Spannen vom deutschen Gebrauchtmarkt und ändern sich. Die Sprecherstimme ist computergeneriert." +
+      (ki ? " Einzelne Einstellungen sind mit KI aus den Fotos animiert (Kamerafahrt), das Motorrad selbst ist unverändert." : ""),
     quellen.length ? "Quellen:\n" + quellen.join("\n") : "",
     "Bildnachweise (Dateien auf commons.wikimedia.org unter dem genannten Namen, Bilder zugeschnitten):\n" +
       nachweise.join("\n"),
@@ -94,6 +99,13 @@ async function baue(modell, nr, fertigesSkript) {
   }
   schreib(`${ordner}/skript.json`, skript);
 
+  if (nr <= KLING_JE_TAG) {
+    const { belebe, genugGuthaben } = await import("./kling.js");
+    const clips = Math.min(3, modell.bilder.length);
+    if (await genugGuthaben(clips)) await belebe(modell.name, modell.bilder, ordner, clips);
+  }
+  const ki = modell.bilder.some((b) => b.video);
+
   const audio = `${ordner}/ton.mp3`;
   const woerter = `${ordner}/woerter.json`;
   schreib(`${ordner}/tts.json`, { text: skript.text, ...STIMME, audio, words: woerter });
@@ -113,7 +125,8 @@ async function baue(modell, nr, fertigesSkript) {
     modell: modell.name,
     winkel: modell.winkel,
     titel: skript.titel,
-    beschreibung: beschreibung(skript, modell, modell.bilder),
+    beschreibung: beschreibung(skript, modell, modell.bilder, ki),
+    ki,
     tags: (skript.tags ?? []).slice(0, 12),
     erzeugt: new Date().toISOString(),
   });

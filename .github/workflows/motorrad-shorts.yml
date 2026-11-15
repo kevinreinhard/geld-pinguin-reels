@@ -35,6 +35,9 @@ concurrency:
 
 env:
   SLOTS: "06:30 12:00 17:30"
+  # So viele Shorts am Tag bekommen Kling-Clips (3 x 7,5 Credits je Short). Das Plus-Abo
+  # (rund 1000 Credits im Monat) reicht für eins am Tag; für alle drei braucht es ein grösseres Abo.
+  KLING_JE_TAG: "1"
 
 jobs:
   # GitHub startet Zeitplaene oft Stunden zu spaet oder gar nicht (14.11.2026: kein Lauf).
@@ -88,9 +91,25 @@ jobs:
           npm ci --omit=optional
           pip install --quiet -r requirements.txt
 
+      - name: Higgsfield-CLI (Kling)
+        if: ${{ !inputs.muster }}
+        env:
+          HF_ZUGANG: ${{ secrets.HIGGSFIELD_CREDENTIALS }}
+        run: |
+          # Der Zugang (24-Stunden-Token ohne refresh_token) kommt jeden Morgen vom Geschäfts-PC
+          # (werkzeuge/youtube-anstoss.ps1). Fehlt er oder ist er abgelaufen, gibt es Zoom statt Clips.
+          [ -n "$HF_ZUGANG" ] || { echo "Kein Higgsfield-Zugang – Shorts ohne Kling."; exit 0; }
+          npm install -g --silent @higgsfield/cli@1.2.2 || { echo "CLI-Installation gescheitert – ohne Kling."; exit 0; }
+          mkdir -p "$RUNNER_TEMP/hf"
+          printf '%s' "$HF_ZUGANG" > "$RUNNER_TEMP/hf/credentials.json"
+          chmod 600 "$RUNNER_TEMP/hf/credentials.json"
+          echo "HIGGSFIELD_CREDENTIALS_PATH=$RUNNER_TEMP/hf/credentials.json" >> "$GITHUB_ENV"
+          echo "HIGGSFIELD_CONFIG_PATH=$RUNNER_TEMP/hf/config.json" >> "$GITHUB_ENV"
+
       - name: Shorts bauen
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          HIGGSFIELD_WORKSPACE_ID: ${{ secrets.HIGGSFIELD_WORKSPACE_ID }}
           ANZAHL: ${{ inputs.anzahl || '3' }}
         run: |
           set -euo pipefail
@@ -112,6 +131,7 @@ jobs:
             build/motorrad-shorts/*/skript.json
             build/motorrad-shorts/*/pruefung*.json
             build/motorrad-shorts/*/kontrolle/
+            build/motorrad-shorts/*/kling/befund.json
           retention-days: 7
           if-no-files-found: ignore
 
