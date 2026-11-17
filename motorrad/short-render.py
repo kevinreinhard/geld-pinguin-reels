@@ -2,10 +2,11 @@
 
 Aufruf: python motorrad/short-render.py build/motorrad-shorts/1/plan.json
 
-Aufbau des Bildes (1080x1920): oben Modellname und Aufhänger, darunter das Foto
-im Querformat mit langsamem Zoom, dann drei Kennzahlen, dann die Untertitel.
-Hat ein Bild einen Kling-Clip ("video", "max" in Sekunden), läuft statt des Zooms der
-geprüfte Anfang des Clips, auf die Länge der Einstellung gestreckt.
+Aufbau des Bildes (1080x1920): Das Foto füllt das ganze Hochformat und fährt langsam
+seitlich über das Motorrad. Darüber liegen oben Modellname und Aufhänger, unten drei
+Kennzahlen und die Untertitel, jeweils auf einem dunklen Verlauf.
+Hat ein Bild einen Kling-Clip ("video", "max" in Sekunden), läuft statt der Fahrt der
+geprüfte Anfang des Clips, auf die Länge der Einstellung gestreckt und auf das Hochformat beschnitten.
 Rechts und ganz unten bleibt frei, dort liegen die Knöpfe und der Titel von YouTube.
 """
 import json
@@ -13,11 +14,11 @@ import os
 import subprocess
 import sys
 
-from PIL import Image, ImageDraw, ImageFilter, ImageFont, ImageOps
+from PIL import Image, ImageDraw, ImageFont, ImageOps
 
 W, H, FPS = 1080, 1920, 30
-FOTO_B, FOTO_H, FOTO_Y = 1080, 720, 500
-GROSS = (1620, 1080)  # Arbeitsgrösse für den Zoom
+MIN_BREITE = 1300  # so breit ist das Foto mindestens, damit auch Hochformate eine Fahrt bekommen
+KENN_Y = 1260
 DUNKEL, AKZENT, WEISS = (16, 20, 24), (255, 107, 26), (255, 255, 255)
 RAND = 50
 NUTZBAR = 900  # rechts davon liegen die Knöpfe von YouTube
@@ -43,10 +44,13 @@ def passend(zeichner, text, art, groesse, breite, kleinste=14):
     return schrift(art, groesse)
 
 
-def rahmen(foto, plan, credit):
-    """Alles ausser dem Foto: unscharfer Hintergrund, Schrift, Kennzahlen. Das Fotofenster bleibt durchsichtig."""
-    bild = ImageOps.fit(foto, (W, H), Image.LANCZOS).filter(ImageFilter.GaussianBlur(45))
-    bild = Image.blend(bild, Image.new("RGB", (W, H), DUNKEL), 0.72).convert("RGBA")
+def rahmen(plan, credit):
+    """Alles über dem Foto: dunkle Verläufe oben und unten, Schrift, Kennzahlen. Der Rest ist durchsichtig."""
+    # Deckkraft je Zeile: oben von 200 auf 0 (bis Zeile 640), unten von 0 auf 150 (Zeile 1150 bis 1600).
+    maske = Image.new("L", (1, H))
+    maske.putdata([round(max(200 * (1 - y / 640), 150 * min(1, (y - 1150) / 450), 0)) for y in range(H)])
+    bild = Image.new("RGBA", (W, H), (*DUNKEL, 255))
+    bild.putalpha(maske.resize((W, H)))
     z = ImageDraw.Draw(bild)
 
     z.rectangle([RAND, 232, RAND + 10, 462], fill=AKZENT)
@@ -56,16 +60,12 @@ def rahmen(foto, plan, credit):
     z.text((RAND + 34, 412), plan["hook"], font=passend(z, plan["hook"], "fett", 42, W - 2 * RAND - 34, kleinste=26),
            fill=(225, 228, 232))
 
-    z.rectangle([0, FOTO_Y - 6, W, FOTO_Y], fill=AKZENT)
-    z.rectangle([0, FOTO_Y, W, FOTO_Y + FOTO_H], fill=(0, 0, 0, 0))
     if credit:
-        font = passend(z, credit, "normal", 20, W - 40)
-        breite = z.textlength(credit, font=font)
-        z.rectangle([0, FOTO_Y + FOTO_H - 34, breite + 28, FOTO_Y + FOTO_H], fill=(0, 0, 0, 150))
-        z.text((14, FOTO_Y + FOTO_H - 29), credit, font=font, fill=WEISS)
+        font = passend(z, credit, "normal", 20, NUTZBAR - RAND)
+        z.text((RAND, KENN_Y - 36), credit, font=font, fill=WEISS, stroke_width=2, stroke_fill=(0, 0, 0))
 
     kennzahlen = plan.get("kennzahlen", [])[:3]
-    abstand, y = 16, FOTO_Y + FOTO_H + 40
+    abstand, y = 16, KENN_Y
     feld = (NUTZBAR - RAND - abstand * (len(kennzahlen) - 1)) // max(1, len(kennzahlen))
     for i, k in enumerate(kennzahlen):
         x = RAND + i * (feld + abstand)
@@ -148,10 +148,15 @@ def main():
         bilder = je + (1 if n < rest else 0)
         eintrag = plan["bilder"][n % len(plan["bilder"])]
         foto = ImageOps.exif_transpose(Image.open(eintrag["datei"])).convert("RGB")
+        # Formatfüllend: Höhe = Bildhöhe, die Überbreite ist der Weg für die Kamerafahrt.
+        faktor = max(H / foto.height, MIN_BREITE / foto.width)
+        gross = foto.resize((round(foto.width * faktor), round(foto.height * faktor)), Image.LANCZOS)
+        oben = (gross.height - H) // 2
+        gross = gross.crop((0, oben, gross.width, oben + H))
         quelle = os.path.join(arbeit, f"foto-{n:02d}.jpg")
-        ImageOps.fit(foto, GROSS, Image.LANCZOS, centering=(0.5, 0.5)).save(quelle, quality=92)
+        gross.save(quelle, quality=92)
         karte = os.path.join(arbeit, f"karte-{n:02d}.png")
-        rahmen(foto, plan, eintrag.get("credit", "")).save(karte)
+        rahmen(plan, eintrag.get("credit", "")).save(karte)
 
         ziel = os.path.join(arbeit, f"clip-{n:02d}.mp4")
         if eintrag.get("video"):
@@ -162,18 +167,20 @@ def main():
             rueck = ",reverse" if (n // len(plan["bilder"])) % 2 else ""
             filter_ = (
                 f"[0:v]trim=0:{nutz:.3f},setpts=PTS-STARTPTS{rueck},setpts={laenge / nutz:.4f}*PTS,fps={FPS},"
-                f"scale={FOTO_B}:{FOTO_H}:force_original_aspect_ratio=increase,crop={FOTO_B}:{FOTO_H},"
-                f"pad={W}:{H}:0:{FOTO_Y}:black[bg];[bg][1:v]overlay=0:0:format=auto,format=yuv420p[v]"
+                f"scale={W}:{H}:force_original_aspect_ratio=increase:flags=lanczos,crop={W}:{H}"
+                f"[bg];[bg][1:v]overlay=0:0:format=auto,format=yuv420p[v]"
             )
-            eingabe = eintrag["video"]
+            eingabe = ["-i", eintrag["video"]]
         else:
-            zoom = f"1+0.12*on/{bilder}" if n % 2 == 0 else f"1.12-0.12*on/{bilder}"
+            # Fahrt über die mittleren 60 % der Überbreite, abwechselnd nach rechts und nach links.
+            weg = gross.width - W
+            von, bis = (0.2 * weg, 0.8 * weg) if n % 2 == 0 else (0.8 * weg, 0.2 * weg)
             filter_ = (
-                f"[0:v]zoompan=z='{zoom}':x='iw/2-(iw/zoom/2)':y='ih/2-(ih/zoom/2)':d={bilder}:s={FOTO_B}x{FOTO_H}:fps={FPS},"
-                f"pad={W}:{H}:0:{FOTO_Y}:black[bg];[bg][1:v]overlay=0:0:format=auto,format=yuv420p[v]"
+                f"[0:v]crop={W}:{H}:'{von:.1f}+({bis - von:.1f})*n/{bilder}':0"
+                f"[bg];[bg][1:v]overlay=0:0:format=auto,format=yuv420p[v]"
             )
-            eingabe = quelle
-        ffmpeg("-i", eingabe, "-i", karte, "-filter_complex", filter_, "-map", "[v]", "-frames:v", str(bilder),
+            eingabe = ["-loop", "1", "-framerate", str(FPS), "-i", quelle]
+        ffmpeg(*eingabe, "-i", karte, "-filter_complex", filter_, "-map", "[v]", "-frames:v", str(bilder),
                "-c:v", "libx264", "-preset", "veryfast", "-crf", "18", "-r", str(FPS), ziel)
         clips.append(ziel)
 

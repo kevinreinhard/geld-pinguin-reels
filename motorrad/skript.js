@@ -268,7 +268,7 @@ export async function rechercheShorts(anzahl, erledigt) {
     effort: "medium",
     werkzeug: SHORTBLATT,
     inhalt:
-      `Der Kanal bringt täglich Kurzvideos (Shorts, rund 40 Sekunden) über je ein Motorradmodell. ` +
+      `Der Kanal bringt täglich ein Kurzvideo (Short, rund 30 Sekunden) über je ein Motorradmodell. ` +
       `Recherchiere mit der Websuche ${anzahl} Modelle für die nächsten Shorts.\n\n` +
       `Auswahl:\n` +
       `- Modelle, die in Deutschland oft gebraucht gehandelt werden und von denen es viele Fotos gibt. ` +
@@ -301,19 +301,20 @@ const SHORT = {
     beschreibung: { type: "string", description: "1-2 Sätze für die Videobeschreibung" },
     tags: liste(text),
     kennzahlen: liste(objekt({ label: text, wert: text })),
-    text: { type: "string", description: "Gesprochener Text, 90-115 Wörter" },
+    text: { type: "string", description: "Gesprochener Text, 58-70 Wörter" },
   }),
 };
 
 export async function schreibeShort(modell, korrekturen = null, vorher = null) {
   let inhalt =
-    `Schreibe das Skript für ein Kurzvideo (YouTube Short, hochkant, rund 40 Sekunden) über das Modell ` +
+    `Schreibe das Skript für ein Kurzvideo (YouTube Short, hochkant, 25 bis 35 Sekunden) über das Modell ` +
     `«${modell.name}». Winkel: ${modell.winkel}.\n\n` +
     `Der Text wird von einer Computerstimme gesprochen und nicht gelesen:\n` +
-    `- 90 bis 115 Wörter, kurze Sätze, keine Klammern, keine Aufzählungszeichen, keine Abkürzungen ausser PS und Kilo\n` +
+    `- 58 bis 70 Wörter (gesprochen rund 30 Sekunden), kurze Sätze, keine Klammern, keine Aufzählungszeichen, ` +
+    `keine Abkürzungen ausser PS und Kilo\n` +
     `- Zahlen so schreiben, wie man sie spricht («48 PS», «rund 3500 Euro»)\n` +
     `- Der erste Satz nennt das Modell und macht neugierig auf den Winkel, ohne Begrüssung und ohne «in diesem Video»\n` +
-    `- danach zwei bis drei konkrete Punkte zum Winkel, darunter eine echte Schwachstelle\n` +
+    `- danach zwei konkrete Punkte zum Winkel, darunter eine echte Schwachstelle\n` +
     `- letzter Satz: ein klares Fazit oder eine kurze Frage an die Zuschauer\n\n` +
     `Fakten: Verwende ausschliesslich Zahlen und Aussagen aus dem Faktenblatt unten. Was dort nicht steht, ` +
     `kommt nicht vor. Preise immer als ungefähre Spanne. Fehlt eine Angabe, lass sie einfach weg.\n\n` +
@@ -330,7 +331,7 @@ export async function schreibeShort(modell, korrekturen = null, vorher = null) {
   }
   const s = await frage({ system: KANAL, effort: "medium", maxTokens: 12000, werkzeug: SHORT, inhalt });
   const woerter = s.text.trim().split(/\s+/).length;
-  if (woerter < 60 || woerter > 150) throw new Error(`Short-Text hat ${woerter} Wörter statt 90-115.`);
+  if (woerter < 40 || woerter > 85) throw new Error(`Short-Text hat ${woerter} Wörter statt 58-70.`);
   if (s.kennzahlen.length !== 3) throw new Error(`Short hat ${s.kennzahlen.length} Kennzahlen statt 3.`);
   s.titel = s.titel.replace(/[<>#]/g, "").trim().slice(0, 90);
   s.hook = s.hook.replace(/[<>]/g, "").trim();

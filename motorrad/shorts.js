@@ -1,7 +1,7 @@
 /**
- * Motorrad Kompass: die Shorts des Tages, je ein Modell in rund 40 Sekunden.
+ * Motorrad Kompass: das Short des Tages, ein Modell in 25 bis 35 Sekunden.
  *
- *   node motorrad/shorts.js              drei Shorts mit Recherche, Skript und Faktenprüfung
+ *   node motorrad/shorts.js              ein Short mit Recherche, Skript und Faktenprüfung
  *   node motorrad/shorts.js --anzahl 2   andere Anzahl
  *   node motorrad/shorts.js --muster     festes Musterskript, kein Modellaufruf (Schnittprobe)
  *
@@ -9,8 +9,8 @@
  * 7,5 Credits je Clip, drei Clips je Short). Ohne Anmeldung oder Guthaben bleibt es beim Zoom.
  *
  * Ergebnis in build/motorrad-shorts/<n>/: video.mp4, meta.json, skript.json, kontrolle/.
- * Scheitert ein Modell (zu wenig Fotos, Faktenprüfung), kommt das nächste dran;
- * recherchiert werden deshalb doppelt so viele, wie gebraucht werden.
+ * Scheitert ein Modell (zu wenig Fotos, Faktenprüfung, Länge), kommt das nächste dran;
+ * recherchiert werden deshalb doppelt so viele, wie gebraucht werden, mindestens drei.
  * Hochgeladen wird hier nichts, das macht der Workflow motorrad-shorts.yml.
  */
 import fs from "node:fs";
@@ -20,10 +20,14 @@ const B = "build/motorrad-shorts";
 const HISTORIE = "data/motorrad-shorts.json";
 const MIN_BILDER = 3;
 const STIMME = { voice: "de-DE-FlorianMultilingualNeural", rate: "+6%" };
+// Länge des fertigen Videos; short-render.py hängt NACHLAUF_S an den Ton an.
+const MIN_S = 25;
+const MAX_S = 35;
+const NACHLAUF_S = 0.7;
 
 const args = process.argv.slice(2);
 const muster = args.includes("--muster");
-const ANZAHL = args.includes("--anzahl") ? Number(args[args.indexOf("--anzahl") + 1]) : 3;
+const ANZAHL = args.includes("--anzahl") ? Number(args[args.indexOf("--anzahl") + 1]) : muster ? 2 : 1;
 const KLING_JE_TAG = muster ? 0 : Number(process.env.KLING_JE_TAG || 0);
 
 const lies = (p) => JSON.parse(fs.readFileSync(p, "utf8"));
@@ -74,7 +78,26 @@ function beschreibung(skript, modell, bilder, ki) {
     .slice(0, 4900);
 }
 
-/** Ein Short vom Modell bis zur fertigen Datei. Wirft, wenn Fotos fehlen oder die Faktenprüfung nicht durchgeht. */
+/** Schreibt das Skript und lässt es prüfen; `korrekturen` und `vorher` für eine gezielte Überarbeitung. */
+async function schreibeGeprueft(modell, ordner, korrekturen = null, vorher = null) {
+  const { schreibeShort, pruefe } = await import("./skript.js");
+  let skript = await schreibeShort(modell, korrekturen, vorher);
+  // Wie beim langen Video: Nur schwere Befunde halten auf, nach drei Überarbeitungen ist Schluss.
+  for (let runde = 1; ; runde++) {
+    const befunde = await pruefe(skript, [modell]);
+    schreib(`${ordner}/pruefung-${korrekturen ? "laenge-" : ""}${runde}.json`, befunde);
+    const fehler = befunde.filter((b) => b.schwere === "schwer");
+    console.log(`  Faktenprüfung Runde ${runde}: ${fehler.length} schwer, ${befunde.length - fehler.length} leicht`);
+    if (!fehler.length) return skript;
+    if (runde > 3) throw new Error(`Faktenprüfung nach 3 Überarbeitungen noch ${fehler.length} schwere Befunde`);
+    skript = await schreibeShort(modell, fehler, skript);
+  }
+}
+
+/**
+ * Ein Short vom Modell bis zur fertigen Datei. Wirft, wenn Fotos fehlen, die Faktenprüfung nicht
+ * durchgeht oder das Video auch nach einer Überarbeitung nicht 25 bis 35 Sekunden lang ist.
+ */
 async function baue(modell, nr, fertigesSkript) {
   const ordner = `${B}/${nr}`;
   fs.mkdirSync(ordner, { recursive: true });
@@ -82,19 +105,34 @@ async function baue(modell, nr, fertigesSkript) {
   modell.bilder = await holeBilder(modell, !muster);
   if (modell.bilder.length < MIN_BILDER) throw new Error(`nur ${modell.bilder.length} brauchbare Fotos`);
 
+  const audio = `${ordner}/ton.mp3`;
+  const woerter = `${ordner}/woerter.json`;
+  /** Spricht den Text ein; Rückgabe: Länge des fertigen Videos in Sekunden. */
+  const sprich = (s) => {
+    schreib(`${ordner}/tts.json`, { text: s.text, ...STIMME, audio, words: woerter });
+    const ton = execFileSync("python", ["src/tts.py", `${ordner}/tts.json`], { encoding: "utf8", stdio: ["ignore", "pipe", "inherit"] });
+    console.log(`  Ton: ${ton.trim()}`);
+    return JSON.parse(ton.trim().split("\n").pop()).dauer + NACHLAUF_S;
+  };
+
   let skript = fertigesSkript;
-  if (!skript) {
-    const { schreibeShort, pruefe } = await import("./skript.js");
-    skript = await schreibeShort(modell);
-    // Wie beim langen Video: Nur schwere Befunde halten auf, nach drei Überarbeitungen ist Schluss.
-    for (let runde = 1; ; runde++) {
-      const befunde = await pruefe(skript, [modell]);
-      schreib(`${ordner}/pruefung-${runde}.json`, befunde);
-      const fehler = befunde.filter((b) => b.schwere === "schwer");
-      console.log(`  Faktenprüfung Runde ${runde}: ${fehler.length} schwer, ${befunde.length - fehler.length} leicht`);
-      if (!fehler.length) break;
-      if (runde > 3) throw new Error(`Faktenprüfung nach 3 Überarbeitungen noch ${fehler.length} schwere Befunde`);
-      skript = await schreibeShort(modell, fehler, skript);
+  if (skript) {
+    sprich(skript);
+  } else {
+    skript = await schreibeGeprueft(modell, ordner);
+    let dauer = sprich(skript);
+    if (dauer < MIN_S || dauer > MAX_S) {
+      // Einmal mit der gemessenen Sprechgeschwindigkeit auf die Mitte des Fensters nachschreiben.
+      const anzahl = skript.text.trim().split(/\s+/).length;
+      const ziel = Math.round((anzahl * ((MIN_S + MAX_S) / 2 - NACHLAUF_S)) / (dauer - NACHLAUF_S));
+      console.log(`  Länge ${dauer.toFixed(1)} s ausserhalb ${MIN_S}-${MAX_S} s – neu mit rund ${ziel} Wörtern`);
+      skript = await schreibeGeprueft(modell, ordner, [{
+        stelle: "text",
+        problem: `Gesprochen dauert der Text ${dauer.toFixed(1)} Sekunden, erlaubt sind ${MIN_S} bis ${MAX_S}.`,
+        korrektur: `Schreibe den Text mit rund ${ziel} Wörtern (${anzahl} sind es jetzt), ohne neue Fakten.`,
+      }], skript);
+      dauer = sprich(skript);
+      if (dauer < MIN_S || dauer > MAX_S) throw new Error(`Länge ${dauer.toFixed(1)} s statt ${MIN_S}-${MAX_S} s`);
     }
   }
   schreib(`${ordner}/skript.json`, skript);
@@ -105,12 +143,6 @@ async function baue(modell, nr, fertigesSkript) {
     if (await genugGuthaben(clips)) await belebe(modell.name, modell.bilder, ordner, clips);
   }
   const ki = modell.bilder.some((b) => b.video);
-
-  const audio = `${ordner}/ton.mp3`;
-  const woerter = `${ordner}/woerter.json`;
-  schreib(`${ordner}/tts.json`, { text: skript.text, ...STIMME, audio, words: woerter });
-  const ton = execFileSync("python", ["src/tts.py", `${ordner}/tts.json`], { encoding: "utf8", stdio: ["ignore", "pipe", "inherit"] });
-  console.log(`  Ton: ${ton.trim()}`);
 
   schreib(`${ordner}/plan.json`, {
     name: modell.name,
@@ -148,7 +180,7 @@ async function main() {
     const { rechercheShorts } = await import("./skript.js");
     const erledigt = fs.existsSync(HISTORIE) ? lies(HISTORIE).map((e) => e.thema).slice(-400) : [];
     console.log(`Recherche für ${ANZAHL} Shorts (${erledigt.length} bisherige) ...`);
-    kandidaten = await rechercheShorts(ANZAHL * 2, erledigt);
+    kandidaten = await rechercheShorts(Math.max(3, ANZAHL * 2), erledigt);
   }
   schreib(`${B}/faktenblatt.json`, kandidaten);
 

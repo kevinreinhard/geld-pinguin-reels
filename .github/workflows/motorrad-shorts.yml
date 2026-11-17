@@ -1,8 +1,8 @@
 name: Motorrad Kompass - Shorts
 
-# Baut jeden Morgen bis zu drei Shorts (je ein Modell, rund 40 Sekunden) und
-# laedt sie hoch. YouTube veroeffentlicht sie selbst zu den Zeiten in SLOTS
-# (deutsche Zeit), damit sie ueber den Tag verteilt erscheinen.
+# Baut jeden Morgen ein Short (ein Modell, 25 bis 35 Sekunden) und laedt es hoch.
+# YouTube veroeffentlicht es selbst zur Zeit in SLOTS (deutsche Zeit). Mit anzahl > 1
+# braucht es dort je Short eine Zeit, sonst gehen die weiteren ebenfalls zur letzten.
 # Von Hand gestartete Laeufe laden nur mit hochladen=true hoch.
 on:
   schedule:
@@ -16,7 +16,7 @@ on:
       anzahl:
         description: "Anzahl Shorts"
         type: string
-        default: "3"
+        default: "1"
       hochladen:
         description: "Nach dem Bau hochladen und zu den Tageszeiten veroeffentlichen"
         type: boolean
@@ -34,9 +34,9 @@ concurrency:
   cancel-in-progress: false
 
 env:
-  SLOTS: "06:30 12:00 17:30"
+  SLOTS: "17:30"
   # So viele Shorts am Tag bekommen Kling-Clips (3 x 7,5 Credits je Short). Das Plus-Abo
-  # (1200 Credits im Monat) reicht für eins am Tag (675); für alle drei braucht es ein grösseres Abo.
+  # (1200 Credits im Monat) reicht für eins am Tag (675).
   KLING_JE_TAG: "1"
 
 jobs:
@@ -110,7 +110,7 @@ jobs:
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           HIGGSFIELD_WORKSPACE_ID: ${{ secrets.HIGGSFIELD_WORKSPACE_ID }}
-          ANZAHL: ${{ inputs.anzahl || '3' }}
+          ANZAHL: ${{ inputs.anzahl || '1' }}
         run: |
           set -euo pipefail
           if [ "${{ inputs.muster }}" = "true" ]; then
