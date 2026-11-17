@@ -2,9 +2,10 @@
 
 Aufruf: python motorrad/short-render.py build/motorrad-shorts/1/plan.json
 
-Aufbau des Bildes (1080x1920): Das Foto füllt das ganze Hochformat und fährt langsam
-seitlich über das Motorrad. Darüber liegen oben Modellname und Aufhänger, unten drei
-Kennzahlen und die Untertitel, jeweils auf einem dunklen Verlauf.
+Aufbau des Bildes (1080x1920): Das Foto füllt das ganze Hochformat und fährt seitlich
+über das Motorrad, alle 2 bis 3 Sekunden wechselt die Einstellung. Modellname, Aufhänger
+und die drei Kennzahlen stehen nur in den ersten 2 Sekunden und in der letzten Einstellung
+im Bild; dazwischen liegen nur Bildnachweis und Untertitel über dem Foto.
 Hat ein Bild einen Kling-Clip ("video", "max" in Sekunden), läuft statt der Fahrt der
 geprüfte Anfang des Clips, auf die Länge der Einstellung gestreckt und auf das Hochformat beschnitten.
 Rechts und ganz unten bleibt frei, dort liegen die Knöpfe und der Titel von YouTube.
@@ -18,6 +19,7 @@ from PIL import Image, ImageDraw, ImageFont, ImageOps
 
 W, H, FPS = 1080, 1920, 30
 MIN_BREITE = 1300  # so breit ist das Foto mindestens, damit auch Hochformate eine Fahrt bekommen
+KARTE_S = 2  # so lange stehen Name und Kennzahlen am Anfang im Bild
 KENN_Y = 1260
 DUNKEL, AKZENT, WEISS = (16, 20, 24), (255, 107, 26), (255, 255, 255)
 RAND = 50
@@ -44,14 +46,21 @@ def passend(zeichner, text, art, groesse, breite, kleinste=14):
     return schrift(art, groesse)
 
 
-def rahmen(plan, credit):
-    """Alles über dem Foto: dunkle Verläufe oben und unten, Schrift, Kennzahlen. Der Rest ist durchsichtig."""
+def rahmen(plan, credit, voll):
+    """Alles über dem Foto, der Rest ist durchsichtig. Immer: dunkler Verlauf unten für die Untertitel und
+    der Bildnachweis. Mit `voll` zusätzlich Verlauf oben, Modellname, Aufhänger und Kennzahlen."""
     # Deckkraft je Zeile: oben von 200 auf 0 (bis Zeile 640), unten von 0 auf 150 (Zeile 1150 bis 1600).
     maske = Image.new("L", (1, H))
-    maske.putdata([round(max(200 * (1 - y / 640), 150 * min(1, (y - 1150) / 450), 0)) for y in range(H)])
+    maske.putdata([round(max(200 * (1 - y / 640) if voll else 0, 150 * min(1, (y - 1150) / 450), 0)) for y in range(H)])
     bild = Image.new("RGBA", (W, H), (*DUNKEL, 255))
     bild.putalpha(maske.resize((W, H)))
     z = ImageDraw.Draw(bild)
+
+    if credit:
+        font = passend(z, credit, "normal", 20, NUTZBAR - RAND)
+        z.text((RAND, KENN_Y - 36), credit, font=font, fill=WEISS, stroke_width=2, stroke_fill=(0, 0, 0))
+    if not voll:
+        return bild
 
     z.rectangle([RAND, 232, RAND + 10, 462], fill=AKZENT)
     z.text((RAND + 34, 226), "MOTORRAD KOMPASS", font=schrift("fett", 30), fill=AKZENT)
@@ -59,10 +68,6 @@ def rahmen(plan, credit):
     z.text((RAND + 34, 264), name, font=passend(z, name, "titel", 112, W - 2 * RAND - 34, kleinste=56), fill=WEISS)
     z.text((RAND + 34, 412), plan["hook"], font=passend(z, plan["hook"], "fett", 42, W - 2 * RAND - 34, kleinste=26),
            fill=(225, 228, 232))
-
-    if credit:
-        font = passend(z, credit, "normal", 20, NUTZBAR - RAND)
-        z.text((RAND, KENN_Y - 36), credit, font=font, fill=WEISS, stroke_width=2, stroke_fill=(0, 0, 0))
 
     kennzahlen = plan.get("kennzahlen", [])[:3]
     abstand, y = 16, KENN_Y
@@ -140,7 +145,7 @@ def main():
     os.makedirs(arbeit, exist_ok=True)
 
     gesamt = round((tondauer(plan["audio"]) + 0.7) * FPS)
-    anzahl = max(3, round(gesamt / FPS / 4.5))
+    anzahl = max(3, round(gesamt / FPS / 2.5))
     je, rest = divmod(gesamt, anzahl)
 
     clips = []
@@ -149,14 +154,24 @@ def main():
         eintrag = plan["bilder"][n % len(plan["bilder"])]
         foto = ImageOps.exif_transpose(Image.open(eintrag["datei"])).convert("RGB")
         # Formatfüllend: Höhe = Bildhöhe, die Überbreite ist der Weg für die Kamerafahrt.
-        faktor = max(H / foto.height, MIN_BREITE / foto.width)
+        # Kommt ein Foto zum zweiten Mal dran, dann näher, damit es nicht dieselbe Einstellung ist.
+        durchlauf = n // len(plan["bilder"])
+        faktor = max(H / foto.height, MIN_BREITE / foto.width) * (1.25 if durchlauf % 2 else 1)
         gross = foto.resize((round(foto.width * faktor), round(foto.height * faktor)), Image.LANCZOS)
         oben = (gross.height - H) // 2
         gross = gross.crop((0, oben, gross.width, oben + H))
         quelle = os.path.join(arbeit, f"foto-{n:02d}.jpg")
         gross.save(quelle, quality=92)
         karte = os.path.join(arbeit, f"karte-{n:02d}.png")
-        rahmen(plan, eintrag.get("credit", "")).save(karte)
+        rahmen(plan, eintrag.get("credit", ""), True).save(karte)
+        schlicht = os.path.join(arbeit, f"schlicht-{n:02d}.png")
+        rahmen(plan, eintrag.get("credit", ""), False).save(schlicht)
+        # Name und Kennzahlen: in der ersten Einstellung KARTE_S lang, in der letzten ganz, sonst nie.
+        grenze = bilder if n == anzahl - 1 else min(bilder, KARTE_S * FPS) if n == 0 else 0
+        drueber = (
+            f"[bg][1:v]overlay=0:0:format=auto:enable='lt(n,{grenze})'[mitkarte];"
+            f"[mitkarte][2:v]overlay=0:0:format=auto:enable='gte(n,{grenze})',format=yuv420p[v]"
+        )
 
         ziel = os.path.join(arbeit, f"clip-{n:02d}.mp4")
         if eintrag.get("video"):
@@ -164,23 +179,19 @@ def main():
             # durch die Bilder rückwärts, damit sich derselbe Clip nicht gleich wiederholt.
             laenge = bilder / FPS
             nutz = min(eintrag["max"], laenge)
-            rueck = ",reverse" if (n // len(plan["bilder"])) % 2 else ""
+            rueck = ",reverse" if durchlauf % 2 else ""
             filter_ = (
                 f"[0:v]trim=0:{nutz:.3f},setpts=PTS-STARTPTS{rueck},setpts={laenge / nutz:.4f}*PTS,fps={FPS},"
-                f"scale={W}:{H}:force_original_aspect_ratio=increase:flags=lanczos,crop={W}:{H}"
-                f"[bg];[bg][1:v]overlay=0:0:format=auto,format=yuv420p[v]"
+                f"scale={W}:{H}:force_original_aspect_ratio=increase:flags=lanczos,crop={W}:{H}[bg];" + drueber
             )
             eingabe = ["-i", eintrag["video"]]
         else:
-            # Fahrt über die mittleren 60 % der Überbreite, abwechselnd nach rechts und nach links.
+            # Fahrt über 30 % der Überbreite: abwechselnd von vorn und von hinten zur Mitte des Fotos.
             weg = gross.width - W
-            von, bis = (0.2 * weg, 0.8 * weg) if n % 2 == 0 else (0.8 * weg, 0.2 * weg)
-            filter_ = (
-                f"[0:v]crop={W}:{H}:'{von:.1f}+({bis - von:.1f})*n/{bilder}':0"
-                f"[bg];[bg][1:v]overlay=0:0:format=auto,format=yuv420p[v]"
-            )
+            von, bis = (0.2 * weg, 0.5 * weg) if n % 2 == 0 else (0.8 * weg, 0.5 * weg)
+            filter_ = f"[0:v]crop={W}:{H}:'{von:.1f}+({bis - von:.1f})*n/{bilder}':0[bg];" + drueber
             eingabe = ["-loop", "1", "-framerate", str(FPS), "-i", quelle]
-        ffmpeg(*eingabe, "-i", karte, "-filter_complex", filter_, "-map", "[v]", "-frames:v", str(bilder),
+        ffmpeg(*eingabe, "-i", karte, "-i", schlicht, "-filter_complex", filter_, "-map", "[v]", "-frames:v", str(bilder),
                "-c:v", "libx264", "-preset", "veryfast", "-crf", "18", "-r", str(FPS), ziel)
         clips.append(ziel)
 

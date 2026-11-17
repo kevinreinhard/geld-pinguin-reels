@@ -297,13 +297,23 @@ const SHORT = {
   strict: true,
   input_schema: objekt({
     titel: { type: "string", description: "YouTube-Titel, höchstens 60 Zeichen, nennt das Modell" },
-    hook: { type: "string", description: "Zeile unter dem Modellnamen im Bild, höchstens 36 Zeichen" },
+    hook: { type: "string", description: "Kurzfassung des ersten Satzes (Gefahr, Zahl oder Frage) für die Zeile unter dem Modellnamen, höchstens 36 Zeichen" },
     beschreibung: { type: "string", description: "1-2 Sätze für die Videobeschreibung" },
     tags: liste(text),
     kennzahlen: liste(objekt({ label: text, wert: text })),
     text: { type: "string", description: "Gesprochener Text, 58-70 Wörter" },
   }),
 };
+
+/** Prüft den ersten Satz gegen die Hook-Regeln des Shorts-Playbooks; Rückgabe: Mangel als Text oder null. */
+export function hookMangel(text) {
+  const erster = text.trim().split(/(?<=[.!?])\s+/)[0];
+  const woerter = erster.split(/\s+/).length;
+  if (woerter > 12) return `Der erste Satz hat ${woerter} Wörter, erlaubt sind höchstens 12.`;
+  if (/\bgilt als\b|\bwird seit\b|\bhier erfährst du\b|\bso beliebt\b|\bin diesem video\b/i.test(erster))
+    return `Der erste Satz «${erster}» ist ein verbotener Einstieg (blosse Feststellung).`;
+  return null;
+}
 
 export async function schreibeShort(modell, korrekturen = null, vorher = null) {
   let inhalt =
@@ -313,9 +323,22 @@ export async function schreibeShort(modell, korrekturen = null, vorher = null) {
     `- 58 bis 70 Wörter (gesprochen rund 30 Sekunden), kurze Sätze, keine Klammern, keine Aufzählungszeichen, ` +
     `keine Abkürzungen ausser PS und Kilo\n` +
     `- Zahlen so schreiben, wie man sie spricht («48 PS», «rund 3500 Euro»)\n` +
-    `- Der erste Satz nennt das Modell und macht neugierig auf den Winkel, ohne Begrüssung und ohne «in diesem Video»\n` +
-    `- danach zwei konkrete Punkte zum Winkel, darunter eine echte Schwachstelle\n` +
-    `- letzter Satz: ein klares Fazit oder eine kurze Frage an die Zuschauer\n\n` +
+    `- keine Nebensatzketten, keine Begrüssung, kein «in diesem Video»\n\n` +
+    `Aufbau, in dieser Reihenfolge:\n` +
+    `1. Hook (erster Satz, höchstens 12 Wörter, in unter 3 Sekunden sagbar): nennt das Modell und eine konkrete ` +
+    `Zahl oder Stelle am Motorrad, und es steht etwas auf dem Spiel (Geld, Ärger, Sicherheit). Nimm eine dieser Formeln:\n` +
+    `   - Kostenfalle: «Diese SV650-Gabel kostet dich 600 Euro, wenn du das nicht prüfst.»\n` +
+    `   - Finger weg: «Finger weg von dieser R 1200 GS, ausser …»\n` +
+    `   - Baujahr-Duell: «Africa Twin 2016 oder 2018? Nur eine ist ihr Geld wert.»\n` +
+    `   - Prüfgriff: «Greif bei der Probefahrt einer MT-07 genau hierhin.»\n` +
+    `   - Zahl vorne: «3 Schwachstellen, die jeder MT-07-Verkäufer verschweigt.»\n` +
+    `   Die Beispiele zeigen nur die Form: Betrag, Baujahr und Stelle müssen im Faktenblatt stehen. Steht dort kein ` +
+    `Betrag, nimm eine Formel ohne Betrag. Verboten als Einstieg: «Die X gilt als …», «Die X wird seit … gebaut», ` +
+    `«Hier erfährst du …», «Warum ist sie so beliebt?» und jede blosse Feststellung.\n` +
+    `2. Versprechen (ein kurzer Satz): was jetzt kommt, zum Beispiel «Drei Punkte bei jeder gebrauchten SV650:».\n` +
+    `3. Zwei oder drei Punkte zum Winkel, höchstens drei, je ein Satz, darunter eine echte Schwachstelle; wo es ` +
+    `passt, mit dem Handgriff, mit dem man sie prüft.\n` +
+    `4. Fazit in einem Satz, danach wörtlich: «Welches Modell als Nächstes? Schreib es in die Kommentare.»\n\n` +
     `Fakten: Verwende ausschliesslich Zahlen und Aussagen aus dem Faktenblatt unten. Was dort nicht steht, ` +
     `kommt nicht vor. Preise immer als ungefähre Spanne. Fehlt eine Angabe, lass sie einfach weg.\n\n` +
     `kennzahlen: genau 3, label höchstens 12 Zeichen (z. B. «Leistung», «Gewicht», «Gebraucht ab»), wert ` +
@@ -326,13 +349,24 @@ export async function schreibeShort(modell, korrekturen = null, vorher = null) {
   if (korrekturen) {
     inhalt +=
       `\n\n## Überarbeitung\n\nDein erster Entwurf:\n${JSON.stringify(vorher)}\n\n` +
-      `Die Faktenprüfung hat diese Fehler gefunden. Behebe jeden, ändere sonst nichts:\n` +
+      `Die Prüfung hat diese Fehler gefunden. Behebe jeden, ändere sonst nichts:\n` +
       korrekturen.map((k) => `- ${k.stelle}: ${k.problem} -> ${k.korrektur}`).join("\n");
   }
   const s = await frage({ system: KANAL, effort: "medium", maxTokens: 12000, werkzeug: SHORT, inhalt });
   const woerter = s.text.trim().split(/\s+/).length;
   if (woerter < 40 || woerter > 85) throw new Error(`Short-Text hat ${woerter} Wörter statt 58-70.`);
   if (s.kennzahlen.length !== 3) throw new Error(`Short hat ${s.kennzahlen.length} Kennzahlen statt 3.`);
+  const mangel = hookMangel(s.text);
+  if (mangel) {
+    // Einmal gezielt nachbessern lassen; bleibt der Einstieg schwach, fällt das Modell weg.
+    if (korrekturen?.[0]?.stelle === "erster Satz") throw new Error(`Hook auch nach Überarbeitung schwach: ${mangel}`);
+    console.log(`  Hook schwach (${mangel}) – wird neu geschrieben`);
+    return schreibeShort(
+      modell,
+      [{ stelle: "erster Satz", problem: mangel, korrektur: "Schreibe den ersten Satz nach einer der Hook-Formeln neu." }],
+      s,
+    );
+  }
   s.titel = s.titel.replace(/[<>#]/g, "").trim().slice(0, 90);
   s.hook = s.hook.replace(/[<>]/g, "").trim();
   return s;

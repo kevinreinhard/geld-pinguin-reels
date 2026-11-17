@@ -34,7 +34,7 @@ concurrency:
   cancel-in-progress: false
 
 env:
-  SLOTS: "17:30"
+  SLOTS: "17:00"
   # So viele Shorts am Tag bekommen Kling-Clips (3 x 7,5 Credits je Short). Das Plus-Abo
   # (1200 Credits im Monat) reicht für eins am Tag (675).
   KLING_JE_TAG: "1"
@@ -169,7 +169,7 @@ jobs:
             test -f "$ordner/video.mp4" && test -f "$ordner/meta.json"
             # Zeitpunkt in deutscher Zeit; liegt er schon hinter uns (verspaeteter oder
             # von Hand gestarteter Lauf), geht das Short sofort oeffentlich.
-            ziel=$(TZ=Europe/Berlin date -d "today ${slots[$i]:-17:30}" +%s)
+            ziel=$(TZ=Europe/Berlin date -d "today ${slots[$i]:-17:00}" +%s)
             if [ "$ziel" -gt $((jetzt + 1200)) ]; then
               node motorrad/hochladen.js "$ordner" private "$(date -u -d "@$ziel" +%Y-%m-%dT%H:%M:%SZ)"
             else
