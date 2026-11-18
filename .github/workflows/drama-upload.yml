@@ -1,0 +1,57 @@
+name: Cliffhanger Stories - Folge hochladen
+
+# Lädt eine lokal erzeugte Kurzdrama-Folge auf den Kanal Cliffhanger Stories.
+# Video und Angaben liegen als <name>.mp4 und <name>.json am Release «drama»
+# (dorthin legt sie C:\Jarvis\kurzdrama\hochladen.js).
+on:
+  workflow_dispatch:
+    inputs:
+      name:
+        description: "Dateiname am Release «drama» ohne Endung, z. B. night-shift-03-en"
+        type: string
+        required: true
+      sichtbarkeit:
+        description: "Sichtbarkeit auf YouTube"
+        type: choice
+        options: [private, unlisted, public]
+        default: private
+      zeitpunkt:
+        description: "Veröffentlichen um (ISO, z. B. 2026-11-20T16:00:00Z); leer = sofort nach Sichtbarkeit"
+        type: string
+        default: ""
+
+permissions:
+  contents: read
+
+concurrency:
+  group: drama-upload
+  cancel-in-progress: false
+
+jobs:
+  upload:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: Folge holen
+        env:
+          GH_TOKEN: ${{ github.token }}
+          NAME: ${{ inputs.name }}
+        run: |
+          set -euo pipefail
+          mkdir folge
+          gh release download drama -p "$NAME.mp4" -p "$NAME.json" -D folge
+          mv "folge/$NAME.mp4" folge/video.mp4
+          mv "folge/$NAME.json" folge/meta.json
+      - name: Hochladen
+        env:
+          YT_CLIENT_ID: ${{ secrets.YT_CLIENT_ID_MOTORRAD }}
+          YT_CLIENT_SECRET: ${{ secrets.YT_CLIENT_SECRET_MOTORRAD }}
+          YT_REFRESH_TOKEN: ${{ secrets.YT_REFRESH_TOKEN_DRAMA }}
+          YT_CHANNEL_ID: ${{ secrets.YT_CHANNEL_ID_DRAMA }}
+          SICHTBARKEIT: ${{ inputs.sichtbarkeit }}
+          ZEITPUNKT: ${{ inputs.zeitpunkt }}
+        run: node motorrad/hochladen.js folge "$SICHTBARKEIT" "$ZEITPUNKT"

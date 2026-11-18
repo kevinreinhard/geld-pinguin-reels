@@ -79,9 +79,9 @@ async function main() {
           title: meta.titel.slice(0, 100),
           description: meta.beschreibung.slice(0, 4950),
           tags: meta.tags,
-          categoryId: "2", // Autos & Fahrzeuge
-          defaultLanguage: "de",
-          defaultAudioLanguage: "de",
+          categoryId: meta.kategorie || "2", // Standard: Autos & Fahrzeuge
+          defaultLanguage: meta.sprache || "de",
+          defaultAudioLanguage: meta.sprache || "de",
         },
         status: {
           ...(geplant ? { privacyStatus: "private", publishAt: geplant } : { privacyStatus: sichtbarkeit }),

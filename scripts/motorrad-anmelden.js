@@ -15,6 +15,8 @@ import { execFileSync } from "node:child_process";
 const PORT = 8765;
 const REDIRECT = `http://localhost:${PORT}`;
 const CLIENT_ID = process.argv[2];
+// Zweites Argument: Token-Workflow eines anderen Kanals (z. B. drama-token.yml).
+const WORKFLOW = process.argv[3] || "motorrad-token.yml";
 // upload = Videos hochladen, readonly = Zielkanal vor dem Upload prüfen,
 // force-ssl braucht das Setzen des Vorschaubilds.
 const SCOPE = [
@@ -57,8 +59,8 @@ const server = http.createServer((req, res) => {
   }
   res.end("<h2>Zulassung erhalten.</h2><p>Dieses Fenster kann geschlossen werden.</p>");
   try {
-    execFileSync("gh", ["workflow", "run", "motorrad-token.yml", "-f", `code=${code}`], { stdio: "inherit" });
-    console.log("CODE WEITERGEGEBEN: Workflow motorrad-token.yml gestartet.");
+    execFileSync("gh", ["workflow", "run", WORKFLOW, "-f", `code=${code}`], { stdio: "inherit" });
+    console.log(`CODE WEITERGEGEBEN: Workflow ${WORKFLOW} gestartet.`);
   } catch (e) {
     console.log(`WORKFLOW-START FEHLGESCHLAGEN: ${e.message}`);
     process.exitCode = 1;
