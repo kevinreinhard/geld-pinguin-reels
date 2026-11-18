@@ -10,7 +10,7 @@
  *
  * Ergebnis in build/motorrad-shorts/<n>/: video.mp4, meta.json, skript.json, kontrolle/.
  * Scheitert ein Modell (zu wenig Fotos, Faktenprüfung, Länge), kommt das nächste dran;
- * recherchiert werden deshalb doppelt so viele, wie gebraucht werden, mindestens drei.
+ * recherchiert werden deshalb doppelt so viele, wie gebraucht werden, mindestens vier.
  * Hochgeladen wird hier nichts, das macht der Workflow motorrad-shorts.yml.
  */
 import fs from "node:fs";
@@ -145,7 +145,8 @@ async function baue(modell, nr, fertigesSkript) {
   const ki = modell.bilder.some((b) => b.video);
 
   schreib(`${ordner}/plan.json`, {
-    name: modell.name,
+    // Im Bild ohne Klammerzusatz wie «(RN29, 2013–2016)», sonst wird die Kopfzeile klein.
+    name: modell.name.replace(/\s*\([^)]*\)/g, "").trim() || modell.name,
     hook: skript.hook,
     kennzahlen: skript.kennzahlen,
     audio,
@@ -180,7 +181,7 @@ async function main() {
     const { rechercheShorts } = await import("./skript.js");
     const erledigt = fs.existsSync(HISTORIE) ? lies(HISTORIE).map((e) => e.thema).slice(-400) : [];
     console.log(`Recherche für ${ANZAHL} Shorts (${erledigt.length} bisherige) ...`);
-    kandidaten = await rechercheShorts(Math.max(3, ANZAHL * 2), erledigt);
+    kandidaten = await rechercheShorts(Math.max(4, ANZAHL * 2), erledigt);
   }
   schreib(`${B}/faktenblatt.json`, kandidaten);
 
